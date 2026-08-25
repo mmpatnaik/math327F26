@@ -11,11 +11,11 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
-## 2026-09-02
-Welcome to MATH 327. Lecture notes will be posted here after each class,
-and problem sets appear under **Problem sets** as the term goes on.
-
-Office hours will be announced in the first week — check back here.
-
 ## 2026-08-25
-Trying out an update. Does **this** work ? 
+Welcome to MATH 327. Lecture notes will be posted here after each class,
+and problem sets appear under **Problem sets** as the term goes on. Note that they are **not to be turned in**. They are just for your practice. 
+
+Office hours will start on the *second week* of class.
+
+The plan is to use this website for most things, but I will still use Canvas to send out emails to the entire class (as the website isn't synced to the class roster) and to upload your midterm/final grades.
+
