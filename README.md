@@ -132,4 +132,3 @@ details are not committed.
 - **Cache.** Students who opened a PDF before you updated it may see the old
   copy. Putting `\date{Compiled \today}` on the title page — as the sample
   `lecture-01.tex` does — makes the version obvious at a glance.
-

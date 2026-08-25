@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{Proposition}
+
+\title{MATH 327: Algebra 1\\ \large Lecture 1 --- Groups and subgroups}
+\author{Manish Patnaik}
+\date{Compiled \today}
+
+\begin{document}
+\maketitle
+
+\section{Groups}
+
+\begin{definition}
+A \emph{group} is a set $G$ together with a binary operation
+$\cdot : G \times G \to G$ satisfying:
+\begin{enumerate}
+  \item (Associativity) $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+        for all $a, b, c \in G$.
+  \item (Identity) There exists $e \in G$ with $e \cdot a = a \cdot e = a$
+        for all $a \in G$.
+  \item (Inverses) For each $a \in G$ there is $a^{-1} \in G$ with
+        $a \cdot a^{-1} = a^{-1} \cdot a = e$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+The identity element of a group is unique.
+\end{proposition}
+
+\begin{proof}
+Suppose $e$ and $e'$ both satisfy the identity axiom. Then
+$e = e \cdot e' = e'$, where the first equality uses that $e'$ is an
+identity and the second that $e$ is.
+\end{proof}
+
+\section{Subgroups}
+
+\begin{definition}
+A subset $H \subseteq G$ is a \emph{subgroup}, written $H \leq G$, if $H$
+is closed under the operation, contains $e$, and is closed under inverses.
+\end{definition}
+
+% Replace this file with your real Lecture 1 notes. The build compiles
+% every .tex in this folder, so adding notes/lecture-02.tex is all it
+% takes for Lecture 2's PDF link to appear on the site.
+
+\end{document}

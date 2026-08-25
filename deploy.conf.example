@@ -1,0 +1,4 @@
+# Copy this file to deploy.conf, then replace both values.
+DEPLOY_HOST="yourccid@login.srv.ualberta.ca"
+DEPLOY_PATH="public_html/math327/"
+
