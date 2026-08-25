@@ -16,3 +16,6 @@ Welcome to MATH 327. Lecture notes will be posted here after each class,
 and problem sets appear under **Problem sets** as the term goes on.
 
 Office hours will be announced in the first week — check back here.
+
+## 2026-08-25
+Trying out an update. Does **this** work ? 
