@@ -1,53 +1,271 @@
 \documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\theoremstyle{plain}
-\newtheorem{proposition}[definition]{Proposition}
+\usepackage[letterpaper,margin=0.85in,headheight=22pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Lecture 1, MATH 327: Groups},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 course notes}
+}
 
-\title{MATH 327: Algebra 1\\ \large Lecture 1 --- Groups and subgroups}
-\author{Manish Patnaik}
-\date{Compiled \today}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MATH 327}
+\fancyhead[R]{\small Lecture 1: Groups}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[L]{\small MATH 327}
+  \fancyhead[R]{\small Lecture 1: Groups}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.3pt}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.6em,topsep=0.4em}
+
+\newenvironment{notebox}[1]{%
+  \par\medskip
+  \noindent\begin{minipage}{\linewidth}
+  \hrule height 0.8pt
+  \vspace{0.45em}
+  \textbf{#1}\par
+  \vspace{0.2em}
+}{%
+  \par\vspace{0.35em}
+  \hrule height 0.8pt
+  \end{minipage}
+  \par\medskip
+}
+
+\newenvironment{definitionbox}[1]
+  {\begin{notebox}{#1}}
+  {\end{notebox}}
+\newenvironment{examplebox}[1]
+  {\begin{notebox}{#1}}
+  {\end{notebox}}
+\newenvironment{warningbox}[1]
+  {\begin{notebox}{#1}}
+  {\end{notebox}}
+\newenvironment{resultbox}[1]
+  {\begin{notebox}{#1}}
+  {\end{notebox}}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\GL}{\operatorname{GL}}
 
 \begin{document}
-\maketitle
 
-\section{Groups}
+\thispagestyle{fancy}
 
-\begin{definition}
-A \emph{group} is a set $G$ together with a binary operation
-$\cdot : G \times G \to G$ satisfying:
-\begin{enumerate}
-  \item (Associativity) $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
-        for all $a, b, c \in G$.
-  \item (Identity) There exists $e \in G$ with $e \cdot a = a \cdot e = a$
-        for all $a \in G$.
-  \item (Inverses) For each $a \in G$ there is $a^{-1} \in G$ with
-        $a \cdot a^{-1} = a^{-1} \cdot a = e$.
+\begin{center}
+  {\LARGE\bfseries Lecture 1, MATH 327}\par
+  \vspace{1.5mm}
+  {\large Groups}\par
+  \vspace{3mm}
+  \begin{tabular}{@{}ll@{}}
+    \textbf{Date:} & Sep. 2, 2026 \\
+    \textbf{Instructor:} & Manish Patnaik
+  \end{tabular}
+\end{center}
+\vspace{1mm}
+\hrule height 1pt
+\vspace{3mm}
+
+\section*{What is a group?}
+
+To describe a group, we begin with a set $G$, a \emph{composition law}
+\[
+  \cdot \colon G\times G\longrightarrow G,
+  \qquad (g,h)\longmapsto g\cdot h,
+\]
+and a distinguished element $e\in G$, called the \emph{identity}. Thus the
+basic data are written $(G,\cdot,e)$. We often suppress the dot and write
+$gh$ in place of $g\cdot h$.
+
+\begin{definitionbox}{Definition of a group}
+The data $(G,\cdot,e)$ form a \emph{group} if the following three conditions
+hold.
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item \textbf{Associativity.} For all $g,h,k\in G$,
+  \[
+    g\cdot(h\cdot k)=(g\cdot h)\cdot k.
+  \]
+
+  \item \textbf{Identity.} For every $g\in G$,
+  \[
+    e\cdot g=g\cdot e=g.
+  \]
+
+  \item \textbf{Inverses.} For every $g\in G$, there exists $h\in G$ such
+  that
+  \[
+    h\cdot g=e
+    \qquad\text{and}\qquad
+    g\cdot h=e.
+  \]
+  The first equality says that $h$ is a left inverse of $g$; the second says
+  that it is a right inverse.
 \end{enumerate}
-\end{definition}
+\end{definitionbox}
 
-\begin{proposition}
-The identity element of a group is unique.
-\end{proposition}
+\begin{warningbox}{Associative does not mean commutative}
+Associativity does \emph{not} say that
+\[
+  g\cdot h=h\cdot g.
+\]
+An operation satisfying this latter identity is called \emph{commutative}.
+Associativity allows an unparenthesized product such as
+\[
+  g_1g_2\cdots g_n
+\]
+to have an unambiguous meaning; it does not allow us to change the order of
+the factors.
+\end{warningbox}
 
-\begin{proof}
-Suppose $e$ and $e'$ both satisfy the identity axiom. Then
-$e = e \cdot e' = e'$, where the first equality uses that $e'$ is an
-identity and the second that $e$ is.
-\end{proof}
+\newpage
+\null
+\vspace{-\baselineskip}
 
-\section{Subgroups}
+\begin{resultbox}{Uniqueness of inverses}
+The element $h$ in axiom \textbf{(3)} is unique.
 
-\begin{definition}
-A subset $H \subseteq G$ is a \emph{subgroup}, written $H \leq G$, if $H$
-is closed under the operation, contains $e$, and is closed under inverses.
-\end{definition}
+\textit{Proof.}
+Suppose $h_1$ and $h_2$ both satisfy axiom \textbf{(3)} for $g$. Then
+\[
+  h_1g=h_2g=e.
+\]
+Multiplying on the right by $h_2$ and using associativity gives
+\[
+  (h_1g)h_2=(h_2g)h_2,
+  \qquad\text{hence}\qquad
+  h_1(gh_2)=h_2(gh_2).
+\]
+Since $gh_2=e$, it follows that $h_1=h_2$. We write the unique inverse of
+$g$ as $g^{-1}$. \hfill$\square$
+\end{resultbox}
 
-% Replace this file with your real Lecture 1 notes. The build compiles
-% every .tex in this folder, so adding notes/lecture-02.tex is all it
-% takes for Lecture 2's PDF link to appear on the site.
+\section*{Notation and order}
+
+Because of associativity, the expression $g_1g_2\cdots g_n$ is unambiguous,
+regardless of how parentheses are inserted. For $x\in G$ and a positive
+integer $n$, we write
+\[
+  x^n=\underbrace{x\cdot x\cdots x}_{n\text{ factors}}.
+\]
+
+If $G$ is finite as a set, its cardinality $|G|$ is also called the
+\emph{order} of $G$. If $G$ is infinite, we write $|G|=\infty$ and say that
+$G$ has infinite order.
+
+\section*{Examples}
+
+\begin{examplebox}{Example 1: The integers under addition}
+The triple
+\[
+  (\Z,+,0)
+\]
+is a group. Its composition law is
+\[
+  \Z\times\Z\longrightarrow\Z,
+  \qquad (m,n)\longmapsto m+n.
+\]
+The identity element is $0$, and the inverse of $m$ is $-m$.
+\end{examplebox}
+
+\begin{examplebox}{A non-example: The integers under multiplication}
+The triple
+\[
+  (\Z,\times,1)
+\]
+is \emph{not} a group, although it is a semigroup. Multiplication is
+associative and $1$ is an identity, so axioms \textbf{(1)} and \textbf{(2)}
+hold. Axiom \textbf{(3)} fails because most integers do not have
+multiplicative inverses in $\Z$.
+\end{examplebox}
+
+\newpage
+\null
+\vspace{-\baselineskip}
+
+\begin{examplebox}{Example 2: Integers modulo $n$}
+Let $n$ be a positive integer. The set of residue classes modulo $n$ is
+\[
+  \Z/n\Z=\{\overline{0},\overline{1},\overline{2},\ldots,
+  \overline{n-1}\}.
+\]
+For example,
+\begin{align*}
+  \overline{0}&=\{0,\pm n,\pm 2n,\pm 3n,\ldots\},\\
+  \overline{1}&=\{1,1\pm n,1\pm 2n,1\pm 3n,\ldots\}.
+\end{align*}
+Every integer can be written $m=an+r$ with $0\le r<n$, and then
+$\overline{m}=\overline{r}$. Addition is defined by
+\[
+  \overline{m}+\overline{\ell}=\overline{m+\ell}.
+\]
+Thus
+\[
+  (\Z/n\Z,+,\overline{0})
+\]
+is a group, called the \emph{cyclic group of order $n$}.
+\end{examplebox}
+
+\begin{definitionbox}{Definition of a cyclic group}
+A group $G$ is \emph{cyclic} if there is an element $x\in G$ such that
+\[
+  G=\{x^k:k\in\Z\}.
+\]
+In this case, $x$ is called a \emph{generator} of $G$.
+\end{definitionbox}
+
+In the preceding examples that are groups, the group operation is both
+associative and commutative.
+
+\begin{definitionbox}{Definition of an abelian group}
+A group whose operation is commutative is called \emph{abelian}.
+\end{definitionbox}
+
+\clearpage
+\null
+\thispagestyle{fancy}
+\vspace{-\baselineskip}
+
+\section*{Two other important examples}
+
+\begin{examplebox}{Example 3: The general linear group}
+The set
+\[
+  \GL_n(\R)=\{A:A\text{ is an invertible }n\times n
+  \text{ matrix with entries in }\R\}
+\]
+is a group under matrix multiplication. Its identity is the identity matrix
+\[
+  I_n=
+  \begin{pmatrix}
+    1 &        & 0\\
+      & \ddots &  \\
+    0 &        & 1
+  \end{pmatrix}.
+\]
+Thus the group is written $(\GL_n(\R),\cdot,I_n)$, and the composition law
+sends $(A,B)$ to $AB$.
+\end{examplebox}
+
+\begin{examplebox}{Example 4: The permutation group}
+The permutation group is
+\[
+  S_n=\{\text{all permutations of }\{1,2,\ldots,n\}\}.
+\]
+Its group operation is composition of permutations.
+\end{examplebox}
 
 \end{document}
