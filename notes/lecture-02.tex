@@ -1,0 +1,271 @@
+\documentclass[reqno,11pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Lecture 2, MATH 327: Permutations and Subgroups},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 course notes}
+}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{definitiongreen}{HTML}{EEF8EE}
+\definecolor{definitionborder}{HTML}{8FB58F}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65em}
+\setlist[itemize]{topsep=0.25em,itemsep=0.15em}
+
+% Dotted leaders in the table of contents.
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth
+  \else
+    \par\addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup\hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@\leftskip#3\relax\advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus4em\parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima
+    \ifcase #1
+      \or\or\hskip 1em\or\hskip 2em\else\hskip 3em
+    \fi
+    #6\nobreak\relax
+    \dotfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+    \nobreak
+    \endgroup
+  \fi}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\tcolorboxenvironment{definition}{
+  enhanced,
+  breakable,
+  colback=definitiongreen,
+  colframe=definitionborder,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm,
+  before skip=0.8em,
+  after skip=0.8em
+}
+\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\be}{\begin{eqnarray}}
+\newcommand{\ee}{\end{eqnarray}}
+
+\begin{document}
+
+\begin{center}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.94\textwidth}
+      \vspace{0.55em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Lecture 2} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.35em]
+         & \textbf{Date: Sep. 4, 2026}\\
+        & \textbf{Instructor: Manish Patnaik}
+      \end{tabular*}
+      \vspace{0.45em}
+    \end{minipage}}
+\end{center}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\section{Review and examples}
+
+Recall that a group is a triple $(G,\cdot,e)$ consisting of a set $G$, a
+composition law $\cdot$, and an identity element $e$. Depending on the
+context, the identity may also be denoted by $1$, $e_G$, or $1_G$.
+
+Our first examples were the additive groups
+\be
+(\Z,+,0)
+  \qquad\text{and}\qquad
+(\Z/n\Z,+,\overline{0}),
+\ee
+the general linear group
+\be
+\GL_n(\R)=\{A\in M_n(\R):\det(A)\ne0\},
+\ee
+and the permutation group $S_n$. The group $\GL_n(\R)$ carries additional
+geometric structure: it is a topological space, a differentiable manifold,
+and a real algebraic group. In particular, it is a \emph{Lie group}.
+
+\section{Permutations and cycle notation}
+
+Let
+\be
+[n]:=\{1,2,\ldots,n\}.
+\ee
+A permutation of $[n]$ is a bijection $p\colon[n]\to[n]$. It may be displayed
+in two-line notation as
+\be
+p=
+\begin{pmatrix}
+1&2&\cdots&n\\
+p(1)&p(2)&\cdots&p(n)
+\end{pmatrix}.
+\ee
+Cycle notation is often more economical. For example, the cycle
+\be
+p=(1\ 2\ 3)
+\ee
+sends $1$ to $2$, $2$ to $3$, and $3$ to $1$, while fixing every other
+element. Thus, as a permutation of $[5]$,
+\be
+(1\ 2\ 3)=
+\begin{pmatrix}
+1&2&3&4&5\\
+2&3&1&4&5
+\end{pmatrix}.
+\ee
+
+If $p$ and $q$ are permutations, we use the convention
+\be
+qp=q\circ p;
+\ee
+thus the rightmost permutation is applied first.
+
+\begin{example}[Composing disjoint cycles]
+Let $q=(2\ 3\ 4)$ and $p=(1\ 5)$. Then
+\be
+qp=(2\ 3\ 4)(1\ 5)
+=
+\begin{pmatrix}
+1&2&3&4&5\\
+5&3&4&2&1
+\end{pmatrix}.
+\ee
+The cycles are disjoint, so they commute:
+\be
+(2\ 3\ 4)(1\ 5)=(1\ 5)(2\ 3\ 4).
+\ee
+\end{example}
+
+The empty cycle notation, or equivalently $(1)$, denotes the identity
+permutation. A cycle of the form $(a\ b)$ is called a \emph{transposition}.
+
+\begin{remark}
+Every permutation is a product of transpositions. Indeed, a cycle can be
+written as
+\be
+(a_1\ a_2\ \cdots\ a_k)
+=(a_1\ a_k)(a_1\ a_{k-1})\cdots(a_1\ a_2).
+\ee
+\end{remark}
+
+\section{The symmetric group}
+
+Let $S_n$ denote the set of all permutations of $[n]$.
+
+\begin{proposition}
+The triple $(S_n,\circ,\id)$ is a group.
+\end{proposition}
+
+\begin{proof}
+The composite of two bijections is again a bijection, so $S_n$ is closed
+under composition. Composition of functions is associative, the identity
+map $\id$ is the identity element, and the inverse of a bijection is again a
+bijection. Hence all the group axioms hold.
+\end{proof}
+
+For example, the permutation
+\be
+p=
+\begin{pmatrix}
+1&2&3&4&5\\
+2&3&1&5&4
+\end{pmatrix}
+\ee
+has the cycle decomposition
+\be
+p=(1\ 2\ 3)(4\ 5).
+\ee
+Disjoint cycles may be written in any order, and cycles of length one are
+usually omitted. More generally, a permutation can have several expressions
+as a product of cycles. For instance,
+\be
+(1\ 2\ 3)=(1\ 2)(2\ 3)=(1\ 3)(1\ 2).
+\ee
+
+\subsection{The group $S_3$}
+
+The six elements of $S_3$ are the identity, the three transpositions, and the
+two $3$-cycles:
+\be
+S_3=\{\id,(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)\}.
+\ee
+Set
+\be
+x=(1\ 2\ 3)
+  \qquad\text{and}\qquad
+y=(1\ 3).
+\ee
+Then
+\be
+x^2=(1\ 3\ 2),
+  \qquad x^3=\id,
+  \qquad y^2=\id,
+\ee
+and direct calculation gives
+\be
+yx=x^2y.
+\ee
+Consequently,
+\be
+S_3=\{\id,x,x^2,y,xy,yx\}.
+\ee
+In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
+
+\begin{example}[A permutation of eight letters]
+Consider
+\be
+\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+\ee
+The cycles are disjoint, and therefore
+\be
+\sigma=
+\begin{pmatrix}
+1&2&3&4&5&6&7&8\\
+5&6&4&3&7&2&1&8
+\end{pmatrix}.
+\ee
+Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
+interchanged, as are $3$ and $4$; and $8$ is fixed.
+\end{example}
+
+
+
+\end{document}
