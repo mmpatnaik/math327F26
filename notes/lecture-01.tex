@@ -1,10 +1,14 @@
-\documentclass[11pt]{article}
+\documentclass[reqno,11pt]{amsart}
 
-\usepackage[letterpaper,margin=0.85in,headheight=22pt]{geometry}
-\usepackage{amsmath,amssymb,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
 \usepackage{enumitem}
-\usepackage{fancyhdr}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
   pdftitle={Lecture 1, MATH 327: Groups},
@@ -12,196 +16,227 @@
   pdfsubject={MATH 327 course notes}
 }
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small MATH 327}
-\fancyhead[R]{\small Lecture 1: Groups}
-\fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \fancyhead[L]{\small MATH 327}
-  \fancyhead[R]{\small Lecture 1: Groups}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0.3pt}
-}
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{definitiongreen}{HTML}{EEF8EE}
+\definecolor{definitionborder}{HTML}{8FB58F}
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{5pt}
-\setlist[enumerate]{leftmargin=2.2em,itemsep=0.6em,topsep=0.4em}
+\setlength{\parskip}{0.65em}
+\setlist[itemize]{topsep=0.25em,itemsep=0.15em}
 
-\newenvironment{notebox}[1]{%
-  \par\medskip
-  \noindent\begin{minipage}{\linewidth}
-  \hrule height 0.8pt
-  \vspace{0.45em}
-  \textbf{#1}\par
-  \vspace{0.2em}
-}{%
-  \par\vspace{0.35em}
-  \hrule height 0.8pt
-  \end{minipage}
-  \par\medskip
+% Dotted leaders in the table of contents.
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth
+  \else
+    \par\addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup\hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@\leftskip#3\relax\advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus4em\parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima
+    \ifcase #1
+      \or\or\hskip 1em\or\hskip 2em\else\hskip 3em
+    \fi
+    #6\nobreak\relax
+    \dotfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+    \nobreak
+    \endgroup
+  \fi}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\tcolorboxenvironment{definition}{
+  enhanced,
+  breakable,
+  colback=definitiongreen,
+  colframe=definitionborder,
+  boxrule=0.5pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm,
+  before skip=0.8em,
+  after skip=0.8em
 }
+\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
-\newenvironment{definitionbox}[1]
-  {\begin{notebox}{#1}}
-  {\end{notebox}}
-\newenvironment{examplebox}[1]
-  {\begin{notebox}{#1}}
-  {\end{notebox}}
-\newenvironment{warningbox}[1]
-  {\begin{notebox}{#1}}
-  {\end{notebox}}
-\newenvironment{resultbox}[1]
-  {\begin{notebox}{#1}}
-  {\end{notebox}}
+\numberwithin{equation}{section}
 
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\GL}{\operatorname{GL}}
+\newcommand{\be}{\begin{eqnarray}}
+\newcommand{\ee}{\end{eqnarray}}
 
 \begin{document}
 
-\thispagestyle{fancy}
-
 \begin{center}
-  {\LARGE\bfseries Lecture 1, MATH 327}\par
-  \vspace{1.5mm}
-  {\large Groups}\par
-  \vspace{3mm}
-  \begin{tabular}{@{}ll@{}}
-    \textbf{Date:} & Sep. 2, 2026 \\
-    \textbf{Instructor:} & Manish Patnaik
-  \end{tabular}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.94\textwidth}
+      \vspace{0.55em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Lecture 1} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.35em]
+         & \textbf{Date: Sep. 2, 2026}\\
+        & \textbf{Instructor: Manish Patnaik}
+      \end{tabular*}
+      \vspace{0.45em}
+    \end{minipage}}
 \end{center}
-\vspace{1mm}
-\hrule height 1pt
-\vspace{3mm}
 
-\section*{What is a group?}
+\setcounter{tocdepth}{1}
+\tableofcontents
 
-To describe a group, we begin with a set $G$, a \emph{composition law}
-\[
-  \cdot \colon G\times G\longrightarrow G,
+\section{Axioms for a group}
+
+To define a group, we begin with a set $G$ equipped with a \emph{composition law}
+\be
+\cdot \colon G\times G\longrightarrow G,
   \qquad (g,h)\longmapsto g\cdot h,
-\]
+\ee
 and a distinguished element $e\in G$, called the \emph{identity}. Thus the
 basic data are written $(G,\cdot,e)$. We often suppress the dot and write
 $gh$ in place of $g\cdot h$.
 
-\begin{definitionbox}{Definition of a group}
+\begin{definition}[Group]
 The data $(G,\cdot,e)$ form a \emph{group} if the following three conditions
 hold.
 
 \begin{enumerate}[label=\textbf{(\arabic*)}]
   \item \textbf{Associativity.} For all $g,h,k\in G$,
-  \[
-    g\cdot(h\cdot k)=(g\cdot h)\cdot k.
-  \]
-
+  \be
+  g\cdot(h\cdot k)=(g\cdot h)\cdot k.
+  \ee
   \item \textbf{Identity.} For every $g\in G$,
-  \[
-    e\cdot g=g\cdot e=g.
-  \]
-
+  \be
+  e\cdot g=g\cdot e=g.
+  \ee
   \item \textbf{Inverses.} For every $g\in G$, there exists $h\in G$ such
   that
-  \[
-    h\cdot g=e
+  \be
+  h\cdot g=e
     \qquad\text{and}\qquad
     g\cdot h=e.
-  \]
-  The first equality says that $h$ is a left inverse of $g$; the second says
-  that it is a right inverse.
+  \ee
+    The first equality says that $h$ is a \textit{left inverse} of $g$; the second says
+  that it is a \textit{right inverse.} So inverse really means `double sided' inverse.
 \end{enumerate}
-\end{definitionbox}
+\end{definition}
 
-\begin{warningbox}{Associative does not mean commutative}
+
 Associativity does \emph{not} say that
-\[
-  g\cdot h=h\cdot g.
-\]
-An operation satisfying this latter identity is called \emph{commutative}.
-Associativity allows an unparenthesized product such as
-\[
-  g_1g_2\cdots g_n
-\]
-to have an unambiguous meaning; it does not allow us to change the order of
-the factors.
-\end{warningbox}
+\be
+g\cdot h=h\cdot g.
+\ee
+An operation satisfying this latter identity for all elements is called \emph{commutative}.
 
-\newpage
-\null
-\vspace{-\baselineskip}
 
-\begin{resultbox}{Uniqueness of inverses}
-The element $h$ in axiom \textbf{(3)} is unique.
+\begin{definition}[Abelian group]
+	A group whose operation is commutative is called \emph{abelian}.
+\end{definition}
 
-\textit{Proof.}
-Suppose $h_1$ and $h_2$ both satisfy axiom \textbf{(3)} for $g$. Then
-\[
-  h_1g=h_2g=e.
-\]
-Multiplying on the right by $h_2$ and using associativity gives
-\[
-  (h_1g)h_2=(h_2g)h_2,
-  \qquad\text{hence}\qquad
-  h_1(gh_2)=h_2(gh_2).
-\]
-Since $gh_2=e$, it follows that $h_1=h_2$. We write the unique inverse of
-$g$ as $g^{-1}$. \hfill$\square$
-\end{resultbox}
+It is also useful to observe the following simple result.
 
-\section*{Notation and order}
 
-Because of associativity, the expression $g_1g_2\cdots g_n$ is unambiguous,
-regardless of how parentheses are inserted. For $x\in G$ and a positive
-integer $n$, we write
-\[
-  x^n=\underbrace{x\cdot x\cdots x}_{n\text{ factors}}.
-\]
+\begin{lemma}[Uniqueness of inverses]
+	The element $h$ in axiom \textbf{(3)} is unique.
 
-If $G$ is finite as a set, its cardinality $|G|$ is also called the
-\emph{order} of $G$. If $G$ is infinite, we write $|G|=\infty$ and say that
-$G$ has infinite order.
+	\begin{proof}
+		Suppose $h_1$ and $h_2$ both satisfy axiom \textbf{(3)} for $g$. Then
+		\be
+		h_1g=h_2g=e.
+		\ee
+				Multiplying on the right by $h_2$ and using associativity gives
+		\be
+		(h_1g)h_2=(h_2g)h_2,
+		\qquad\text{hence}\qquad
+		h_1(gh_2)=h_2(gh_2).
+		\ee
+				Since $gh_2=e$, it follows that $h_1=h_2$. We write the unique inverse of
+		$g$ as $g^{-1}$.
+	\end{proof}
+\end{lemma}
 
-\section*{Examples}
 
-\begin{examplebox}{Example 1: The integers under addition}
+\section{Associativity, cyclic groups, and order}
+
+
+The associativity axiom allows us to unambiguously refer to \be{} g \cdot (h \cdot k) \mbox{ and } (g \cdot h) \cdot k \mbox{ as } \ee \be{} g \cdot h \cdot k. \ee An easy induction then allows us to define, given $g_1, \ldots, g_n \in G$ an element
+\be{}
+g_1g_2\cdots g_n
+\ee
+by removing parantheses in any order. Note again that we cannot change the order of the factors in the product (unless the group is abelian).
+
+
+For $x\in G$ and a positive
+integer $n$, we also write
+\be
+x^n=\underbrace{x\cdot x\cdots x}_{n\text{ factors}}.
+.\ee If $n=0$ we just set \be{} x^0 =e \ee where $e$ is the identity of the group.Also if $n >0$ and $x^{-1}$ refers to the (unique) inverse of $x$, we set \be{} \label{xn:inv} x^{-n} = \underbrace{ x^{-1} \cdot x^{-1} \cdots x^{-1} }_{n\text{ factors}}. \ee One can immediately verify then that \be{} x^{-n} = (x^n)^{-1}, \text{ i.e. } (x^n)(x^{-n}) = \underbrace{x\cdot x\cdots x}_{n\text{ factors}}  \underbrace{ x^{-1} \cdot x^{-1} \cdots x^{-1} }_{n\text{ factors}} = e  \ee 
+
+\newcommand{\ord}{\mathrm{ord}}
+
+\begin{definition} If $x \neq e \in G$, we define its order and write $\ord_G(x) = \ord(x) = n$ if $n$ is the smallest positive integer such that $x^n=e$. If no such $n$ exists, we write $\ord(x)=\infty$ and say $x$ has infinite order. If $x=e$, we often say that it has order $0$ (and is the unique such element with this property) \end{definition}
+	
+\begin{remark} Confusingly, we also say that if $G$ is finite as a set then $G$ has finite order. If $G$ is infinite, we write $|G|=\infty$ and say that
+$G$ has infinite order. \end{remark} 
+
+
+Here is a simple result.
+
+\begin{lemma} Let $(G, \cdot, e)$ be a group and $x \in G$. Write \be{} \langle x \rangle:= \{ x^n \mid n \in \Z \}. \ee Then $\langle x \rangle$ is also a group with same composition and identity as $G$. It is called the cyclic (sub) group generated by $x$. 
+\begin{proof} What do we need to verify? The main thing is to check that \be{} x^n x^m = x^{n+m}. \ee Think through this on your own, first for $n, m$ both positive, and then in general. From here and \eqref{xn:inv}, the inverse axiom follows. \end{proof} \end{lemma} 
+
+Here is a question to think about: certainly if $G$ has finite order, every element has finite order. But is the converse true? i.e. if every element of $G$ has finite order, then is $G$ a finite group? Before we answer it, let's turn to examples. 
+
+\section{Examples}
+
+\begin{example}[The integers under addition]
 The triple
-\[
-  (\Z,+,0)
-\]
-is a group. Its composition law is
-\[
-  \Z\times\Z\longrightarrow\Z,
+\be
+(\Z,+,0)
+\ee
+ is a group. Its composition law is
+\be
+\Z\times\Z\longrightarrow\Z,
   \qquad (m,n)\longmapsto m+n.
-\]
+\ee
 The identity element is $0$, and the inverse of $m$ is $-m$.
-\end{examplebox}
+\end{example}
 
-\begin{examplebox}{A non-example: The integers under multiplication}
+\begin{example}[The integers under multiplication: a non-example]
 The triple
-\[
-  (\Z,\times,1)
-\]
+\be
+(\Z,\times,1)
+\ee
 is \emph{not} a group, although it is a semigroup. Multiplication is
 associative and $1$ is an identity, so axioms \textbf{(1)} and \textbf{(2)}
 hold. Axiom \textbf{(3)} fails because most integers do not have
 multiplicative inverses in $\Z$.
-\end{examplebox}
+\end{example}
 
-\newpage
-\null
-\vspace{-\baselineskip}
 
-\begin{examplebox}{Example 2: Integers modulo $n$}
+\begin{example}[Integers modulo $n$]
 Let $n$ be a positive integer. The set of residue classes modulo $n$ is
-\[
-  \Z/n\Z=\{\overline{0},\overline{1},\overline{2},\ldots,
+\be
+\Z/n\Z=\{\overline{0},\overline{1},\overline{2},\ldots,
   \overline{n-1}\}.
-\]
+\ee
 For example,
 \begin{align*}
   \overline{0}&=\{0,\pm n,\pm 2n,\pm 3n,\ldots\},\\
@@ -209,63 +244,53 @@ For example,
 \end{align*}
 Every integer can be written $m=an+r$ with $0\le r<n$, and then
 $\overline{m}=\overline{r}$. Addition is defined by
-\[
-  \overline{m}+\overline{\ell}=\overline{m+\ell}.
-\]
+\be
+\overline{m}+\overline{\ell}=\overline{m+\ell}.
+\ee
 Thus
-\[
-  (\Z/n\Z,+,\overline{0})
-\]
+\be
+(\Z/n\Z,+,\overline{0})
+\ee
 is a group, called the \emph{cyclic group of order $n$}.
-\end{examplebox}
-
-\begin{definitionbox}{Definition of a cyclic group}
-A group $G$ is \emph{cyclic} if there is an element $x\in G$ such that
-\[
-  G=\{x^k:k\in\Z\}.
-\]
-In this case, $x$ is called a \emph{generator} of $G$.
-\end{definitionbox}
+\end{example}
+%
+%\begin{definition}[Cyclic group]
+%A group $G$ is \emph{cyclic} if there is an element $x\in G$ such that
+%\be
+%G=\{x^k:k\in\Z\}.
+%\ee
+%In this case, $x$ is called a \emph{generator} of $G$.
+%\end{definition}
 
 In the preceding examples that are groups, the group operation is both
 associative and commutative.
 
-\begin{definitionbox}{Definition of an abelian group}
-A group whose operation is commutative is called \emph{abelian}.
-\end{definitionbox}
 
-\clearpage
-\null
-\thispagestyle{fancy}
-\vspace{-\baselineskip}
-
-\section*{Two other important examples}
-
-\begin{examplebox}{Example 3: The general linear group}
+\begin{example}[The general linear group]
 The set
-\[
-  \GL_n(\R)=\{A:A\text{ is an invertible }n\times n
+\be
+\GL_n(\R)=\{A:A\text{ is an invertible }n\times n
   \text{ matrix with entries in }\R\}
-\]
+\ee
 is a group under matrix multiplication. Its identity is the identity matrix
-\[
-  I_n=
+\be
+I_n=
   \begin{pmatrix}
     1 &        & 0\\
       & \ddots &  \\
     0 &        & 1
   \end{pmatrix}.
-\]
+\ee
 Thus the group is written $(\GL_n(\R),\cdot,I_n)$, and the composition law
 sends $(A,B)$ to $AB$.
-\end{examplebox}
+\end{example}
 
-\begin{examplebox}{Example 4: The permutation group}
+\begin{example}[The permutation group]
 The permutation group is
-\[
-  S_n=\{\text{all permutations of }\{1,2,\ldots,n\}\}.
-\]
+\be
+S_n=\{\text{all permutations of }\{1,2,\ldots,n\}\}.
+\ee
 Its group operation is composition of permutations.
-\end{examplebox}
+\end{example}
 
 \end{document}
