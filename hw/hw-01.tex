@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={Homework 1, MATH 327, Fall 2026},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 homework problems}
+}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{boxborder}{HTML}{B8CBDC}
+\definecolor{darkgray}{HTML}{333333}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.3em}
+
+\newtcolorbox{exercise}[1]{
+  enhanced,
+  colback=white,
+  colframe=boxborder,
+  colbacktitle=lightblue,
+  coltitle=courseblue,
+  fonttitle=\bfseries,
+  title={Exercise #1},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.8em,
+  after skip=0.8em
+}
+
+\newcommand{\chapterheading}[1]{%
+  \par\vspace{0.5em}
+  {\color{courseblue}\Large\bfseries #1}\par\vspace{0.35em}
+  {\color{boxborder}\hrule height 0.6pt}\vspace{0.35em}
+}
+
+\newcommand{\sectionheading}[1]{%
+  \vspace{0.25em}
+  {\color{darkgray}\large\bfseries #1}\par
+}
+
+\begin{document}
+
+\begin{center}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.92\textwidth}
+      \vspace{0.6em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Homework 1} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.4em]
+        \multicolumn{2}{l}{\color{darkgray}\bfseries Fall 2026}
+      \end{tabular*}
+      \vspace{0.5em}
+    \end{minipage}}
+\end{center}
+
+\vspace{0.5em}
+
+The following exercises are from Michael Artin's \emph{Algebra}, second
+edition.
+
+\chapterheading{Chapter 1: Matrices}
+
+\sectionheading{Section 1: The Basic Operations}
+
+\begin{exercise}{1.13}
+A square matrix $A$ is \emph{nilpotent} if $A^k=0$ for some $k>0$.
+Prove that if $A$ is nilpotent, then $I+A$ is invertible. Do this by
+finding the inverse.
+\end{exercise}
+
+\sectionheading{Miscellaneous Problems}
+
+\begin{exercise}{M.10}
+Let $A,B$ be $m\times n$ and $n\times m$ matrices. Prove that
+$I_m-AB$ is invertible if and only if $I_n-BA$ is invertible.
+
+\textit{Hint.} Perhaps the only approach available to you at this time is
+to find an explicit expression for one inverse in terms of the other. As a
+heuristic tool, you could try substituting into the power series expansion
+for $(1-x)^{-1}$. The substitution will make no sense unless some series
+converge, and this needn't be the case. But any way to guess a formula is
+permissible, provided that you check your guess afterward.
+\end{exercise}
+
+\chapterheading{Chapter 2: Groups}
+
+\sectionheading{Section 3: Subgroups of the Additive Group of Integers}
+
+\begin{exercise}{3.3}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Define the greatest common divisor of a set
+        $\{a_1,\ldots,a_n\}$ of $n$ integers. Prove that it exists, and
+        that it is an integer combination of $a_1,\ldots,a_n$.
+  \item Prove that if the greatest common divisor of
+        $\{a_1,\ldots,a_n\}$ is $d$, then the greatest common divisor of
+        $\{a_1/d,\ldots,a_n/d\}$ is $1$.
+\end{enumerate}
+\end{exercise}
+
+\newpage
+\sectionheading{Section 4: Cyclic Groups}
+
+\begin{exercise}{4.3}
+Let $a$ and $b$ be elements of a group $G$. Prove that $ab$ and $ba$ have
+the same order.
+\end{exercise}
+
+\begin{exercise}{4.7}
+Let $x$ and $y$ be elements of a group $G$. Assume that each of the
+elements $x$, $y$, and $xy$ has order $2$. Prove that the set
+$H=\{1,x,y,xy\}$ is a subgroup of $G$, and that it has order $4$.
+\end{exercise}
+
+\sectionheading{Section 5: Homomorphisms}
+
+\begin{exercise}{5.3}
+Let $U$ denote the group of invertible upper triangular $2\times2$
+matrices $A=\begin{bmatrix}a&b\\0&d\end{bmatrix}$, and let
+$\varphi\colon U\to\mathbb{R}^{\times}$ be the map that sends
+$A\mapsto a^2$. Prove that $\varphi$ is a homomorphism, and determine its
+kernel and image.
+\end{exercise}
+
+\begin{exercise}{5.6}
+Determine the center of $\operatorname{GL}_n(\mathbb{R})$.
+
+\textit{Hint.} You are asked to determine the invertible matrices $A$ that
+commute with every invertible matrix $B$. Do not test with a general matrix
+$B$. Test with elementary matrices.
+\end{exercise}
+
+\sectionheading{Section 6: Isomorphisms}
+
+\begin{exercise}{6.7}
+Let $H$ be a subgroup of $G$, and let $g$ be a fixed element of $G$. The
+\emph{conjugate subgroup} $gHg^{-1}$ is defined to be the set of all
+conjugates $ghg^{-1}$, with $h$ in $H$. Prove that $gHg^{-1}$ is a
+subgroup of $G$.
+\end{exercise}
+
+\begin{exercise}{6.11}
+Let $a$ be an element of a group $G$. Prove that if the set $\{1,a\}$ is
+a normal subgroup of $G$, then $a$ is in the center of $G$.
+\end{exercise}
+
+\vfill
+{\small\color{darkgray}Compiled \today.}
+
+\end{document}
