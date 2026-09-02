@@ -22,3 +22,7 @@ The plan is to use this website for most things, but I will still use Canvas to 
 ## 2026-09-01
 
 Lecture 1 notes posted. Hwk 1 posted. 
+
+## 2026-09-02
+
+Lecture 1 updated. Office hours Mondays 2-3pm starting Sep. 14. Email me before if you want to discuss something.
