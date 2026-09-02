@@ -19,3 +19,6 @@ Office hours will start on the *second week* of class.
 
 The plan is to use this website for most things, but I will still use Canvas to send out emails to the entire class (as the website isn't synced to the class roster) and to upload your midterm/final grades.
 
+## 2026-09-01
+
+Lecture 1 notes posted. Hwk 1 posted. 
