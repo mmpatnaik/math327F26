@@ -103,29 +103,181 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 
-\section{Review and examples}
+\section{Review }
 
 Recall that a group is a triple $(G,\cdot,e)$ consisting of a set $G$, a
 composition law $\cdot$, and an identity element $e$. Depending on the
 context, the identity may also be denoted by $1$, $e_G$, or $1_G$.
 
-Our first examples were the additive groups
+We also defined, for each $x\in G$, the cyclic subgroup $\langle x\rangle$,
+which consists of all powers (positive, negative, and zero) of $x$. The
+cardinality of $\langle x\rangle$ is also called the order of $x$ (and it can
+be infinite).
+
+Let us now turn to examples.
+
+
+\section{Examples}
+
+\begin{example}[The integers under addition]
+The triple
 \be
 (\Z,+,0)
-  \qquad\text{and}\qquad
-(\Z/n\Z,+,\overline{0}),
 \ee
-the general linear group
+ is a group. Its composition law is
 \be
-\GL_n(\R)=\{A\in M_n(\R):\det(A)\ne0\},
+\Z\times\Z\longrightarrow\Z,
+  \qquad (m,n)\longmapsto m+n.
 \ee
-and the permutation group $S_n$. The group $\GL_n(\R)$ carries additional
+The identity element is $0$, and the inverse of $m$ is $-m$.
+\end{example}
+
+\begin{example}[The integers under multiplication: a non-example]
+The triple
+\be
+(\Z,\times,1)
+\ee
+is \emph{not} a group, although it is a semigroup. Multiplication is
+associative and $1$ is an identity, so axioms \textbf{(1)} and \textbf{(2)}
+hold. Axiom \textbf{(3)} fails because most integers do not have
+multiplicative inverses in $\Z$.
+\end{example}
+
+
+\begin{example}[Integers modulo $n$]
+Let $n$ be a positive integer. The set of residue classes modulo $n$ is
+\be
+\Z/n\Z=\{\overline{0},\overline{1},\overline{2},\ldots,
+  \overline{n-1}\}.
+\ee
+For example,
+\begin{align*}
+  \overline{0}&=\{0,\pm n,\pm 2n,\pm 3n,\ldots\},\\
+  \overline{1}&=\{1,1\pm n,1\pm 2n,1\pm 3n,\ldots\}.
+\end{align*}
+Every integer can be written $m=an+r$ with $0\le r<n$, and then
+$\overline{m}=\overline{r}$. Addition is defined by
+\be
+\overline{m}+\overline{\ell}=\overline{m+\ell}.
+\ee
+Thus
+\be
+(\Z/n\Z,+,\overline{0})
+\ee
+is a group, called the \emph{cyclic group of order $n$}.
+\end{example}
+%
+%\begin{definition}[Cyclic group]
+%A group $G$ is \emph{cyclic} if there is an element $x\in G$ such that
+%\be
+%G=\{x^k:k\in\Z\}.
+%\ee
+%In this case, $x$ is called a \emph{generator} of $G$.
+%\end{definition}
+
+In the preceding examples that are groups, the group operation is both
+associative and commutative.
+
+
+\begin{example}[The general linear group]
+The set
+\be
+\GL_n(\R)=\{A:A\text{ is an invertible }n\times n
+  \text{ matrix with entries in }\R\}
+\ee
+is a group under matrix multiplication. Its identity is the identity matrix
+\be
+I_n=
+  \begin{pmatrix}
+	    1 &        & 0\\
+	      & \ddots &  \\
+	    0 &        & 1
+	  \end{pmatrix}.
+\ee
+Thus the group is written $(\GL_n(\R),\cdot,I_n)$, and the composition law
+sends $(A,B)$ to $AB$. Note that the group $\GL_n(\R)$ carries additional
 geometric structure: it is a topological space, a differentiable manifold,
 and a real algebraic group. In particular, it is a \emph{Lie group}.
+\end{example}
 
-\section{Permutations and cycle notation}
+\newcommand{\SL}{\mathrm{SL}}
 
-Let
+\begin{example}[The special linear group]
+Consider the following subset of the previous example:
+\be
+\SL_n(\R)=\{A\in M_n(\R):\det(A)=1\}.
+\ee
+It is a group under matrix multiplication. Indeed, $I_n\in\SL_n(\R)$, and
+if $A,B\in\SL_n(\R)$, then
+\be
+\det(AB)=\det(A)\det(B)=1,
+\ee
+so $AB\in\SL_n(\R)$. Moreover,
+\be
+\det(A^{-1})=\det(A)^{-1}=1,
+\ee
+so $A^{-1}\in\SL_n(\R)$. Associativity is inherited from matrix
+multiplication. Thus $(\SL_n(\R),\cdot,I_n)$ is a group.
+\end{example}
+
+
+
+\section{Subgroups}
+
+\begin{definition}[Subgroup]
+Let $(G,\cdot,e)$ be a group. A subset $H\subseteq G$ is called a
+\emph{subgroup} of $G$ if $H$, under the restriction of the operation on
+$G$, is itself a group.
+\end{definition}
+
+Not all subsets are groups. For example, the subset $\{0,3\}\subset\Z$ is
+not a group under addition, since it is not closed under addition.
+
+\begin{proposition}
+Let $(G,\cdot,e)$ be a group, and let $H\subseteq G$ be a subset satisfying
+the following conditions:
+\begin{enumerate}
+  \item $e\in H$.
+  \item $H$ is closed under the group operation: if $h_1,h_2\in H$, then
+  \be
+  h_1\cdot h_2\in H.
+  \ee
+  \item $H$ is closed under inverses: if $h\in H$, then
+  \be
+  h^{-1}\in H.
+  \ee
+\end{enumerate}
+Then $H$ is a subgroup of $G$.
+\end{proposition}
+
+\begin{proof}
+The operation on $H$ is the restriction of the operation on $G$.
+Associativity is therefore inherited from $G$, so it does not need to be
+checked separately. By condition (2) $H$ is closed under this operation, and
+since $e$ is an identity in $G$, it also satisfies the identity property of
+$H$. Finally, condition (3) ensures that the inverse in $G$ of every element
+of $H$ also belongs to $H$.
+\end{proof}
+
+\begin{remark}
+Suppose $H\subseteq G$ is finite. If $e\in H$ and $H$ is closed under the
+group operation, then $H$ is automatically closed under inverses. To see
+this, fix $h\in H$ and consider the map
+\be
+L_h\colon H\longrightarrow H,
+  \qquad x\longmapsto hx.
+\ee
+This map is well-defined because $H$ is closed under the group operation. It
+is injective: if $hx=hy$, then multiplying on the left by $h^{-1}$ in $G$
+gives $x=y$. Since $H$ is finite, $L_h$ is therefore surjective. Because
+$e\in H$, there exists $y\in H$ such that $hy=e$. By uniqueness of inverses
+in $G$, we have $y=h^{-1}$. Hence $h^{-1}\in H$.
+\end{remark}
+
+
+\section{Permutation Groups}
+
+Next we turn to a very important class of finite groups, the so-called permutation groups. You have probably seen these before, but I want to reintroduce the notation. Let 
 \be
 [n]:=\{1,2,\ldots,n\}.
 \ee
@@ -138,6 +290,34 @@ p=
 p(1)&p(2)&\cdots&p(n)
 \end{pmatrix}.
 \ee
+
+If $p$ and $q$ are permutations, we use the convention
+\be
+qp=q\circ p;
+\ee
+thus the rightmost permutation is applied first. Let us also note that if $p$
+is a permutation, we write $p^{-1}$ for the inverse permutation; that is, if
+$p(i)=k$, then $p^{-1}(k)=i$. One can check that
+\be
+pp^{-1}=p^{-1}p=\id,
+\ee
+where $\id$ is the identity permutation.
+
+Let $S_n$ denote the set of all permutations of $[n]$.
+
+\begin{proposition}
+	The triple $(S_n,\circ,\id)$ is a group.
+\end{proposition}
+
+\begin{proof}
+	The composite of two bijections is again a bijection, so $S_n$ is closed
+	under composition. Composition of functions is associative, the identity
+	map $\id$ is the identity element, and the inverse of a bijection is again a
+	bijection. Hence all the group axioms hold.
+\end{proof}
+
+
+\subsection*{Cycle Notation}
 Cycle notation is often more economical. For example, the cycle
 \be
 p=(1\ 2\ 3)
@@ -152,13 +332,13 @@ element. Thus, as a permutation of $[5]$,
 \end{pmatrix}.
 \ee
 
-If $p$ and $q$ are permutations, we use the convention
-\be
-qp=q\circ p;
-\ee
-thus the rightmost permutation is applied first.
 
-\begin{example}[Composing disjoint cycles]
+The empty cycle notation, or equivalently $(1)$, denotes the identity
+permutation. A cycle of the form $(a\ b)$ is called a \emph{transposition}. Given a set of distinct integers $a_1, \ldots, a_k$, the cycle $\sigma = (a_1 \, a_2 \, \cdots \, a_k )$ corresponds to the permutation sending $a_1 \mapsto a_2, a_2 \mapsto a_3, \ldots, a_k \mapsto a_1$. 
+
+
+
+\begin{example}[Composing cycles]
 Let $q=(2\ 3\ 4)$ and $p=(1\ 5)$. Then
 \be
 qp=(2\ 3\ 4)(1\ 5)
@@ -168,59 +348,141 @@ qp=(2\ 3\ 4)(1\ 5)
 5&3&4&2&1
 \end{pmatrix}.
 \ee
-The cycles are disjoint, so they commute:
+When the entries in cycles are disjoint, the two permutations commute:
 \be
 (2\ 3\ 4)(1\ 5)=(1\ 5)(2\ 3\ 4).
 \ee
+
+But when the cycles are not disjoint, they no longer commute. For example,
+you can verify that, as permutations of $[4]$,
+$(2\ 4)(1\ 4)\neq(1\ 4)(2\ 4)$. Indeed, we have
+\be
+(2\ 4)(1\ 4) = \begin{pmatrix}
+	1&2&3&4\\
+	2&4&3&1
+\end{pmatrix}, \qquad
+(1\ 4)(2\ 4) = \begin{pmatrix}
+	1&2&3&4\\
+	4&1&3&2
+\end{pmatrix}.
+\ee
+
 \end{example}
 
-The empty cycle notation, or equivalently $(1)$, denotes the identity
-permutation. A cycle of the form $(a\ b)$ is called a \emph{transposition}.
 
-\begin{remark}
-Every permutation is a product of transpositions. Indeed, a cycle can be
-written as
+Here is a basic fact:
+
+\begin{lemma} 
+Every permutation is a product of disjoint cycles. Also, every permutation is a product of (not necessarily disjoint) transpositions.\end{lemma}
+
+\begin{proof}
+We first prove that every permutation $p$ of $[n]$ is a product of disjoint
+cycles. Choose $a_1\in[n]$ and consider the sequence obtained by repeatedly
+applying $p$ to $a_1$, namely,
+\be
+a_1,\ p(a_1),\ p^2(a_1),\ldots.
+\ee
+Since $[n]$ is finite, some term must eventually repeat. Let $k$ be the first
+positive integer for which $p^k(a_1)$ is equal to an earlier term, say
+$p^k(a_1)=p^j(a_1)$ with $0\leq j<k$. If $j>0$, applying $p^{-1}$ gives
+$p^{k-1}(a_1)=p^{j-1}(a_1)$, contradicting the choice of $k$. Hence $j=0$.
+
+It follows that
+\be
+a_1,\ p(a_1),\ldots,p^{k-1}(a_1)
+\ee
+are distinct and that $p$ acts on them as the cycle
+\be
+(a_1\ p(a_1)\ \cdots\ p^{k-1}(a_1)).
+\ee
+
+If this cycle does not contain every element of $[n]$, choose an unused
+element $a_2$ and repeat the argument. The new cycle is disjoint from the
+first one: if the two cycles shared an element, repeatedly applying $p$ or
+$p^{-1}$ would show that $a_2$ lies in the first cycle, contrary to its
+choice. Repeating this process gives pairwise disjoint cycles containing
+every element of $[n]$. Their product agrees with $p$ on every element, and
+therefore equals $p$. (Cycles of length one may be omitted.)
+
+Moreover, each cycle of length $k\geq2$ can be written as a product of
+transpositions:
 \be
 (a_1\ a_2\ \cdots\ a_k)
 =(a_1\ a_k)(a_1\ a_{k-1})\cdots(a_1\ a_2).
 \ee
-\end{remark}
+To verify this identity, let $T$ denote the product on the right and recall
+that the rightmost transposition is applied first. The rightmost
+transposition sends $a_1$ to $a_2$, and all the remaining transpositions fix
+$a_2$. Hence $T(a_1)=a_2$. Now suppose $2\leq i<k$. The transpositions to the right of
+$(a_1\ a_i)$ fix $a_i$. Then $(a_1\ a_i)$ sends $a_i$ to $a_1$, and the
+next transposition, $(a_1\ a_{i+1})$, sends $a_1$ to $a_{i+1}$. All the
+remaining transpositions fix $a_{i+1}$, so
+\be
+T(a_i)=a_{i+1}.
+\ee
+Finally, all the factors except the leftmost one fix $a_k$, while the
+leftmost factor $(a_1\ a_k)$ sends $a_k$ to $a_1$. Thus $T(a_k)=a_1$.
+Every element outside $\{a_1,\ldots,a_k\}$ is fixed by every factor of $T$.
+Therefore $T$ has exactly the same action as
+$(a_1\ a_2\ \cdots\ a_k)$, proving the identity.
 
-\section{The symmetric group}
+It follows that every permutation is a product of transpositions. The
+identity permutation is represented by the empty product.
 
-Let $S_n$ denote the set of all permutations of $[n]$.
-
-\begin{proposition}
-The triple $(S_n,\circ,\id)$ is a group.
-\end{proposition}
-
-\begin{proof}
-The composite of two bijections is again a bijection, so $S_n$ is closed
-under composition. Composition of functions is associative, the identity
-map $\id$ is the identity element, and the inverse of a bijection is again a
-bijection. Hence all the group axioms hold.
 \end{proof}
 
-For example, the permutation
+\begin{example}[Disjoint cycles and transpositions in $S_5$]
+Consider
 \be
 p=
 \begin{pmatrix}
 1&2&3&4&5\\
-2&3&1&5&4
-\end{pmatrix}
+4&1&5&2&3
+\end{pmatrix}.
 \ee
-has the cycle decomposition
+Starting with $1$ and following its images gives
 \be
-p=(1\ 2\ 3)(4\ 5).
+1\longmapsto4\longmapsto2\longmapsto1,
 \ee
-Disjoint cycles may be written in any order, and cycles of length one are
-usually omitted. More generally, a permutation can have several expressions
-as a product of cycles. For instance,
+while the remaining elements that are not yet accounted for satisfy
 \be
-(1\ 2\ 3)=(1\ 2)(2\ 3)=(1\ 3)(1\ 2).
+3\longmapsto5\longmapsto3.
+\ee
+Thus the decomposition of $p$ into disjoint cycles is
+\be
+p=(1\ 4\ 2)(3\ 5).
 \ee
 
-\subsection{The group $S_3$}
+\end{example}
+
+\begin{example}[Transposition decompositions are not unique]
+Consider
+\be
+q=
+\begin{pmatrix}
+1&2&3&4&5\\
+2&4&1&5&3
+\end{pmatrix}.
+\ee
+Consider the cycle
+\be
+q=(1\ 2\ 4\ 5\ 3).
+\ee
+The factorization used in the proof of the lemma gives
+\be
+q=(1\ 3)(1\ 5)(1\ 4)(1\ 2).
+\ee
+However, the same cycle also has the different factorization
+\be
+q=(1\ 2)(2\ 4)(4\ 5)(5\ 3).
+\ee
+One can check either product from right to left: both send
+$1\mapsto2$, $2\mapsto4$, $4\mapsto5$, $5\mapsto3$, and $3\mapsto1$.
+Thus a permutation's decomposition into transpositions is not unique.
+\end{example}
+
+
+\subsection*{The group $S_3$}
 
 The six elements of $S_3$ are the identity, the three transpositions, and the
 two $3$-cycles:
@@ -247,25 +509,102 @@ Consequently,
 \be
 S_3=\{\id,x,x^2,y,xy,yx\}.
 \ee
+
+Sometimes one writes down a group by specifying its entire multiplication table. For $S_3$ this is shown below. The entry in row $g$ and column
+$h$ is the product $gh$, so the permutation in column $h$ is applied first.
+\be
+\begin{array}{c|cccccc}
+\cdot & \id & x & x^2 & y & xy & yx \\ \hline
+\id & \id & x & x^2 & y & xy & yx \\
+x & x & x^2 & \id & xy & yx & y \\
+x^2 & x^2 & \id & x & yx & y & xy \\
+y & y & yx & xy & \id & x^2 & x \\
+xy & xy & y & yx & x & \id & x^2 \\
+yx & yx & xy & y & x^2 & x & \id
+\end{array}
+\ee
+Since
+\be
+x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
+\qquad xy=(2\ 3),\qquad yx=(1\ 2),
+\ee
+the same multiplication table in cycle notation is
+\be
+\begin{array}{c|cccccc}
+\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
+\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
+(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
+(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
+(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
+(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
+(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
+\end{array}
+\ee
 In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
 
-\begin{example}[A permutation of eight letters]
-Consider
-\be
-\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
-\ee
-The cycles are disjoint, and therefore
-\be
-\sigma=
-\begin{pmatrix}
-1&2&3&4&5&6&7&8\\
-5&6&4&3&7&2&1&8
-\end{pmatrix}.
-\ee
-Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
-interchanged, as are $3$ and $4$; and $8$ is fixed.
-\end{example}
+%\begin{example}[A permutation of eight letters]
+%Consider
+%\be
+%\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+%\ee
+%The cycles are disjoint, and therefore
+%\be
+%\sigma=
+%\begin{pmatrix}
+%1&2&3&4&5&6&7&8\\
+%5&6&4&3&7&2&1&8
+%\end{pmatrix}.
+%\ee
+%Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
+%interchanged, as are $3$ and $4$; and $8$ is fixed.
+%\end{example}
+%
 
+\subsection*{Cayley graph of $S_3$}
+\mbox{}\par\vspace{-0.5em}
 
+\noindent
+\begin{minipage}[t]{0.62\textwidth}
+\vspace{0pt}
+A Cayley graph gives a geometric picture of a group together with a chosen
+set of `generators.' We use
+\be
+x=(1\ 2\ 3)\qquad\text{and}\qquad y=(1\ 3).
+\ee
+The vertices are the six elements of $S_3$. From each vertex $g$, a blue
+arrow leads to $gx$, and a red edge joins $g$ to $gy$. The red edges need no
+arrows because $y^2=\id$: traversing a red edge twice returns to the starting
+vertex. The blue edges form two directed triangles, and the red edges join
+corresponding vertices of the two triangles.
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.34\textwidth}
+\vspace{-1.2em}
+\centering
+\begin{tikzpicture}[
+  scale=0.58,
+  every node/.style={circle,draw=darkgray,fill=white,minimum size=10mm,
+    inner sep=1pt,font=\small}
+]
+  \node (e)  at (0,2)     {$\id$};
+  \node (x)  at (-1.8,-1) {$x$};
+  \node (x2) at (1.8,-1)  {$x^2$};
+  \node (y)  at (0,-3)    {$y$};
+  \node (xy) at (-1.8,-6) {$xy$};
+  \node (yx) at (1.8,-6)  {$yx$};
+
+  \draw[->,very thick,courseblue] (e) -- node[draw=none,fill=none,left] {$x$} (x);
+  \draw[->,very thick,courseblue] (x) -- node[draw=none,fill=none,below] {$x$} (x2);
+  \draw[->,very thick,courseblue] (x2) -- node[draw=none,fill=none,right] {$x$} (e);
+
+  \draw[->,very thick,courseblue] (y) -- node[draw=none,fill=none,right] {$x$} (yx);
+  \draw[->,very thick,courseblue] (yx) -- node[draw=none,fill=none,below] {$x$} (xy);
+  \draw[->,very thick,courseblue] (xy) -- node[draw=none,fill=none,left] {$x$} (y);
+
+  \draw[very thick,BrickRed] (e) -- node[draw=none,fill=none,right] {$y$} (y);
+  \draw[very thick,BrickRed] (x) -- node[draw=none,fill=none,left] {$y$} (xy);
+  \draw[very thick,BrickRed] (x2) -- node[draw=none,fill=none,right] {$y$} (yx);
+\end{tikzpicture}
+\end{minipage}
 
 \end{document}
