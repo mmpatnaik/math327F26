@@ -21,6 +21,7 @@
 \definecolor{darkgray}{HTML}{333333}
 \definecolor{definitiongreen}{HTML}{EEF8EE}
 \definecolor{definitionborder}{HTML}{8FB58F}
+\definecolor{lightpink}{HTML}{FCE8EF}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.65em}
@@ -74,6 +75,20 @@
 \newtheorem{proposition}{Proposition}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\tcolorboxenvironment{exercise}{
+	enhanced,
+	colback=lightpink,
+	colframe=WildStrawberry,
+	boxrule=0.7pt,
+	arc=2pt,
+	left=6pt,
+	right=6pt,
+	top=5pt,
+	bottom=5pt
+}
+
 
 \numberwithin{equation}{section}
 
@@ -272,6 +287,8 @@ is injective: if $hx=hy$, then multiplying on the left by $h^{-1}$ in $G$
 gives $x=y$. Since $H$ is finite, $L_h$ is therefore surjective. Because
 $e\in H$, there exists $y\in H$ such that $hy=e$. By uniqueness of inverses
 in $G$, we have $y=h^{-1}$. Hence $h^{-1}\in H$.
+
+\begin{exercise}This shows that for every $h \in H$ there exists $g$ such that $hg=e$, so $g$ is a right inverse. Why is $g$ also a left inverse? \end{exercise}
 \end{remark}
 
 
@@ -316,295 +333,295 @@ Let $S_n$ denote the set of all permutations of $[n]$.
 	bijection. Hence all the group axioms hold.
 \end{proof}
 
-
-\subsection*{Cycle Notation}
-Cycle notation is often more economical. For example, the cycle
-\be
-p=(1\ 2\ 3)
-\ee
-sends $1$ to $2$, $2$ to $3$, and $3$ to $1$, while fixing every other
-element. Thus, as a permutation of $[5]$,
-\be
-(1\ 2\ 3)=
-\begin{pmatrix}
-1&2&3&4&5\\
-2&3&1&4&5
-\end{pmatrix}.
-\ee
-
-
-The empty cycle notation, or equivalently $(1)$, denotes the identity
-permutation. A cycle of the form $(a\ b)$ is called a \emph{transposition}. Given a set of distinct integers $a_1, \ldots, a_k$, the cycle $\sigma = (a_1 \, a_2 \, \cdots \, a_k )$ corresponds to the permutation sending $a_1 \mapsto a_2, a_2 \mapsto a_3, \ldots, a_k \mapsto a_1$. 
-
-
-
-\begin{example}[Composing cycles]
-Let $q=(2\ 3\ 4)$ and $p=(1\ 5)$. Then
-\be
-qp=(2\ 3\ 4)(1\ 5)
-=
-\begin{pmatrix}
-1&2&3&4&5\\
-5&3&4&2&1
-\end{pmatrix}.
-\ee
-When the entries in cycles are disjoint, the two permutations commute:
-\be
-(2\ 3\ 4)(1\ 5)=(1\ 5)(2\ 3\ 4).
-\ee
-
-But when the cycles are not disjoint, they no longer commute. For example,
-you can verify that, as permutations of $[4]$,
-$(2\ 4)(1\ 4)\neq(1\ 4)(2\ 4)$. Indeed, we have
-\be
-(2\ 4)(1\ 4) = \begin{pmatrix}
-	1&2&3&4\\
-	2&4&3&1
-\end{pmatrix}, \qquad
-(1\ 4)(2\ 4) = \begin{pmatrix}
-	1&2&3&4\\
-	4&1&3&2
-\end{pmatrix}.
-\ee
-
-\end{example}
-
-
-Here is a basic fact:
-
-\begin{lemma} 
-Every permutation is a product of disjoint cycles. Also, every permutation is a product of (not necessarily disjoint) transpositions.\end{lemma}
-
-\begin{proof}
-We first prove that every permutation $p$ of $[n]$ is a product of disjoint
-cycles. Choose $a_1\in[n]$ and consider the sequence obtained by repeatedly
-applying $p$ to $a_1$, namely,
-\be
-a_1,\ p(a_1),\ p^2(a_1),\ldots.
-\ee
-Since $[n]$ is finite, some term must eventually repeat. Let $k$ be the first
-positive integer for which $p^k(a_1)$ is equal to an earlier term, say
-$p^k(a_1)=p^j(a_1)$ with $0\leq j<k$. If $j>0$, applying $p^{-1}$ gives
-$p^{k-1}(a_1)=p^{j-1}(a_1)$, contradicting the choice of $k$. Hence $j=0$.
-
-It follows that
-\be
-a_1,\ p(a_1),\ldots,p^{k-1}(a_1)
-\ee
-are distinct and that $p$ acts on them as the cycle
-\be
-(a_1\ p(a_1)\ \cdots\ p^{k-1}(a_1)).
-\ee
-
-If this cycle does not contain every element of $[n]$, choose an unused
-element $a_2$ and repeat the argument. The new cycle is disjoint from the
-first one: if the two cycles shared an element, repeatedly applying $p$ or
-$p^{-1}$ would show that $a_2$ lies in the first cycle, contrary to its
-choice. Repeating this process gives pairwise disjoint cycles containing
-every element of $[n]$. Their product agrees with $p$ on every element, and
-therefore equals $p$. (Cycles of length one may be omitted.)
-
-Moreover, each cycle of length $k\geq2$ can be written as a product of
-transpositions:
-\be
-(a_1\ a_2\ \cdots\ a_k)
-=(a_1\ a_k)(a_1\ a_{k-1})\cdots(a_1\ a_2).
-\ee
-To verify this identity, let $T$ denote the product on the right and recall
-that the rightmost transposition is applied first. The rightmost
-transposition sends $a_1$ to $a_2$, and all the remaining transpositions fix
-$a_2$. Hence $T(a_1)=a_2$. Now suppose $2\leq i<k$. The transpositions to the right of
-$(a_1\ a_i)$ fix $a_i$. Then $(a_1\ a_i)$ sends $a_i$ to $a_1$, and the
-next transposition, $(a_1\ a_{i+1})$, sends $a_1$ to $a_{i+1}$. All the
-remaining transpositions fix $a_{i+1}$, so
-\be
-T(a_i)=a_{i+1}.
-\ee
-Finally, all the factors except the leftmost one fix $a_k$, while the
-leftmost factor $(a_1\ a_k)$ sends $a_k$ to $a_1$. Thus $T(a_k)=a_1$.
-Every element outside $\{a_1,\ldots,a_k\}$ is fixed by every factor of $T$.
-Therefore $T$ has exactly the same action as
-$(a_1\ a_2\ \cdots\ a_k)$, proving the identity.
-
-It follows that every permutation is a product of transpositions. The
-identity permutation is represented by the empty product.
-
-\end{proof}
-
-\begin{example}[Disjoint cycles and transpositions in $S_5$]
-Consider
-\be
-p=
-\begin{pmatrix}
-1&2&3&4&5\\
-4&1&5&2&3
-\end{pmatrix}.
-\ee
-Starting with $1$ and following its images gives
-\be
-1\longmapsto4\longmapsto2\longmapsto1,
-\ee
-while the remaining elements that are not yet accounted for satisfy
-\be
-3\longmapsto5\longmapsto3.
-\ee
-Thus the decomposition of $p$ into disjoint cycles is
-\be
-p=(1\ 4\ 2)(3\ 5).
-\ee
-
-\end{example}
-
-\begin{example}[Transposition decompositions are not unique]
-Consider
-\be
-q=
-\begin{pmatrix}
-1&2&3&4&5\\
-2&4&1&5&3
-\end{pmatrix}.
-\ee
-Consider the cycle
-\be
-q=(1\ 2\ 4\ 5\ 3).
-\ee
-The factorization used in the proof of the lemma gives
-\be
-q=(1\ 3)(1\ 5)(1\ 4)(1\ 2).
-\ee
-However, the same cycle also has the different factorization
-\be
-q=(1\ 2)(2\ 4)(4\ 5)(5\ 3).
-\ee
-One can check either product from right to left: both send
-$1\mapsto2$, $2\mapsto4$, $4\mapsto5$, $5\mapsto3$, and $3\mapsto1$.
-Thus a permutation's decomposition into transpositions is not unique.
-\end{example}
-
-
-\subsection*{The group $S_3$}
-
-The six elements of $S_3$ are the identity, the three transpositions, and the
-two $3$-cycles:
-\be
-S_3=\{\id,(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)\}.
-\ee
-Set
-\be
-x=(1\ 2\ 3)
-  \qquad\text{and}\qquad
-y=(1\ 3).
-\ee
-Then
-\be
-x^2=(1\ 3\ 2),
-  \qquad x^3=\id,
-  \qquad y^2=\id,
-\ee
-and direct calculation gives
-\be
-yx=x^2y.
-\ee
-Consequently,
-\be
-S_3=\{\id,x,x^2,y,xy,yx\}.
-\ee
-
-Sometimes one writes down a group by specifying its entire multiplication table. For $S_3$ this is shown below. The entry in row $g$ and column
-$h$ is the product $gh$, so the permutation in column $h$ is applied first.
-\be
-\begin{array}{c|cccccc}
-\cdot & \id & x & x^2 & y & xy & yx \\ \hline
-\id & \id & x & x^2 & y & xy & yx \\
-x & x & x^2 & \id & xy & yx & y \\
-x^2 & x^2 & \id & x & yx & y & xy \\
-y & y & yx & xy & \id & x^2 & x \\
-xy & xy & y & yx & x & \id & x^2 \\
-yx & yx & xy & y & x^2 & x & \id
-\end{array}
-\ee
-Since
-\be
-x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
-\qquad xy=(2\ 3),\qquad yx=(1\ 2),
-\ee
-the same multiplication table in cycle notation is
-\be
-\begin{array}{c|cccccc}
-\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
-\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
-(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
-(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
-(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
-(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
-(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
-\end{array}
-\ee
-In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
-
-%\begin{example}[A permutation of eight letters]
-%Consider
+%
+%\subsection*{Cycle Notation}
+%Cycle notation is often more economical. For example, the cycle
 %\be
-%\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+%p=(1\ 2\ 3)
 %\ee
-%The cycles are disjoint, and therefore
+%sends $1$ to $2$, $2$ to $3$, and $3$ to $1$, while fixing every other
+%element. Thus, as a permutation of $[5]$,
 %\be
-%\sigma=
+%(1\ 2\ 3)=
 %\begin{pmatrix}
-%1&2&3&4&5&6&7&8\\
-%5&6&4&3&7&2&1&8
+%1&2&3&4&5\\
+%2&3&1&4&5
 %\end{pmatrix}.
 %\ee
-%Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
-%interchanged, as are $3$ and $4$; and $8$ is fixed.
+%
+%
+%The empty cycle notation, or equivalently $(1)$, denotes the identity
+%permutation. A cycle of the form $(a\ b)$ is called a \emph{transposition}. Given a set of distinct integers $a_1, \ldots, a_k$, the cycle $\sigma = (a_1 \, a_2 \, \cdots \, a_k )$ corresponds to the permutation sending $a_1 \mapsto a_2, a_2 \mapsto a_3, \ldots, a_k \mapsto a_1$. 
+%
+%
+%
+%\begin{example}[Composing cycles]
+%Let $q=(2\ 3\ 4)$ and $p=(1\ 5)$. Then
+%\be
+%qp=(2\ 3\ 4)(1\ 5)
+%=
+%\begin{pmatrix}
+%1&2&3&4&5\\
+%5&3&4&2&1
+%\end{pmatrix}.
+%\ee
+%When the entries in cycles are disjoint, the two permutations commute:
+%\be
+%(2\ 3\ 4)(1\ 5)=(1\ 5)(2\ 3\ 4).
+%\ee
+%
+%But when the cycles are not disjoint, they no longer commute. For example,
+%you can verify that, as permutations of $[4]$,
+%$(2\ 4)(1\ 4)\neq(1\ 4)(2\ 4)$. Indeed, we have
+%\be
+%(2\ 4)(1\ 4) = \begin{pmatrix}
+%	1&2&3&4\\
+%	2&4&3&1
+%\end{pmatrix}, \qquad
+%(1\ 4)(2\ 4) = \begin{pmatrix}
+%	1&2&3&4\\
+%	4&1&3&2
+%\end{pmatrix}.
+%\ee
+%
 %\end{example}
 %
-
-\subsection*{Cayley graph of $S_3$}
-\mbox{}\par\vspace{-0.5em}
-
-\noindent
-\begin{minipage}[t]{0.62\textwidth}
-\vspace{0pt}
-A Cayley graph gives a geometric picture of a group together with a chosen
-set of `generators.' We use
-\be
-x=(1\ 2\ 3)\qquad\text{and}\qquad y=(1\ 3).
-\ee
-The vertices are the six elements of $S_3$. From each vertex $g$, a blue
-arrow leads to $gx$, and a red edge joins $g$ to $gy$. The red edges need no
-arrows because $y^2=\id$: traversing a red edge twice returns to the starting
-vertex. The blue edges form two directed triangles, and the red edges join
-corresponding vertices of the two triangles.
-\end{minipage}%
-\hfill
-\begin{minipage}[t]{0.34\textwidth}
-\vspace{-1.2em}
-\centering
-\begin{tikzpicture}[
-  scale=0.58,
-  every node/.style={circle,draw=darkgray,fill=white,minimum size=10mm,
-    inner sep=1pt,font=\small}
-]
-  \node (e)  at (0,2)     {$\id$};
-  \node (x)  at (-1.8,-1) {$x$};
-  \node (x2) at (1.8,-1)  {$x^2$};
-  \node (y)  at (0,-3)    {$y$};
-  \node (xy) at (-1.8,-6) {$xy$};
-  \node (yx) at (1.8,-6)  {$yx$};
-
-  \draw[->,very thick,courseblue] (e) -- node[draw=none,fill=none,left] {$x$} (x);
-  \draw[->,very thick,courseblue] (x) -- node[draw=none,fill=none,below] {$x$} (x2);
-  \draw[->,very thick,courseblue] (x2) -- node[draw=none,fill=none,right] {$x$} (e);
-
-  \draw[->,very thick,courseblue] (y) -- node[draw=none,fill=none,right] {$x$} (yx);
-  \draw[->,very thick,courseblue] (yx) -- node[draw=none,fill=none,below] {$x$} (xy);
-  \draw[->,very thick,courseblue] (xy) -- node[draw=none,fill=none,left] {$x$} (y);
-
-  \draw[very thick,BrickRed] (e) -- node[draw=none,fill=none,right] {$y$} (y);
-  \draw[very thick,BrickRed] (x) -- node[draw=none,fill=none,left] {$y$} (xy);
-  \draw[very thick,BrickRed] (x2) -- node[draw=none,fill=none,right] {$y$} (yx);
-\end{tikzpicture}
-\end{minipage}
+%
+%Here is a basic fact:
+%
+%\begin{lemma} 
+%Every permutation is a product of disjoint cycles. Also, every permutation is a product of (not necessarily disjoint) transpositions.\end{lemma}
+%
+%\begin{proof}
+%We first prove that every permutation $p$ of $[n]$ is a product of disjoint
+%cycles. Choose $a_1\in[n]$ and consider the sequence obtained by repeatedly
+%applying $p$ to $a_1$, namely,
+%\be
+%a_1,\ p(a_1),\ p^2(a_1),\ldots.
+%\ee
+%Since $[n]$ is finite, some term must eventually repeat. Let $k$ be the first
+%positive integer for which $p^k(a_1)$ is equal to an earlier term, say
+%$p^k(a_1)=p^j(a_1)$ with $0\leq j<k$. If $j>0$, applying $p^{-1}$ gives
+%$p^{k-1}(a_1)=p^{j-1}(a_1)$, contradicting the choice of $k$. Hence $j=0$.
+%
+%It follows that
+%\be
+%a_1,\ p(a_1),\ldots,p^{k-1}(a_1)
+%\ee
+%are distinct and that $p$ acts on them as the cycle
+%\be
+%(a_1\ p(a_1)\ \cdots\ p^{k-1}(a_1)).
+%\ee
+%
+%If this cycle does not contain every element of $[n]$, choose an unused
+%element $a_2$ and repeat the argument. The new cycle is disjoint from the
+%first one: if the two cycles shared an element, repeatedly applying $p$ or
+%$p^{-1}$ would show that $a_2$ lies in the first cycle, contrary to its
+%choice. Repeating this process gives pairwise disjoint cycles containing
+%every element of $[n]$. Their product agrees with $p$ on every element, and
+%therefore equals $p$. (Cycles of length one may be omitted.)
+%
+%Moreover, each cycle of length $k\geq2$ can be written as a product of
+%transpositions:
+%\be
+%(a_1\ a_2\ \cdots\ a_k)
+%=(a_1\ a_k)(a_1\ a_{k-1})\cdots(a_1\ a_2).
+%\ee
+%To verify this identity, let $T$ denote the product on the right and recall
+%that the rightmost transposition is applied first. The rightmost
+%transposition sends $a_1$ to $a_2$, and all the remaining transpositions fix
+%$a_2$. Hence $T(a_1)=a_2$. Now suppose $2\leq i<k$. The transpositions to the right of
+%$(a_1\ a_i)$ fix $a_i$. Then $(a_1\ a_i)$ sends $a_i$ to $a_1$, and the
+%next transposition, $(a_1\ a_{i+1})$, sends $a_1$ to $a_{i+1}$. All the
+%remaining transpositions fix $a_{i+1}$, so
+%\be
+%T(a_i)=a_{i+1}.
+%\ee
+%Finally, all the factors except the leftmost one fix $a_k$, while the
+%leftmost factor $(a_1\ a_k)$ sends $a_k$ to $a_1$. Thus $T(a_k)=a_1$.
+%Every element outside $\{a_1,\ldots,a_k\}$ is fixed by every factor of $T$.
+%Therefore $T$ has exactly the same action as
+%$(a_1\ a_2\ \cdots\ a_k)$, proving the identity.
+%
+%It follows that every permutation is a product of transpositions. The
+%identity permutation is represented by the empty product.
+%
+%\end{proof}
+%
+%\begin{example}[Disjoint cycles and transpositions in $S_5$]
+%Consider
+%\be
+%p=
+%\begin{pmatrix}
+%1&2&3&4&5\\
+%4&1&5&2&3
+%\end{pmatrix}.
+%\ee
+%Starting with $1$ and following its images gives
+%\be
+%1\longmapsto4\longmapsto2\longmapsto1,
+%\ee
+%while the remaining elements that are not yet accounted for satisfy
+%\be
+%3\longmapsto5\longmapsto3.
+%\ee
+%Thus the decomposition of $p$ into disjoint cycles is
+%\be
+%p=(1\ 4\ 2)(3\ 5).
+%\ee
+%
+%\end{example}
+%
+%\begin{example}[Transposition decompositions are not unique]
+%Consider
+%\be
+%q=
+%\begin{pmatrix}
+%1&2&3&4&5\\
+%2&4&1&5&3
+%\end{pmatrix}.
+%\ee
+%Consider the cycle
+%\be
+%q=(1\ 2\ 4\ 5\ 3).
+%\ee
+%The factorization used in the proof of the lemma gives
+%\be
+%q=(1\ 3)(1\ 5)(1\ 4)(1\ 2).
+%\ee
+%However, the same cycle also has the different factorization
+%\be
+%q=(1\ 2)(2\ 4)(4\ 5)(5\ 3).
+%\ee
+%One can check either product from right to left: both send
+%$1\mapsto2$, $2\mapsto4$, $4\mapsto5$, $5\mapsto3$, and $3\mapsto1$.
+%Thus a permutation's decomposition into transpositions is not unique.
+%\end{example}
+%
+%
+%\subsection*{The group $S_3$}
+%
+%The six elements of $S_3$ are the identity, the three transpositions, and the
+%two $3$-cycles:
+%\be
+%S_3=\{\id,(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)\}.
+%\ee
+%Set
+%\be
+%x=(1\ 2\ 3)
+%  \qquad\text{and}\qquad
+%y=(1\ 3).
+%\ee
+%Then
+%\be
+%x^2=(1\ 3\ 2),
+%  \qquad x^3=\id,
+%  \qquad y^2=\id,
+%\ee
+%and direct calculation gives
+%\be
+%yx=x^2y.
+%\ee
+%Consequently,
+%\be
+%S_3=\{\id,x,x^2,y,xy,yx\}.
+%\ee
+%
+%Sometimes one writes down a group by specifying its entire multiplication table. For $S_3$ this is shown below. The entry in row $g$ and column
+%$h$ is the product $gh$, so the permutation in column $h$ is applied first.
+%\be
+%\begin{array}{c|cccccc}
+%\cdot & \id & x & x^2 & y & xy & yx \\ \hline
+%\id & \id & x & x^2 & y & xy & yx \\
+%x & x & x^2 & \id & xy & yx & y \\
+%x^2 & x^2 & \id & x & yx & y & xy \\
+%y & y & yx & xy & \id & x^2 & x \\
+%xy & xy & y & yx & x & \id & x^2 \\
+%yx & yx & xy & y & x^2 & x & \id
+%\end{array}
+%\ee
+%Since
+%\be
+%x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
+%\qquad xy=(2\ 3),\qquad yx=(1\ 2),
+%\ee
+%the same multiplication table in cycle notation is
+%\be
+%\begin{array}{c|cccccc}
+%\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
+%\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
+%(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
+%(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
+%(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
+%(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
+%(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
+%\end{array}
+%\ee
+%In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
+%
+%%\begin{example}[A permutation of eight letters]
+%%Consider
+%%\be
+%%\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+%%\ee
+%%The cycles are disjoint, and therefore
+%%\be
+%%\sigma=
+%%\begin{pmatrix}
+%%1&2&3&4&5&6&7&8\\
+%%5&6&4&3&7&2&1&8
+%%\end{pmatrix}.
+%%\ee
+%%Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
+%%interchanged, as are $3$ and $4$; and $8$ is fixed.
+%%\end{example}
+%%
+%
+%\subsection*{Cayley graph of $S_3$}
+%\mbox{}\par\vspace{-0.5em}
+%
+%\noindent
+%\begin{minipage}[t]{0.62\textwidth}
+%\vspace{0pt}
+%A Cayley graph gives a geometric picture of a group together with a chosen
+%set of `generators.' We use
+%\be
+%x=(1\ 2\ 3)\qquad\text{and}\qquad y=(1\ 3).
+%\ee
+%The vertices are the six elements of $S_3$. From each vertex $g$, a blue
+%arrow leads to $gx$, and a red edge joins $g$ to $gy$. The red edges need no
+%arrows because $y^2=\id$: traversing a red edge twice returns to the starting
+%vertex. The blue edges form two directed triangles, and the red edges join
+%corresponding vertices of the two triangles.
+%\end{minipage}%
+%\hfill
+%\begin{minipage}[t]{0.34\textwidth}
+%\vspace{-1.2em}
+%\centering
+%\begin{tikzpicture}[
+%  scale=0.58,
+%  every node/.style={circle,draw=darkgray,fill=white,minimum size=10mm,
+%    inner sep=1pt,font=\small}
+%]
+%  \node (e)  at (0,2)     {$\id$};
+%  \node (x)  at (-1.8,-1) {$x$};
+%  \node (x2) at (1.8,-1)  {$x^2$};
+%  \node (y)  at (0,-3)    {$y$};
+%  \node (xy) at (-1.8,-6) {$xy$};
+%  \node (yx) at (1.8,-6)  {$yx$};
+%
+%  \draw[->,very thick,courseblue] (e) -- node[draw=none,fill=none,left] {$x$} (x);
+%  \draw[->,very thick,courseblue] (x) -- node[draw=none,fill=none,below] {$x$} (x2);
+%  \draw[->,very thick,courseblue] (x2) -- node[draw=none,fill=none,right] {$x$} (e);
+%
+%  \draw[->,very thick,courseblue] (y) -- node[draw=none,fill=none,right] {$x$} (yx);
+%  \draw[->,very thick,courseblue] (yx) -- node[draw=none,fill=none,below] {$x$} (xy);
+%  \draw[->,very thick,courseblue] (xy) -- node[draw=none,fill=none,left] {$x$} (y);
+%
+%  \draw[very thick,BrickRed] (e) -- node[draw=none,fill=none,right] {$y$} (y);
+%  \draw[very thick,BrickRed] (x) -- node[draw=none,fill=none,left] {$y$} (xy);
+%  \draw[very thick,BrickRed] (x2) -- node[draw=none,fill=none,right] {$y$} (yx);
+%\end{tikzpicture}
+%\end{minipage}
 
 \end{document}
