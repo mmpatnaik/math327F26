@@ -553,41 +553,41 @@ xy & xy & y & yx & x & \id & x^2 \\
 yx & yx & xy & y & x^2 & x & \id
 \end{array}
 \ee
-Since
-\be
-x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
-\qquad xy=(2\ 3),\qquad yx=(1\ 2),
-\ee
-the same multiplication table in cycle notation is
-\be
-\begin{array}{c|cccccc}
-\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
-\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
-(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
-(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
-(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
-(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
-(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
-\end{array}
-\ee
-In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
-
-\begin{example}[A permutation of eight letters]
-Consider
-\be
-\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
-\ee
-The cycles are disjoint, and therefore
-\be
-\sigma=
-\begin{pmatrix}
-1&2&3&4&5&6&7&8\\
-5&6&4&3&7&2&1&8
-\end{pmatrix}.
-\ee
-Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
-interchanged, as are $3$ and $4$; and $8$ is fixed.
-\end{example}
+%Since
+%\be
+%x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
+%\qquad xy=(2\ 3),\qquad yx=(1\ 2),
+%\ee
+%the same multiplication table in cycle notation is
+%\be
+%\begin{array}{c|cccccc}
+%\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
+%\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
+%(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
+%(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
+%(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
+%(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
+%(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
+%\end{array}
+%\ee
+%In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
+%
+%\begin{example}[A permutation of eight letters]
+%Consider
+%\be
+%\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+%\ee
+%The cycles are disjoint, and therefore
+%\be
+%\sigma=
+%\begin{pmatrix}
+%1&2&3&4&5&6&7&8\\
+%5&6&4&3&7&2&1&8
+%\end{pmatrix}.
+%\ee
+%Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
+%interchanged, as are $3$ and $4$; and $8$ is fixed.
+%\end{example}
 
 
 \subsection*{Cayley graph of $S_3$}
