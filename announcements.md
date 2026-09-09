@@ -26,3 +26,7 @@ Lecture 1 notes posted. Hwk 1 posted.
 ## 2026-09-02
 
 Lecture 1 updated. Office hours Mondays 2-3pm starting Sep. 14. Email me before if you want to discuss something.
+
+## 2026-09-08
+
+Lecture 3 & 4 (preliminary) added
