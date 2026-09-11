@@ -22,6 +22,8 @@
 \definecolor{definitiongreen}{HTML}{EEF8EE}
 \definecolor{definitionborder}{HTML}{8FB58F}
 \definecolor{lightpink}{HTML}{FCE8EF}
+\definecolor{warningyellow}{HTML}{FFF7D6}
+\definecolor{warningborder}{HTML}{D5A500}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.65em}
@@ -77,6 +79,25 @@
 \newtheorem*{remark}{Remark}
 \newtheorem{exercise}[theorem]{Exercise}
 
+
+\newtcolorbox{warningbox}{
+	enhanced,
+	breakable,
+	colback=warningyellow,
+	colframe=warningborder,
+	coltitle=darkgray,
+	fonttitle=\bfseries,
+	title={Warning},
+	boxrule=0.7pt,
+	arc=2pt,
+	left=6pt,
+	right=6pt,
+	top=5pt,
+	bottom=5pt,
+	before skip=0.8em,
+	after skip=0.8em
+}
+
 \tcolorboxenvironment{exercise}{
 	enhanced,
 	colback=lightpink,
@@ -117,6 +138,271 @@
 
 \setcounter{tocdepth}{1}
 \tableofcontents
+
+
+
+\section{Transpositions and Length}
+
+In the last lecture, we saw that every permutation $p \in S_n$ can be decomposed into disjoint cycles. We also introduced the following notion:
+
+\begin{definition} A simple transposition in $S_n$ is a permutation of the form $s_i:= (i\ i+1)$ for $i=1, 2, \ldots, n-1$.  \end{definition}
+
+For example, in $S_3$ the transpositions $s_1=(1\ 2)$ and $s_2=(2\ 3)$ are simple, but $(1\ 3)$ is not.
+
+Using a variant of the bubble sort idea, one can now prove
+
+\begin{theorem} Every $p \in S_n$ can be written as a product of simple transpositions $s_i$ for $i=1, \ldots, n-1$. The minimal number of such transpositions needed to write $p$ is called the (Coxeter) length of $p$ and is denoted as $\ell(p)$.
+\end{theorem}
+
+\begin{warningbox}
+	The length of a \textit{simple} transposition $(i\ i+1)$ is always one, but this isn't the case for an arbitrary transposition $(a\ b)$. For example, take
+	\be
+	\tau=(1\ 3)\in S_3.
+	\ee
+	In one-line notation,
+	$\tau=[3,2,1]$, and bubble sort gives
+	\be
+	[3,2,1]
+	\xrightarrow{\ s_1\ }[2,3,1]
+	\xrightarrow{\ s_2\ }[2,1,3]
+	\xrightarrow{\ s_1\ }[1,2,3].
+	\ee
+	Thus $\tau$ has length $3$, not $1$. Equivalently,
+	\be
+	\tau=s_1s_2s_1.
+	\ee
+\end{warningbox}
+
+
+\subsection*{Inversions and length}
+
+\newcommand{\inv}{\mathrm{inv}}
+\begin{definition}[Inversion]
+Let $p\in S_n$. An \emph{inversion} of $p$ is a pair $(i,j)$ such that
+$1\leq i<j\leq n$ and $p(i)>p(j)$. The \emph{inversion number} of $p$ is
+the number of such pairs:
+\be
+\inv(p):=\#\bigl\{(i,j):1\leq i<j\leq n,\ p(i)>p(j)\bigr\}.
+\ee
+\end{definition}
+
+\begin{example}
+Consider $p \in S_4$ the permutation corresponding to the unordered list $[3,1,4,2]$. Its inversions correspond to the pairs
+\be
+(1,2),\qquad (1,4),\qquad (3,4).
+\ee
+
+Therefore
+\be
+\inv(p)=3.
+\ee
+For comparison, $(2,4)$ is not an inversion because $p(2)=1<p(4)=2$.
+\end{example}
+
+
+\begin{lemma}
+If $p\in S_n$ and $s_i=(i\ i+1)$ is a simple transposition, then
+\be
+\inv(ps_i)=
+\begin{cases}
+\inv(p)+1, & \text{if }p(i)<p(i+1),\\
+\inv(p)-1, & \text{if }p(i)>p(i+1).
+\end{cases}
+\ee
+In particular, $\inv(ps_i)$ differs from $\inv(p)$ by exactly one.
+\end{lemma}
+
+\begin{example}
+For the permutation $p=[3,1,4,2]$ above, we have $\inv(p)=3$. Since
+$p(1)>p(2)$, right multiplication by $s_1$ decreases the inversion number:
+\be
+ps_1=[1,3,4,2],
+\qquad
+\inv(ps_1)=2.
+\ee
+On the other hand, $p(2)<p(3)$, so right multiplication by $s_2$ increases it:
+\be
+ps_2=[3,4,1,2],
+\qquad
+\inv(ps_2)=4.
+\ee
+Thus this example illustrates both cases of the lemma.
+\end{example}
+
+The proof of the lemma is left as an exercise.
+
+\begin{theorem}
+For every permutation $p\in S_n$, its Coxeter length is equal to its inversion
+number:
+\be
+\ell(p)=\inv(p).
+\ee
+\end{theorem}
+
+\begin{proof}
+Choose a shortest expression $p=s_{i_1}\cdots s_{i_{\ell(p)}}$. Starting from
+$\id$ and multiplying by these simple transpositions one at a time, the lemma
+shows that the inversion number changes by exactly one at each step. Since
+$\inv(\id)=0$, it follows that $\inv(p)\leq\ell(p)$.
+
+Conversely, use the bubble-sort factorization from Theorem~1.1. Each step
+swaps an adjacent pair $p(i)>p(i+1)$, so the lemma shows that it decreases the
+inversion number by exactly one. The process ends at the identity, whose
+inversion number is zero, and therefore uses exactly $\inv(p)$ simple
+transpositions. Hence $\ell(p)\leq\inv(p)$, proving the equality.
+\end{proof}
+
+
+\section{The group \texorpdfstring{$S_3$}{S3}}
+
+The six elements of $S_3$ are the identity, the three transpositions, and the
+two $3$-cycles:
+\be
+S_3=\{\id,(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)\}.
+\ee
+
+Just to connect with our previous example, let us note that the lengths of these elements are as follows:
+
+\be
+\begin{array}{c|cccccc}
+	p & \id & (1\ 2) & (2\ 3) & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) \\ \hline
+	\ell(p) & 0 & 1 & 1 & 2 & 2 & 3
+\end{array}
+\ee
+
+Indeed, if $s_1=(1\ 2)$ and $s_2=(2\ 3)$, then
+\be
+(1\ 2\ 3)=s_1s_2,
+\qquad
+(1\ 3\ 2)=s_2s_1,
+\qquad
+(1\ 3)=s_1s_2s_1.
+\ee
+The two $3$-cycles are neither the identity nor simple transpositions, so
+their length is at least $2$, and the displayed expressions show it is exactly $2$. Finally, $(1\ 3)$ is not a simple transposition, and it
+cannot have length $2$: the only products of two simple transpositions in $S_3$ are $s_1s_1=s_2s_2=\id$, $s_1s_2=(1\ 2\ 3)$ and $s_2s_1=(1\ 3\ 2)$. Thus its
+length is $3$.
+
+
+
+Set
+\be
+x=(1\ 2\ 3)
+\qquad\text{and}\qquad
+y=(1\ 3).
+\ee
+Then
+\be
+x^2=(1\ 3\ 2),
+\qquad x^3=\id,
+\qquad y^2=\id,
+\ee
+and direct calculation gives
+\be
+yx=x^2y.
+\ee
+Consequently,
+\be
+S_3=\{\id,x,x^2,y,xy,yx\}.
+\ee
+
+Sometimes one writes down a group by specifying its entire multiplication table. For $S_3$ this is shown below. The entry in row $g$ and column
+$h$ is the product $gh$, so the permutation in column $h$ is applied first.
+\be
+\begin{array}{c|cccccc}
+	\cdot & \id & x & x^2 & y & xy & yx \\ \hline
+	\id & \id & x & x^2 & y & xy & yx \\
+	x & x & x^2 & \id & xy & yx & y \\
+	x^2 & x^2 & \id & x & yx & y & xy \\
+	y & y & yx & xy & \id & x^2 & x \\
+	xy & xy & y & yx & x & \id & x^2 \\
+	yx & yx & xy & y & x^2 & x & \id
+\end{array}
+\ee
+%Since
+%\be
+%x=(1\ 2\ 3),\qquad x^2=(1\ 3\ 2),\qquad y=(1\ 3),
+%\qquad xy=(2\ 3),\qquad yx=(1\ 2),
+%\ee
+%the same multiplication table in cycle notation is
+%\be
+%\begin{array}{c|cccccc}
+%\cdot & \id & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3) & (2\ 3) & (1\ 2) \\ \hline
+%\id       & \id       & (1\ 2\ 3) & (1\ 3\ 2) & (1\ 3)   & (2\ 3)   & (1\ 2) \\
+%(1\ 2\ 3)& (1\ 2\ 3)& (1\ 3\ 2) & \id       & (2\ 3)   & (1\ 2)   & (1\ 3) \\
+%(1\ 3\ 2)& (1\ 3\ 2)& \id       & (1\ 2\ 3) & (1\ 2)   & (1\ 3)   & (2\ 3) \\
+%(1\ 3)   & (1\ 3)   & (1\ 2)   & (2\ 3)   & \id       & (1\ 3\ 2) & (1\ 2\ 3) \\
+%(2\ 3)   & (2\ 3)   & (1\ 3)   & (1\ 2)   & (1\ 2\ 3) & \id       & (1\ 3\ 2) \\
+%(1\ 2)   & (1\ 2)   & (2\ 3)   & (1\ 3)   & (1\ 3\ 2) & (1\ 2\ 3) & \id
+%\end{array}
+%\ee
+%In particular, $S_3$ is not abelian: for example, $xy\ne yx$.
+%
+%\begin{example}[A permutation of eight letters]
+%Consider
+%\be
+%\sigma=(1\ 5\ 7)(2\ 6)(3\ 4)\in S_8.
+%\ee
+%The cycles are disjoint, and therefore
+%\be
+%\sigma=
+%\begin{pmatrix}
+%1&2&3&4&5&6&7&8\\
+%5&6&4&3&7&2&1&8
+%\end{pmatrix}.
+%\ee
+%Thus $1\mapsto5$, $5\mapsto7$, $7\mapsto1$; the elements $2$ and $6$ are
+%interchanged, as are $3$ and $4$; and $8$ is fixed.
+%\end{example}
+
+
+\subsection*{Cayley graph of $S_3$}
+\mbox{}\par\vspace{-0.5em}
+
+\noindent
+\begin{minipage}[t]{0.62\textwidth}
+	\vspace{0pt}
+	A Cayley graph gives a geometric picture of a group together with a chosen
+	set of `generators.' We use
+	\be
+	x=(1\ 2\ 3)\qquad\text{and}\qquad y=(1\ 3).
+	\ee
+	The vertices are the six elements of $S_3$. From each vertex $g$, a blue
+	arrow leads to $gx$, and a red edge joins $g$ to $gy$. The red edges need no
+	arrows because $y^2=\id$: traversing a red edge twice returns to the starting
+	vertex. The blue edges form two directed triangles, and the red edges join
+	corresponding vertices of the two triangles.
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.34\textwidth}
+	\vspace{-1.2em}
+	\centering
+	\begin{tikzpicture}[
+		scale=0.65,
+		every node/.style={circle,draw=darkgray,fill=white,minimum size=8mm,
+			inner sep=1pt,font=\small},
+		edge label/.style={draw=none,fill=white,minimum size=0pt,inner sep=1pt}
+		]
+		\node (e)  at (0,3.2)    {$\id$};
+		\node (x)  at (-3,-2)    {$x$};
+		\node (x2) at (3,-2)     {$x^2$};
+		\node (y)  at (0,1.2)    {$y$};
+		\node (xy) at (-1.3,-1)  {$xy$};
+		\node (yx) at (1.3,-1)   {$yx$};
+		
+		\draw[->,very thick,courseblue] (e) -- node[edge label,left] {$x$} (x);
+		\draw[->,very thick,courseblue] (x) -- node[edge label,below] {$x$} (x2);
+		\draw[->,very thick,courseblue] (x2) -- node[edge label,right] {$x$} (e);
+		\draw[->,very thick,courseblue] (y) -- node[edge label,left] {$x$} (yx);
+		\draw[->,very thick,courseblue] (yx) -- node[edge label,above] {$x$} (xy);
+		\draw[->,very thick,courseblue] (xy) -- node[edge label,right] {$x$} (y);
+		
+		\draw[very thick,BrickRed] (e) -- node[edge label,right] {$y$} (y);
+		\draw[very thick,BrickRed] (x) -- node[edge label,above] {$y$} (xy);
+		\draw[very thick,BrickRed] (x2) -- node[edge label,above] {$y$} (yx);
+	\end{tikzpicture}
+\end{minipage}
+
 
 \section{Recollections on Subgroups}
 
@@ -160,7 +446,6 @@ The \emph{cyclic subgroup generated by $x$} is
 \ee
 \end{definition}
 
-\newpage
 We generalize this definition as follows.
 
 \begin{definition}[Subgroup generated by a subset]
@@ -230,7 +515,7 @@ The union $H\cup K$ need not be a subgroup. For example,
 $2\Z\cup3\Z$ contains $2$ and $3$, but does not contain their sum $5$.
 \end{remark}
 
-\newpage
+
 \section{Subgroups of \texorpdfstring{$\Z$}{Z} and greatest common divisors}
 
 \begin{lemma}
