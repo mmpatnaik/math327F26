@@ -88,37 +88,46 @@
 
 \section{Review of last lecture}
 
-In the last lecture, we continued to study the permutation group $S_n$. We introduced the notion of a simple transposition \be s_i := (i i+1) \text{ for } i=1, \ldots, n-1 \ee and then argued
+In the last lecture, we continued to study the permutation group $S_n$. We introduced the notion of a simple transposition \be s_i := (i\ i+1) \text{ for } i=1, \ldots, n-1 \ee and then argued
 
 \begin{theorem}
 	\begin{enumerate}
 		\item Every $p \in S_n$ can be written as a product of simple transpositions \be \label{p:decom} p=s_{i_1} \cdots s_{i_k}. \ee
-		\item The smallest number of simple transpositions needed to write $p$ as in \eqref{p:decom} is called the length of $p$, denoted $\ell(p)$, and equal to the number of inversions in $p$, i.e. it is equal to the cardinality of the set \be \inv(p) := \{ (i ,j ) \mid 1 \leq i < j \leq n, p(i) > p(j) \} \ee
+		\item The smallest number of simple transpositions needed to write $p$ as in \eqref{p:decom} is called the length of $p$, denoted $\ell(p)$, and is equal to the number of inversions in $p$. That is,
+		\be
+		\ell(p)=\#\inv(p),
+		\qquad
+		\inv(p) := \{ (i,j) \mid 1 \leq i < j \leq n,\ p(i) > p(j) \}.
+		\ee
 	\end{enumerate}
 \end{theorem}
 
-The key to proving property (2) was the following Lemma which I slighly mistated last time (it is corrected in the notes and also a proof is now included):
+The key to proving property (2) was the following lemma, which I slightly misstated last time. The statement has been corrected in the notes, and a proof is now included.
 
 \begin{lemma}
 	If $p\in S_n$ and $s_i=(i\ i+1)$ is a simple transposition, then
 	\be
-	\inv(ps_i)=
-	\begin{cases}
-		\inv(p)+1, & \text{if }p(i)<p(i+1),\\
-		\inv(p)-1, & \text{if }p(i)>p(i+1).
-	\end{cases}
-	\ee
-	In particular, $\inv(ps_i)$ differs from $\inv(p)$ by exactly one.
+		\#\inv(ps_i)=
+		\begin{cases}
+			\#\inv(p)+1, & \text{if }p(i)<p(i+1),\\
+			\#\inv(p)-1, & \text{if }p(i)>p(i+1).
+		\end{cases}
+		\ee
+	In particular, $\#\inv(ps_i)$ differs from $\#\inv(p)$ by exactly one.
 \end{lemma}
 
-So we see that multiplying by a simple transposition changes the number of inversions (or length) by an \textit{odd} number. So if we define a permutation $p \in S_n$ to be \textit{even} if it can be written as a product of even simple transpositions, then this is a well-defined concept. Indeed, if $p$ can be so written, then its inversion number is even. However,  it it could also be written as a product of an odd number of $s_i$, then the Lemma would tell us that that its inversion number is odd, a contradiction.  Denote the set of even permutations as \be A_n := \{ p \in S_n \mid p \text{ is even} \} .\ee Note that this also means, and is equivalent to requiring,  $\ell(p)$ is even.
+Thus multiplying by a simple transposition changes the number of inversions by exactly one and hence reverses its parity. Define a permutation $p \in S_n$ to be \textit{even} if it can be written as a product of an even number of simple transpositions. This is a well-defined concept. Indeed, if $p$ has such an expression, then $\#\inv(p)$ is even. If it could also be written as a product of an odd number of simple transpositions, then the lemma would imply that $\#\inv(p)$ is odd, a contradiction. Denote the set of even permutations by
+\be
+A_n := \{ p \in S_n \mid p \text{ is even} \}.
+\ee
+Equivalently, $p\in A_n$ if and only if $\ell(p)$ is even.
 
 \begin{proposition} $A_n$ is a subgroup of $S_n$ \end{proposition}
-\begin{proof} Since $S_n$ is finite, it suffices to check that $A_n$ contains the identity and is closed under multiplication. Since $(1)$ has length $0$, it is in $A_n$. To check $A_n$ is closed under multiplication, we just observe that `even plus even is even.' \end{proof}
+\begin{proof} Since $S_n$ is finite, it suffices to check that $A_n$ contains the identity and is closed under multiplication. The identity is a product of zero simple transpositions, so it lies in $A_n$. If $p,q\in A_n$, choose expressions for $p$ and $q$ involving even numbers of simple transpositions. Concatenating these expressions gives an expression for $pq$ involving an even number of simple transpositions. Hence $pq\in A_n$. \end{proof}
 
-We will come back and given a different proof of this result a bit later.
+We will come back and give a different proof of this result a bit later.
 
-\begin{exercise}How many even permutations are there? \end{exercise}
+\begin{exercise}For $n\geq2$, how many even permutations are there? \end{exercise}
 
 \section{The group \texorpdfstring{$S_3$}{S3}}
 
@@ -173,8 +182,8 @@ Consequently,
 S_3=\{\id,x,x^2,y,xy,yx\}.
 \ee
 
-Sometimes one writes down a group by specifying its entire multiplication table. For $S_3$ this is shown below. The entry in row $g$ and column
-$h$ is the product $gh$, so the permutation in column $h$ is applied first.
+The table below gives the multiplication in $S_3$. Its entry in row $g$ and
+column $h$ is $gh$, so $h$ is applied first.
 \be
 \begin{array}{c|cccccc}
 	\cdot & \id & x & x^2 & y & xy & yx \\ \hline
@@ -271,7 +280,7 @@ $h$ is the product $gh$, so the permutation in column $h$ is applied first.
 \end{minipage}
 
 
- \section{Recollections on Subgroups}
+ \section{Recollections on subgroups}
 
  \begin{definition}[Subgroup]
 	 Let $(G,\cdot,e)$ be a group. A subset $H\subseteq G$ is a \emph{subgroup}
