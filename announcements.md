@@ -30,3 +30,7 @@ Lecture 1 updated. Office hours Mondays 2-3pm starting Sep. 14. Email me before 
 ## 2026-09-08
 
 Lecture 3 & 4 (preliminary) added
+
+## 2026-09-14
+
+added question on permutaitons to homework 1 and updated coverage information for it, lecture 5 posted
