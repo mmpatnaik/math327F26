@@ -71,8 +71,8 @@
 
 \vspace{0.5em}
 
-The following exercises are from Michael Artin's \emph{Algebra}, second
-edition.
+Unless otherwise indicated, the following exercises are from Michael Artin's
+\emph{Algebra}, second edition.
 
 \chapterheading{Chapter 1: Matrices}
 
@@ -100,6 +100,39 @@ permissible, provided that you check your guess afterward.
 
 \chapterheading{Chapter 2: Groups}
 
+\sectionheading{Supplementary Problems: Permutations, Cycles, and Length}
+
+\begin{exercise}{P.1}
+Let $p\in S_6$ be the permutation written in `one-line notation' as
+\[
+p=[4,1,6,2,5,3].
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Write $p$ as a product of disjoint cycles.
+  \item List all inversions of $p$.
+  \item Compute $\operatorname{inv}(p)$ and hence determine $\ell(p)$.
+  \item Express $p$ as a product of exactly $\ell(p)$ simple
+        transpositions.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{P.2}
+Let $1\leq a<b\leq n$, and consider the transposition
+\[
+\tau=(a\ b)\in S_n.
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Write $\tau$ in one-line notation.
+  \item Prove that
+        \[
+        \operatorname{inv}(\tau)=2(b-a)-1.
+        \]
+  \item Deduce that $\ell(\tau)=2(b-a)-1$.
+  \item Use this result to explain why two permutations with the same cycle
+        type need not have the same Coxeter length.
+\end{enumerate}
+\end{exercise}
+
 \sectionheading{Section 3: Subgroups of the Additive Group of Integers}
 
 \begin{exercise}{3.3}
@@ -113,7 +146,6 @@ permissible, provided that you check your guess afterward.
 \end{enumerate}
 \end{exercise}
 
-\newpage
 \sectionheading{Section 4: Cyclic Groups}
 
 \begin{exercise}{4.3}
