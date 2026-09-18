@@ -1,271 +1,945 @@
 \documentclass[reqno,11pt]{amsart}
-
-\usepackage[margin=1in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{microtype}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[dvipsnames]{xcolor}
-\usepackage[most]{tcolorbox}
-\usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Lecture 7, MATH 327: Cosets and Partitions},pdfauthor={Manish Patnaik},pdfsubject={MATH 327 course notes}}
-
-\definecolor{courseblue}{HTML}{1F4E79}
-\definecolor{lightblue}{HTML}{EAF2F8}
-\definecolor{darkgray}{HTML}{333333}
-\definecolor{definitiongreen}{HTML}{EEF8EE}
-\definecolor{definitionborder}{HTML}{8FB58F}
-\definecolor{lightpink}{HTML}{FCE8EF}
-\definecolor{warningyellow}{HTML}{FFF7D6}
-\definecolor{warningborder}{HTML}{D5A500}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.65em}
-\setlist[itemize]{topsep=0.25em,itemsep=0.15em}
-
-\makeatletter
-\def\@tocline#1#2#3#4#5#6#7{\relax
-  \ifnum #1>\c@tocdepth\else
-    \par\addpenalty\@secpenalty\addvspace{#2}\begingroup\hyphenpenalty\@M
-    \@ifempty{#4}{\@tempdima\csname r@tocindent\number#1\endcsname\relax}{\@tempdima#4\relax}
-    \parindent\z@\leftskip#3\relax\advance\leftskip\@tempdima\relax
-    \rightskip\@pnumwidth plus4em\parfillskip-\@pnumwidth
-    #5\leavevmode\hskip-\@tempdima\ifcase #1\or\or\hskip 1em\or\hskip 2em\else\hskip 3em\fi
-    #6\nobreak\relax\dotfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par\nobreak\endgroup
-  \fi}
-\makeatother
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\tcolorboxenvironment{definition}{enhanced,breakable,colback=definitiongreen,colframe=definitionborder,boxrule=0.5pt,arc=1mm,left=2mm,right=2mm,top=1mm,bottom=1mm,before skip=0.8em,after skip=0.8em}
-\newtheorem{example}{Example}[section]
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{proposition}{Proposition}[section]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtcolorbox{warningbox}{enhanced,breakable,colback=warningyellow,colframe=warningborder,coltitle=darkgray,fonttitle=\bfseries,title={Warning},boxrule=0.7pt,arc=2pt,left=6pt,right=6pt,top=5pt,bottom=5pt,before skip=0.8em,after skip=0.8em}
-\tcolorboxenvironment{exercise}{enhanced,colback=lightpink,colframe=WildStrawberry,boxrule=0.7pt,arc=2pt,left=6pt,right=6pt,top=5pt,bottom=5pt}
-\numberwithin{equation}{section}
-\newcommand{\Z}{\mathbb{Z}}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{7}{Sep. 18, 2026}{Subgroups, Homomorphisms, and Sign}
 
 \begin{document}
-\begin{center}
-  \colorbox{lightblue}{\begin{minipage}{0.94\textwidth}
-    \vspace{0.55em}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-      {\color{courseblue}\bfseries\LARGE Lecture 7} & {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.35em]
-      & \textbf{Date: Sep. 18, 2026}\\
-      & \textbf{Instructor: Manish Patnaik}
-    \end{tabular*}
-    \vspace{0.45em}
-  \end{minipage}}
-\end{center}
-\setcounter{tocdepth}{1}
-\tableofcontents
+\makelecturetitle
 
-\section{Normality revisited}
+\section{Review: subgroups of the integers and greatest common divisors}
 
-Recall that $N\leq G$ is normal if $gNg^{-1}\subseteq N$ for every $g\in G$.
+Last time we classified all subgroups of $\Z$ using the following result.
 
-\begin{proposition}
-For a subgroup $N\leq G$, the following are equivalent:
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item $gNg^{-1}\subseteq N$ for every $g\in G$;
-  \item $gNg^{-1}=N$ for every $g\in G$;
-  \item $gN=Ng$ for every $g\in G$.
-\end{enumerate}
-\end{proposition}
+\begin{theorem}
+Let $H\leq(\Z,+)$ be a subgroup. Then $H=\Z d$, the set of all multiples
+of $d$, for a unique integer $d\geq0$. The case $d=0$ gives the trivial
+subgroup $\{0\}$.
+\end{theorem}
 
-\begin{proof}
-Suppose (1) holds. Applying it to $g^{-1}$ gives
-$g^{-1}Ng\subseteq N$. If $n\in N$, then $g^{-1}ng\in N$, and hence
-$n=g(g^{-1}ng)g^{-1}\in gNg^{-1}$. Thus $N\subseteq gNg^{-1}$ and (2)
-follows. Multiplying the equality $gNg^{-1}=N$ on the right by $g$ gives
-$gN=Ng$, proving (3). Conversely, multiplying $gN=Ng$ on the right by
-$g^{-1}$ gives $gNg^{-1}=N$.
-\end{proof}
+We also stated the following result:
 
-For example, in
-\[
-  S_3=\{1,x,x^2,y,xy,yx\},
-  \qquad x^3=y^2=1,
-  \qquad yx=x^2y,
-\]
-the subgroup $N=\{1,x,x^2\}$ satisfies $yNy^{-1}=N$, and hence is normal.
-This calculation will reappear naturally in terms of cosets.
-
-Writing out the calculation used in the previous lecture,
-\begin{align*}
-  yNy^{-1}
-  &=(yN)y^{-1}\\
-  &=\{y,yx,yx^2\}y^{-1}\\
-  &=\{1,yxy,yx^2y\}\\
-  &=\{1,x^2,x\}=N.
-\end{align*}
-Multiplying the equality $yNy^{-1}=N$ on the right by $y$ also gives
-$yN=Ny$.
-
-\section{Left and right cosets}
-
-\begin{definition}
-Let $H\leq G$ and $g\in G$. The \emph{left coset} and \emph{right coset}
-of $H$ represented by $g$ are
-\begin{equation}
-  gH=\{gh:h\in H\},
-  \qquad
-  Hg=\{hg:h\in H\}.
-\end{equation}
-The element $g$ is called a \emph{coset representative}.
-\end{definition}
-
-If $g\in H$, then $gH=H=Hg$. A representative is not unique: every element
-of a coset represents that same coset.
-
-\begin{example}[Cosets in $S_3$]
-Let $H=\{1,x,x^2\}\leq S_3$. Then
-\[
-  1H=xH=x^2H=H,
-\]
-whereas
-\[
-  yH=xyH=yxH=\{y,xy,yx\}.
-\]
-Thus the set of left cosets has two elements:
-\[
-  S_3/H=\{H,yH\}.
-\]
-Since $H$ is normal, these are also the two right cosets.
-\end{example}
-
-The individual computations are
-\begin{align*}
-  1H&=\{1,x,x^2\},\\
-  xH&=\{x,x^2,x^3\}=\{1,x,x^2\}=H,\\
-  x^2H&=\{x^2,x^3,x^4\}=\{1,x,x^2\}=H,\\
-  yH&=\{y,yx,yx^2\}=\{y,yx,xy\},\\
-  xyH&=\{xy,xyx,xyx^2\}=\{xy,y,yx\},\\
-  yxH&=\{yx,yx^2,yx^3\}=\{yx,xy,y\}.
-\end{align*}
-Thus every element of $S_3$ lies in exactly one of the two cosets $H$ and
-$yH$.
-
-\begin{lemma}[Equality of cosets]
-Let $H\leq G$ and $g_1,g_2\in G$. Then
-\begin{equation}
-  g_1H\cap g_2H\neq\varnothing
-  \quad\Longleftrightarrow\quad
-  g_1H=g_2H
-  \quad\Longleftrightarrow\quad
-  g_2^{-1}g_1\in H.
-\end{equation}
+\begin{lemma}[Divisibility and inclusion]\label{lem:divisibility}
+	For integers $r,s$,
+	\be
+	r\mid s\quad\Longleftrightarrow\quad\Z s\subseteq\Z r.
+	\ee
 \end{lemma}
 
 \begin{proof}
-First consider the special case $g_2=e$. We have
-\[
-  gH\cap H\neq\varnothing
-  \quad\Longleftrightarrow\quad
-  g\in H
-  \quad\Longleftrightarrow\quad
-  gH=H.
-\]
-Indeed, if $g\in H$, closure under multiplication gives $gH\subseteq H$;
-and for $h\in H$, the expression $h=g(g^{-1}h)$ shows $H\subseteq gH$.
-Conversely, if $x\in gH\cap H$, write $x=gh$ with $h\in H$. Then
-$g=xh^{-1}\in H$.
-
-For the general case, left multiplication by $g_2^{-1}$ reduces it to the
-special case:
-\[
-  g_1H\cap g_2H\neq\varnothing
-  \quad\Longleftrightarrow\quad
-  g_2^{-1}g_1H\cap H\neq\varnothing
-  \quad\Longleftrightarrow\quad
-  g_2^{-1}g_1\in H.
-\]
-The same reduction shows that this is equivalent to $g_1H=g_2H$.
+	If $s=kr$ for some $k\in\Z$, then every multiple of $s$ is a multiple
+	of $r$. Conversely, if $\Z s\subseteq\Z r$, then $s\in\Z r$, so $r\mid s$.
 \end{proof}
 
-For completeness, the reduction may also be written elementwise.  If
-$x\in g_1H\cap g_2H$, then $x=g_1h_1=g_2h_2$ for some $h_1,h_2\in H$.
-Therefore
-\[
-  g_2^{-1}g_1=h_2h_1^{-1}\in H.
-\]
-Conversely, if $g_2^{-1}g_1=h\in H$, then $g_1=g_2h\in g_2H$, so the two
-cosets intersect and hence are equal.
+\begin{example}
+	The direction of inclusion reverses the order in the divisibility relation:
+	\be
+	2\mid6,\qquad 6\Z\subseteq2\Z.
+	\ee
+	Indeed, every multiple of $6$ is a multiple of $2$.
+\end{example}
+
+Recall that $\Z a+\Z b=\{ma+nb:m,n\in\Z\}$ is a subgroup of $\Z$:
+it contains $0$ and is closed under sums and additive inverses.
+If $a$ and $b$ are not both zero, this subgroup is nonzero, so the preceding
+classification gives $\Z a+\Z b=\Z d$ for a unique $d>0$.
 
 \begin{proposition}
-The collection of left cosets $\{gH:g\in G\}$ is a partition of $G$.
-That is, every element of $G$ belongs to a left coset, and two left cosets
-are either equal or disjoint.
+	Let $a,b\in\Z$ be not both zero, and let $d>0$ satisfy
+	$\Z a+\Z b=\Z d$. Then $d=\gcd(a,b)$. In particular,
+	\be
+	\Z a+\Z b=\Z\gcd(a,b).
+	\ee
 \end{proposition}
 
 \begin{proof}
-Every $g\in G$ lies in $gH$ because $g=ge$ and $e\in H$. The preceding
-lemma shows that any two cosets that intersect are equal.
+	We check two properties:
+	\begin{enumerate}[label=\textbf{(\arabic*)}]
+		\item $d$ divides both $a$ and $b$.
+		\item Every common divisor of $a$ and $b$ divides $d$.
+	\end{enumerate}
+	For the first property, the inclusions
+	\be
+	\Z a\subseteq\Z a+\Z b=\Z d,
+	\qquad
+	\Z b\subseteq\Z a+\Z b=\Z d
+	\ee
+	imply $d\mid a$ and $d\mid b$ by Lemma~\ref{lem:divisibility}.
+
+	For the second property, suppose $\ell\mid a$ and $\ell\mid b$.
+	Then $\Z a\subseteq\Z\ell$ and $\Z b\subseteq\Z\ell$. Adding elements
+	from these two subgroups gives
+	\be
+	\Z d=\Z a+\Z b\subseteq\Z\ell.
+	\ee
+	By Lemma~\ref{lem:divisibility}, $\ell\mid d$.
+	Every positive common divisor $\ell$ therefore satisfies $\ell\leq d$.
+	Since $d>0$ is itself a common divisor, it is the greatest common divisor.
 \end{proof}
 
-\begin{definition}[Coset space]
-The set of left cosets of $H$ in $G$ is denoted by
-\begin{equation}
-  G/H=\{gH:g\in G\}.
-\end{equation}
-\end{definition}
+This gives B\'ezout's identity.
 
-\section{Example: cosets of \texorpdfstring{$8\Z$}{8Z}}
+\begin{corollary}[B\'ezout's identity]
+	Let $a,b\in\Z$ be not both zero. There exist integers $m,n$ such that
+	\be
+	\gcd(a,b)=ma+nb.
+	\ee
+\end{corollary}
 
-Consider the additive group $G=\Z$ and its subgroup $H=8\Z$. For
-$n\in\Z$, the coset represented by $n$ is
-\begin{equation}
-  n+8\Z=\{n+8k:k\in\Z\}.
-\end{equation}
-It consists precisely of the integers congruent to $n$ modulo $8$.
+\begin{proof}
+	Set $d=\gcd(a,b)$. Since $\Z a+\Z b=\Z d$ and $d\in\Z d$, we have
+	$d\in\Z a+\Z b$. By the definition of this subgroup, $d=ma+nb$ for some
+	$m,n\in\Z$.
+\end{proof}
 
-For example,
-\begin{align*}
-  0+8\Z&=\{\ldots,-16,-8,0,8,16,24,\ldots\},\\
-  1+8\Z&=\{\ldots,-15,-7,1,9,17,25,\ldots\},\\
-  2+8\Z&=\{\ldots,-14,-6,2,10,18,26,\ldots\},\\
-  7+8\Z&=\{\ldots,-9,-1,7,15,23,31,\ldots\}.
-\end{align*}
-The remaining four cosets are obtained in the same way.  Arranging integers
-by their remainder on division by $8$ gives eight disjoint columns, one for
-each coset.
-
-There are eight distinct cosets:
-\begin{equation}
-  \Z/8\Z
-  =\{0+8\Z,1+8\Z,\dots,7+8\Z\}.
-\end{equation}
-For instance,
+\begin{exercise}[Subgroups of $S_3$]
+Determine all subgroups of $S_3$ and draw the diagram of all such subgroups,
+indicating the inclusions between them. Use the presentation
 \[
-  0+8\Z=8+8\Z,
-  \qquad
-  1+8\Z=17+8\Z.
+  S_3=\langle x,y\mid x^3=1,\ y^2=1,\ yx=x^2y\rangle.
 \]
-Writing $\overline n=n+8\Z$, we may abbreviate the coset space as
+
+\noindent\textbf{Answer.} The subgroup lattice is shown below; inclusions run upward.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,every node/.style={inner sep=4pt,align=center}]
+  \node (top) at (0,3.2) {$S_3$};
+  \node (cyclic) at (-4.5,1.6) {$\langle x\rangle$\\$\{1,x,x^2\}$};
+  \node (y) at (-1.5,1.6) {$\langle y\rangle$\\$\{1,y\}$};
+  \node (xy) at (1.5,1.6) {$\langle xy\rangle$\\$\{1,xy\}$};
+  \node (xxy) at (4.5,1.6) {$\langle x^2y\rangle$\\$\{1,x^2y\}$};
+  \node (bottom) at (0,0) {$\{1\}$};
+  \draw[courseblue,thick] (bottom) -- (cyclic) -- (top);
+  \draw[courseblue,thick] (bottom) -- (y) -- (top);
+  \draw[courseblue,thick] (bottom) -- (xy) -- (top);
+  \draw[courseblue,thick] (bottom) -- (xxy) -- (top);
+\end{tikzpicture}
+\end{center}
+
+\end{exercise}
+
+\section{Group homomorphisms}
+
+\begin{define}[Homomorphism]
+	Let $G$ and $H$ be groups. A map $\varphi:G\to H$ is a \emph{group
+		homomorphism} if
+	\begin{equation}
+		\varphi(ab)=\varphi(a)\varphi(b)
+		\qquad\text{for every }a,b\in G.
+	\end{equation}
+	The products on the two sides are taken in $G$ and $H$, respectively.
+
+	An \emph{isomorphism} is a bijective homomorphism.
+\end{define}
+
+From the product rule, we may compute:
+\[
+\varphi(e_G)=\varphi(e_Ge_G)=\varphi(e_G)^2,
+\]
+and cancellation in $H$ gives $\varphi(e_G)=e_H$. Similarly,
+\[
+e_H=\varphi(e_G)=\varphi(aa^{-1})
+=\varphi(a)\varphi(a^{-1}),
+\]
+so
 \begin{equation}
-  \Z/8\Z=\{\overline0,\overline1,\dots,\overline7\}.
+	\varphi(a^{-1})=\varphi(a)^{-1}.
 \end{equation}
 
-More generally, the equality-of-cosets lemma becomes the familiar congruence
-criterion
+\begin{define}[Kernel and image]
+	Let $\varphi:G\to H$ be a homomorphism. Its \emph{kernel} and \emph{image}
+	are
+	\begin{align}
+		\ker(\varphi)&=\{x\in G:\varphi(x)=e_H\},\\
+		\im(\varphi)&=\{y\in H:y=\varphi(x)\text{ for some }x\in G\}.
+	\end{align}
+\end{define}
+
+\begin{proposition}
+	The kernel $\ker(\varphi)$ and image $\im(\varphi)$ are subgroups of
+	$G$ and $H$, respectively.
+\end{proposition}
+\begin{proof}
+	The kernel contains $e_G$. If $a,b\in\ker(\varphi)$, then
+	$\varphi(ab)=e_He_H=e_H$, and
+	$\varphi(a^{-1})=\varphi(a)^{-1}=e_H$. Thus the kernel is a subgroup.
+	The image contains $e_H=\varphi(e_G)$; it is closed under products because
+	$\varphi(a)\varphi(b)=\varphi(ab)$ and under inverses because
+	$\varphi(a)^{-1}=\varphi(a^{-1})$.
+\end{proof}
+
+\begin{lemma}[Fibres of a homomorphism]
+	Let $\varphi:G\to H$ be a homomorphism. For $a,b\in G$,
+	\begin{equation}
+		\varphi(a)=\varphi(b)
+		\quad\Longleftrightarrow\quad
+		a^{-1}b\in\ker(\varphi)
+		\quad\Longleftrightarrow\quad
+		b^{-1}a\in\ker(\varphi).
+	\end{equation}
+	In particular,
+	\begin{equation}
+		\varphi\text{ is injective}
+		\quad\Longleftrightarrow\quad
+		\ker(\varphi)=\{e_G\}.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	If $\varphi(a)=\varphi(b)$, then
+	\[
+	\varphi(a^{-1}b)=\varphi(a)^{-1}\varphi(b)=e_H.
+	\]
+	The converse follows by reversing this calculation. The equivalent statement
+	with $b^{-1}a$ follows by taking inverses. If $\varphi$ is injective,
+	then $\varphi(a)=e_H=\varphi(e_G)$ forces $a=e_G$, so its kernel is
+	trivial. Conversely, if the kernel is trivial and $\varphi(a)=\varphi(b)$,
+	the first equivalence gives $a^{-1}b=e_G$, hence $a=b$.
+\end{proof}
+%
+%More explicitly, the two directions of the first equivalence are
+%\begin{align*}
+%  \varphi(a)=\varphi(b)
+%  &\Longrightarrow
+%  \varphi(a^{-1}b)=\varphi(a)^{-1}\varphi(b)=e_H,\\
+%  a^{-1}b\in\ker(\varphi)
+%  &\Longrightarrow
+%  e_H=\varphi(a^{-1}b)=\varphi(a)^{-1}\varphi(b)
+%  \Longrightarrow \varphi(a)=\varphi(b).
+%\end{align*}
+%Thus the elements in any one fibre of $\varphi$ differ from one another by
+%elements of the kernel. This observation will later become the language of
+%cosets.
+
+\begin{corollary}
+	A homomorphism $\varphi:G\to H$ is an isomorphism if and only if
+	\begin{equation}
+		\ker(\varphi)=\{e_G\}
+		\qquad\text{and}\qquad
+		\im(\varphi)=H.
+	\end{equation}
+\end{corollary}
+
+We have defined an isomorphism as a bijective homomorphism. I prefer to think
+of it as a homomorphism with a homomorphic inverse: a homomorphism
+$\varphi:G\to H$ together with a homomorphism
+$\psi:H\to G$ satisfying
 \begin{equation}
-  a+8\Z=b+8\Z
-  \quad\Longleftrightarrow\quad
-  a-b\in8\Z
-  \quad\Longleftrightarrow\quad
-  a\equiv b\pmod 8.
+	\varphi\circ\psi=\id_H,
+	\qquad
+	\psi\circ\varphi=\id_G.
 \end{equation}
 
-\begin{remark}
-At this stage $G/H$ denotes a set of cosets. When $H\trianglelefteq G$, these
-cosets will inherit a well-defined group operation; this leads to quotient
-groups.
-\end{remark}
+The following proposition shows that these two descriptions are equivalent.
+
+\begin{proposition}
+	If a homomorphism $\varphi:G\to H$ is bijective, then its set-theoretic
+	inverse $\psi:H\to G$ is also a homomorphism.
+\end{proposition}
+
+\begin{proof}
+	Given $h_1,h_2\in H$, choose $g_1,g_2\in G$ with
+	$\varphi(g_i)=h_i$. Then
+	\[
+	\psi(h_1h_2)=\psi\bigl(\varphi(g_1)\varphi(g_2)\bigr)
+	=\psi\bigl(\varphi(g_1g_2)\bigr)=g_1g_2
+	=\psi(h_1)\psi(h_2).
+	\]
+\end{proof}
+
+\begin{example}[Reduction modulo $n$]
+Let $n\geq1$ be an integer. Write $\overline a$ for the congruence class
+of $a$ modulo $n$. The group $\Z/n\Z$ consists of these classes, with
+addition $\overline a+\overline b=\overline{a+b}$.
+The natural projection
+\begin{equation}
+  \pi_n:\Z\longrightarrow\Z/n\Z,\qquad a\longmapsto\overline a,
+\end{equation}
+is a homomorphism of additive groups, since
+\[
+  \pi_n(a+b)=\overline{a+b}=\overline a+\overline b
+  =\pi_n(a)+\pi_n(b).
+\]
+Every congruence class has an integer representative, so $\pi_n$ is
+surjective. Its kernel is
+\[
+  \ker(\pi_n)=\{a\in\Z:\overline a=\overline0\}
+  =\{a\in\Z:n\mid a\}=n\Z.
+\]
+Thus $\im(\pi_n)=\Z/n\Z$, while $\pi_n$ is not injective:
+the distinct integers $0$ and $n$ both map to $\overline0$.
+\end{example}
+
+\section{Examples: determinant and sign} 
+
+\begin{example}[The determinant homomorphism]
+Multiplicativity of the determinant says that
+\begin{equation}
+  \det:\GL_n(\R)\longrightarrow\R^*,
+  \qquad A\longmapsto\det(A),
+\end{equation}
+is a homomorphism, where $\R^*=\R\setminus\{0\}$ is a group under
+multiplication. Its kernel is
+\[
+  \ker(\det)=\SL_n(\R)
+  =\{A\in\GL_n(\R):\det(A)=1\}.
+\]
+\end{example}
+
+\subsection*{Approach A: parity of permutation length}
+
+\begin{example}[The sign homomorphism]
+Let $\{\pm1\}$ be the group under usual multiplication. Up to isomorphism,
+it is the unique group with two elements.
+Recall that $\ell(\sigma)$ is the minimum number of simple transpositions
+needed to express $\sigma$; it also equals the number of inversions of
+$\sigma$. Call $\sigma$ \emph{even} or \emph{odd} according to the parity
+of $\ell(\sigma)$.
+
+We will show that the following map is a homomorphism:
+\begin{equation}
+  \sgn:S_n\longrightarrow\{\pm1\},\qquad
+  \sgn(\sigma)=(-1)^{\ell(\sigma)}=
+  \begin{cases}
+    +1,&\text{if $\sigma$ is even},\\
+    -1,&\text{if $\sigma$ is odd}
+  \end{cases}
+  .
+\end{equation}
+The multiplication rule in $\{\pm1\}$ has exactly the desired parity table:
+\[
+\begin{array}{c|cc}
+ &\text{even}&\text{odd}\\ \hline
+\text{even}&\text{even}&\text{odd}\\
+\text{odd}&\text{odd}&\text{even}
+\end{array}
+\]
+\end{example}
+
+\begin{proof}
+The inversion lemma from Lecture 5 says that right multiplication by a
+simple transposition $s_i=(i\ i+1)$ changes the number of inversions by
+exactly one. Since length equals the number of inversions,
+\[
+  \ell(ps_i)=\ell(p)\pm1,
+  \qquad\text{so}\qquad
+  \ell(ps_i)\equiv\ell(p)+1\pmod2.
+\]
+Let $\sigma,\tau\in S_n$ and choose a shortest expression
+$\tau=s_{i_1}\cdots s_{i_k}$, where $k=\ell(\tau)$.
+Starting with $\sigma$ and multiplying successively on the right by
+$s_{i_1},\ldots,s_{i_k}$ flips the parity at each step. Thus
+\[
+  \ell(\sigma\tau)\equiv\ell(\sigma)+k
+  =\ell(\sigma)+\ell(\tau)\pmod2.
+\]
+It follows that
+\[
+  \sgn(\sigma\tau)=(-1)^{\ell(\sigma\tau)}
+  =(-1)^{\ell(\sigma)+\ell(\tau)}
+  =\sgn(\sigma)\sgn(\tau).
+\]
+\end{proof}
+
+\subsection*{Approach B: permutation matrices}
+
+We next construct the sign homomorphism geometrically. For
+$\sigma\in S_n$, let $e_1,\dots,e_n$ be the standard basis of $\R^n$ and
+define the permutation matrix $[\sigma]$ by
+\begin{equation}
+  [\sigma]e_i=e_{\sigma(i)}.
+\end{equation}
+Equivalently, the $i$th column of $[\sigma]$ is $e_{\sigma(i)}$.
+If $E_{ij}$ denotes the matrix with a $1$ in row $i$, column $j$, and zeros
+elsewhere, then
+\begin{equation}
+  [\sigma]=\sum_{i=1}^n E_{\sigma(i),i}.
+\end{equation}
+
+\begin{example}
+For $\sigma=(1\ 2\ 3)\in S_3$,
+\[
+  [\sigma]=
+  \begin{pmatrix}
+	    0&0&1\\
+	    1&0&0\\
+	    0&1&0
+	  \end{pmatrix},
+  \qquad
+  [\sigma]
+  \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+  =
+  \begin{pmatrix}x_3\\x_1\\x_2\end{pmatrix}.
+\]
+
+\end{example}
+
+\begin{warningbox}
+The entry in output position $j$ is $x_{\sigma^{-1}(j)}$.
+Indeed, the $i$th basis vector is sent to $e_{\sigma(i)}$, so the entry
+originally in position $i$ appears in position $\sigma(i)$.
+In column-vector notation,
+\[
+  [\sigma]
+  \begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}
+  =
+  \begin{pmatrix}
+    x_{\sigma^{-1}(1)}\\x_{\sigma^{-1}(2)}\\\vdots\\x_{\sigma^{-1}(n)}
+  \end{pmatrix}.
+\]
+\end{warningbox}
+
+\begin{proposition}
+The assignment $\sigma\mapsto[\sigma]$ is a homomorphism
+$S_n\to\GL_n(\R)$.
+\end{proposition}
+
+\begin{proof}
+Using right-to-left composition, for every standard basis vector $e_i$ we have
+\[
+  [\sigma][\tau]e_i
+  =[\sigma]e_{\tau(i)}
+  =e_{\sigma(\tau(i))}
+  =[\sigma\tau]e_i.
+\]
+Since the matrices agree on every basis vector,
+$[\sigma][\tau]=[\sigma\tau]$. Also, $[\id]=I_n$, so
+\[
+  [\sigma][\sigma^{-1}]=I_n=[\sigma^{-1}][\sigma].
+\]
+Thus $[\sigma]^{-1}=[\sigma^{-1}]$, which shows that $[\sigma]$ belongs
+to $\GL_n(\R)$ and completes the proof.
+\end{proof}
+
+Both $[\sigma]$ and $[\sigma^{-1}]$ have integer entries, so their
+determinants are integers. Since they are inverse matrices,
+\[
+  \det([\sigma])\det([\sigma^{-1}])=1.
+\]
+Hence $\det([\sigma])\in\{+1,-1\}$.
+
+\Needspace{9\baselineskip}
+\begin{define}[Sign]
+The determinant construction of the \emph{sign homomorphism} is the composition
+of $[\cdot]:S_n\longrightarrow\GL_n(\R)$, $\sigma\mapsto[\sigma]$,
+with $\det:\GL_n(\R)\longrightarrow\R^*$:
+\begin{equation}
+  \sgn:=\det\circ[\cdot]:S_n\longrightarrow\R^*,
+  \qquad \sgn(\sigma)=\det([\sigma]).
+\end{equation}
+Its image lies in $\{\pm1\}$, so we may regard it as a map
+$S_n\to\{\pm1\}$. We verify below that it agrees with Approach A.
+\end{define}
+
+The map is a homomorphism because
+\[
+  \sgn(\sigma\tau)=\det([\sigma\tau])
+  =\det([\sigma][\tau])=\sgn(\sigma)\sgn(\tau).
+\]
+
+This calculation is an instance of the following general fact which is left as an exercise. 
+
+\begin{lemma}[Composition of homomorphisms]
+Let $G_1,G_2,G_3$ be groups, and let $\varphi:G_1\to G_2$ and
+$\psi:G_2\to G_3$ be homomorphisms. Then
+$\psi\circ\varphi:G_1\to G_3$ is a homomorphism.
+\end{lemma}
+
+
+
+Finally, to compare the two constructions of sign, note that the matrix of a simple
+transposition exchanges two columns of $I_n$ and has determinant $-1$.
+For a shortest expression $\sigma=s_{i_1}\cdots s_{i_k}$, where
+$k=\ell(\sigma)$, multiplicativity gives
+\[
+  \det([\sigma])=\prod_{j=1}^k\det([s_{i_j}])
+  =(-1)^k=(-1)^{\ell(\sigma)}.
+\]
+Thus the determinant construction agrees with the sign homomorphism from
+Approach A.
+
+
+
+%Taking a shortest decomposition into simple transpositions gives
+%$\det([\sigma])=(-1)^{\ell(\sigma)}$. Thus the determinant construction
+%agrees with the homomorphism proved in Approach A. Every transposition decomposition has the
+%same parity: even when $\sgn(\sigma)=+1$, and odd when $\sgn(\sigma)=-1$.
+
+%\section{The centre of a group}
+%
+%\begin{definition}
+%The \emph{centre} of a group $G$ is
+%\begin{equation}
+%  Z(G)=\{z\in G:zx=xz\text{ for every }x\in G\}.
+%\end{equation}
+%\end{definition}
+%
+%\begin{proposition}
+%The centre $Z(G)$ is a subgroup of $G$.
+%\end{proposition}
+%
+%\begin{proof}
+%The identity commutes with every element. If $z_1,z_2\in Z(G)$ and $x\in G$,
+%then
+%\[
+%  z_1z_2x=z_1xz_2=xz_1z_2.
+%\]
+%Also $zx=xz$ implies $z^{-1}x=xz^{-1}$, so $z^{-1}\in Z(G)$.
+%\end{proof}
+%
+%For the inverse calculation, start with $zx=xz$ and multiply on the left and
+%right by $z^{-1}$:
+%\[
+%  xz^{-1}=z^{-1}x.
+%\]
+%Thus all three subgroup conditions are visible directly.
+%
+%\begin{example}[The centre of $\SL_2(\R)$]
+%Let
+%\[
+%  z=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in Z(\SL_2(\R)).
+%\]
+%Commuting with
+%$J=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$ gives $a=d$ and $b=-c$.
+%Commuting with
+%$U=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ then gives $b=0$.
+%Therefore $z=aI_2$, and the condition $\det z=1$ gives $a^2=1$.
+%Consequently,
+%\begin{equation}
+%  Z(\SL_2(\R))=\{I_2,-I_2\}.
+%\end{equation}
+%\end{example}
+%
+%Indeed, the first commutation relation is
+%\[
+%  \begin{pmatrix}a&b\\c&d\end{pmatrix}
+%  \begin{pmatrix}0&1\\-1&0\end{pmatrix}
+%  =
+%  \begin{pmatrix}0&1\\-1&0\end{pmatrix}
+%  \begin{pmatrix}a&b\\c&d\end{pmatrix},
+%\]
+%or
+%\[
+%  \begin{pmatrix}-b&a\\-d&c\end{pmatrix}
+%  =
+%  \begin{pmatrix}c&d\\-a&-b\end{pmatrix}.
+%\]
+%Hence $z=\begin{pmatrix}a&b\\-b&a\end{pmatrix}$.  The second relation becomes
+%\[
+%  \begin{pmatrix}a&a+b\\-b&a-b\end{pmatrix}
+%  =
+%  \begin{pmatrix}a-b&a+b\\-b&a\end{pmatrix},
+%\]
+%so $b=0$, as claimed.
+%
+%\section{Isomorphisms and automorphisms}
+%
+%We begin by recalling the definitions from the preceding lecture.  A map
+%$\varphi:G\to H$ is a homomorphism when
+%\[
+%  \varphi(ab)=\varphi(a)\varphi(b)
+%  \qquad(a,b\in G).
+%\]
+%It then follows that $\varphi(e_G)=e_H$ and
+%$\varphi(x^{-1})=\varphi(x)^{-1}$.
+%
+%\begin{definition}
+%For groups $G$ and $H$, write
+%\[
+%  \Hom(G,H)=\{\varphi:G\to H:\varphi\text{ is a homomorphism}\}.
+%\]
+%An \emph{isomorphism} $\varphi:G\to H$ is a homomorphism admitting a
+%homomorphic inverse $\psi:H\to G$. We write $G\cong H$ if an isomorphism
+%exists, and $\Iso(G,H)$ for the set of all such isomorphisms.
+%\end{definition}
+%
+%\begin{proposition}
+%A homomorphism is an isomorphism if and only if it is bijective. Equivalently,
+%\[
+%  \varphi:G\to H\text{ is an isomorphism}
+%  \quad\Longleftrightarrow\quad
+%  \ker(\varphi)=\{e_G\}\text{ and }\im(\varphi)=H.
+%\]
+%\end{proposition}
+%
+%The two conditions in the displayed formula separate bijectivity into its
+%two parts:
+%\[
+%  \varphi\text{ injective}\Longleftrightarrow\ker(\varphi)=\{e_G\},
+%  \qquad
+%  \varphi\text{ surjective}\Longleftrightarrow\im(\varphi)=H.
+%\]
+%
+%\begin{definition}
+%An isomorphism $G\to G$ is called an \emph{automorphism} of $G$. The set of
+%all automorphisms is denoted by $\Aut(G)$.
+%\end{definition}
+%
+%\section{Conjugation}
+%
+%The kernel of a homomorphism is not just a subgroup: it has an additional
+%symmetry. To describe it, fix $g\in G$.
+%
+%\begin{definition}
+%The map
+%\begin{equation}
+%  c_g:G\longrightarrow G,
+%  \qquad c_g(x)=gxg^{-1},
+%\end{equation}
+%is called \emph{conjugation by $g$}.
+%\end{definition}
+%
+%\begin{proposition}
+%For every $g\in G$, the map $c_g$ is an automorphism of $G$, with inverse
+%$c_{g^{-1}}$.
+%\end{proposition}
+%
+%\begin{proof}
+%For $a,b\in G$,
+%\[
+%  c_g(ab)=gabg^{-1}=(gag^{-1})(gbg^{-1})=c_g(a)c_g(b).
+%\]
+%Moreover,
+%\[
+%  c_gc_{g^{-1}}(x)=g(g^{-1}xg)g^{-1}=x,
+%  \qquad
+%  c_{g^{-1}}c_g(x)=x.
+%\]
+%\end{proof}
+%
+%\begin{remark}
+%Conjugation distributes over products:
+%\[
+%  g(a_1\cdots a_r)g^{-1}
+%  =(ga_1g^{-1})\cdots(ga_rg^{-1}).
+%\]
+%Consequently, isomorphisms and automorphisms preserve every property that can
+%be expressed purely in terms of the group operation.
+%\end{remark}
+%
+%For two factors, the inserted identity $g^{-1}g=e$ makes the calculation
+%transparent:
+%\[
+%  g(ab)g^{-1}=ga(g^{-1}g)bg^{-1}
+%  =(gag^{-1})(gbg^{-1}).
+%\]
+%
+%For permutations, conjugation has a particularly useful description. If
+%$\tau=(i_1\ \cdots\ i_k)$ and $\sigma\in S_n$, then
+%\begin{equation}
+%  \sigma\tau\sigma^{-1}
+%  =\bigl(\sigma(i_1)\ \cdots\ \sigma(i_k)\bigr).
+%\end{equation}
+%Thus conjugation preserves cycle type.
+%
+%To see the displayed formula directly, follow an entry of the cycle:
+%\[
+%  \sigma(i_1)\longmapsto\sigma(i_2)
+%  \longmapsto\cdots\longmapsto\sigma(i_k)
+%  \longmapsto\sigma(i_1).
+%\]
+%
+%\section{Normal subgroups}
+%
+%\begin{definition}
+%A subgroup $N\leq G$ is \emph{normal} if
+%\begin{equation}
+%  gNg^{-1}\subseteq N
+%  \qquad\text{for every }g\in G.
+%\end{equation}
+%We write $N\trianglelefteq G$.
+%\end{definition}
+%
+%\begin{remark}
+%The inclusion in the definition is automatically an equality. Applying it
+%to $g^{-1}$ gives $g^{-1}Ng\subseteq N$; conjugating this inclusion by $g$
+%gives $N\subseteq gNg^{-1}$. Hence
+%\begin{equation}
+%  gNg^{-1}=N\qquad(g\in G).
+%\end{equation}
+%\end{remark}
+%
+%Normal subgroups are useful for two related reasons.  First, they are the
+%subgroups that can occur as kernels of homomorphisms.  Second, they are the
+%subgroups for which the cosets can be made into a group.  This second point
+%will lead to quotient groups.
+%
+%\begin{proposition}
+%If $\varphi:G\to H$ is a homomorphism, then
+%$\ker(\varphi)\trianglelefteq G$.
+%\end{proposition}
+%
+%\begin{proof}
+%Let $x\in\ker(\varphi)$ and $g\in G$. Then
+%\[
+%  \varphi(gxg^{-1})
+%  =\varphi(g)\varphi(x)\varphi(g)^{-1}
+%  =\varphi(g)e_H\varphi(g)^{-1}=e_H.
+%\]
+%Thus $gxg^{-1}\in\ker(\varphi)$.
+%\end{proof}
+%
+%\begin{example}
+%Every subgroup of an abelian group is normal, since $ghg^{-1}=h$.
+%Also, $\{e_G\}$ and $G$ are normal in every group.
+%\end{example}
+%
+%When $N$ is neither $\{e_G\}$ nor $G$, it is a \emph{proper nontrivial normal
+%	subgroup}.  The absence of such subgroups is important enough to name.
+%
+%\begin{definition}
+%A group $G$ is \emph{simple} if its only normal subgroups are $\{e_G\}$ and
+%$G$.
+%\end{definition}
+%
+%\begin{example}[Normal subgroups of $S_3$]
+%Write
+%\[
+%  S_3=\{1,x,x^2,y,xy,yx\},
+%  \qquad x^3=y^2=1,
+%  \qquad yx=x^2y.
+%\]
+%The subgroup $H=\langle x\rangle=\{1,x,x^2\}$ is normal. Conjugation by
+%elements of $H$ leaves $H$ fixed, and
+%\[
+%  yHy^{-1}=\{1,yxy,yx^2y\}=\{1,x^2,x\}=H.
+%\]
+%Equivalently, $H$ is the kernel of the sign homomorphism
+%$\sgn:S_3\to\{\pm1\}$.
+%
+%In contrast, $L=\langle y\rangle=\{1,y\}$ is not normal because
+%\[
+%  xLx^{-1}=\{1,xyx^{-1}\}=\{1,yx\}\neq L.
+%\]
+%The three even permutations are $1,(1\ 2\ 3),(1\ 3\ 2)$, so
+%\[
+%  \ker(\sgn)=\{1,x,x^2\}.
+%\]
+%\end{example}
+%
+%Here are the conjugation calculations from class in expanded form.  Since
+%$y^{-1}=y$ and $yx=x^2y$,
+%\begin{align*}
+%  yxy^{-1}&=yxy=x^2,\\
+%  yx^2y^{-1}&=(yxy)(yxy)=x^2x^2=x.
+%\end{align*}
+%Hence $yHy^{-1}=H$.  For $L=\{1,y\}$, however,
+%\[
+%  xLx^{-1}=\{1,xyx^{-1}\}=\{1,yx\},
+%\]
+%which is a different two-element subgroup.  Thus the two cyclic subgroups
+%behave differently under conjugation even though both are abelian in their
+%own right.
+%
+%In cycle notation, the six elements of $S_3$ split as
+%\[
+%  \underbrace{\id,(1\ 2\ 3),(1\ 3\ 2)}_{\text{even}}
+%  \qquad\text{and}\qquad
+%  \underbrace{(1\ 2),(1\ 3),(2\ 3)}_{\text{odd}}.
+%\]
+%The even part is precisely $H=\ker(\sgn)$, which gives a second proof that
+%$H\trianglelefteq S_3$.
+%
+%
+%
+%\section{Normality revisited}
+%
+%Recall that $N\leq G$ is normal if $gNg^{-1}\subseteq N$ for every $g\in G$.
+%
+%\begin{proposition}
+%For a subgroup $N\leq G$, the following are equivalent:
+%\begin{enumerate}[label=\textbf{(\arabic*)}]
+%  \item $gNg^{-1}\subseteq N$ for every $g\in G$;
+%  \item $gNg^{-1}=N$ for every $g\in G$;
+%  \item $gN=Ng$ for every $g\in G$.
+%\end{enumerate}
+%\end{proposition}
+%
+%\begin{proof}
+%Suppose (1) holds. Applying it to $g^{-1}$ gives
+%$g^{-1}Ng\subseteq N$. If $n\in N$, then $g^{-1}ng\in N$, and hence
+%$n=g(g^{-1}ng)g^{-1}\in gNg^{-1}$. Thus $N\subseteq gNg^{-1}$ and (2)
+%follows. Multiplying the equality $gNg^{-1}=N$ on the right by $g$ gives
+%$gN=Ng$, proving (3). Conversely, multiplying $gN=Ng$ on the right by
+%$g^{-1}$ gives $gNg^{-1}=N$.
+%\end{proof}
+%
+%For example, in
+%\[
+%  S_3=\{1,x,x^2,y,xy,yx\},
+%  \qquad x^3=y^2=1,
+%  \qquad yx=x^2y,
+%\]
+%the subgroup $N=\{1,x,x^2\}$ satisfies $yNy^{-1}=N$, and hence is normal.
+%This calculation will reappear naturally in terms of cosets.
+%
+%Writing out the calculation used in the previous lecture,
+%\begin{align*}
+%  yNy^{-1}
+%  &=(yN)y^{-1}\\
+%  &=\{y,yx,yx^2\}y^{-1}\\
+%  &=\{1,yxy,yx^2y\}\\
+%  &=\{1,x^2,x\}=N.
+%\end{align*}
+%Multiplying the equality $yNy^{-1}=N$ on the right by $y$ also gives
+%$yN=Ny$.
+%
+%\section{Left and right cosets}
+%
+%\begin{definition}
+%Let $H\leq G$ and $g\in G$. The \emph{left coset} and \emph{right coset}
+%of $H$ represented by $g$ are
+%\begin{equation}
+%  gH=\{gh:h\in H\},
+%  \qquad
+%  Hg=\{hg:h\in H\}.
+%\end{equation}
+%The element $g$ is called a \emph{coset representative}.
+%\end{definition}
+%
+%If $g\in H$, then $gH=H=Hg$. A representative is not unique: every element
+%of a coset represents that same coset.
+%
+%\begin{example}[Cosets in $S_3$]
+%Let $H=\{1,x,x^2\}\leq S_3$. Then
+%\[
+%  1H=xH=x^2H=H,
+%\]
+%whereas
+%\[
+%  yH=xyH=yxH=\{y,xy,yx\}.
+%\]
+%Thus the set of left cosets has two elements:
+%\[
+%  S_3/H=\{H,yH\}.
+%\]
+%Since $H$ is normal, these are also the two right cosets.
+%\end{example}
+%
+%The individual computations are
+%\begin{align*}
+%  1H&=\{1,x,x^2\},\\
+%  xH&=\{x,x^2,x^3\}=\{1,x,x^2\}=H,\\
+%  x^2H&=\{x^2,x^3,x^4\}=\{1,x,x^2\}=H,\\
+%  yH&=\{y,yx,yx^2\}=\{y,yx,xy\},\\
+%  xyH&=\{xy,xyx,xyx^2\}=\{xy,y,yx\},\\
+%  yxH&=\{yx,yx^2,yx^3\}=\{yx,xy,y\}.
+%\end{align*}
+%Thus every element of $S_3$ lies in exactly one of the two cosets $H$ and
+%$yH$.
+%
+%\begin{lemma}[Equality of cosets]
+%Let $H\leq G$ and $g_1,g_2\in G$. Then
+%\begin{equation}
+%  g_1H\cap g_2H\neq\varnothing
+%  \quad\Longleftrightarrow\quad
+%  g_1H=g_2H
+%  \quad\Longleftrightarrow\quad
+%  g_2^{-1}g_1\in H.
+%\end{equation}
+%\end{lemma}
+%
+%\begin{proof}
+%First consider the special case $g_2=e$. We have
+%\[
+%  gH\cap H\neq\varnothing
+%  \quad\Longleftrightarrow\quad
+%  g\in H
+%  \quad\Longleftrightarrow\quad
+%  gH=H.
+%\]
+%Indeed, if $g\in H$, closure under multiplication gives $gH\subseteq H$;
+%and for $h\in H$, the expression $h=g(g^{-1}h)$ shows $H\subseteq gH$.
+%Conversely, if $x\in gH\cap H$, write $x=gh$ with $h\in H$. Then
+%$g=xh^{-1}\in H$.
+%
+%For the general case, left multiplication by $g_2^{-1}$ reduces it to the
+%special case:
+%\[
+%  g_1H\cap g_2H\neq\varnothing
+%  \quad\Longleftrightarrow\quad
+%  g_2^{-1}g_1H\cap H\neq\varnothing
+%  \quad\Longleftrightarrow\quad
+%  g_2^{-1}g_1\in H.
+%\]
+%The same reduction shows that this is equivalent to $g_1H=g_2H$.
+%\end{proof}
+%
+%For completeness, the reduction may also be written elementwise.  If
+%$x\in g_1H\cap g_2H$, then $x=g_1h_1=g_2h_2$ for some $h_1,h_2\in H$.
+%Therefore
+%\[
+%  g_2^{-1}g_1=h_2h_1^{-1}\in H.
+%\]
+%Conversely, if $g_2^{-1}g_1=h\in H$, then $g_1=g_2h\in g_2H$, so the two
+%cosets intersect and hence are equal.
+%
+%\begin{proposition}
+%The collection of left cosets $\{gH:g\in G\}$ is a partition of $G$.
+%That is, every element of $G$ belongs to a left coset, and two left cosets
+%are either equal or disjoint.
+%\end{proposition}
+%
+%\begin{proof}
+%Every $g\in G$ lies in $gH$ because $g=ge$ and $e\in H$. The preceding
+%lemma shows that any two cosets that intersect are equal.
+%\end{proof}
+%
+%\begin{definition}[Coset space]
+%The set of left cosets of $H$ in $G$ is denoted by
+%\begin{equation}
+%  G/H=\{gH:g\in G\}.
+%\end{equation}
+%\end{definition}
+%
+%\section{Example: cosets of \texorpdfstring{$8\Z$}{8Z}}
+%
+%Consider the additive group $G=\Z$ and its subgroup $H=8\Z$. For
+%$n\in\Z$, the coset represented by $n$ is
+%\begin{equation}
+%  n+8\Z=\{n+8k:k\in\Z\}.
+%\end{equation}
+%It consists precisely of the integers congruent to $n$ modulo $8$.
+%
+%For example,
+%\begin{align*}
+%  0+8\Z&=\{\ldots,-16,-8,0,8,16,24,\ldots\},\\
+%  1+8\Z&=\{\ldots,-15,-7,1,9,17,25,\ldots\},\\
+%  2+8\Z&=\{\ldots,-14,-6,2,10,18,26,\ldots\},\\
+%  7+8\Z&=\{\ldots,-9,-1,7,15,23,31,\ldots\}.
+%\end{align*}
+%The remaining four cosets are obtained in the same way.  Arranging integers
+%by their remainder on division by $8$ gives eight disjoint columns, one for
+%each coset.
+%
+%There are eight distinct cosets:
+%\begin{equation}
+%  \Z/8\Z
+%  =\{0+8\Z,1+8\Z,\dots,7+8\Z\}.
+%\end{equation}
+%For instance,
+%\[
+%  0+8\Z=8+8\Z,
+%  \qquad
+%  1+8\Z=17+8\Z.
+%\]
+%Writing $\overline n=n+8\Z$, we may abbreviate the coset space as
+%\begin{equation}
+%  \Z/8\Z=\{\overline0,\overline1,\dots,\overline7\}.
+%\end{equation}
+%
+%More generally, the equality-of-cosets lemma becomes the familiar congruence
+%criterion
+%\begin{equation}
+%  a+8\Z=b+8\Z
+%  \quad\Longleftrightarrow\quad
+%  a-b\in8\Z
+%  \quad\Longleftrightarrow\quad
+%  a\equiv b\pmod 8.
+%\end{equation}
+%
+%\begin{remark}
+%At this stage $G/H$ denotes a set of cosets. When $H\trianglelefteq G$, these
+%cosets will inherit a well-defined group operation; this leads to quotient
+%groups.
+%\end{remark}
 
 \end{document}

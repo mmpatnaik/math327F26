@@ -1,0 +1,125 @@
+% Shared template for MATH 327 lectures, starting with Lecture 6.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{math327-lecture}[2026/09/18 MATH 327 lecture style]
+
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{enumitem}
+\RequirePackage[hidelinks]{hyperref}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{definitiongreen}{HTML}{EEF8EE}
+\definecolor{definitionborder}{HTML}{8FB58F}
+\definecolor{lightpink}{HTML}{FCE8EF}
+\definecolor{exerciseorange}{HTML}{FFF0DF}
+\definecolor{exerciseborder}{HTML}{D9822B}
+\colorlet{exercisebackground}{lightpink}
+\colorlet{exerciseframe}{WildStrawberry}
+\definecolor{definered}{HTML}{FDECEC}
+\definecolor{defineborder}{HTML}{D98282}
+\definecolor{warningyellow}{HTML}{FFF7D6}
+\definecolor{warningborder}{HTML}{D5A500}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\setlist[itemize]{topsep=0.15em,itemsep=0.1em}
+
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth\else
+    \par\addpenalty\@secpenalty\addvspace{#2}\begingroup\hyphenpenalty\@M
+    \@ifempty{#4}{\@tempdima\csname r@tocindent\number#1\endcsname\relax}{\@tempdima#4\relax}
+    \parindent\z@\leftskip#3\relax\advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus4em\parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima\ifcase #1\or\or\hskip 1em\or\hskip 2em\else\hskip 3em\fi
+    #6\nobreak\relax\dotfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par\nobreak\endgroup
+  \fi}
+\makeatother
+
+
+% All colored environments can continue across page breaks.
+\tcbset{lecturebox/.style={
+  enhanced,breakable,boxrule=0.5pt,arc=1mm,
+  left=2mm,right=2mm,top=1mm,bottom=1mm,
+  before skip=0.45em,after skip=0.45em
+}}
+
+% Keep the existing per-section counters, including the separate red/green
+% definition counters and the shared theorem/exercise counter.
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{define}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\tcolorboxenvironment{definition}{lecturebox,colback=definitiongreen,colframe=definitionborder}
+\tcolorboxenvironment{define}{lecturebox,colback=definered,colframe=defineborder}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\tcolorboxenvironment{theorem}{lecturebox,colback=lightblue,colframe=courseblue}
+\tcolorboxenvironment{lemma}{lecturebox,colback=lightblue,colframe=courseblue}
+\tcolorboxenvironment{proposition}{lecturebox,colback=lightblue,colframe=courseblue}
+\tcolorboxenvironment{corollary}{lecturebox,colback=lightblue,colframe=courseblue}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+\tcolorboxenvironment{exercise}{lecturebox,colback=exercisebackground,colframe=exerciseframe}
+\newtcolorbox{warningbox}{lecturebox,colback=warningyellow,colframe=warningborder,
+  coltitle=darkgray,fonttitle=\bfseries,title={Warning}}
+% Accept the warning name used in earlier lectures as well.
+\newenvironment{warning}{\begin{warningbox}}{\end{warningbox}}
+\numberwithin{equation}{section}
+
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Iso}{\operatorname{Iso}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\be}{\begin{eqnarray}}
+\newcommand{\ee}{\end{eqnarray}}
+
+
+% Set these three fields in each lecture's preamble.
+\newcommand{\lectureinfo}[3]{%
+  \def\lecturenumber{#1}%
+  \def\lecturedate{#2}%
+  % Orange exercises from Lecture 7 onward; preserve Lecture 6's pink style.
+  \ifnum#1>6\relax
+    \colorlet{exercisebackground}{exerciseorange}%
+    \colorlet{exerciseframe}{exerciseborder}%
+  \else
+    \colorlet{exercisebackground}{lightpink}%
+    \colorlet{exerciseframe}{WildStrawberry}%
+  \fi
+  \hypersetup{pdftitle={Lecture #1, MATH 327: #3},
+    pdfauthor={Manish Patnaik},pdfsubject={MATH 327 course notes}}%
+}
+\newcommand{\makelecturetitle}{%
+  \begin{center}
+    \colorbox{lightblue}{\begin{minipage}{0.94\textwidth}
+      \vspace{0.55em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Lecture \lecturenumber} & {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.35em]
+        & \textbf{Date: \lecturedate}\\
+        & \textbf{Instructor: Manish Patnaik}
+      \end{tabular*}
+      \vspace{0.45em}
+    \end{minipage}}
+  \end{center}
+  \setcounter{tocdepth}{1}
+  \tableofcontents
+}
