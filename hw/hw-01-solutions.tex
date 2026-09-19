@@ -1,0 +1,448 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={Homework 1 Solutions, MATH 327, Fall 2026},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 homework solutions}
+}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{boxborder}{HTML}{B8CBDC}
+\definecolor{solutiongreen}{HTML}{2E6B4F}
+\definecolor{lightsolution}{HTML}{F2F8F4}
+\definecolor{darkgray}{HTML}{333333}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.3em, topsep=0.3em}
+
+\newtcolorbox{exercise}[1]{
+  enhanced, breakable,
+  colback=white,
+  colframe=boxborder,
+  colbacktitle=lightblue,
+  coltitle=courseblue,
+  fonttitle=\bfseries,
+  title={Exercise #1},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm, right=2.5mm, top=1.5mm, bottom=1.5mm,
+  before skip=0.8em, after skip=0.35em
+}
+
+\newtcolorbox{solution}{
+  enhanced, breakable,
+  colback=lightsolution,
+  colframe=solutiongreen!55,
+  colbacktitle=solutiongreen!12,
+  coltitle=solutiongreen,
+  fonttitle=\bfseries,
+  title={Solution},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm, right=2.5mm, top=1.5mm, bottom=1.5mm,
+  before skip=0.25em, after skip=0.9em
+}
+
+\newcommand{\chapterheading}[1]{%
+  \par\vspace{0.5em}
+  {\color{courseblue}\Large\bfseries #1}\par\vspace{0.35em}
+  {\color{boxborder}\hrule height 0.6pt}\vspace{0.35em}
+}
+
+\newcommand{\sectionheading}[1]{%
+  \vspace{0.25em}
+  {\color{darkgray}\large\bfseries #1}\par
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\im}{\operatorname{im}}
+
+\begin{document}
+
+\begin{center}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.92\textwidth}
+      \vspace{0.6em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Homework 1 Solutions} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.4em]
+        \multicolumn{2}{l}{\color{darkgray}\bfseries Fall 2026}
+      \end{tabular*}
+      \vspace{0.5em}
+    \end{minipage}}
+\end{center}
+
+\vspace{0.5em}
+
+Unless otherwise indicated, the following exercises are from Michael Artin's
+\emph{Algebra}, second edition.  We write products of permutations using the
+right-to-left convention, and put $s_i=(i\ i+1)$.
+
+\chapterheading{Chapter 1: Matrices}
+
+\sectionheading{Section 1: The Basic Operations}
+
+\begin{exercise}{1.13}
+A square matrix $A$ is \emph{nilpotent} if $A^k=0$ for some $k>0$.
+Prove that if $A$ is nilpotent, then $I+A$ is invertible. Do this by
+finding the inverse.
+\end{exercise}
+
+\begin{solution}
+Choose $k>0$ such that $A^k=0$, and set
+\[
+  S=I-A+A^2-A^3+\cdots+(-1)^{k-1}A^{k-1}.
+\]
+This is a finite geometric sum.  Multiplying on either side gives
+\[
+ (I+A)S=S(I+A)=I+(-1)^{k-1}A^k=I.
+\]
+Thus $I+A$ is invertible and
+\[
+  \boxed{(I+A)^{-1}=I-A+A^2-\cdots+(-1)^{k-1}A^{k-1}}.
+\]
+\end{solution}
+
+\sectionheading{Miscellaneous Problems}
+
+\begin{exercise}{M.10}
+Let $A,B$ be $m\times n$ and $n\times m$ matrices. Prove that
+$I_m-AB$ is invertible if and only if $I_n-BA$ is invertible.
+\end{exercise}
+
+\begin{solution}
+Suppose first that $I_m-AB$ is invertible, and write
+$X=(I_m-AB)^{-1}$.  We claim that
+\[
+  Y=I_n+BXA
+\]
+is the inverse of $I_n-BA$.  Indeed,
+\begin{align*}
+ (I_n-BA)Y
+ &=I_n-BA+BXA-BABXA\\
+ &=I_n-BA+B(I_m-AB)XA=I_n,
+\end{align*}
+because $(I_m-AB)X=I_m$.  Similarly,
+\begin{align*}
+ Y(I_n-BA)
+ &=I_n-BA+BXA-BXABA\\
+ &=I_n-BA+BX(I_m-AB)A=I_n,
+\end{align*}
+because $X(I_m-AB)=I_m$.  Therefore
+\[
+  (I_n-BA)^{-1}=I_n+B(I_m-AB)^{-1}A.
+\]
+The converse follows by interchanging $A$ and $B$ (and $m$ and $n$).
+\end{solution}
+
+\chapterheading{Chapter 2: Groups}
+
+\sectionheading{Supplementary Problems: Permutations, Cycles, and Length}
+
+\begin{exercise}{P.1}
+Let $p=[4,1,6,2,5,3]\in S_6$.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Write $p$ as a product of disjoint cycles.
+  \item List all inversions of $p$.
+  \item Compute $\operatorname{inv}(p)$ and hence determine $\ell(p)$.
+  \item Express $p$ as a product of exactly $\ell(p)$ simple transpositions.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Following the images of the entries gives
+  \[
+    1\mapsto4\mapsto2\mapsto1,
+    \qquad 3\mapsto6\mapsto3,
+    \qquad 5\mapsto5.
+  \]
+  Hence $p=(1\ 4\ 2)(3\ 6)$, with the fixed point $5$ omitted.
+
+  \item An inversion is a pair $(i,j)$ with $i<j$ and $p(i)>p(j)$.
+  Reading from the one-line notation, the inversions are
+  \[
+  (1,2),(1,4),(1,6),
+  (3,4),(3,5),(3,6),(5,6).
+  \]
+
+  \item There are seven inversions, so
+  \[
+    \operatorname{inv}(p)=7
+    \qquad\text{and hence}\qquad
+    \ell(p)=7.
+  \]
+
+  \item Starting with the identity in one-line notation and successively
+  swapping adjacent positions gives
+  \begin{align*}
+  [1,2,3,4,5,6]
+  &\xrightarrow{s_3}[1,2,4,3,5,6]
+  \xrightarrow{s_2}[1,4,2,3,5,6]
+  \xrightarrow{s_1}[4,1,2,3,5,6]\\
+  &\xrightarrow{s_5}[4,1,2,3,6,5]
+  \xrightarrow{s_4}[4,1,2,6,3,5]
+  \xrightarrow{s_3}[4,1,6,2,3,5]\\
+  &\xrightarrow{s_5}[4,1,6,2,5,3].
+  \end{align*}
+  Thus
+  \[
+    \boxed{p=s_3s_2s_1s_5s_4s_3s_5}.
+  \]
+  This expression has seven factors, so it is reduced.
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}{P.2}
+Let $1\leq a<b\leq n$, and let $\tau=(a\ b)\in S_n$.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Write $\tau$ in one-line notation.
+  \item Prove that $\operatorname{inv}(\tau)=2(b-a)-1$.
+  \item Deduce that $\ell(\tau)=2(b-a)-1$.
+  \item Explain why two permutations with the same cycle type need not have
+        the same Coxeter length.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item The transposition fixes every entry except $a$ and $b$, so its
+  one-line notation is
+  \[
+  [1,\ldots,a-1,\,b,\,a+1,\ldots,b-1,\,a,\,b+1,\ldots,n].
+  \]
+
+  \item The inversions involving position $a$ are
+  \[
+    (a,a+1),(a,a+2),\ldots,(a,b),
+  \]
+  giving $b-a$ inversions.  The remaining inversions are
+  \[
+    (a+1,b),(a+2,b),\ldots,(b-1,b),
+  \]
+  giving $b-a-1$ more.  All other pairs retain their natural order.
+  Therefore
+  \[
+    \operatorname{inv}(\tau)=(b-a)+(b-a-1)=2(b-a)-1.
+  \]
+
+  \item Since Coxeter length in $S_n$ equals the number of inversions,
+  \[
+    \boxed{\ell(\tau)=2(b-a)-1}.
+  \]
+
+  \item All transpositions have the same cycle type, namely one $2$-cycle
+  and $n-2$ fixed points, but their lengths depend on the distance between
+  the exchanged positions.  For example, when $n\geq3$,
+  \[
+    \ell((1\ 2))=1,
+    \qquad
+    \ell((1\ n))=2n-3.
+  \]
+  Thus cycle type does not determine Coxeter length.
+\end{enumerate}
+\end{solution}
+
+\sectionheading{Section 3: Subgroups of the Additive Group of Integers}
+
+\begin{exercise}{3.3}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Define the greatest common divisor of $\{a_1,\ldots,a_n\}$.
+        Prove that it exists and is an integer combination of the $a_i$.
+  \item If the greatest common divisor is $d$, prove that the greatest
+        common divisor of $\{a_1/d,\ldots,a_n/d\}$ is $1$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+Assume the $a_i$ are not all zero.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item The greatest common divisor is the unique positive integer $d$
+  such that
+  \begin{enumerate}[label=(\roman*), leftmargin=2.2em]
+    \item $d\mid a_i$ for every $i$, and
+    \item every common divisor of the $a_i$ divides $d$.
+  \end{enumerate}
+  To prove existence, consider
+  \[
+    H=\Z a_1+\cdots+\Z a_n
+     =\{r_1a_1+\cdots+r_na_n:r_i\in\Z\}.
+  \]
+  This is a nonzero subgroup of $\Z$, so $H=d\Z$ for a unique $d>0$.
+  Since $d\in H$, there are integers $r_1,\ldots,r_n$ for which
+  \[
+    d=r_1a_1+\cdots+r_na_n.
+  \]
+  Also $a_i\in H=d\Z$, so $d\mid a_i$ for every $i$.  If $c$ is any
+  common divisor of the $a_i$, then $c$ divides every integer combination
+  of them, and therefore $c\mid d$.  Hence this $d$ is the gcd and is an
+  integer combination of the $a_i$.
+
+  \item Put $a_i'=a_i/d$.  Dividing the displayed B\'ezout identity by
+  $d$ gives
+  \[
+    1=r_1a_1'+\cdots+r_na_n'.
+  \]
+  Any common divisor of the $a_i'$ must divide the left-hand side, so the
+  only positive common divisor is $1$.  Thus
+  $\gcd(a_1/d,\ldots,a_n/d)=1$.
+\end{enumerate}
+\end{solution}
+
+\sectionheading{Section 4: Cyclic Groups}
+
+\begin{exercise}{4.3}
+Let $a,b\in G$. Prove that $ab$ and $ba$ have the same order.
+\end{exercise}
+
+\begin{solution}
+The elements are conjugate, since
+\[
+  ba=b(ab)b^{-1}.
+\]
+For every integer $r$, conjugation gives
+\[
+  (ba)^r=b(ab)^rb^{-1}.
+\]
+Consequently $(ba)^r=1$ if and only if $(ab)^r=1$.  Thus the least
+positive such $r$ is the same for both elements; if no such $r$ exists,
+both have infinite order.  Hence $ab$ and $ba$ have the same order.
+\end{solution}
+
+\begin{exercise}{4.7}
+Let $x,y\in G$. Assume that $x$, $y$, and $xy$ each have order $2$.
+Prove that $H=\{1,x,y,xy\}$ is a subgroup of $G$ of order $4$.
+\end{exercise}
+
+\begin{solution}
+Because $x^2=y^2=(xy)^2=1$, each of $x,y,xy$ is its own inverse.  Moreover,
+\[
+  yx=y^{-1}x^{-1}=(xy)^{-1}=xy,
+\]
+so $x$ and $y$ commute.  It follows that every product of powers of $x$
+and $y$ reduces to one of
+\[
+  1,\quad x,\quad y,\quad xy.
+\]
+Thus $H=\langle x,y\rangle$ and is a subgroup.  The four displayed
+elements are distinct: $x,y,xy$ are not $1$ because each has order $2$;
+$x=y$ would imply $xy=x^2=1$; and $xy=x$ or $xy=y$ would imply respectively
+$y=1$ or $x=1$.  Hence $|H|=4$.
+\end{solution}
+
+\sectionheading{Section 5: Homomorphisms}
+
+\begin{exercise}{5.3}
+Let $U$ be the group of invertible upper triangular matrices
+$A=\begin{bmatrix}a&b\\0&d\end{bmatrix}$, and define
+$\varphi\colon U\to\R^\times$ by $\varphi(A)=a^2$. Prove that $\varphi$
+is a homomorphism, and determine its kernel and image.
+\end{exercise}
+
+\begin{solution}
+For
+\[
+ A=\begin{bmatrix}a&b\\0&d\end{bmatrix},\qquad
+ C=\begin{bmatrix}c&e\\0&f\end{bmatrix}\in U,
+\]
+the upper-left entry of $AC$ is $ac$.  Therefore
+\[
+  \varphi(AC)=(ac)^2=a^2c^2=\varphi(A)\varphi(C),
+\]
+so $\varphi$ is a homomorphism.  Since an upper triangular matrix is
+invertible exactly when $a,d\neq0$,
+\[
+ \ker\varphi
+ =\left\{
+ \begin{bmatrix}\varepsilon&b\\0&d\end{bmatrix}:
+ \varepsilon\in\{1,-1\},\ b\in\R,\ d\in\R^\times
+ \right\}.
+\]
+Every value $a^2$ is positive, so $\im\varphi\subseteq\R_{>0}$.  Conversely,
+if $r>0$, then
+\[
+ \varphi\!\left(\begin{bmatrix}\sqrt r&0\\0&1\end{bmatrix}\right)=r.
+\]
+Hence $\im\varphi=\R_{>0}$.
+\end{solution}
+
+\begin{exercise}{5.6}
+Determine the center of $\GL_n(\R)$.
+\end{exercise}
+
+\begin{solution}
+Every nonzero scalar matrix commutes with every matrix, so
+$\{\lambda I_n:\lambda\in\R^\times\}$ lies in the center.
+
+Conversely, let $A=(a_{pq})$ be central.  For $i\neq j$, the elementary
+matrix $T_{ij}=I_n+E_{ij}$ is invertible.  From $AT_{ij}=T_{ij}A$ we get
+$AE_{ij}=E_{ij}A$.  Entrywise this says
+\[
+  a_{pi}\,\delta_{jq}=\delta_{pi}\,a_{jq}
+  \qquad\text{for all }p,q.
+\]
+Taking $q=j$ and $p\neq i$ gives $a_{pi}=0$, so column $i$ has no
+off-diagonal entries.  Taking $p=i$ and $q\neq j$ gives $a_{jq}=0$, so
+row $j$ has no off-diagonal entries.  Finally, taking $(p,q)=(i,j)$ gives
+$a_{ii}=a_{jj}$.  As $i\neq j$ were arbitrary, $A$ is diagonal and all
+its diagonal entries are equal.  Since $A$ is invertible, this common
+entry is nonzero.  Therefore
+\[
+  \boxed{Z(\GL_n(\R))=\{\lambda I_n:\lambda\in\R^\times\}}.
+\]
+(For $n=1$, the same conclusion is immediate.)
+\end{solution}
+
+\sectionheading{Section 6: Isomorphisms}
+
+\begin{exercise}{6.7}
+Let $H\leq G$ and let $g\in G$. Prove that
+$gHg^{-1}=\{ghg^{-1}:h\in H\}$ is a subgroup of $G$.
+\end{exercise}
+
+\begin{solution}
+The set is nonempty because $g1g^{-1}=1$.  If
+$x=gh_1g^{-1}$ and $y=gh_2g^{-1}$ belong to $gHg^{-1}$, then
+\[
+  xy^{-1}
+  =(gh_1g^{-1})(gh_2g^{-1})^{-1}
+  =g(h_1h_2^{-1})g^{-1}.
+\]
+Since $h_1h_2^{-1}\in H$, we have $xy^{-1}\in gHg^{-1}$.  The subgroup
+test now shows that $gHg^{-1}\leq G$.
+\end{solution}
+
+\begin{exercise}{6.11}
+Let $a\in G$. Prove that if $\{1,a\}$ is a normal subgroup of $G$, then
+$a$ lies in the center of $G$.
+\end{exercise}
+
+\begin{solution}
+If $a=1$, the conclusion is immediate.  Otherwise, let $g\in G$.  Normality
+gives
+\[
+  gag^{-1}\in\{1,a\}.
+\]
+Conjugation is injective, so $gag^{-1}\neq1$ because $a\neq1$.
+Consequently $gag^{-1}=a$, and hence $ga=ag$.  This holds for every
+$g\in G$, so $a\in Z(G)$.
+\end{solution}
+
+\vfill
+{\small\color{darkgray}Compiled \today.}
+
+\end{document}
