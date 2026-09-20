@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-09-20
+
+[Homework 2](hw/hw-02.pdf) is posted. It covers Lectures 8–13; the suggested completion date is October 5.
+
 ## 2026-08-25
 Welcome to MATH 327. Lecture notes will be posted here after each class,
 and problem sets appear under **Problem sets** as the term goes on. Note that they are **not to be turned in**. They are just for your practice. 
