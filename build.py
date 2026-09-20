@@ -97,8 +97,16 @@ if announcements:
             f'        {body}\n'
             f'      </div>'
         )
-    rendered = ('    <div class="announce-list">\n'
-                + "\n".join(blocks) + "\n    </div>")
+    rendered = '    <div class="announce-list">\n' + blocks[0]
+    if len(blocks) > 1:
+        rendered += (
+            '\n      <details class="announce-history">\n'
+            '        <summary>Earlier announcements</summary>\n'
+            '        <div class="announce-list">\n'
+            + "\n".join(blocks[1:])
+            + '\n        </div>\n      </details>'
+        )
+    rendered += '\n    </div>'
 else:
     rendered = ('    <p class="announce-empty">'
                 'No announcements yet.</p>')
