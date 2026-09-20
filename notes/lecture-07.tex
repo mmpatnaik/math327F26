@@ -1,7 +1,7 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\lectureinfo{7}{Sep. 18, 2026}{Subgroups, Homomorphisms, and Sign}
+\lectureinfo{7}{Sep. 18, 2026}{Subgroups and Homomorphisms}
 
 \begin{document}
 \makelecturetitle
@@ -153,6 +153,29 @@ so
 	\end{align}
 \end{define}
 
+\begin{example}[Reduction modulo $n$]
+Let $n\geq1$ be an integer. Write $\overline a$ for the congruence class
+of $a$ modulo $n$. The group $\Z/n\Z$ consists of these classes, with
+addition $\overline a+\overline b=\overline{a+b}$.
+The natural projection
+\begin{equation}
+  \pi_n:\Z\longrightarrow\Z/n\Z,\qquad a\longmapsto\overline a,
+\end{equation}
+is a homomorphism of additive groups, since
+\[
+  \pi_n(a+b)=\overline{a+b}=\overline a+\overline b
+  =\pi_n(a)+\pi_n(b).
+\]
+Every congruence class has an integer representative, so $\pi_n$ is
+surjective. Its kernel is
+\[
+  \ker(\pi_n)=\{a\in\Z:\overline a=\overline0\}
+  =\{a\in\Z:n\mid a\}=n\Z.
+\]
+Thus $\im(\pi_n)=\Z/n\Z$, while $\pi_n$ is not injective:
+the distinct integers $0$ and $n$ both map to $\overline0$.
+\end{example}
+
 \begin{proposition}
 	The kernel $\ker(\varphi)$ and image $\im(\varphi)$ are subgroups of
 	$G$ and $H$, respectively.
@@ -245,218 +268,98 @@ The following proposition shows that these two descriptions are equivalent.
 	\]
 \end{proof}
 
-\begin{example}[Reduction modulo $n$]
-Let $n\geq1$ be an integer. Write $\overline a$ for the congruence class
-of $a$ modulo $n$. The group $\Z/n\Z$ consists of these classes, with
-addition $\overline a+\overline b=\overline{a+b}$.
-The natural projection
-\begin{equation}
-  \pi_n:\Z\longrightarrow\Z/n\Z,\qquad a\longmapsto\overline a,
-\end{equation}
-is a homomorphism of additive groups, since
+\begin{example}[Homomorphisms determined by generators and relations]
+Consider the six-element group from Section~1:
 \[
-  \pi_n(a+b)=\overline{a+b}=\overline a+\overline b
-  =\pi_n(a)+\pi_n(b).
+  G=\{1,x,x^2,y,xy,x^2y\},
+  \qquad x^3=1,\quad y^2=1,\quad yx=x^2y,
 \]
-Every congruence class has an integer representative, so $\pi_n$ is
-surjective. Its kernel is
+and let
 \[
-  \ker(\pi_n)=\{a\in\Z:\overline a=\overline0\}
-  =\{a\in\Z:n\mid a\}=n\Z.
+  H=S_3=\{(1),(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)\}.
 \]
-Thus $\im(\pi_n)=\Z/n\Z$, while $\pi_n$ is not injective:
-the distinct integers $0$ and $n$ both map to $\overline0$.
-\end{example}
+Here $(1)$ denotes the identity permutation, and permutations are composed
+from right to left. What maps $\varphi:G\to S_3$ are homomorphisms?
 
-\section{Examples: determinant and sign} 
-
-\begin{example}[The determinant homomorphism]
-Multiplicativity of the determinant says that
-\begin{equation}
-  \det:\GL_n(\R)\longrightarrow\R^*,
-  \qquad A\longmapsto\det(A),
-\end{equation}
-is a homomorphism, where $\R^*=\R\setminus\{0\}$ is a group under
-multiplication. Its kernel is
+\smallskip
+\noindent\textbf{Step 1: choose the images of the generators.}
+Put $\sigma=\varphi(x)$ and $\tau=\varphi(y)$. If $\varphi$ is a
+homomorphism, all its values are forced by these two choices:
 \[
-  \ker(\det)=\SL_n(\R)
-  =\{A\in\GL_n(\R):\det(A)=1\}.
-\]
-\end{example}
-
-\subsection*{Approach A: parity of permutation length}
-
-\begin{example}[The sign homomorphism]
-Let $\{\pm1\}$ be the group under usual multiplication. Up to isomorphism,
-it is the unique group with two elements.
-Recall that $\ell(\sigma)$ is the minimum number of simple transpositions
-needed to express $\sigma$; it also equals the number of inversions of
-$\sigma$. Call $\sigma$ \emph{even} or \emph{odd} according to the parity
-of $\ell(\sigma)$.
-
-We will show that the following map is a homomorphism:
-\begin{equation}
-  \sgn:S_n\longrightarrow\{\pm1\},\qquad
-  \sgn(\sigma)=(-1)^{\ell(\sigma)}=
-  \begin{cases}
-    +1,&\text{if $\sigma$ is even},\\
-    -1,&\text{if $\sigma$ is odd}
-  \end{cases}
-  .
-\end{equation}
-The multiplication rule in $\{\pm1\}$ has exactly the desired parity table:
-\[
-\begin{array}{c|cc}
- &\text{even}&\text{odd}\\ \hline
-\text{even}&\text{even}&\text{odd}\\
-\text{odd}&\text{odd}&\text{even}
+\begin{array}{c|cccccc}
+  g&1&x&x^2&y&xy&x^2y\\ \hline
+  \varphi(g)&(1)&\sigma&\sigma^2&\tau&\sigma\tau&\sigma^2\tau
 \end{array}
 \]
+In particular, we cannot choose the images of the six elements independently.
+
+\smallskip
+\noindent\textbf{Step 2: preserve the relations.}
+Applying $\varphi$ to each defining relation gives
+\[
+  \sigma^3=(1),\qquad \tau^2=(1),\qquad
+  \tau\sigma=\sigma^2\tau.
+\]
+Thus $\sigma$ is either $(1)$ or a $3$-cycle, while $\tau$ is either
+$(1)$ or a transposition. The order of an image may be smaller than the
+order of the original element: for example, $\varphi(x)=(1)$ is allowed.
+The last relation imposes an additional compatibility condition.
+
+These conditions are also sufficient. Indeed, write each element of $G$
+uniquely as $x^iy^j$, where $0\leq i<3$ and $0\leq j<2$. Since
+$yx=x^{-1}y$, multiplication in $G$ is given by
+\[
+  (x^iy^j)(x^ky^\ell)=x^{\,i+(-1)^jk}y^{\,j+\ell},
+\]
+with the exponents reduced modulo $3$ and $2$, respectively. If
+$\sigma,\tau$ satisfy the three displayed relations, then
+$\tau\sigma=\sigma^{-1}\tau$, so their products obey the same rule:
+\[
+  (\sigma^i\tau^j)(\sigma^k\tau^\ell)
+  =\sigma^{\,i+(-1)^jk}\tau^{\,j+\ell}.
+\]
+Consequently, $\varphi(x^iy^j)=\sigma^i\tau^j$ defines a homomorphism.
+
+\smallskip
+\noindent\textbf{Step 3: list the possibilities.}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item If $\sigma=(1)$, the compatibility condition is automatic.
+  We may take $\tau=(1)$ or any of the three transpositions.
+  The first choice gives the trivial homomorphism, with kernel $G$ and
+  image $\{(1)\}$. For each transposition $\tau$, we obtain a homomorphism
+  with
+  \[
+    \ker(\varphi)=\{1,x,x^2\},\qquad
+    \im(\varphi)=\{(1),\tau\}.
+  \]
+  These are four homomorphisms in total.
+
+  \item If $\sigma$ is a $3$-cycle, we cannot take $\tau=(1)$:
+  the last relation would give $\sigma=\sigma^2$, hence $\sigma=(1)$.
+  Every transposition does work, because conjugating a $3$-cycle by a
+  transposition reverses it:
+  \[
+    \tau\sigma\tau^{-1}=\sigma^{-1}=\sigma^2.
+  \]
+  There are two choices for $\sigma$ and three for $\tau$, giving six
+  homomorphisms. Each is an isomorphism: the three elements
+  $(1),\sigma,\sigma^2$ are distinct, as are
+  $\tau,\sigma\tau,\sigma^2\tau$, and these two sets are disjoint.
+  Indeed, an equality $\sigma^i\tau=\sigma^k$ would make the
+  transposition $\tau$ a power of a $3$-cycle. Thus all six images are
+  distinct, so $\ker(\varphi)=\{1\}$ and $\im(\varphi)=S_3$.
+\end{enumerate}
+For instance, choosing $\varphi(x)=(1\ 2\ 3)$ and
+$\varphi(y)=(1\ 2)$ gives the isomorphism
+\[
+\begin{array}{c|cccccc}
+  g&1&x&x^2&y&xy&x^2y\\ \hline
+  \varphi(g)&(1)&(1\ 2\ 3)&(1\ 3\ 2)&(1\ 2)&(1\ 3)&(2\ 3)
+\end{array}
+\]
+There are therefore exactly $4+6=10$ homomorphisms $G\to S_3$, of which
+six are isomorphisms.
 \end{example}
-
-\begin{proof}
-The inversion lemma from Lecture 5 says that right multiplication by a
-simple transposition $s_i=(i\ i+1)$ changes the number of inversions by
-exactly one. Since length equals the number of inversions,
-\[
-  \ell(ps_i)=\ell(p)\pm1,
-  \qquad\text{so}\qquad
-  \ell(ps_i)\equiv\ell(p)+1\pmod2.
-\]
-Let $\sigma,\tau\in S_n$ and choose a shortest expression
-$\tau=s_{i_1}\cdots s_{i_k}$, where $k=\ell(\tau)$.
-Starting with $\sigma$ and multiplying successively on the right by
-$s_{i_1},\ldots,s_{i_k}$ flips the parity at each step. Thus
-\[
-  \ell(\sigma\tau)\equiv\ell(\sigma)+k
-  =\ell(\sigma)+\ell(\tau)\pmod2.
-\]
-It follows that
-\[
-  \sgn(\sigma\tau)=(-1)^{\ell(\sigma\tau)}
-  =(-1)^{\ell(\sigma)+\ell(\tau)}
-  =\sgn(\sigma)\sgn(\tau).
-\]
-\end{proof}
-
-\subsection*{Approach B: permutation matrices}
-
-We next construct the sign homomorphism geometrically. For
-$\sigma\in S_n$, let $e_1,\dots,e_n$ be the standard basis of $\R^n$ and
-define the permutation matrix $[\sigma]$ by
-\begin{equation}
-  [\sigma]e_i=e_{\sigma(i)}.
-\end{equation}
-Equivalently, the $i$th column of $[\sigma]$ is $e_{\sigma(i)}$.
-If $E_{ij}$ denotes the matrix with a $1$ in row $i$, column $j$, and zeros
-elsewhere, then
-\begin{equation}
-  [\sigma]=\sum_{i=1}^n E_{\sigma(i),i}.
-\end{equation}
-
-\begin{example}
-For $\sigma=(1\ 2\ 3)\in S_3$,
-\[
-  [\sigma]=
-  \begin{pmatrix}
-	    0&0&1\\
-	    1&0&0\\
-	    0&1&0
-	  \end{pmatrix},
-  \qquad
-  [\sigma]
-  \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
-  =
-  \begin{pmatrix}x_3\\x_1\\x_2\end{pmatrix}.
-\]
-
-\end{example}
-
-\begin{warningbox}
-The entry in output position $j$ is $x_{\sigma^{-1}(j)}$.
-Indeed, the $i$th basis vector is sent to $e_{\sigma(i)}$, so the entry
-originally in position $i$ appears in position $\sigma(i)$.
-In column-vector notation,
-\[
-  [\sigma]
-  \begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}
-  =
-  \begin{pmatrix}
-    x_{\sigma^{-1}(1)}\\x_{\sigma^{-1}(2)}\\\vdots\\x_{\sigma^{-1}(n)}
-  \end{pmatrix}.
-\]
-\end{warningbox}
-
-\begin{proposition}
-The assignment $\sigma\mapsto[\sigma]$ is a homomorphism
-$S_n\to\GL_n(\R)$.
-\end{proposition}
-
-\begin{proof}
-Using right-to-left composition, for every standard basis vector $e_i$ we have
-\[
-  [\sigma][\tau]e_i
-  =[\sigma]e_{\tau(i)}
-  =e_{\sigma(\tau(i))}
-  =[\sigma\tau]e_i.
-\]
-Since the matrices agree on every basis vector,
-$[\sigma][\tau]=[\sigma\tau]$. Also, $[\id]=I_n$, so
-\[
-  [\sigma][\sigma^{-1}]=I_n=[\sigma^{-1}][\sigma].
-\]
-Thus $[\sigma]^{-1}=[\sigma^{-1}]$, which shows that $[\sigma]$ belongs
-to $\GL_n(\R)$ and completes the proof.
-\end{proof}
-
-Both $[\sigma]$ and $[\sigma^{-1}]$ have integer entries, so their
-determinants are integers. Since they are inverse matrices,
-\[
-  \det([\sigma])\det([\sigma^{-1}])=1.
-\]
-Hence $\det([\sigma])\in\{+1,-1\}$.
-
-\Needspace{9\baselineskip}
-\begin{define}[Sign]
-The determinant construction of the \emph{sign homomorphism} is the composition
-of $[\cdot]:S_n\longrightarrow\GL_n(\R)$, $\sigma\mapsto[\sigma]$,
-with $\det:\GL_n(\R)\longrightarrow\R^*$:
-\begin{equation}
-  \sgn:=\det\circ[\cdot]:S_n\longrightarrow\R^*,
-  \qquad \sgn(\sigma)=\det([\sigma]).
-\end{equation}
-Its image lies in $\{\pm1\}$, so we may regard it as a map
-$S_n\to\{\pm1\}$. We verify below that it agrees with Approach A.
-\end{define}
-
-The map is a homomorphism because
-\[
-  \sgn(\sigma\tau)=\det([\sigma\tau])
-  =\det([\sigma][\tau])=\sgn(\sigma)\sgn(\tau).
-\]
-
-This calculation is an instance of the following general fact which is left as an exercise. 
-
-\begin{lemma}[Composition of homomorphisms]
-Let $G_1,G_2,G_3$ be groups, and let $\varphi:G_1\to G_2$ and
-$\psi:G_2\to G_3$ be homomorphisms. Then
-$\psi\circ\varphi:G_1\to G_3$ is a homomorphism.
-\end{lemma}
-
-
-
-Finally, to compare the two constructions of sign, note that the matrix of a simple
-transposition exchanges two columns of $I_n$ and has determinant $-1$.
-For a shortest expression $\sigma=s_{i_1}\cdots s_{i_k}$, where
-$k=\ell(\sigma)$, multiplicativity gives
-\[
-  \det([\sigma])=\prod_{j=1}^k\det([s_{i_j}])
-  =(-1)^k=(-1)^{\ell(\sigma)}.
-\]
-Thus the determinant construction agrees with the sign homomorphism from
-Approach A.
-
-
 
 %Taking a shortest decomposition into simple transpositions gives
 %$\det([\sigma])=(-1)^{\ell(\sigma)}$. Thus the determinant construction

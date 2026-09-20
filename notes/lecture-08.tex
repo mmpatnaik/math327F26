@@ -1,0 +1,432 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{8}{Sep. 21, 2026}{Automorphisms, Normal Subgroups, and Sign}
+
+% Based on the mathematical content of handwritten Lecture 6, Sep. 15, 2025.
+\begin{document}
+\makelecturetitle
+
+\section{Homomorphisms, isomorphisms, and automorphisms}
+
+We begin by recalling the definitions from Lecture 7. For groups $G$ and $H$,
+a map $\varphi:G\to H$ is a homomorphism if
+\[
+  \varphi(ab)=\varphi(a)\varphi(b)\qquad(a,b\in G).
+\]
+It follows that $\varphi(e_G)=e_H$ and
+$\varphi(a^{-1})=\varphi(a)^{-1}$. We write
+\[
+  \Hom(G,H)=\{\varphi:G\to H:\varphi\text{ is a homomorphism}\}.
+\]
+
+\begin{define}[Isomorphism and automorphism]
+An \emph{isomorphism} $\varphi:G\to H$ is a homomorphism admitting a
+homomorphic inverse $\psi:H\to G$, so that
+\[
+  \psi\circ\varphi=\id_G,\qquad \varphi\circ\psi=\id_H.
+\]
+We write $G\cong H$ if such a map exists, and $\Iso(G,H)$ for the set of
+isomorphisms from $G$ to $H$.
+An isomorphism $G\to G$ is called an \emph{automorphism} of $G$; the set
+of all automorphisms is denoted by $\Aut(G)$.
+\end{define}
+
+As proved in Lecture 7, for a homomorphism $\varphi:G\to H$,
+\begin{align*}
+  \varphi\text{ is an isomorphism}
+  &\quad\Longleftrightarrow\quad \varphi\text{ is bijective}\\
+  &\quad\Longleftrightarrow\quad
+  \ker(\varphi)=\{e_G\}\text{ and }\im(\varphi)=H.
+\end{align*}
+The kernel is a special kind of subgroup, called a normal subgroup.
+To explain this, we first introduce an important automorphism.
+
+\section{Example: conjugation}
+
+\begin{define}[Conjugation]
+Fix $g\in G$. The map
+\begin{equation}
+  c_g:G\longrightarrow G,\qquad c_g(a)=gag^{-1},
+\end{equation}
+is called \emph{conjugation by $g$}.
+\end{define}
+
+If $G$ is abelian, then $c_g(a)=a$ for every $a,g\in G$, so each $c_g$
+is the identity map. Conjugation becomes useful in studying nonabelian groups.
+
+\begin{proposition}
+For every $g\in G$, the map $c_g$ is an automorphism, with inverse $c_{g^{-1}}$.
+\end{proposition}
+\begin{proof}
+For $a,b\in G$, inserting $g^{-1}g=e_G$ gives
+\[
+  c_g(ab)=gabg^{-1}=ga(g^{-1}g)bg^{-1}
+  =(gag^{-1})(gbg^{-1})=c_g(a)c_g(b).
+\]
+Thus $c_g$ is a homomorphism. Moreover,
+\[
+  c_g\bigl(c_{g^{-1}}(a)\bigr)=g(g^{-1}ag)g^{-1}=a,
+  \qquad
+  c_{g^{-1}}\bigl(c_g(a)\bigr)=g^{-1}(gag^{-1})g=a.
+\]
+Hence $c_{g^{-1}}$ is its inverse.
+\end{proof}
+
+\begin{remark}
+Conjugation distributes over any finite product:
+\[
+  g(a_1\cdots a_r)g^{-1}=(ga_1g^{-1})\cdots(ga_rg^{-1}).
+\]
+Isomorphisms, including automorphisms, preserve properties expressed in
+terms of the group operation. For example, conjugate elements have the
+same order, since $(gag^{-1})^m=ga^mg^{-1}$ for every integer $m$.
+\end{remark}
+
+
+\subsection*{Conjugation in cycle notation}
+
+Conjugation of permutations has a particularly simple description:
+it relabels the entries of each cycle.
+
+\begin{proposition}
+	For $\sigma\in S_n$ and a cycle $\tau=(j_1\ \cdots\ j_r)$,
+	\begin{equation}
+		\sigma\tau\sigma^{-1}
+		=\bigl(\sigma(j_1)\ \cdots\ \sigma(j_r)\bigr).
+	\end{equation}
+\end{proposition}
+\begin{proof}
+	Applying the three permutations from right to left sends
+	\[
+	\sigma(j_i)\xmapsto{\sigma^{-1}}j_i
+	\xmapsto{\tau}j_{i+1}
+	\xmapsto{\sigma}\sigma(j_{i+1}),
+	\]
+	where $j_{r+1}=j_1$. Every entry outside
+	$\{\sigma(j_1),\ldots,\sigma(j_r)\}$ is fixed. This is exactly the cycle
+	on the right-hand side.
+\end{proof}
+
+Since conjugation distributes over products, the same rule applies to
+every cycle in a disjoint-cycle decomposition. In particular, conjugation
+preserves cycle type.
+
+
+\section{Normal subgroups}
+
+\begin{define}[Normal subgroup]
+A subgroup $N\leq G$ is \emph{normal} if
+\begin{equation}
+  gNg^{-1}\subseteq N\qquad\text{for every }g\in G,
+\end{equation}
+where $gNg^{-1}=\{gng^{-1}:n\in N\}$. We write $N\trianglelefteq G$.
+\end{define}
+
+\begin{remark}
+The inclusion is automatically an equality. Applying it to $g^{-1}$ gives
+$g^{-1}Ng\subseteq N$. Conjugating this inclusion by $g$ gives
+$N\subseteq gNg^{-1}$. Therefore $gNg^{-1}=N$ for every $g\in G$.
+\end{remark}
+
+Normal subgroups arise naturally as kernels. They will also allow us to
+form quotient groups and study a group through smaller groups, using the
+isomorphism theorems.
+
+\begin{proposition}\label{prop:kernel-normal}
+If $\varphi:G\to H$ is a homomorphism, then $\ker(\varphi)\trianglelefteq G$.
+\end{proposition}
+\begin{proof}
+We already know that $\ker(\varphi)$ is a subgroup. If $a\in\ker(\varphi)$
+and $g\in G$, then
+\[
+  \varphi(gag^{-1})
+  =\varphi(g)\varphi(a)\varphi(g)^{-1}
+  =\varphi(g)e_H\varphi(g)^{-1}=e_H.
+\]
+Thus $gag^{-1}\in\ker(\varphi)$, as required.
+\end{proof}
+
+\begin{example}
+Every subgroup of an abelian group is normal, since $gag^{-1}=a$.
+For any group $G$, the subgroups $\{e_G\}$ and $G$ are normal.
+A normal subgroup different from both is called a \emph{proper nontrivial
+normal subgroup}.
+\end{example}
+
+\begin{define}[Simple group]
+A nontrivial group $G$ is \emph{simple} if its only normal subgroups are
+$\{e_G\}$ and $G$.
+\end{define}
+
+\subsection*{Two cyclic subgroups of $S_3$}
+
+Write
+\[
+  S_3=\{1,x,x^2,y,xy,x^2y\},\qquad
+  x^3=1,\quad y^2=1,\quad yx=x^2y.
+\]
+Consider the cyclic subgroups
+\[
+  H=\langle x\rangle=\{1,x,x^2\},\qquad L=\langle y\rangle=\{1,y\}.
+\]
+Both are abelian as groups in their own right. Are they normal in $S_3$?
+
+\begin{example}[The subgroup $H$ is normal]
+Conjugation by any element of $H$ fixes every element of $H$.
+To conjugate by $y$, use $y^{-1}=y$ and the relation $yx=x^2y$:
+\begin{align*}
+  yxy^{-1}&=yxy=x^2,\\
+  yx^2y^{-1}&=(yxy^{-1})(yxy^{-1})=x^2x^2=x.
+\end{align*}
+Consequently,
+\begin{align*}
+  yHy^{-1}
+  &=\{y,yx,yx^2\}y^{-1}\\
+  &=\{1,yxy^{-1},yx^2y^{-1}\}
+   =\{1,x^2,x\}=H.
+\end{align*}
+This also deals with the remaining elements $x^iy$, because
+\[
+  (x^iy)H(x^iy)^{-1}=x^i(yHy^{-1})x^{-i}=x^iHx^{-i}=H.
+\]
+Thus $H\trianglelefteq S_3$.
+\end{example}
+
+\begin{example}[The subgroup $L$ is not normal]
+It is enough to find one conjugation that does not preserve $L$.
+Since $x^{-1}=x^2$ and $xyx=y$, we have
+\[
+  xyx^{-1}=xyx^2=(xyx)x=yx=x^2y.
+\]
+Therefore
+\[
+  xLx^{-1}=\{1,xyx^{-1}\}=\{1,x^2y\}\neq\{1,y\}=L.
+\]
+In particular, a subgroup can be abelian without being normal in its
+ambient group.
+\end{example}
+
+With $x=(1\ 2\ 3)$ and $y=(1\ 2)$, the six elements are
+\[
+\begin{array}{c|cccccc}
+  g&1&x&x^2&y&xy&x^2y\\ \hline
+  \text{cycle notation}&(1)&(1\ 2\ 3)&(1\ 3\ 2)&(1\ 2)&(1\ 3)&(2\ 3).
+\end{array}
+\]
+The subgroup $H$ consists of the even permutations. We next construct the
+sign homomorphism and identify $H$ as its kernel, giving another proof
+that $H$ is normal.
+
+
+
+
+\section{Examples: determinant and sign}
+
+\begin{example}[The determinant homomorphism]
+Multiplicativity of the determinant says that
+\begin{equation}
+  \det:\GL_n(\R)\longrightarrow\R^*,
+  \qquad A\longmapsto\det(A),
+\end{equation}
+is a homomorphism, where $\R^*=\R\setminus\{0\}$ is a group under
+multiplication. Its kernel is
+\[
+  \ker(\det)=\SL_n(\R)
+  =\{A\in\GL_n(\R):\det(A)=1\}.
+\]
+Since kernels are normal, $\SL_n(\R)\trianglelefteq\GL_n(\R)$.
+\end{example}
+
+\subsection*{Approach A: parity of permutation length}
+
+\begin{example}[The sign homomorphism]
+Let $\{\pm1\}$ be the group under usual multiplication. Up to isomorphism,
+it is the unique group with two elements.
+Recall that $\ell(\sigma)$ is the minimum number of simple transpositions
+needed to express $\sigma$; it also equals the number of inversions of
+$\sigma$. Call $\sigma$ \emph{even} or \emph{odd} according to the parity
+of $\ell(\sigma)$.
+
+We will show that the following map is a homomorphism:
+\begin{equation}
+  \sgn:S_n\longrightarrow\{\pm1\},\qquad
+  \sgn(\sigma)=(-1)^{\ell(\sigma)}=
+  \begin{cases}
+    +1,&\text{if $\sigma$ is even},\\
+    -1,&\text{if $\sigma$ is odd}
+  \end{cases}
+  .
+\end{equation}
+The multiplication rule in $\{\pm1\}$ has exactly the desired parity table:
+\[
+\begin{array}{c|cc}
+ &\text{even}&\text{odd}\\ \hline
+\text{even}&\text{even}&\text{odd}\\
+\text{odd}&\text{odd}&\text{even}
+\end{array}
+\]
+\end{example}
+
+\begin{proof}
+The inversion lemma from Lecture 5 says that right multiplication by a
+simple transposition $s_i=(i\ i+1)$ changes the number of inversions by
+exactly one. Since length equals the number of inversions,
+\[
+  \ell(ps_i)=\ell(p)\pm1,
+  \qquad\text{so}\qquad
+  \ell(ps_i)\equiv\ell(p)+1\pmod2.
+\]
+Let $\sigma,\tau\in S_n$ and choose a shortest expression
+$\tau=s_{i_1}\cdots s_{i_k}$, where $k=\ell(\tau)$.
+Starting with $\sigma$ and multiplying successively on the right by
+$s_{i_1},\ldots,s_{i_k}$ flips the parity at each step. Thus
+\[
+  \ell(\sigma\tau)\equiv\ell(\sigma)+k
+  =\ell(\sigma)+\ell(\tau)\pmod2.
+\]
+It follows that
+\[
+  \sgn(\sigma\tau)=(-1)^{\ell(\sigma\tau)}
+  =(-1)^{\ell(\sigma)+\ell(\tau)}
+  =\sgn(\sigma)\sgn(\tau).
+\]
+\end{proof}
+
+\subsection*{Approach B: permutation matrices}
+
+We next construct the sign homomorphism geometrically. For
+$\sigma\in S_n$, let $e_1,\dots,e_n$ be the standard basis of $\R^n$ and
+define the permutation matrix $[\sigma]$ by
+\begin{equation}
+  [\sigma]e_i=e_{\sigma(i)}.
+\end{equation}
+Equivalently, the $i$th column of $[\sigma]$ is $e_{\sigma(i)}$.
+If $E_{ij}$ denotes the matrix with a $1$ in row $i$, column $j$, and zeros
+elsewhere, then
+\begin{equation}
+  [\sigma]=\sum_{i=1}^n E_{\sigma(i),i}.
+\end{equation}
+
+\begin{example}
+For $\sigma=(1\ 2\ 3)\in S_3$,
+\[
+  [\sigma]=
+  \begin{pmatrix}
+	    0&0&1\\
+	    1&0&0\\
+	    0&1&0
+	  \end{pmatrix},
+  \qquad
+  [\sigma]
+  \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+  =
+  \begin{pmatrix}x_3\\x_1\\x_2\end{pmatrix}.
+\]
+
+\end{example}
+
+\begin{warningbox}
+The entry in output position $j$ is $x_{\sigma^{-1}(j)}$.
+Indeed, the $i$th basis vector is sent to $e_{\sigma(i)}$, so the entry
+originally in position $i$ appears in position $\sigma(i)$.
+In column-vector notation,
+\[
+  [\sigma]
+  \begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}
+  =
+  \begin{pmatrix}
+    x_{\sigma^{-1}(1)}\\x_{\sigma^{-1}(2)}\\\vdots\\x_{\sigma^{-1}(n)}
+  \end{pmatrix}.
+\]
+\end{warningbox}
+
+\begin{proposition}
+The assignment $\sigma\mapsto[\sigma]$ is a homomorphism
+$S_n\to\GL_n(\R)$.
+\end{proposition}
+
+\begin{proof}
+Using right-to-left composition, for every standard basis vector $e_i$ we have
+\[
+  [\sigma][\tau]e_i
+  =[\sigma]e_{\tau(i)}
+  =e_{\sigma(\tau(i))}
+  =[\sigma\tau]e_i.
+\]
+Since the matrices agree on every basis vector,
+$[\sigma][\tau]=[\sigma\tau]$. Also, $[\id]=I_n$, so
+\[
+  [\sigma][\sigma^{-1}]=I_n=[\sigma^{-1}][\sigma].
+\]
+Thus $[\sigma]^{-1}=[\sigma^{-1}]$, which shows that $[\sigma]$ belongs
+to $\GL_n(\R)$ and completes the proof.
+\end{proof}
+
+Both $[\sigma]$ and $[\sigma^{-1}]$ have integer entries, so their
+determinants are integers. Since they are inverse matrices,
+\[
+  \det([\sigma])\det([\sigma^{-1}])=1.
+\]
+Hence $\det([\sigma])\in\{+1,-1\}$.
+
+\Needspace{9\baselineskip}
+\begin{define}[Sign]
+The determinant construction of the \emph{sign homomorphism} is the composition
+of $[\cdot]:S_n\longrightarrow\GL_n(\R)$, $\sigma\mapsto[\sigma]$,
+with $\det:\GL_n(\R)\longrightarrow\R^*$:
+\begin{equation}
+  \sgn:=\det\circ[\cdot]:S_n\longrightarrow\R^*,
+  \qquad \sgn(\sigma)=\det([\sigma]).
+\end{equation}
+Its image lies in $\{\pm1\}$, so we may regard it as a map
+$S_n\to\{\pm1\}$. We verify below that it agrees with Approach A.
+\end{define}
+
+The map is a homomorphism because
+\[
+  \sgn(\sigma\tau)=\det([\sigma\tau])
+  =\det([\sigma][\tau])=\sgn(\sigma)\sgn(\tau).
+\]
+
+This calculation is an instance of the following general fact, which is left as an exercise.
+
+\begin{lemma}[Composition of homomorphisms]
+Let $G_1,G_2,G_3$ be groups, and let $\varphi:G_1\to G_2$ and
+$\psi:G_2\to G_3$ be homomorphisms. Then
+$\psi\circ\varphi:G_1\to G_3$ is a homomorphism.
+\end{lemma}
+
+
+
+Finally, to compare the two constructions of sign, note that the matrix of a simple
+transposition exchanges two columns of $I_n$ and has determinant $-1$.
+For a shortest expression $\sigma=s_{i_1}\cdots s_{i_k}$, where
+$k=\ell(\sigma)$, multiplicativity gives
+\[
+  \det([\sigma])=\prod_{j=1}^k\det([s_{i_j}])
+  =(-1)^k=(-1)^{\ell(\sigma)}.
+\]
+Thus the determinant construction agrees with the sign homomorphism from
+Approach A.
+
+\subsection*{The kernel of sign}
+
+\begin{define}[Alternating group]
+The \emph{alternating group} is the subgroup of even permutations:
+\[
+  A_n=\ker(\sgn)=\{\sigma\in S_n:\sgn(\sigma)=1\}.
+\]
+By Proposition~\ref{prop:kernel-normal}, $A_n\trianglelefteq S_n$.
+\end{define}
+
+For $S_3$, we obtain
+\[
+  \ker(\sgn)=A_3=\{(1),(1\ 2\ 3),(1\ 3\ 2)\}
+  =\{1,x,x^2\}=H.
+\]
+The other three elements, $(1\ 2),(1\ 3),(2\ 3)$, have sign $-1$.
+This recovers the normality of $H$ from the general fact that kernels are normal.
+
+
+\end{document}
