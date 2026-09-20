@@ -103,7 +103,14 @@ finding the inverse.
 \end{exercise}
 
 \begin{solution}
-Choose $k>0$ such that $A^k=0$, and set
+
+The key intuition is to apply the geometric series formula formally to matrices:
+\[
+  (I+A)^{-1}=I-A+A^2-A^3+\cdots.
+\]
+In general, the infinite series on the right-hand side need not converge.
+However, since $A$ is nilpotent, we can choose $k>0$ such that $A^k=0$.
+All powers of degree at least $k$ then vanish, suggesting the finite sum
 \[
   S=I-A+A^2-A^3+\cdots+(-1)^{k-1}A^{k-1}.
 \]
@@ -125,12 +132,26 @@ $I_m-AB$ is invertible if and only if $I_n-BA$ is invertible.
 \end{exercise}
 
 \begin{solution}
-Suppose first that $I_m-AB$ is invertible, and write
-$X=(I_m-AB)^{-1}$.  We claim that
+Suppose first that $I_m-AB$ is invertible. Using the same intuition as in
+the previous exercise, its inverse should formally be
 \[
-  Y=I_n+BXA
+  I_m+AB+(AB)^2+(AB)^3+\cdots.
 \]
-is the inverse of $I_n-BA$.  Indeed,
+Multiplying this series by $B$ on the left and $A$ on the right, still
+formally, gives
+\[
+  BA+(BA)^2+(BA)^3+\cdots.
+\]
+Adding $I_n$ gives the formal geometric series for $(I_n-BA)^{-1}$.
+These series need not converge, but they suggest a formula that we can
+verify directly.
+
+We first \textit{define}
+$X=(I_m-AB)^{-1}$ and then consider
+\[
+  Y=I_n+BXA.
+\]
+We claim this is the desired inverse of $I_n-BA$.  Indeed,
 \begin{align*}
  (I_n-BA)Y
  &=I_n-BA+BXA-BABXA\\
@@ -287,7 +308,7 @@ Assume the $a_i$ are not all zero.
   \[
     d=r_1a_1+\cdots+r_na_n.
   \]
-  Also $a_i\in H=d\Z$, so $d\mid a_i$ for every $i$.  If $c$ is any
+  Also $a_i\in H=d\Z$, so $\Z a_i\subseteq\Z d$ and hence $d\mid a_i$ for every $i$.  If $c$ is any
   common divisor of the $a_i$, then $c$ divides every integer combination
   of them, and therefore $c\mid d$.  Hence this $d$ is the gcd and is an
   integer combination of the $a_i$.
