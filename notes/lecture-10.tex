@@ -1,0 +1,271 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{10}{Sep. 25, 2026}{Equivalence Relations and Lagrange's Theorem}
+
+% Based on handwritten Lecture 8, Sep. 19, 2025.
+\begin{document}
+\makelecturetitle
+
+\section{Equivalence relations and partitions}
+
+An equivalence relation is a way to declare elements of a set equivalent
+while retaining the basic properties of equality.
+
+\begin{define}[Equivalence relation]
+Let $X$ be a set. A relation $\sim$ on $X$ is an \emph{equivalence relation}
+if, for all $a,b,c\in X$, it satisfies:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item \emph{Reflexivity:} $a\sim a$.
+  \item \emph{Symmetry:} if $a\sim b$, then $b\sim a$.
+  \item \emph{Transitivity:} if $a\sim b$ and $b\sim c$, then $a\sim c$.
+\end{enumerate}
+The \emph{equivalence class} of $a\in X$ is
+\[
+  C_a=\{z\in X:z\sim a\}.
+\]
+\end{define}
+
+\begin{proposition}
+The distinct equivalence classes form a partition of $X$. More precisely,
+\[
+  C_a\cap C_b\neq\varnothing
+  \quad\Longleftrightarrow\quad C_a=C_b
+  \quad\Longleftrightarrow\quad a\sim b.
+\]
+\end{proposition}
+\begin{proof}
+Reflexivity gives $a\in C_a$, so the classes are nonempty and cover $X$.
+If $z\in C_a\cap C_b$, then $z\sim a$ and $z\sim b$. Symmetry and
+transitivity give $a\sim b$. If $a\sim b$ and $w\in C_a$, then
+$w\sim a\sim b$, so $w\in C_b$. This gives $C_a\subseteq C_b$; symmetry
+gives the reverse inclusion. Finally, if $C_a=C_b$, their intersection
+contains $a$. Thus classes are either equal or disjoint.
+\end{proof}
+
+Choose a set $R\subseteq X$ containing exactly one representative of each
+class. Then
+\[
+  X=\bigsqcup_{a\in R}C_a.
+\]
+Conversely, any partition of $X$ defines an equivalence relation: declare
+$a\sim b$ when $a$ and $b$ lie in the same part.
+
+\begin{example}[Congruence modulo eight]
+On $\Z$, define $a\sim b$ if $8\mid(b-a)$. The relation is reflexive
+because $8\mid0$, symmetric because divisibility is preserved under
+negation, and transitive because
+\[
+  c-a=(c-b)+(b-a).
+\]
+The class of $a$ is
+\[
+  C_a=\{z\in\Z:8\mid(z-a)\}=a+8\Z.
+\]
+These are the eight columns from Lecture 9. We may choose representatives
+$R=\{0,1,\ldots,7\}$, or instead $R'=\{-3,-2,\ldots,4\}$. Either choice
+gives exactly one representative of each class, so
+\[
+  \Z=\bigsqcup_{a\in R}C_a=\bigsqcup_{a\in R'}C_a.
+\]
+The classes are fixed by the relation; the representatives are not unique.
+\end{example}
+
+\section{Cosets as equivalence classes}
+
+Let $H\leq G$. Define a relation on $G$ by
+\begin{equation}
+  a\sim b\quad\Longleftrightarrow\quad b^{-1}a\in H.
+\end{equation}
+It is an equivalence relation:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item $a^{-1}a=e_G\in H$, so $a\sim a$.
+  \item If $b^{-1}a\in H$, then $(b^{-1}a)^{-1}=a^{-1}b\in H$, so
+  $b\sim a$.
+  \item If $b^{-1}a\in H$ and $c^{-1}b\in H$, then
+  \[
+    c^{-1}a=(c^{-1}b)(b^{-1}a)\in H,
+  \]
+  so $a\sim c$.
+\end{enumerate}
+The class of $a$ is precisely its left coset:
+\begin{equation}
+  C_a=\{g\in G:a^{-1}g\in H\}=aH.
+\end{equation}
+Indeed, $a^{-1}g=h\in H$ if and only if $g=ah$.
+This gives another explanation of why left cosets partition $G$.
+
+\begin{remark}[The relation for right cosets]
+To obtain right cosets, use the relation
+\[
+  a\sim_R b\quad\Longleftrightarrow\quad ab^{-1}\in H.
+\]
+Then the class of $a$ is $\{g\in G:ga^{-1}\in H\}=Ha$.
+By contrast, replacing $b^{-1}a\in H$ with $a^{-1}b\in H$ does
+\emph{not} change the left-coset relation: these two elements are inverses,
+and $H$ is closed under inverses.
+\end{remark}
+
+\begin{warningbox}
+$G/H$ denotes the set of left cosets, not a set of representatives.
+If $R\subseteq G$ contains one representative of each left coset, the
+precise formulas are
+\[
+  G/H=\{rH:r\in R\},\qquad G=\bigsqcup_{r\in R}rH.
+\]
+\end{warningbox}
+
+\begin{example}[Cosets of a subgroup of order two in $S_3$]
+Write
+\[
+  S_3=\{1,x,x^2,y,xy,x^2y\},\qquad
+  x^3=1,\quad y^2=1,\quad yx=x^2y,
+\]
+and take $H=\{1,y\}$. The left cosets are
+\begin{align*}
+  H=yH&=\{1,y\},\\
+  xH=xyH&=\{x,xy\},\\
+  x^2H=x^2yH&=\{x^2,x^2y\}.
+\end{align*}
+Consequently,
+\[
+  S_3/H=\{H,xH,x^2H\},\qquad
+  S_3=H\sqcup xH\sqcup x^2H.
+\]
+Both $\{1,x,x^2\}$ and $\{y,xy,x^2y\}$ are sets of representatives.
+Using the second set, we can also write
+$S_3/H=\{yH,xyH,x^2yH\}$.
+
+This subgroup is not normal. For example,
+\[
+  xH=\{x,xy\},\qquad Hx=\{x,yx\}=\{x,x^2y\},
+\]
+which are different sets. Nevertheless, the left cosets still partition
+$S_3$.
+\end{example}
+
+\section{Lagrange's theorem}
+
+\begin{lemma}
+For every subgroup $H\leq G$ and every $g\in G$, the map
+\[
+  H\longrightarrow gH,\qquad h\longmapsto gh,
+\]
+is a bijection.
+\end{lemma}
+\begin{proof}
+It is surjective by the definition of $gH$. If $gh_1=gh_2$, cancellation
+gives $h_1=h_2$, so it is injective. Its inverse sends $z\in gH$ to
+$g^{-1}z\in H$.
+\end{proof}
+
+More generally, left multiplication by $g$ is a bijection $G\to G$.
+In particular, if $H$ is finite, every coset has the same number of
+elements as $H$.
+
+\begin{define}[Index]
+The \emph{index} of a subgroup $H$ in $G$, denoted $[G:H]$, is the number
+of distinct left cosets:
+\[
+  [G:H]=|G/H|.
+\]
+The index may be infinite.
+\end{define}
+
+\begin{theorem}[Lagrange]
+If $G$ is finite and $H\leq G$, then
+\begin{equation}
+  |G|=[G:H]\,|H|.
+\end{equation}
+In particular, $|H|$ divides $|G|$.
+\end{theorem}
+\begin{proof}
+Choose one representative of each left coset, say $g_1,\ldots,g_m$, where
+$m=[G:H]$. Since the cosets partition $G$ and each has $|H|$ elements,
+\[
+  G=\bigsqcup_{i=1}^m g_iH,
+  \qquad |G|=\sum_{i=1}^m|g_iH|=m|H|.
+\]
+\end{proof}
+
+\begin{corollary}
+If $G$ is finite and $a\in G$, then the order of $a$ divides $|G|$.
+\end{corollary}
+\begin{proof}
+Apply Lagrange's theorem to the cyclic subgroup $\langle a\rangle$, whose
+cardinality is the order of $a$.
+\end{proof}
+
+\begin{corollary}
+Every group of prime order $p$ is cyclic, hence isomorphic to the cyclic
+group $C_p$ of order $p$.
+\end{corollary}
+\begin{proof}
+Choose $a\neq e_G$. Its order divides $p$, so it is either $1$ or $p$.
+It cannot be $1$, and hence $|\langle a\rangle|=p=|G|$. Therefore
+$G=\langle a\rangle$.
+\end{proof}
+
+\Needspace{12\baselineskip}
+\section{Towards classifying groups of order six}
+
+Let $|G|=6$. Lagrange's theorem shows that an element can have order
+$1$, $2$, $3$, or $6$. We first establish that elements of orders $2$ and
+$3$ must occur.
+
+\begin{lemma}
+Every finite group of even order contains an element of order $2$.
+\end{lemma}
+\begin{proof}
+Pair each element $a$ with its inverse $a^{-1}$. The distinct sets
+$\{a,a^{-1}\}$ partition $G$ into parts of size one or two. A part has
+size one exactly when $a=a^{-1}$.
+If the identity were the only such element, then $|G|$ would be one plus
+an even number, hence odd. Thus there is some $a\neq e_G$ with
+$a=a^{-1}$. It satisfies $a^2=e_G$ and has order $2$.
+\end{proof}
+
+\begin{lemma}
+If $a^2=e_G$ for every $a\in G$, then $G$ is abelian.
+\end{lemma}
+\begin{proof}
+Every element is its own inverse, so for $a,b\in G$,
+\[
+  ba=b^{-1}a^{-1}=(ab)^{-1}=ab.
+\]
+\end{proof}
+
+\begin{proposition}
+A group of order $6$ contains an element of order $3$.
+\end{proposition}
+\begin{proof}
+Suppose first that every nonidentity element has order $2$.
+The preceding lemma makes $G$ abelian. Choose distinct nonidentity
+elements $a,b$. Then
+\[
+  K=\{e_G,a,b,ab\}=\langle a,b\rangle
+\]
+is a subgroup: since $a,b$ commute and $a^2=b^2=e_G$, every product of
+powers of $a,b$ reduces to one of these four elements. They are distinct:
+$ab=e_G$ would imply $a=b$, while $ab=a$ or $ab=b$ would force $b=e_G$
+or $a=e_G$, respectively. Thus $|K|=4$, contradicting Lagrange's theorem
+because $4$ does not divide $6$.
+
+There is therefore an element $a$ whose order is neither $1$ nor $2$.
+Its order is $3$ or $6$. In the first case, take $x=a$.
+In the second case, take $x=a^2$; then $x^3=e_G$ and $x\neq e_G$, so
+$x$ has order $3$.
+\end{proof}
+
+Choose $x$ of order $3$ and $y$ of order $2$, and put
+$H=\langle x\rangle=\{e_G,x,x^2\}$. Since the elements of $H$ have
+orders $1$ or $3$, we have $y\notin H$. The coset criterion gives
+$yH\neq H$. Both cosets have three elements, so
+\begin{equation}
+  G=H\sqcup yH=\{e_G,x,x^2,y,yx,yx^2\}.
+\end{equation}
+In particular, $x$ and $y$ generate $G$.
+Determining how these generators multiply will be the next step in the
+classification.
+
+\end{document}

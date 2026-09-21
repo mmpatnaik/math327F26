@@ -34,6 +34,43 @@ About a minute later the PDF is live and the Notes cell for lecture 7 has
 turned into a link. Lectures without a PDF keep their dash, so the site never
 shows a dead link. You do not need to touch `index.html` to publish notes.
 
+## Shared lecture template (Lecture 6 onward)
+
+Lectures 6 and 7 use `notes/math327-lecture.sty`. Start each later lecture by
+copying the starter and updating the number, date, and topic in `\lectureinfo`:
+
+```bash
+cp notes/templates/lecture.tex notes/lecture-08.tex
+cd notes
+latexmk -pdf -interaction=nonstopmode -halt-on-error lecture-08.tex
+```
+
+Keep the `.sty` file alongside the lecture sources. Edit it once to change
+formatting for every lecture that uses it. The starter lives in a subfolder
+so the publishing workflow does not compile or publish it as a lecture.
+Lectures 1–5 retain their existing formatting.
+
+| Environment | Appearance |
+| --- | --- |
+| `definition` | Green definition box |
+| `define` | Red definition box, with upright text |
+| `theorem`, `lemma`, `proposition`, `corollary` | Blue result box |
+| `exercise` | Orange exercise box from Lecture 7 onward; pink in Lecture 6 |
+| `warningbox` or `warning` | Yellow warning box |
+| `example`, `remark`, `proof` | Unboxed text |
+
+Named theorem-style environments accept an optional title, for example
+`\begin{lemma}[Equality of cosets]`. Labels and references work as usual.
+All colored boxes can split across pages. Existing numbering is preserved:
+each numbered environment resets by section, `exercise` shares the `theorem`
+counter, and `define` and `definition` have separate counters. Remarks and
+warnings are unnumbered.
+
+Shared shortcuts are `\Z`, `\R`, `\GL`, `\SL`, `\id`, `\im`, `\Hom`,
+`\Iso`, `\Aut`, `\sgn`, and the existing `\be`/`\ee` equation pair.
+Copy these commands and environments freely between lectures without adding
+local definitions. Add future shared shortcuts to the `.sty` file.
+
 ## Posting an announcement
 
 Add an entry at the **top** of `announcements.md`:
