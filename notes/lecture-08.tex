@@ -126,23 +126,6 @@ $g^{-1}Ng\subseteq N$. Conjugating this inclusion by $g$ gives
 $N\subseteq gNg^{-1}$. Therefore $gNg^{-1}=N$ for every $g\in G$.
 \end{remark}
 
-Normal subgroups arise naturally as kernels. They will also allow us to
-form quotient groups and study a group through smaller groups, using the
-isomorphism theorems.
-
-\begin{proposition}\label{prop:kernel-normal}
-If $\varphi:G\to H$ is a homomorphism, then $\ker(\varphi)\trianglelefteq G$.
-\end{proposition}
-\begin{proof}
-We already know that $\ker(\varphi)$ is a subgroup. If $a\in\ker(\varphi)$
-and $g\in G$, then
-\[
-  \varphi(gag^{-1})
-  =\varphi(g)\varphi(a)\varphi(g)^{-1}
-  =\varphi(g)e_H\varphi(g)^{-1}=e_H.
-\]
-Thus $gag^{-1}\in\ker(\varphi)$, as required.
-\end{proof}
 
 \begin{example}
 Every subgroup of an abelian group is normal, since $gag^{-1}=a$.
