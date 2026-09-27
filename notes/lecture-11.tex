@@ -1,0 +1,407 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{11}{Sep. 28, 2026}{Equivalence Relations and Lagrange's Theorem}
+
+% Continues Lecture 10; material moved from the commented-out end of lecture-10.tex.
+\begin{document}
+\makelecturetitle
+
+
+\section{Recollections: cosets form a partition}
+
+Last time we introduced the notion of left and right cosets of a group. These were defined as follows: given a group $G$ and a subgroup $H \leq G$, a left coset is a set of the form \be g H = \{ g h \mid h \in H \} \qquad \text{ for some fixed } g \in G \ee and a right coset is one of the form \be{} H g = \{ hg \mid h \in H \} \qquad \text{ for some fixed } g \in G. \ee
+
+We ended last class by proving the following result:
+
+\begin{lemma}[Equality of cosets]\label{lem:coset-equality}
+	Let $H\leq G$ and $g_1,g_2\in G$. The following are equivalent:
+	\begin{enumerate}[label=\textbf{(\arabic*)}]
+		\item $g_1H\cap g_2H\neq\varnothing$;
+		\item $g_1H=g_2H$;
+		\item $g_2^{-1}g_1\in H$;
+		\item $g_1^{-1}g_2\in H$.
+	\end{enumerate}
+\end{lemma}
+%\begin{proof}
+%	First consider the special case $g_2=e_G$. We show that
+%	\[
+%	gH\cap H\neq\varnothing
+%	\quad\Longleftrightarrow\quad g\in H
+%	\quad\Longleftrightarrow\quad gH=H.
+%	\]
+%	We prove $g\in H\Rightarrow gH=H\Rightarrow gH\cap H\neq\varnothing
+%	\Rightarrow g\in H$.
+%	\begin{itemize}
+%		\item If $g\in H$, closure gives $gH\subseteq H$. Conversely, every
+%		$h\in H$ can be written $h=g(g^{-1}h)$, with $g^{-1}h\in H$, so
+%		$H\subseteq gH$. Thus $gH=H$.
+%		\item If $gH=H$, then $gH\cap H=H$, which is nonempty since
+%		$e_G\in H$.
+%		\item If $z\in gH\cap H$, write $z=gh$ with $h\in H$. Then
+%		$g=zh^{-1}\in H$.
+%	\end{itemize}
+%	This completes the special case.
+%	
+%	For general $g_1,g_2$, left multiplication by $g_2^{-1}$ is a bijection
+%	of $G$. Hence
+%	\begin{align*}
+%		g_1H\cap g_2H\neq\varnothing
+%		&\quad\Longleftrightarrow\quad
+%		(g_2^{-1}g_1)H\cap H\neq\varnothing\\
+%		&\quad\Longleftrightarrow\quad g_2^{-1}g_1\in H\\
+%		&\quad\Longleftrightarrow\quad (g_2^{-1}g_1)H=H\\
+%		&\quad\Longleftrightarrow\quad g_1H=g_2H.
+%	\end{align*}
+%	Finally, $g_2^{-1}g_1\in H$ if and only if its inverse
+%	$g_1^{-1}g_2$ belongs to $H$.
+%\end{proof}
+
+Recall the following definition: 
+
+\begin{define}[Partition]
+	A \emph{partition} of a set $X$ is a collection of nonempty subsets
+	$\{X_\alpha\}_{\alpha\in I}$ such that
+	\[
+	X=\bigcup_{\alpha\in I}X_\alpha,
+	\qquad X_\alpha\cap X_\beta=\varnothing\quad(\alpha\neq\beta).
+	\]
+	We write $X=\bigsqcup_{\alpha\in I}X_\alpha$.
+\end{define}
+
+Now, we can prove the basic fact: 
+
+\begin{proposition}
+	The distinct left cosets of $H$ form a partition of $G$.
+\end{proposition}
+\begin{proof}
+	Every $g\in G$ belongs to $gH$, since $g=ge_G$ and $e_G\in H$.
+	Thus the cosets are nonempty and cover $G$. By
+	Lemma~\ref{lem:coset-equality}, two cosets that intersect are equal, so
+	distinct cosets are disjoint.
+\end{proof}
+
+
+
+\section{Example: cosets of \texorpdfstring{$8\Z$}{8Z}}\label{sec:8Z}
+
+In the additive group $G=\Z$, take $H=8\Z$. Cosets are written additively:
+\begin{equation}
+	a+8\Z=\{a+8k:k\in\Z\}.
+\end{equation}
+For instance,
+\begin{align*}
+	0+8\Z&=\{\ldots,-16,-8,0,8,16,\ldots\},\\
+	1+8\Z&=\{\ldots,-15,-7,1,9,17,\ldots\},\\
+	7+8\Z&=\{\ldots,-9,-1,7,15,23,\ldots\}.
+\end{align*}
+Arranging the integers by their remainders gives eight disjoint columns:
+\[
+\begin{array}{c|rrrrrrrr}
+	\text{remainder}&0&1&2&3&4&5&6&7\\ \hline
+	&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+	&16&17&18&19&20&21&22&23\\
+	&8&9&10&11&12&13&14&15\\
+	&0&1&2&3&4&5&6&7\\
+	&-8&-7&-6&-5&-4&-3&-2&-1\\
+	&-16&-15&-14&-13&-12&-11&-10&-9\\
+	&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots
+\end{array}
+\]
+Each column is one coset. The equality criterion becomes
+\begin{equation}
+	a+8\Z=b+8\Z
+	\quad\Longleftrightarrow\quad a-b\in8\Z
+	\quad\Longleftrightarrow\quad a\equiv b\pmod8.
+\end{equation}
+For example, $0+8\Z=8+8\Z$ and $1+8\Z=17+8\Z$.
+Every integer has exactly one remainder in $\{0,1,\ldots,7\}$, so
+\[
+\Z=\bigsqcup_{r=0}^7(r+8\Z),\qquad
+\Z/8\Z=\{0+8\Z,1+8\Z,\ldots,7+8\Z\}.
+\]
+Writing $\overline a=a+8\Z$, we may abbreviate this as
+\[
+\Z/8\Z=\{\overline0,\overline1,\ldots,\overline7\}.
+\]
+Thus an infinite group can have a finite set of cosets.
+
+%\section{Optional: equivalence relations and partitions}
+%
+%An equivalence relation is a way to declare elements of a set equivalent
+%while retaining the basic properties of equality.
+%
+%\begin{define}[Equivalence relation]
+%Let $X$ be a set. A relation $\sim$ on $X$ is an \emph{equivalence relation}
+%if, for all $a,b,c\in X$, it satisfies:
+%\begin{enumerate}[label=\textbf{(\arabic*)}]
+%  \item \emph{Reflexivity:} $a\sim a$.
+%  \item \emph{Symmetry:} if $a\sim b$, then $b\sim a$.
+%  \item \emph{Transitivity:} if $a\sim b$ and $b\sim c$, then $a\sim c$.
+%\end{enumerate}
+%The \emph{equivalence class} of $a\in X$ is
+%\[
+%  C_a=\{z\in X:z\sim a\}.
+%\]
+%\end{define}
+%
+%\begin{proposition}
+%The distinct equivalence classes form a partition of $X$. More precisely,
+%\[
+%  C_a\cap C_b\neq\varnothing
+%  \quad\Longleftrightarrow\quad C_a=C_b
+%  \quad\Longleftrightarrow\quad a\sim b.
+%\]
+%\end{proposition}
+%\begin{proof}
+%Reflexivity gives $a\in C_a$, so the classes are nonempty and cover $X$.
+%If $z\in C_a\cap C_b$, then $z\sim a$ and $z\sim b$. Symmetry and
+%transitivity give $a\sim b$. If $a\sim b$ and $w\in C_a$, then
+%$w\sim a\sim b$, so $w\in C_b$. This gives $C_a\subseteq C_b$; symmetry
+%gives the reverse inclusion. Finally, if $C_a=C_b$, their intersection
+%contains $a$. Thus classes are either equal or disjoint.
+%\end{proof}
+%
+%Choose a set $R\subseteq X$ containing exactly one representative of each
+%class. Then
+%\[
+%  X=\bigsqcup_{a\in R}C_a.
+%\]
+%Conversely, any partition of $X$ defines an equivalence relation: declare
+%$a\sim b$ when $a$ and $b$ lie in the same part.
+%
+%\begin{example}[Congruence modulo eight]
+%On $\Z$, define $a\sim b$ if $8\mid(b-a)$. This is an equivalence
+%relation (transitivity uses $c-a=(c-b)+(b-a)$), and its class
+%$C_a=a+8\Z$ is exactly the column containing $a$ in the table of cosets of $8\Z$
+%from Lecture~10.
+%Besides $R=\{0,1,\ldots,7\}$ we could use $R'=\{-3,-2,\ldots,4\}$:
+%\[
+%  \Z=\bigsqcup_{a\in R}C_a=\bigsqcup_{a\in R'}C_a.
+%\]
+%The classes are fixed by the relation; the representatives are not.
+%\end{example}
+%
+%
+%Let $H\leq G$. Define a relation on $G$ by
+%\begin{equation}
+%  a\sim b\quad\Longleftrightarrow\quad b^{-1}a\in H.
+%\end{equation}
+%It is an equivalence relation:
+%\begin{enumerate}[label=\textbf{(\arabic*)}]
+%  \item $a^{-1}a=e_G\in H$, so $a\sim a$.
+%  \item If $b^{-1}a\in H$, then $(b^{-1}a)^{-1}=a^{-1}b\in H$, so
+%  $b\sim a$.
+%  \item If $b^{-1}a\in H$ and $c^{-1}b\in H$, then
+%  \[
+%    c^{-1}a=(c^{-1}b)(b^{-1}a)\in H,
+%  \]
+%  so $a\sim c$.
+%\end{enumerate}
+%The class of $a$ is precisely its left coset:
+%\begin{equation}
+%  C_a=\{g\in G:a^{-1}g\in H\}=aH.
+%\end{equation}
+%Indeed, $a^{-1}g=h\in H$ if and only if $g=ah$.
+%This gives another explanation of why left cosets partition $G$.
+%
+%\begin{remark}[The relation for right cosets]
+%To obtain right cosets, use the relation
+%\[
+%  a\sim_R b\quad\Longleftrightarrow\quad ab^{-1}\in H.
+%\]
+%Then the class of $a$ is $\{g\in G:ga^{-1}\in H\}=Ha$.
+%By contrast, replacing $b^{-1}a\in H$ with $a^{-1}b\in H$ does
+%\emph{not} change the left-coset relation: these two elements are inverses,
+%and $H$ is closed under inverses.
+%\end{remark}
+
+
+\section{$G/H$ and Lagrange's theorem}
+
+For a subgroup $H \leq G$, recall that 
+
+\begin{define} We write $G/H$ for the set of left cosets of $G$. So every element of $G/H$ is a coset of the form $gH$, and we often denote this as $\overline{g}$. Note that we are only recording the \textit{distinct} left cosets here, and it could very well be that $g_1H  =g_2H$, i.e. $\overline{g}_1 = \overline{g}_2$. 
+	If $R\subseteq G$ contains exactly one representative of each left coset,
+	the precise formulas are
+	\begin{equation}
+		G/H=\{rH:r\in R\},\qquad G=\bigsqcup_{r\in R}rH.
+	\end{equation}
+	
+	
+	From our Lemma above, this happens whenever $g_1^{-1} g_2\in H$ or $g_2^{-1}g_1 \in H.$ \end{define} 
+
+One of the first questions we can ask is: how big is $G/H$? The answer is recorded in a quantity called the index of $H$ in $G$.
+
+\begin{define}[Index]
+	The \emph{index} of a subgroup $H$ in $G$, denoted $[G:H]$, is the number
+	of distinct left cosets:
+	\[
+	[G:H]=|G/H|.
+	\]
+	The index may be infinite.
+\end{define}
+
+
+\begin{example}[Indices in $S_3$ and $\Z$]
+\leavevmode
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item \emph{Subgroups of $S_3$.} As in Lecture~10, write
+  $S_3=\{1,x,x^2,y,xy,x^2y\}$ with $x^3=1$, $y^2=1$, $yx=x^2y$.
+  \begin{itemize}
+    \item For $N=\{1,x,x^2\}$ we found $S_3/N=\{N,yN\}$, so $[S_3:N]=2$.
+    \item For $H=\{1,y\}$ we found $S_3/H=\{H,xH,x^2H\}$, so
+    $[S_3:H]=3$.
+    \item For the trivial subgroup $I=\{1\}$, each coset $gI=\{g\}$ is a
+    single element, and distinct elements give distinct cosets. Thus
+    $S_3/I=\{\{g\}:g\in S_3\}$ and $[S_3:I]=6$.
+    \item At the other extreme, $gS_3=S_3$ for every $g$, so
+    $[S_3:S_3]=1$.
+  \end{itemize}
+  In each case $|S_3|=6$ equals $[S_3:K]\cdot|K|$:
+  \[
+    6=2\cdot3=3\cdot2=6\cdot1=1\cdot6.
+  \]
+
+  \item \emph{The subgroups $n\Z\leq\Z$.} Let $n\geq1$. By the division
+  algorithm, every $a\in\Z$ can be written $a=qn+r$ with
+  $0\leq r\leq n-1$, so $a-r\in n\Z$ and $a+n\Z=r+n\Z$. Hence every
+  coset is one of
+  \[
+    0+n\Z,\ 1+n\Z,\ \ldots,\ (n-1)+n\Z.
+  \]
+  These are distinct: if $0\leq r<s\leq n-1$, then $0<s-r<n$, so
+  $s-r\notin n\Z$ and $r+n\Z\neq s+n\Z$. Therefore
+  \[
+    \Z/n\Z=\{\overline0,\overline1,\ldots,\overline{n-1}\},
+    \qquad [\Z:n\Z]=n.
+  \]
+  The case $n=8$ is the table in Section~\ref{sec:8Z}. Although $\Z$ and
+  $n\Z$ are both infinite, the index is finite.
+
+  For $n=0$, the subgroup is $0\Z=\{0\}$, each coset $a+0\Z=\{a\}$ is a
+  single integer, and $[\Z:0\Z]$ is infinite.
+\end{enumerate}
+\end{example}
+
+
+
+
+
+
+\begin{theorem}[Lagrange]
+If $G$ is finite and $H\leq G$, then
+\begin{equation}
+  |G|=[G:H]\,|H|.
+\end{equation}
+In particular, $|H|$ divides $|G|$.
+\end{theorem}
+\begin{proof}
+Choose one representative of each left coset, say $g_1,\ldots,g_m$, where
+$m=[G:H]$. Since the cosets partition $G$ and each has $|H|$ elements,
+\[
+  G=\bigsqcup_{i=1}^m g_iH,
+  \qquad |G|=\sum_{i=1}^m|g_iH|=m|H|.
+\]
+\end{proof}
+
+
+\begin{lemma}
+	For every subgroup $H\leq G$ and every $g\in G$, the map
+	\[
+	H\longrightarrow gH,\qquad h\longmapsto gh,
+	\]
+	is a bijection.
+\end{lemma}
+\begin{proof}
+	It is surjective by the definition of $gH$. If $gh_1=gh_2$, cancellation
+	gives $h_1=h_2$, so it is injective. Its inverse sends $z\in gH$ to
+	$g^{-1}z\in H$.
+\end{proof}
+
+More generally, left multiplication by $g$ is a bijection $G\to G$.
+In particular, if $H$ is finite, every coset has the same number of
+elements as $H$.
+
+
+\begin{corollary}
+If $G$ is finite and $a\in G$, then the order of $a$ divides $|G|$.
+\end{corollary}
+\begin{proof}
+Apply Lagrange's theorem to the cyclic subgroup $\langle a\rangle$, whose
+cardinality is the order of $a$.
+\end{proof}
+
+\begin{corollary}
+Every group of prime order $p$ is cyclic, hence isomorphic to the cyclic
+group $C_p$ of order $p$.
+\end{corollary}
+\begin{proof}
+Choose $a\neq e_G$. Its order divides $p$, so it is either $1$ or $p$.
+It cannot be $1$, and hence $|\langle a\rangle|=p=|G|$. Therefore
+$G=\langle a\rangle$.
+\end{proof}
+
+%\Needspace{12\baselineskip}
+%\section{Towards classifying groups of order six}
+%
+%Let $|G|=6$. Lagrange's theorem shows that an element can have order
+%$1$, $2$, $3$, or $6$. We first establish that elements of orders $2$ and
+%$3$ must occur.
+%
+%\begin{lemma}
+%Every finite group of even order contains an element of order $2$.
+%\end{lemma}
+%\begin{proof}
+%Pair each element $a$ with its inverse $a^{-1}$. The distinct sets
+%$\{a,a^{-1}\}$ partition $G$ into parts of size one or two. A part has
+%size one exactly when $a=a^{-1}$.
+%If the identity were the only such element, then $|G|$ would be one plus
+%an even number, hence odd. Thus there is some $a\neq e_G$ with
+%$a=a^{-1}$. It satisfies $a^2=e_G$ and has order $2$.
+%\end{proof}
+%
+%\begin{lemma}
+%If $a^2=e_G$ for every $a\in G$, then $G$ is abelian.
+%\end{lemma}
+%\begin{proof}
+%Every element is its own inverse, so for $a,b\in G$,
+%\[
+%  ba=b^{-1}a^{-1}=(ab)^{-1}=ab.
+%\]
+%\end{proof}
+%
+%\begin{proposition}
+%A group of order $6$ contains an element of order $3$.
+%\end{proposition}
+%\begin{proof}
+%Suppose first that every nonidentity element has order $2$.
+%The preceding lemma makes $G$ abelian. Choose distinct nonidentity
+%elements $a,b$. Then
+%\[
+%  K=\{e_G,a,b,ab\}=\langle a,b\rangle
+%\]
+%is a subgroup: since $a,b$ commute and $a^2=b^2=e_G$, every product of
+%powers of $a,b$ reduces to one of these four elements. They are distinct:
+%$ab=e_G$ would imply $a=b$, while $ab=a$ or $ab=b$ would force $b=e_G$
+%or $a=e_G$, respectively. Thus $|K|=4$, contradicting Lagrange's theorem
+%because $4$ does not divide $6$.
+%
+%There is therefore an element $a$ whose order is neither $1$ nor $2$.
+%Its order is $3$ or $6$. In the first case, take $x=a$.
+%In the second case, take $x=a^2$; then $x^3=e_G$ and $x\neq e_G$, so
+%$x$ has order $3$.
+%\end{proof}
+%
+%Choose $x$ of order $3$ and $y$ of order $2$, and put
+%$H=\langle x\rangle=\{e_G,x,x^2\}$. Since the elements of $H$ have
+%orders $1$ or $3$, we have $y\notin H$. The coset criterion gives
+%$yH\neq H$. Both cosets have three elements, so
+%\begin{equation}
+%  G=H\sqcup yH=\{e_G,x,x^2,y,yx,yx^2\}.
+%\end{equation}
+%In particular, $x$ and $y$ generate $G$.
+%Determining how these generators multiply will be the next step in the
+%classification.
+
+\end{document}

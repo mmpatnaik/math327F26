@@ -1,0 +1,266 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{13}{Oct. 5, 2026}{Right Cosets, Units Modulo \texorpdfstring{$n$}{n}, and the Correspondence Theorem}
+
+% Based on handwritten Lecture 10, Sep. 24, 2025.
+\begin{document}
+\makelecturetitle
+
+\section{Review: index and the tower law}
+
+For a subgroup $H\leq G$, the index $[G:H]$ is the number of left cosets
+of $H$ in $G$. Last time we proved the tower law, a generalization of the
+counting formula: if $K\leq H\leq G$, then
+\[
+  [G:K]=[G:H]\,[H:K],
+\]
+assuming the terms on the right-hand side are finite. Taking
+$K=\{e_G\}$ recovers the counting formula
+\[
+  |G|=[G:H]\,|H|=|G/H|\cdot|H|.
+\]
+
+\section{Right cosets}
+
+So far we have mostly worked with left cosets $gH$. What about right
+cosets $Hg$?
+
+In general, left cosets are \emph{not} right cosets.
+
+\begin{example}[Left and right cosets in $S_3$]
+Write $S_3=\{1,x,x^2,y,xy,x^2y\}$ with $yx=x^2y$, and let $H=\{1,y\}$.
+Then
+\[
+\begin{array}{r@{\;=\;}l@{\qquad\qquad}r@{\;=\;}l}
+  H & \{1,y\}, & H\cdot1 & \{1,y\},\\[2pt]
+  xH & \{x,xy\}, & Hx & \{x,yx\}=\{x,x^2y\},\\[2pt]
+  x^2H & \{x^2,x^2y\}, & Hx^2 & \{x^2,yx^2\}=\{x^2,xy\}.
+\end{array}
+\]
+Here $yx^2=(yx)x=x^2yx=x^2\cdot x^2y=xy$. So $xH\neq Hx$ and
+$x^2H\neq Hx^2$; in fact neither $xH$ nor $x^2H$ is a right coset of $H$
+at all.
+\end{example}
+
+However, every statement you can make about left cosets has a right coset
+analogue, with the same proof after multiplying on the other side. For
+example:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item Left cosets partition $G$; so do right cosets.
+  \item $g_1H=g_2H$ if and only if $g_2^{-1}g_1\in H$; similarly
+  $Hg_1=Hg_2$ if and only if $g_1g_2^{-1}\in H$.
+  \item $|gH|=|H|$, via $h\mapsto gh$; similarly $|Hg|=|H|$, via
+  $h\mapsto hg$.
+\end{enumerate}
+
+What about the index? Is the number of left cosets the same as the number
+of right cosets?
+
+\begin{proposition}\label{prop:left-right-bijection}
+Let $H\leq G$. The map
+\[
+  \{\text{left cosets of }H\}\longrightarrow\{\text{right cosets of }H\},
+  \qquad gH\longmapsto Hg^{-1},
+\]
+is a well-defined bijection.
+\end{proposition}
+\begin{proof}
+For a subset $S\subseteq G$ write $S^{-1}=\{s^{-1}:s\in S\}$. Since
+$(gh)^{-1}=h^{-1}g^{-1}$ and $H^{-1}=H$,
+\[
+  (gH)^{-1}=H^{-1}g^{-1}=Hg^{-1}.
+\]
+So the map is simply $S\mapsto S^{-1}$, which depends only on the set
+$gH$ and not on the choice of $g$; hence it is well defined. Applying the
+same operation to right cosets, $(Hg)^{-1}=g^{-1}H$, gives the inverse
+map. Thus it is a bijection.
+\end{proof}
+
+\begin{corollary}
+The index $[G:H]$ equals both the number of left cosets and the number of
+right cosets of $H$ in $G$. In particular, for finite $G$,
+$|G|=[G:H]\,|H|$ however we choose to count.
+\end{corollary}
+
+\begin{warningbox}
+The natural-looking map $gH\mapsto Hg$ is \emph{not} well defined in
+general. In the example above, $xH=xyH$, but
+$Hx=\{x,x^2y\}\neq\{xy,x^2\}=Hxy$. (Check: $Hxy=\{xy,yxy\}$ and
+$yxy=x^2y^2=x^2$.) This is why we use $g^{-1}$.
+\end{warningbox}
+
+\section{Normal subgroups and cosets}
+
+Recall that a subgroup $H\leq G$ is \emph{normal}, written
+$H\trianglelefteq G$, if $gHg^{-1}\subseteq H$ for all $g\in G$, or
+equivalently $gHg^{-1}=H$ for all $g\in G$.
+
+Although left cosets are not right cosets in general, they are for normal
+subgroups.
+
+\begin{lemma}\label{lem:normal-left-right}
+If $H\trianglelefteq G$, then every left coset of $H$ is also a right
+coset. In fact, $gH=Hg$ for all $g\in G$.
+\end{lemma}
+\begin{proof}
+Multiplying $gHg^{-1}=H$ on the right by $g$ gives $gH=Hg$.
+\end{proof}
+
+\begin{lemma}\label{lem:which-right-coset}
+If a left coset $gH$ equals some right coset $Hg'$, then in fact
+$Hg'=Hg$.
+\end{lemma}
+\begin{proof}
+Both the left cosets and the right cosets of $H$ partition $G$. The left
+coset $gH$ and the right coset $Hg$ both contain $g=ge_G=e_Gg$, so
+$Hg'=gH$ meets $Hg$. Two right cosets that meet are equal, so $Hg'=Hg$.
+\end{proof}
+
+\begin{corollary}
+If every left coset of $H$ is also some right coset, then $H$ is normal
+in $G$.
+\end{corollary}
+\begin{proof}
+Let $g\in G$. By hypothesis $gH$ is a right coset, so by
+Lemma~\ref{lem:which-right-coset}, $gH=Hg$. Multiplying on the right by
+$g^{-1}$ gives $gHg^{-1}=H$. This holds for all $g\in G$.
+\end{proof}
+
+Combining the last two results:
+\[
+  H\trianglelefteq G
+  \quad\Longleftrightarrow\quad
+  gH=Hg\text{ for all }g\in G
+  \quad\Longleftrightarrow\quad
+  \text{every left coset of $H$ is a right coset.}
+\]
+For example, $H=\{1,y\}$ is not normal in $S_3$, matching the computation
+$xH\neq Hx$ above.
+
+\section{Example: units modulo \texorpdfstring{$n$}{n} and Fermat's little theorem}
+
+Let $n\geq1$. The set $\Z/n\Z$ of residue classes modulo $n$ is a group
+under addition, with identity $\overline0$. Recall that
+\[
+  a\equiv b\pmod n\quad\text{means}\quad n\mid(b-a).
+\]
+Now consider the operation of \emph{multiplication} on this set,
+$\overline a\cdot\overline b=\overline{ab}$. It is not a group under
+multiplication (for instance $\overline0$ has no inverse), but we can
+ask: for which $a$ does the congruence
+\begin{equation}\label{eq:unit}
+  ax\equiv1\pmod n
+\end{equation}
+have a solution $x\in\Z/n\Z$?
+
+A solution means $ax-1=bn$ for some $b\in\Z$, i.e.
+\[
+  ax+(-b)n=1.
+\]
+Such an equation has an integer solution if and only if
+$\gcd(a,n)=1$: if $d$ divides $a$ and $n$ then it divides $1$;
+conversely, $\Z a+\Z n=\Z\gcd(a,n)$, so if $\gcd(a,n)=1$ then $1$ is an
+integer combination of $a$ and $n$. Note that $\gcd(a,n)$ depends only on
+$\overline a$, since $\gcd(a+kn,n)=\gcd(a,n)$.
+
+\begin{define}[Units modulo $n$]
+The \emph{group of units modulo $n$} is
+\[
+  (\Z/n\Z)^\times
+  =\{\overline a\in\Z/n\Z:\ ax\equiv1\ (\mathrm{mod}\ n)\text{ has a
+  solution}\}
+  =\{\overline a\in\Z/n\Z:\gcd(a,n)=1\},
+\]
+with the operation of multiplication.
+\end{define}
+
+This is not just a set but a group. The key point is closure: if
+$\overline a,\overline b\in(\Z/n\Z)^\times$, choose solutions
+$ax_1\equiv1$ and $bx_2\equiv1\pmod n$. Then $y=x_2x_1$ satisfies
+\[
+  (ab)y=a(bx_2)x_1\equiv ax_1\equiv1\pmod n,
+\]
+so $\overline{ab}\in(\Z/n\Z)^\times$. The remaining axioms are checked
+similarly.
+
+\begin{exercise}
+Complete the verification that $(\Z/n\Z)^\times$ is an abelian group:
+check associativity, that $\overline1$ is the identity, and that the
+solution $\overline x$ of \eqref{eq:unit} is an inverse of $\overline a$
+lying in $(\Z/n\Z)^\times$.
+\end{exercise}
+
+The order of this group is
+\[
+  |(\Z/n\Z)^\times|=\varphi(n)=\#\{1\leq a\leq n:\gcd(a,n)=1\},
+\]
+\emph{Euler's $\varphi$-function}. For example,
+$(\Z/8\Z)^\times=\{\overline1,\overline3,\overline5,\overline7\}$ and
+$\varphi(8)=4$.
+
+If $n=p$ is prime, every $a$ with $1\leq a\leq p-1$ is coprime to $p$, so
+$\varphi(p)=p-1$ and $(\Z/p\Z)^\times$ has order $p-1$. Lagrange's theorem
+now gives a classical result from number theory.
+
+\begin{theorem}[Fermat's little theorem]
+Let $p$ be prime and $a\in\Z$ with $p\nmid a$. Then
+\[
+  a^{p-1}\equiv1\pmod p.
+\]
+\end{theorem}
+\begin{proof}
+Since $p\nmid a$, $\overline a\in(\Z/p\Z)^\times$, a group of order
+$p-1$. By Lagrange's theorem the order $m$ of $\overline a$ divides
+$p-1$, say $p-1=mk$. Then $\overline a^{\,p-1}=(\overline a^{\,m})^k
+=\overline1$.
+\end{proof}
+
+The same argument applied to $(\Z/n\Z)^\times$ gives \emph{Euler's
+theorem}: if $\gcd(a,n)=1$, then $a^{\varphi(n)}\equiv1\pmod n$.
+
+\begin{remark}
+The group $(\Z/p\Z)^\times$ is in fact cyclic. A generator is called a
+\emph{primitive root} modulo $p$. For example, modulo $7$ the powers of
+$3$ are
+\[
+  3,\ 2,\ 6,\ 4,\ 5,\ 1,
+\]
+so $\overline3$ generates $(\Z/7\Z)^\times$. We will not prove this fact
+in general.
+\end{remark}
+
+\section{The correspondence theorem}
+
+Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism of groups,
+and let $K=\ker(\varphi)\trianglelefteq G$.
+
+\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
+\leavevmode
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item There is a bijective correspondence
+  \[
+    \{\text{subgroups }H\leq G\text{ with }K\leq H\}
+    \quad\longleftrightarrow\quad
+    \{\text{subgroups }\mathcal H\leq\mathcal G\},
+  \]
+  given by
+  \[
+    H\longmapsto\varphi(H)=\mathcal H,
+    \qquad
+    \mathcal H\longmapsto\varphi^{-1}(\mathcal H).
+  \]
+  \item Under this correspondence,
+  $H\trianglelefteq G$ if and only if
+  $\mathcal H\trianglelefteq\mathcal G$.
+  \item If $H$ is finite, then $|H|=|\mathcal H|\cdot|K|$.
+\end{enumerate}
+\end{theorem}
+
+Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$ is the
+preimage. Part~(3) follows from what we already know: the restriction
+$\varphi|_H:H\to\mathcal H$ is a surjective homomorphism with kernel
+$H\cap K=K$, so the counting formula for homomorphisms from Lecture~12
+gives $|H|=|K|\cdot|\mathcal H|$.
+
+\end{document}

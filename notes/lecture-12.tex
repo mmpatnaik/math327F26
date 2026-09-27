@@ -1,0 +1,293 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{12}{Oct. 2, 2026}{Groups of Order Six and the Counting Formula}
+
+% Based on handwritten Lecture 9, Sep. 22, 2025, together with the
+% material on groups of order six moved from lecture-11.tex.
+\begin{document}
+\makelecturetitle
+
+\section{Review: the counting formula}
+
+Let $H\leq G$. Last time we saw that $G$ is partitioned into the left
+cosets of $H$, and that $G/H$ denotes the set of \emph{distinct} left
+cosets. If $R\subseteq G$ contains exactly one representative of each
+left coset, then
+\[
+  G=\bigsqcup_{r\in R}rH.
+\]
+Since each coset $rH$ is in bijection with $H$, counting both sides gives
+the following.
+
+\begin{theorem}[Counting formula]\label{thm:counting}
+If $G$ is finite and $H\leq G$, then
+\begin{equation}
+  |G|=|G/H|\cdot|H|=[G:H]\,|H|.
+\end{equation}
+In particular (Lagrange's theorem), if $x\in G$ then
+$\operatorname{ord}(x)=|\langle x\rangle|$ divides $|G|$.
+\end{theorem}
+
+\section{Classifying groups of order six}
+
+Let $|G|=6$. Lagrange's theorem (Theorem~\ref{thm:counting}) shows that an element can have order
+$1$, $2$, $3$, or $6$. We first establish that elements of orders $2$ and
+$3$ must occur.
+
+\begin{lemma}
+Every finite group of even order contains an element of order $2$.
+\end{lemma}
+\begin{proof}
+Pair each element $a$ with its inverse $a^{-1}$. The distinct sets
+$\{a,a^{-1}\}$ partition $G$ into parts of size one or two. A part has
+size one exactly when $a=a^{-1}$.
+If the identity were the only such element, then $|G|$ would be one plus
+an even number, hence odd. Thus there is some $a\neq e_G$ with
+$a=a^{-1}$. It satisfies $a^2=e_G$ and has order $2$.
+\end{proof}
+
+\begin{lemma}
+If $a^2=e_G$ for every $a\in G$, then $G$ is abelian.
+\end{lemma}
+\begin{proof}
+Every element is its own inverse, so for $a,b\in G$,
+\[
+  ba=b^{-1}a^{-1}=(ab)^{-1}=ab.
+\]
+\end{proof}
+
+\begin{proposition}
+A group of order $6$ contains an element of order $3$.
+\end{proposition}
+\begin{proof}
+Suppose first that every nonidentity element has order $2$.
+The preceding lemma makes $G$ abelian. Choose distinct nonidentity
+elements $a,b$. Then
+\[
+  K=\{e_G,a,b,ab\}=\langle a,b\rangle
+\]
+is a subgroup: since $a,b$ commute and $a^2=b^2=e_G$, every product of
+powers of $a,b$ reduces to one of these four elements. They are distinct:
+$ab=e_G$ would imply $a=b$, while $ab=a$ or $ab=b$ would force $b=e_G$
+or $a=e_G$, respectively. Thus $|K|=4$, contradicting Lagrange's theorem
+because $4$ does not divide $6$.
+
+There is therefore an element $a$ whose order is neither $1$ nor $2$.
+Its order is $3$ or $6$. In the first case, take $x=a$.
+In the second case, take $x=a^2$; then $x^3=e_G$ and $x\neq e_G$, so
+$x$ has order $3$.
+\end{proof}
+
+Choose $x$ of order $3$ and $y$ of order $2$, and put
+$H=\langle x\rangle=\{e_G,x,x^2\}$. Since the elements of $H$ have
+orders $1$ or $3$, we have $y\notin H$. The coset criterion gives
+$yH\neq H$. Both cosets have three elements, so
+\begin{equation}
+  G=H\sqcup yH=\{e_G,x,x^2,y,yx,yx^2\}.
+\end{equation}
+In particular, $x$ and $y$ generate $G$.
+\subsection*{How do \texorpdfstring{$x$}{x} and \texorpdfstring{$y$}{y} multiply?}
+The product $xy$ is an element of $G$, so it must be one of the six
+elements listed above. Which one?
+
+First, $xy\notin H$. Indeed, if $xy\in H$, then
+$y=x^{-1}(xy)\in x^{-1}H=H$, since $x^{-1}\in H$. This contradicts
+$y\notin H$. Hence $xy\in yH=\{y,yx,yx^2\}$. Moreover $xy\neq y$, since
+cancelling $y$ would give $x=e_G$. We are left with two possibilities:
+\begin{equation}\label{eq:two-cases}
+  xy=yx\qquad\text{or}\qquad xy=yx^2.
+\end{equation}
+A priori, both could happen.
+
+\begin{proposition}\label{prop:mult-determined}
+Once we know which case of \eqref{eq:two-cases} holds, the multiplication
+in $G$ is completely determined.
+\end{proposition}
+\begin{proof}
+Write $xy=yx^k$ with $k\in\{1,2\}$. Then
+\[
+  x^ay=x^{a-1}(xy)=x^{a-1}yx^{k}=\cdots=yx^{ka}
+\]
+for every $a\geq0$, by moving $y$ past one $x$ at a time. Every element of
+$G$ has the form $y^bx^a$ with $b\in\{0,1\}$ and $a\in\{0,1,2\}$. Using the
+rule above $c$ times,
+\[
+  (y^bx^a)(y^cx^d)=y^{b+c}x^{k^ca+d},
+\]
+and the exponents can be reduced using $y^2=e_G$ and $x^3=e_G$. Thus every
+product of two elements of $G$ is determined. For instance, when $k=2$,
+\[
+  (yx)\cdot y=y(xy)=y\cdot yx^2=x^2,\qquad
+  y\cdot(yx)=y^2x=x.
+\]
+\end{proof}
+
+Are there actually groups in which each case occurs? Yes:
+
+\begin{itemize}
+  \item \emph{Case $xy=yx$, $x^3=e_G$, $y^2=e_G$.} Now $x$ and $y$
+  commute, so $G$ is abelian and $(xy)^n=x^ny^n$. Hence
+  \[
+    (xy)^2=x^2,\quad (xy)^3=y,\quad (xy)^4=x,\quad (xy)^5=x^2y,\quad
+    (xy)^6=e_G.
+  \]
+  These six powers are distinct, so $xy$ has order $6$ and
+  $G=\langle xy\rangle$ is the cyclic group $C_6$ of order $6$.
+  For example, $\Z/6\Z$ with $x=\overline2$, $y=\overline3$.
+  \item \emph{Case $xy=yx^2$, $x^3=e_G$, $y^2=e_G$.} This is $S_3$:
+  take $x=(1\,2\,3)$ and $y=(1\,2)$. (Equivalently, $yx=x^2y$, the
+  relation we used for $S_3$ in Lecture~10.) This group is not abelian,
+  since $yx^2\neq yx$.
+\end{itemize}
+
+\begin{theorem}
+Every group of order $6$ is isomorphic to exactly one of $C_6$ and $S_3$.
+\end{theorem}
+\begin{proof}
+By the discussion above, a group of order $6$ has elements $x,y$ of orders
+$3,2$ with $G=\{e_G,x,x^2,y,yx,yx^2\}$, and satisfies one of the relations
+\eqref{eq:two-cases}. By Proposition~\ref{prop:mult-determined}, its
+multiplication table is then the same as that of $C_6$ or of $S_3$,
+respectively; matching $y^bx^a$ with the corresponding element gives an
+isomorphism. The two groups are not isomorphic, since $C_6$ is abelian and
+$S_3$ is not.
+\end{proof}
+
+\section{The counting formula for homomorphisms}
+
+Let $\varphi:G\to H$ be a group homomorphism, and recall
+\begin{align*}
+  K=\ker(\varphi)&=\{x\in G:\varphi(x)=e_H\}\leq G,\\
+  \im(\varphi)&=\{h\in H:\text{there is }a\in G\text{ with }\varphi(a)=h\}
+  \leq H.
+\end{align*}
+Picture $G$ partitioned into the left cosets $K, g_1K, g_2K,\ldots$ of the
+kernel. Since $\varphi(K)=\{e_H\}$, the whole coset $gK$ is sent to the
+single element $\varphi(g)$:
+\[
+  \varphi(gk)=\varphi(g)\varphi(k)=\varphi(g)\qquad(k\in K).
+\]
+So $\varphi$ collapses each coset of $K$ to one point of $\im(\varphi)$.
+
+\begin{proposition}\label{prop:cosets-image}
+The map
+\[
+  G/K\longrightarrow\im(\varphi),\qquad gK\longmapsto\varphi(g),
+\]
+is a well-defined bijection.
+\end{proposition}
+\begin{proof}
+\emph{Well defined:} if $g_1K=g_2K$, then $g_1=g_2k$ for some $k\in K$,
+so $\varphi(g_1)=\varphi(g_2)\varphi(k)=\varphi(g_2)$.
+
+\emph{Surjective:} every element of $\im(\varphi)$ is $\varphi(g)$ for
+some $g\in G$, and this is the image of $gK$.
+
+\emph{Injective:} could we have $g_1K\neq g_2K$ but
+$\varphi(g_1)=\varphi(g_2)$? No: if $\varphi(g_1)=\varphi(g_2)$, then
+\[
+  \varphi(g_2^{-1}g_1)=\varphi(g_2)^{-1}\varphi(g_1)=e_H,
+\]
+so $g_2^{-1}g_1\in K$. By the lemma on equality of cosets, this means
+$g_1K=g_2K$.
+\end{proof}
+
+\begin{theorem}[Counting formula for homomorphisms]\label{thm:hom-count}
+If $G$ is finite and $\varphi:G\to H$ is a homomorphism, then
+\begin{equation}
+  |G|=|\ker(\varphi)|\cdot|\im(\varphi)|.
+\end{equation}
+In particular, $|\im(\varphi)|$ divides both $|G|$ and $|H|$ (the latter
+when $H$ is finite).
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:cosets-image}, $|\im(\varphi)|=|G/\ker(\varphi)|$.
+The counting formula applied to $\ker(\varphi)\leq G$ gives
+$|G|=|\ker(\varphi)|\cdot|G/\ker(\varphi)|=|\ker(\varphi)|\cdot|\im(\varphi)|$.
+Finally, $\im(\varphi)\leq H$, so Lagrange's theorem shows that
+$|\im(\varphi)|$ divides $|H|$.
+\end{proof}
+
+\begin{example}[The alternating group]
+For $n\geq2$, the sign homomorphism $\sgn:S_n\to\{\pm1\}$ is surjective
+(a transposition has sign $-1$) and its kernel is $A_n$. Hence
+\[
+  n!=|A_n|\cdot2,\qquad |A_n|=\frac{n!}{2}.
+\]
+\end{example}
+
+\begin{remark}[Aside: short exact sequences]
+In general, suppose we have three groups and two homomorphisms
+\[
+  1\longrightarrow H\xrightarrow{\ \varphi_1\ }G\xrightarrow{\ \varphi_2\ }
+  Q\longrightarrow1.
+\]
+This configuration is called a \emph{short exact sequence} if
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item $\varphi_1$ is injective,
+  \item $\varphi_2$ is surjective, and
+  \item $\im(\varphi_1)=\ker(\varphi_2)$.
+\end{enumerate}
+The arrow $1\to H$ on the left records that $\varphi_1$ is injective, and
+$Q\to1$ on the right records that $\varphi_2$ is surjective. For any
+homomorphism $\varphi:G\to H$,
+\[
+  1\longrightarrow\ker(\varphi)\longrightarrow G
+  \xrightarrow{\ \varphi\ }\im(\varphi)\longrightarrow1
+\]
+is a short exact sequence, where the first map is the inclusion. For
+example, $1\to A_n\to S_n\xrightarrow{\sgn}\{\pm1\}\to1$.
+\end{remark}
+
+\section{Index in a tower of subgroups}
+
+Recall the counting formula $|G|=[G:H]\,|H|$, where the index
+$[G:H]=|G/H|$ is the number of left cosets of $H$ in $G$. (When we write
+$[G:H]$ we usually mean that it is finite.)
+
+\begin{theorem}[Tower law]\label{thm:tower}
+Let $K\leq H\leq G$ be a tower of subgroups. Then
+\begin{equation}
+  [G:K]=[G:H]\,[H:K].
+\end{equation}
+\end{theorem}
+\begin{proof}
+Assume $[G:H]=m$ and $[H:K]=n$ are finite. Then
+\[
+  G=g_1H\sqcup g_2H\sqcup\cdots\sqcup g_mH\quad(g_i\in G),
+  \qquad
+  H=h_1K\sqcup\cdots\sqcup h_nK\quad(h_j\in H).
+\]
+Substituting the second decomposition into the first,
+\[
+  G=g_1(h_1K\cup\cdots\cup h_nK)\cup\cdots\cup
+    g_m(h_1K\cup\cdots\cup h_nK)
+   =\bigcup_{\substack{1\leq i\leq m\\1\leq j\leq n}}g_ih_jK.
+\]
+It remains to show that the $mn$ cosets $g_ih_jK$ are distinct, and hence
+(being cosets) disjoint. Suppose $g_ih_jK=g_{i'}h_{j'}K$. Since
+$h_jK\subseteq H$, we have $g_ih_jK\subseteq g_iH$ and similarly
+$g_{i'}h_{j'}K\subseteq g_{i'}H$. So $g_iH\cap g_{i'}H\neq\varnothing$,
+which forces $i=i'$. Cancelling $g_i$ then gives $h_jK=h_{j'}K$, so
+$j=j'$. Therefore $G$ is the disjoint union of exactly $mn$ left cosets
+of $K$, and $[G:K]=mn$.
+\end{proof}
+
+When $G$ is finite, the tower law also follows directly from the counting
+formula:
+\[
+  [G:K]=\frac{|G|}{|K|}=\frac{|G|}{|H|}\cdot\frac{|H|}{|K|}=[G:H]\,[H:K].
+\]
+The proof above has the advantage that it works for infinite groups, as
+long as the indices are finite.
+
+\begin{example}
+For $8\Z\leq2\Z\leq\Z$ we have $[\Z:2\Z]=2$ and $[2\Z:8\Z]=4$ (the cosets
+are $8\Z$, $2+8\Z$, $4+8\Z$, $6+8\Z$), so
+$[\Z:8\Z]=2\cdot4=8$, matching Lecture~11.
+In $S_3$, the tower $\{1\}\leq\{1,x,x^2\}\leq S_3$ gives
+$6=[S_3:\{1\}]=2\cdot3$.
+\end{example}
+
+\end{document}
