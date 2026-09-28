@@ -240,54 +240,54 @@ is a short exact sequence, where the first map is the inclusion. For
 example, $1\to A_n\to S_n\xrightarrow{\sgn}\{\pm1\}\to1$.
 \end{remark}
 
-\section{Index in a tower of subgroups}
-
-Recall the counting formula $|G|=[G:H]\,|H|$, where the index
-$[G:H]=|G/H|$ is the number of left cosets of $H$ in $G$. (When we write
-$[G:H]$ we usually mean that it is finite.)
-
-\begin{theorem}[Tower law]\label{thm:tower}
-Let $K\leq H\leq G$ be a tower of subgroups. Then
-\begin{equation}
-  [G:K]=[G:H]\,[H:K].
-\end{equation}
-\end{theorem}
-\begin{proof}
-Assume $[G:H]=m$ and $[H:K]=n$ are finite. Then
-\[
-  G=g_1H\sqcup g_2H\sqcup\cdots\sqcup g_mH\quad(g_i\in G),
-  \qquad
-  H=h_1K\sqcup\cdots\sqcup h_nK\quad(h_j\in H).
-\]
-Substituting the second decomposition into the first,
-\[
-  G=g_1(h_1K\cup\cdots\cup h_nK)\cup\cdots\cup
-    g_m(h_1K\cup\cdots\cup h_nK)
-   =\bigcup_{\substack{1\leq i\leq m\\1\leq j\leq n}}g_ih_jK.
-\]
-It remains to show that the $mn$ cosets $g_ih_jK$ are distinct, and hence
-(being cosets) disjoint. Suppose $g_ih_jK=g_{i'}h_{j'}K$. Since
-$h_jK\subseteq H$, we have $g_ih_jK\subseteq g_iH$ and similarly
-$g_{i'}h_{j'}K\subseteq g_{i'}H$. So $g_iH\cap g_{i'}H\neq\varnothing$,
-which forces $i=i'$. Cancelling $g_i$ then gives $h_jK=h_{j'}K$, so
-$j=j'$. Therefore $G$ is the disjoint union of exactly $mn$ left cosets
-of $K$, and $[G:K]=mn$.
-\end{proof}
-
-When $G$ is finite, the tower law also follows directly from the counting
-formula:
-\[
-  [G:K]=\frac{|G|}{|K|}=\frac{|G|}{|H|}\cdot\frac{|H|}{|K|}=[G:H]\,[H:K].
-\]
-The proof above has the advantage that it works for infinite groups, as
-long as the indices are finite.
-
-\begin{example}
-For $8\Z\leq2\Z\leq\Z$ we have $[\Z:2\Z]=2$ and $[2\Z:8\Z]=4$ (the cosets
-are $8\Z$, $2+8\Z$, $4+8\Z$, $6+8\Z$), so
-$[\Z:8\Z]=2\cdot4=8$, matching Lecture~11.
-In $S_3$, the tower $\{1\}\leq\{1,x,x^2\}\leq S_3$ gives
-$6=[S_3:\{1\}]=2\cdot3$.
-\end{example}
+%\section{Index in a tower of subgroups}
+%
+%Recall the counting formula $|G|=[G:H]\,|H|$, where the index
+%$[G:H]=|G/H|$ is the number of left cosets of $H$ in $G$. (When we write
+%$[G:H]$ we usually mean that it is finite.)
+%
+%\begin{theorem}[Tower law]\label{thm:tower}
+%Let $K\leq H\leq G$ be a tower of subgroups. Then
+%\begin{equation}
+%  [G:K]=[G:H]\,[H:K].
+%\end{equation}
+%\end{theorem}
+%\begin{proof}
+%Assume $[G:H]=m$ and $[H:K]=n$ are finite. Then
+%\[
+%  G=g_1H\sqcup g_2H\sqcup\cdots\sqcup g_mH\quad(g_i\in G),
+%  \qquad
+%  H=h_1K\sqcup\cdots\sqcup h_nK\quad(h_j\in H).
+%\]
+%Substituting the second decomposition into the first,
+%\[
+%  G=g_1(h_1K\cup\cdots\cup h_nK)\cup\cdots\cup
+%    g_m(h_1K\cup\cdots\cup h_nK)
+%   =\bigcup_{\substack{1\leq i\leq m\\1\leq j\leq n}}g_ih_jK.
+%\]
+%It remains to show that the $mn$ cosets $g_ih_jK$ are distinct, and hence
+%(being cosets) disjoint. Suppose $g_ih_jK=g_{i'}h_{j'}K$. Since
+%$h_jK\subseteq H$, we have $g_ih_jK\subseteq g_iH$ and similarly
+%$g_{i'}h_{j'}K\subseteq g_{i'}H$. So $g_iH\cap g_{i'}H\neq\varnothing$,
+%which forces $i=i'$. Cancelling $g_i$ then gives $h_jK=h_{j'}K$, so
+%$j=j'$. Therefore $G$ is the disjoint union of exactly $mn$ left cosets
+%of $K$, and $[G:K]=mn$.
+%\end{proof}
+%
+%When $G$ is finite, the tower law also follows directly from the counting
+%formula:
+%\[
+%  [G:K]=\frac{|G|}{|K|}=\frac{|G|}{|H|}\cdot\frac{|H|}{|K|}=[G:H]\,[H:K].
+%\]
+%The proof above has the advantage that it works for infinite groups, as
+%long as the indices are finite.
+%
+%\begin{example}
+%For $8\Z\leq2\Z\leq\Z$ we have $[\Z:2\Z]=2$ and $[2\Z:8\Z]=4$ (the cosets
+%are $8\Z$, $2+8\Z$, $4+8\Z$, $6+8\Z$), so
+%$[\Z:8\Z]=2\cdot4=8$, matching Lecture~11.
+%In $S_3$, the tower $\{1\}\leq\{1,x,x^2\}\leq S_3$ gives
+%$6=[S_3:\{1\}]=2\cdot3$.
+%\end{example}
 
 \end{document}
