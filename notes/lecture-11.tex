@@ -221,15 +221,15 @@ Thus an infinite group can have a finite set of cosets.
 
 For a subgroup $H \leq G$, recall that 
 
-\begin{define} We write $G/H$ for the set of left cosets of $G$. So every element of $G/H$ is a coset of the form $gH$, and we often denote this as $\overline{g}$. Note that we are only recording the \textit{distinct} left cosets here, and it could very well be that $g_1H  =g_2H$, i.e. $\overline{g}_1 = \overline{g}_2$. 
+\begin{define} We write $G/H$ for the set of left cosets of $G$. So every element of $G/H$ is a coset of the form $gH$, and we often denote this as $\overline{g}$. Note that we are only recording the \textit{distinct} left cosets here, and it could very well be that $g_1H  =g_2H$, i.e. $\overline{g}_1 = \overline{g}_2$. \footnote{
+		From our Lemma above, this happens whenever $g_1^{-1} g_2\in H$ or $g_2^{-1}g_1 \in H.$}
 	If $R\subseteq G$ contains exactly one representative of each left coset,
 	the precise formulas are
 	\begin{equation}
 		G/H=\{rH:r\in R\},\qquad G=\bigsqcup_{r\in R}rH.
 	\end{equation}
 	
-	
-	From our Lemma above, this happens whenever $g_1^{-1} g_2\in H$ or $g_2^{-1}g_1 \in H.$ \end{define} 
+	 \end{define} 
 
 One of the first questions we can ask is: how big is $G/H$? The answer is recorded in a quantity called the index of $H$ in $G$.
 
@@ -298,7 +298,14 @@ In particular, $|H|$ divides $|G|$.
 \end{theorem}
 \begin{proof}
 Choose one representative of each left coset, say $g_1,\ldots,g_m$, where
-$m=[G:H]$. Since the cosets partition $G$ and each has $|H|$ elements,
+$m=[G:H]$. The cosets partition $G$ and each has $|H|$ elements. Indeed, as we observed earlier, for every subgroup $H\leq G$ and every $g\in G$, the map
+\[
+H\longrightarrow gH,\qquad h\longmapsto gh,
+\]
+is a bijection. Why? It is surjective by the definition of $gH$. If $gh_1=gh_2$, cancellation
+gives $h_1=h_2$, so it is injective. Its inverse sends $z\in gH$ to
+$g^{-1}z\in H$.
+From this, we then conclude:
 \[
   G=\bigsqcup_{i=1}^m g_iH,
   \qquad |G|=\sum_{i=1}^m|g_iH|=m|H|.
@@ -306,22 +313,6 @@ $m=[G:H]$. Since the cosets partition $G$ and each has $|H|$ elements,
 \end{proof}
 
 
-\begin{lemma}
-	For every subgroup $H\leq G$ and every $g\in G$, the map
-	\[
-	H\longrightarrow gH,\qquad h\longmapsto gh,
-	\]
-	is a bijection.
-\end{lemma}
-\begin{proof}
-	It is surjective by the definition of $gH$. If $gh_1=gh_2$, cancellation
-	gives $h_1=h_2$, so it is injective. Its inverse sends $z\in gH$ to
-	$g^{-1}z\in H$.
-\end{proof}
-
-More generally, left multiplication by $g$ is a bijection $G\to G$.
-In particular, if $H$ is finite, every coset has the same number of
-elements as $H$.
 
 
 \begin{corollary}
