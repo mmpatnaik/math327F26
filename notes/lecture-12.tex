@@ -47,6 +47,13 @@ an even number, hence odd. Thus there is some $a\neq e_G$ with
 $a=a^{-1}$. It satisfies $a^2=e_G$ and has order $2$.
 \end{proof}
 
+Here is a similar exercise from the homework: 
+
+\begin{question} Show that every group of order $35$ has an element of order $5$ or $7$.
+
+Hints: If there are no elements of order $5$, show that every element has order $7$ or $1$ (the identity). Now if $x$ and $y$ are elements of order $7$, show that the subgroups $\langle x \rangle $ and $\langle y \rangle$ are either equal or contain just the identity element in common. Now count!  
+ \end{question}
+
 \begin{lemma}
 If $a^2=e_G$ for every $a\in G$, then $G$ is abelian.
 \end{lemma}
@@ -216,29 +223,29 @@ For $n\geq2$, the sign homomorphism $\sgn:S_n\to\{\pm1\}$ is surjective
   n!=|A_n|\cdot2,\qquad |A_n|=\frac{n!}{2}.
 \]
 \end{example}
-
-\begin{remark}[Aside: short exact sequences]
-In general, suppose we have three groups and two homomorphisms
-\[
-  1\longrightarrow H\xrightarrow{\ \varphi_1\ }G\xrightarrow{\ \varphi_2\ }
-  Q\longrightarrow1.
-\]
-This configuration is called a \emph{short exact sequence} if
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item $\varphi_1$ is injective,
-  \item $\varphi_2$ is surjective, and
-  \item $\im(\varphi_1)=\ker(\varphi_2)$.
-\end{enumerate}
-The arrow $1\to H$ on the left records that $\varphi_1$ is injective, and
-$Q\to1$ on the right records that $\varphi_2$ is surjective. For any
-homomorphism $\varphi:G\to H$,
-\[
-  1\longrightarrow\ker(\varphi)\longrightarrow G
-  \xrightarrow{\ \varphi\ }\im(\varphi)\longrightarrow1
-\]
-is a short exact sequence, where the first map is the inclusion. For
-example, $1\to A_n\to S_n\xrightarrow{\sgn}\{\pm1\}\to1$.
-\end{remark}
+%
+%\begin{remark}[Aside: short exact sequences]
+%In general, suppose we have three groups and two homomorphisms
+%\[
+%  1\longrightarrow H\xrightarrow{\ \varphi_1\ }G\xrightarrow{\ \varphi_2\ }
+%  Q\longrightarrow1.
+%\]
+%This configuration is called a \emph{short exact sequence} if
+%\begin{enumerate}[label=\textbf{(\arabic*)}]
+%  \item $\varphi_1$ is injective,
+%  \item $\varphi_2$ is surjective, and
+%  \item $\im(\varphi_1)=\ker(\varphi_2)$.
+%\end{enumerate}
+%The arrow $1\to H$ on the left records that $\varphi_1$ is injective, and
+%$Q\to1$ on the right records that $\varphi_2$ is surjective. For any
+%homomorphism $\varphi:G\to H$,
+%\[
+%  1\longrightarrow\ker(\varphi)\longrightarrow G
+%  \xrightarrow{\ \varphi\ }\im(\varphi)\longrightarrow1
+%\]
+%is a short exact sequence, where the first map is the inclusion. For
+%example, $1\to A_n\to S_n\xrightarrow{\sgn}\{\pm1\}\to1$.
+%\end{remark}
 
 %\section{Index in a tower of subgroups}
 %
