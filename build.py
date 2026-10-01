@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble the published site into _site/.
 
-Scans notes/ and hw/ for compiled PDFs and turns the matching placeholder
+Scans notes/, hw/, and exams/ for compiled PDFs and turns the matching placeholder
 cells in index.html into real links. A lecture with no PDF yet keeps its
 dash, so the site never shows a dead link.
 """
@@ -45,6 +45,19 @@ html = re.sub(r'<td data-hw="(\d+)">.*?</td>',
 html = re.sub(r'<td data-hw-sol="(\d+)">.*?</td>',
               link_cell("data-hw-sol", lambda n: f"hw/hw-{n}-solutions.pdf"),
               html)
+
+
+def coverage_link(m):
+    """Reveal the midterm coverage link once its PDF has been written."""
+    num = m.group(1)
+    rel = f"exams/midterm-{num}-coverage.pdf"
+    if (ROOT / rel).exists():
+        linked.append(rel)
+        return f'<dd data-coverage="{num}"><a href="{rel}">Coverage PDF</a></dd>'
+    return m.group(0)
+
+
+html = re.sub(r'<dd data-coverage="(\d+)">.*?</dd>', coverage_link, html)
 
 
 # --- announcements --------------------------------------------------------
@@ -116,7 +129,7 @@ html = html.replace("<!--ANNOUNCEMENTS-->", rendered)
 (SITE / "index.html").write_text(html, encoding="utf-8")
 
 # Copy the compiled PDFs and the syllabus alongside it.
-for folder in ("notes", "hw"):
+for folder in ("notes", "hw", "exams"):
     src = ROOT / folder
     if not src.is_dir():
         continue
@@ -136,3 +149,4 @@ for rel in linked:
     print(f"  {rel}")
 if not linked:
     print("  (none yet - add .tex files to notes/ or hw/)")
+

@@ -1,0 +1,135 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage{../notes/math327-lecture}
+\pagestyle{plain}
+\setlist[itemize]{leftmargin=1.3em,topsep=0.15em,itemsep=0.2em,parsep=0pt}
+\hypersetup{pdftitle={MATH 327 Midterm 1 Review Sheet},pdfauthor={Manish Patnaik},pdfsubject={Fall 2026 Midterm 1 coverage}}
+\begin{document}
+\begin{center}
+\colorbox{lightblue}{\begin{minipage}{0.94\textwidth}
+\vspace{0.5em}
+{\color{courseblue}\bfseries\Large Midterm 1 Review Sheet\hfill MATH 327}\\[0.35em]
+Algebra 1 \hfill Fall 2026\\
+Instructor: Manish Patnaik
+\vspace{0.5em}
+\end{minipage}}
+\end{center}
+\textbf{Date:} Friday, October 9, 2026, in class.\quad
+\textbf{Format:} Closed book.\\
+\textbf{Weight:} 25\%.\quad
+\textbf{Coverage:} Lectures 1--14; Lecture 14 (October 7) is review/catchup.
+
+Use this sheet with the lecture notes and homework. Review definitions, examples,
+computations, and the arguments given in class. The topics below follow the
+posted notes through Lecture 13; include any clarifications from Lecture 14.
+
+\section*{Topics}
+\subsection*{1. Groups and subgroups (Lectures 1--2, 6--7)}
+\begin{itemize}
+\item Group axioms; abelian groups; identity, inverses, cancellation, and
+$(ab)^{-1}=b^{-1}a^{-1}$. Distinguish the order of a group from the order of an element.
+\item Examples: $(\Z,+)$, $\Z/n\Z$ under addition, $\GL_n(\R)$, $\SL_n(\R)$,
+and $S_n$. Check the operation and group axioms; recognize non-examples.
+\item Subgroup criterion; the finite subgroup criterion; intersections of subgroups.
+A union of subgroups need not be a subgroup. Generated subgroups $\langle W\rangle$,
+cyclic subgroups $\langle x\rangle$, and $\operatorname{ord}(x)=|\langle x\rangle|$.
+\item \textbf{Subgroups of $\Z$:} each is $d\Z$ for a unique $d\geq0$.
+Review the least-positive-element and division-with-remainder argument.
+For $a,b$ not both zero, $a\Z+b\Z=\gcd(a,b)\Z$ and
+$\gcd(a,b)=ma+nb$ for some integers $m,n$ (B\'ezout).
+Remember $r\mid s$ if and only if $s\Z\subseteq r\Z$.
+\end{itemize}
+
+\subsection*{2. Permutations and sign (Lectures 2--5, 9)}
+\begin{itemize}
+\item Two-line and cycle notation; compose \emph{rightmost first}.
+Compute products, inverses, powers, and orders. Decompose a permutation into disjoint
+cycles; disjoint cycles commute.
+\item Simple transpositions $s_i=(i\ i+1)$ generate $S_n$.
+\textbf{Length equals the number of inversions:}
+$\ell(p)=\#\{(i,j):i<j,\ p(i)>p(j)\}$.
+Right multiplication by $s_i$ swaps positions $i,i+1$ and changes this number by
+$+1$ if $p(i)<p(i+1)$, and by $-1$ otherwise. Review the bubble-sort proof.
+\item Parity is well defined; $\sgn(p)=(-1)^{\ell(p)}$ is a homomorphism.
+Permutation matrices satisfy $[p]e_i=e_{p(i)}$, $[pq]=[p][q]$, and
+$\det[p]=\sgn(p)$. The alternating group is $A_n=\ker(\sgn)$;
+$|A_n|=n!/2$ for $n\geq2$.
+\item Work with $S_3$: its six elements, multiplication, generators
+$x,y$ with $x^3=y^2=1$ and $yx=x^2y$, Cayley graph, and all its subgroups.
+\end{itemize}
+
+\subsection*{3. Homomorphisms and normality (Lectures 7--9)}
+\begin{itemize}
+\item Homomorphisms, kernels, images, isomorphisms, and automorphisms.
+Homomorphisms preserve identity and inverses; kernels and images are subgroups.
+A homomorphism is injective exactly when its kernel is trivial.
+The inverse of a bijective homomorphism is a homomorphism.
+\item Compute kernels and images: reduction $\Z\to\Z/n\Z$, determinant,
+and sign. Images of generators must preserve relations, as in the $S_3$ examples.
+\item Conjugation $a\mapsto gag^{-1}$ is an automorphism and preserves order.
+For permutations,
+\[\sigma(j_1\ \cdots\ j_r)\sigma^{-1}=(\sigma(j_1)\ \cdots\ \sigma(j_r)).\]
+\item Normality: $gNg^{-1}=N$ for every $g\in G$; every kernel is normal.
+Test normality in $S_3$. Know the definition of a simple group; the classification
+of finite simple groups was an overview, not a proof developed in these lectures.
+\end{itemize}
+
+\newpage
+\subsection*{4. Cosets, index, and counting (Lectures 10--13)}
+\begin{itemize}
+\item Left cosets $gH$, right cosets $Hg$, and representatives.
+$G/H$ denotes the \emph{set of left cosets}; distinguish a coset from its representative.
+Compute examples in $S_3$ and $\Z/n\Z$.
+\item \textbf{Coset equality:} $g_1H=g_2H$ if and only if $g_2^{-1}g_1\in H$.
+For right cosets, $Hg_1=Hg_2$ if and only if $g_1g_2^{-1}\in H$.
+Distinct cosets are disjoint and partition $G$; every coset is in bijection with $H$.
+\item The map $gH\mapsto Hg^{-1}$ is a well-defined bijection from left to right
+cosets. The map $gH\mapsto Hg$ need not be well defined.
+Normality is equivalent to $gH=Hg$ for all $g$; it is also equivalent to
+ every left coset being a right coset.
+\item \textbf{Lagrange's theorem:} for finite $G$, $|G|=[G:H]|H|$.
+Review the proof by partitioning into equal-size cosets. Thus subgroup orders and
+element orders divide $|G|$, and a group of prime order is cyclic.
+\item \textbf{Tower law:} if $K\leq H\leq G$ and the indices on the right are finite,
+$[G:K]=[G:H][H:K]$. Apply it even when the groups themselves are infinite.
+\item \textbf{Counting homomorphisms' fibres:} for $K=\ker\varphi$,
+$gK\mapsto\varphi(g)$ is a well-defined bijection $G/K\to\im\varphi$.
+For finite $G$, $|G|=|\ker\varphi|\,|\im\varphi|$.
+Review well-definedness, injectivity, and surjectivity separately.
+\end{itemize}
+
+\subsection*{5. Groups of order six (Lecture 12)}
+\begin{itemize}
+\item Every finite group of even order has an element of order $2$:
+pair elements with their inverses. If every element satisfies $a^2=1$, the group is abelian.
+\item A group of order $6$ contains elements $x,y$ of orders $3,2$ and has elements
+$1,x,x^2,y,yx,yx^2$. Review why an element of order $3$ must exist.
+\item The two possible relations $xy=yx$ and $xy=yx^2$ determine multiplication.
+They give, respectively, $C_6$ and $S_3$; hence every group of order $6$ is
+isomorphic to exactly one of these. Review the argument, not only the conclusion.
+\end{itemize}
+
+\subsection*{6. Units and the correspondence theorem (Lecture 13)}
+\begin{itemize}
+\item \textbf{Units modulo $n$:} $(\Z/n\Z)^\times$ is a group under multiplication,
+consisting of $\overline a$ with $\gcd(a,n)=1$. Use B\'ezout to find inverses.
+Its order is Euler's $\varphi(n)$; compute small examples such as $n=8$.
+\item \textbf{Fermat's little theorem:} if $p$ is prime and $p\nmid a$, then
+$a^{p-1}\equiv1\pmod p$. Review its proof using Lagrange's theorem in
+$(\Z/p\Z)^\times$. The same argument gives Euler's theorem:
+$a^{\varphi(n)}\equiv1\pmod n$ when $\gcd(a,n)=1$.
+\item \textbf{Correspondence theorem (statement):} for a surjective homomorphism
+$\varphi:G\to\mathcal G$ with kernel $K$, the subgroups $H\leq G$ containing $K$
+correspond bijectively to subgroups $\mathcal H\leq\mathcal G$ by
+$H\mapsto\varphi(H)$ and $\mathcal H\mapsto\varphi^{-1}(\mathcal H)$.
+Normality is preserved in both directions; if $H$ is finite,
+$|H|=|K|\,|\varphi(H)|$.
+\item The posted Lecture 13 notes state this correspondence and explain the counting
+formula, but do not give the full proof. The general cyclicity of
+$(\Z/p\Z)^\times$ is also stated without proof. Keep these distinctions when reviewing.
+\end{itemize}
+
+\smallskip
+\textbf{Review practice.} Rework the lecture examples and Homework 1--2 without looking
+at solutions. State hypotheses before applying a theorem, justify that a map on cosets
+is well defined, and keep the order of factors in nonabelian computations.
+\end{document}
