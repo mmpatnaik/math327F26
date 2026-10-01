@@ -3,7 +3,7 @@
 
 Scans notes/ and hw/ for compiled PDFs and turns the matching placeholder
 cells in index.html into real links. A lecture with no PDF yet keeps its
-dash, so the site never shows a dead link.
+dash, so the site never shows a dead link. Copies exam PDFs from exams/.
 """
 import html as html_mod
 import re
@@ -116,7 +116,7 @@ html = html.replace("<!--ANNOUNCEMENTS-->", rendered)
 (SITE / "index.html").write_text(html, encoding="utf-8")
 
 # Copy the compiled PDFs and the syllabus alongside it.
-for folder in ("notes", "hw"):
+for folder in ("notes", "hw", "exams"):
     src = ROOT / folder
     if not src.is_dir():
         continue

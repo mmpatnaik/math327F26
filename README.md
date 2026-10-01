@@ -14,6 +14,7 @@ build.py                assembles _site/, injecting announcements and PDF links
 notes/lecture-NN.tex    lecture notes, one file per lecture
 hw/hw-NN.tex            problem sets
 hw/hw-NN-solutions.tex  solutions (see the note below before adding these)
+exams/*.tex            exam coverage sheets, past papers, and solutions
 syllabus.pdf            drop your syllabus here; it is copied as-is
 ```
 

@@ -18,10 +18,6 @@ Instructor: Manish Patnaik
 \textbf{Weight:} 25\%.\quad
 \textbf{Coverage:} Lectures 1--14; Lecture 14 (October 7) is review/catchup.
 
-Use this sheet with the lecture notes and homework. Review definitions, examples,
-computations, and the arguments given in class. The topics below follow the
-posted notes through Lecture 13; include any clarifications from Lecture 14.
-
 \section*{Topics}
 \subsection*{1. Groups and subgroups (Lectures 1--2, 6--7)}
 \begin{itemize}
@@ -74,7 +70,7 @@ of finite simple groups was an overview, not a proof developed in these lectures
 \end{itemize}
 
 \newpage
-\subsection*{4. Cosets, index, and counting (Lectures 10--13)}
+\subsection*{4. Cosets, index, and counting (Lectures 10--11)}
 \begin{itemize}
 \item Left cosets $gH$, right cosets $Hg$, and representatives.
 $G/H$ denotes the \emph{set of left cosets}; distinguish a coset from its representative.
@@ -89,15 +85,15 @@ Normality is equivalent to $gH=Hg$ for all $g$; it is also equivalent to
 \item \textbf{Lagrange's theorem:} for finite $G$, $|G|=[G:H]|H|$.
 Review the proof by partitioning into equal-size cosets. Thus subgroup orders and
 element orders divide $|G|$, and a group of prime order is cyclic.
-\item \textbf{Tower law:} if $K\leq H\leq G$ and the indices on the right are finite,
-$[G:K]=[G:H][H:K]$. Apply it even when the groups themselves are infinite.
-\item \textbf{Counting homomorphisms' fibres:} for $K=\ker\varphi$,
-$gK\mapsto\varphi(g)$ is a well-defined bijection $G/K\to\im\varphi$.
-For finite $G$, $|G|=|\ker\varphi|\,|\im\varphi|$.
-Review well-definedness, injectivity, and surjectivity separately.
+%\item \textbf{Tower law:} if $K\leq H\leq G$ and the indices on the right are finite,
+%$[G:K]=[G:H][H:K]$. Apply it even when the groups themselves are infinite.
+%\item \textbf{Counting homomorphisms' fibres:} for $K=\ker\varphi$,
+%$gK\mapsto\varphi(g)$ is a well-defined bijection $G/K\to\im\varphi$.
+%For finite $G$, $|G|=|\ker\varphi|\,|\im\varphi|$.
+%Review well-definedness, injectivity, and surjectivity separately.
 \end{itemize}
 
-\subsection*{5. Groups of order six (Lecture 12)}
+\subsection*{5. Groups of order six (Lecture 12-13)}
 \begin{itemize}
 \item Every finite group of even order has an element of order $2$:
 pair elements with their inverses. If every element satisfies $a^2=1$, the group is abelian.
@@ -108,7 +104,7 @@ They give, respectively, $C_6$ and $S_3$; hence every group of order $6$ is
 isomorphic to exactly one of these. Review the argument, not only the conclusion.
 \end{itemize}
 
-\subsection*{6. Units and the correspondence theorem (Lecture 13)}
+\subsection*{6. Units and the correspondence theorem (Lecture 12-13)}
 \begin{itemize}
 \item \textbf{Units modulo $n$:} $(\Z/n\Z)^\times$ is a group under multiplication,
 consisting of $\overline a$ with $\gcd(a,n)=1$. Use B\'ezout to find inverses.
@@ -117,19 +113,19 @@ Its order is Euler's $\varphi(n)$; compute small examples such as $n=8$.
 $a^{p-1}\equiv1\pmod p$. Review its proof using Lagrange's theorem in
 $(\Z/p\Z)^\times$. The same argument gives Euler's theorem:
 $a^{\varphi(n)}\equiv1\pmod n$ when $\gcd(a,n)=1$.
-\item \textbf{Correspondence theorem (statement):} for a surjective homomorphism
-$\varphi:G\to\mathcal G$ with kernel $K$, the subgroups $H\leq G$ containing $K$
-correspond bijectively to subgroups $\mathcal H\leq\mathcal G$ by
-$H\mapsto\varphi(H)$ and $\mathcal H\mapsto\varphi^{-1}(\mathcal H)$.
-Normality is preserved in both directions; if $H$ is finite,
-$|H|=|K|\,|\varphi(H)|$.
-\item The posted Lecture 13 notes state this correspondence and explain the counting
-formula, but do not give the full proof. The general cyclicity of
-$(\Z/p\Z)^\times$ is also stated without proof. Keep these distinctions when reviewing.
+%\item \textbf{Correspondence theorem (statement):} for a surjective homomorphism
+%$\varphi:G\to\mathcal G$ with kernel $K$, the subgroups $H\leq G$ containing $K$
+%correspond bijectively to subgroups $\mathcal H\leq\mathcal G$ by
+%$H\mapsto\varphi(H)$ and $\mathcal H\mapsto\varphi^{-1}(\mathcal H)$.
+%Normality is preserved in both directions; if $H$ is finite,
+%$|H|=|K|\,|\varphi(H)|$.
+%\item The posted Lecture 13 notes state this correspondence and explain the counting
+%formula, but do not give the full proof. The general cyclicity of
+%$(\Z/p\Z)^\times$ is also stated without proof. Keep these distinctions when reviewing.
 \end{itemize}
-
-\smallskip
-\textbf{Review practice.} Rework the lecture examples and Homework 1--2 without looking
-at solutions. State hypotheses before applying a theorem, justify that a map on cosets
-is well defined, and keep the order of factors in nonabelian computations.
+%
+%\smallskip
+%\textbf{Review practice.} Rework the lecture examples and Homework 1--2 without looking
+%at solutions. State hypotheses before applying a theorem, justify that a map on cosets
+%is well defined, and keep the order of factors in nonabelian computations.
 \end{document}

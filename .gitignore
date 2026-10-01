@@ -2,6 +2,7 @@
 _site/
 notes/*.pdf
 hw/*.pdf
+exams/*.pdf
 
 # LaTeX intermediates
 *.aux

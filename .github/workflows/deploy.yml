@@ -24,7 +24,7 @@ jobs:
         run: |
           docker run --rm -v "$PWD":/w -w /w texlive/texlive:latest bash -c '
             shopt -s nullglob
-            for f in notes/*.tex hw/*.tex; do
+            for f in notes/*.tex hw/*.tex exams/*.tex; do
               echo "--- compiling $f"
               (cd "$(dirname "$f")" && latexmk -pdf -interaction=nonstopmode "$(basename "$f")")
             done'
