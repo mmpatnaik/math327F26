@@ -1,0 +1,71 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage{../notes/math327-lecture}
+\newcommand{\rr}{\rightarrow}
+\newtcolorbox{solutionbox}{lecturebox,colback=lightblue,colframe=courseblue,
+  fonttitle=\bfseries,colbacktitle=lightblue,coltitle=courseblue,title=Solution}
+\setlist[enumerate,1]{label=\arabic*.,leftmargin=*,itemsep=1em}
+\setlist[enumerate,2]{label=(\alph*),leftmargin=*,itemsep=0.55em}
+\pagestyle{plain}
+\hypersetup{pdftitle={Midterm Exam, MATH 327, October 17, 2025},
+  pdfauthor={Manish Patnaik},pdfsubject={MATH 327 past examination}}
+\begin{document}
+\begin{tcolorbox}[lecturebox,colback=lightblue,colframe=courseblue,
+  boxrule=0pt,left=3mm,right=3mm,top=3mm,bottom=3mm]
+  {\color{courseblue}\bfseries\Large Midterm Exam\hfill MATH 327}\par
+  \smallskip
+  \textbf{October 17, 2025}\hfill Instructor: Manish Patnaik
+\end{tcolorbox}
+
+
+
+\emph{You have 50 minutes for this exam. There is a total of \textbf{40 points} possible. If you referencing a result, please state the result you are using as clearly as possible. You may use any result proven in class except if it is essentially the same as what is being asked. You may not use results from another (algebra) class that we have not yet covered. If in doubt, please ask. Good luck! }  
+
+
+\vspace{0.15in} 
+
+
+\begin{enumerate}
+
+\item (10 pts) Show that a group of order 21 must contain an element of order $3$
+	
+	
+	%\item (5 pts) Let $G$ be a group and $H, K$ be proper subgroups (i.e $H, K \subsetneq G$). Show that $G$ cannot be the union of $H$ and $K$. 
+
+
+\vspace{0.15in} 
+
+\item (10 pts) Let $G$ be a finite group and consider the map $\varphi: G \rr G$ which sends $x \mapsto x^2$. Show that if $\varphi$ is an isomorphism if and only if $G$ is abelian and has odd order. (\textit{Note:} make sure to argue that $\varphi$ is a homomorphism as well.)
+
+\vspace{0.15in} 
+
+
+\item (10 pts) Let $H, K$ subgroups of a group $G$, and let $HK:= \{ hk \mid h \in H, k \in K \}.$ Assume that $H$ normalizes $K$, i.e. \be h K h^{-1} = K \mbox{ for all } h \in H. \ee
+\begin{enumerate}
+	\item (2pts) Show that $HK$ is a subgroup. 
+	\item (2 pts) Show that $K$ is a normal subgroup of $HK$ and $H \cap K$ is a normal subgroup of $H$
+	
+	\item (6 pts) Prove that $H/H \cap K$ and $HK/K$ are isomorphic (construct a map, and argue that it is an isomorphism)
+\end{enumerate}
+
+\vspace{0.15in}
+
+\item (10 pts) 
+
+\begin{enumerate}
+	\item (2 pts) For $G$ a group, show that conjugation defines a (left) group action of $G$ on itself, i.e. show that the following operation defines a left group action: \be \star: G \times G &\rr& G \\   g, x \mapsto g \star x &:=& g x g^{-1} \ee 
+
+	\item (2 pts) Show that the center of $G$, i.e. $Z(G):= \{ g \in G \mid gh =hg \mbox{ for all } h \in G \},$ is the union of all orbits of cardinality $1$. 
+	
+	\item (2 pts) Show that a normal subgroup of $G$ must equal a union of orbits under this action. 
+	
+	\item(4 pts) Describe all the orbits and stabilizers for $G=S_3$ 
+	
+\end{enumerate}	
+
+
+
+
+
+\end{enumerate}
+
+\end{document}
