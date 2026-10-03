@@ -27,9 +27,17 @@ def link_cell(attr, pdf_path_for):
     def repl(m):
         num = m.group(1)
         rel = pdf_path_for(num)
+        links = []
         if (ROOT / rel).exists():
             linked.append(rel)
-            return f'<td {attr}="{num}"><a href="{rel}">PDF</a></td>'
+            links.append(f'<a href="{rel}">PDF</a>')
+        if attr == "data-lecture":
+            in_class = f"notes/lecture-{num}-in-class.pdf"
+            if (ROOT / in_class).exists():
+                linked.append(in_class)
+                links.append(f'<a href="{in_class}">In-class notes (PDF)</a>')
+        if links:
+            return f'<td {attr}="{num}">' + '<br>'.join(links) + '</td>'
         return m.group(0)
     return repl
 

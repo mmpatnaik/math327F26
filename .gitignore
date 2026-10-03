@@ -1,6 +1,7 @@
 # Compiled output - built by CI, not committed
 _site/
 notes/*.pdf
+!notes/*-in-class.pdf
 hw/*.pdf
 exams/*.pdf
 
