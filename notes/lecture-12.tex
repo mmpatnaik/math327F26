@@ -111,23 +111,27 @@ A priori, both could happen.
 Once we know which case of \eqref{eq:two-cases} holds, the multiplication
 in $G$ is completely determined.
 \end{proposition}
-\begin{proof}
-Write $xy=yx^k$ with $k\in\{1,2\}$. Then
-\[
-  x^ay=x^{a-1}(xy)=x^{a-1}yx^{k}=\cdots=yx^{ka}
-\]
-for every $a\geq0$, by moving $y$ past one $x$ at a time. Every element of
-$G$ has the form $y^bx^a$ with $b\in\{0,1\}$ and $a\in\{0,1,2\}$. Using the
-rule above $c$ times,
-\[
-  (y^bx^a)(y^cx^d)=y^{b+c}x^{k^ca+d},
-\]
-and the exponents can be reduced using $y^2=e_G$ and $x^3=e_G$. Thus every
-product of two elements of $G$ is determined. For instance, when $k=2$,
-\[
-  (yx)\cdot y=y(xy)=y\cdot yx^2=x^2,\qquad
-  y\cdot(yx)=y^2x=x.
-\]
+\begin{proof}[Sketch] Let's just explain the idea by way of example: suppose $xy=yx^2$ and $x^3=y^2=1$. Now given two elements of $G = \{ 1 , x , x^2, y, yx, yx^2 \}$, we claim that we can always move all the $y$'s to the \textit{left} using the above rules. For example, \be{} x^2 \cdot (y x) = x \cdot ( x \cdot y) \cdot x = x \cdot (y x^2) \cdot x = x \cdot y = y x^2 \ee and the latter is one of the elements we listed in $G$. 
+%	
+%	
+%	
+%	
+%Write $xy=yx^k$ with $k\in\{1,2\}$. Then
+%\[
+%  x^ay=x^{a-1}(xy)=x^{a-1}yx^{k}=\cdots=yx^{ka}
+%\]
+%for every $a\geq0$, by moving $y$ past one $x$ at a time. Every element of
+%$G$ has the form $y^bx^a$ with $b\in\{0,1\}$ and $a\in\{0,1,2\}$. Using the
+%rule above $c$ times,
+%\[
+%  (y^bx^a)(y^cx^d)=y^{b+c}x^{k^ca+d},
+%\]
+%and the exponents can be reduced using $y^2=e_G$ and $x^3=e_G$. Thus every
+%product of two elements of $G$ is determined. For instance, when $k=2$,
+%\[
+%  (yx)\cdot y=y(xy)=y\cdot yx^2=x^2,\qquad
+%  y\cdot(yx)=y^2x=x.
+%\]
 \end{proof}
 
 Are there actually groups in which each case occurs? Yes:
@@ -142,10 +146,8 @@ Are there actually groups in which each case occurs? Yes:
   These six powers are distinct, so $xy$ has order $6$ and
   $G=\langle xy\rangle$ is the cyclic group $C_6$ of order $6$.
   For example, $\Z/6\Z$ with $x=\overline2$, $y=\overline3$.
-  \item \emph{Case $xy=yx^2$, $x^3=e_G$, $y^2=e_G$.} This is $S_3$:
-  take $x=(1\,2\,3)$ and $y=(1\,2)$. (Equivalently, $yx=x^2y$, the
-  relation we used for $S_3$ in Lecture~10.) This group is not abelian,
-  since $yx^2\neq yx$.
+  \item \emph{Case $xy=yx^2$, $x^3=e_G$, $y^2=e_G$.}  Note that $x y = yx^2$ is equivalent to (taking inverses of both sides and remembering that $y^{-1}=y$ and $x^{-1}=x^2$) \be{}  y x ^2 = y^{-1} x^{-1} = x^{-2} y^{-1} = x y. \ee But we have seen these relations before: this is just $S_3$:
+  take $x=(1\,2\,3)$ and $y=(1\,3)$.
 \end{itemize}
 
 \begin{theorem}
@@ -161,68 +163,68 @@ isomorphism. The two groups are not isomorphic, since $C_6$ is abelian and
 $S_3$ is not.
 \end{proof}
 
-\section{The counting formula for homomorphisms}
-
-Let $\varphi:G\to H$ be a group homomorphism, and recall
-\begin{align*}
-  K=\ker(\varphi)&=\{x\in G:\varphi(x)=e_H\}\leq G,\\
-  \im(\varphi)&=\{h\in H:\text{there is }a\in G\text{ with }\varphi(a)=h\}
-  \leq H.
-\end{align*}
-Picture $G$ partitioned into the left cosets $K, g_1K, g_2K,\ldots$ of the
-kernel. Since $\varphi(K)=\{e_H\}$, the whole coset $gK$ is sent to the
-single element $\varphi(g)$:
-\[
-  \varphi(gk)=\varphi(g)\varphi(k)=\varphi(g)\qquad(k\in K).
-\]
-So $\varphi$ collapses each coset of $K$ to one point of $\im(\varphi)$.
-
-\begin{proposition}\label{prop:cosets-image}
-The map
-\[
-  G/K\longrightarrow\im(\varphi),\qquad gK\longmapsto\varphi(g),
-\]
-is a well-defined bijection.
-\end{proposition}
-\begin{proof}
-\emph{Well defined:} if $g_1K=g_2K$, then $g_1=g_2k$ for some $k\in K$,
-so $\varphi(g_1)=\varphi(g_2)\varphi(k)=\varphi(g_2)$.
-
-\emph{Surjective:} every element of $\im(\varphi)$ is $\varphi(g)$ for
-some $g\in G$, and this is the image of $gK$.
-
-\emph{Injective:} could we have $g_1K\neq g_2K$ but
-$\varphi(g_1)=\varphi(g_2)$? No: if $\varphi(g_1)=\varphi(g_2)$, then
-\[
-  \varphi(g_2^{-1}g_1)=\varphi(g_2)^{-1}\varphi(g_1)=e_H,
-\]
-so $g_2^{-1}g_1\in K$. By the lemma on equality of cosets, this means
-$g_1K=g_2K$.
-\end{proof}
-
-\begin{theorem}[Counting formula for homomorphisms]\label{thm:hom-count}
-If $G$ is finite and $\varphi:G\to H$ is a homomorphism, then
-\begin{equation}
-  |G|=|\ker(\varphi)|\cdot|\im(\varphi)|.
-\end{equation}
-In particular, $|\im(\varphi)|$ divides both $|G|$ and $|H|$ (the latter
-when $H$ is finite).
-\end{theorem}
-\begin{proof}
-By Proposition~\ref{prop:cosets-image}, $|\im(\varphi)|=|G/\ker(\varphi)|$.
-The counting formula applied to $\ker(\varphi)\leq G$ gives
-$|G|=|\ker(\varphi)|\cdot|G/\ker(\varphi)|=|\ker(\varphi)|\cdot|\im(\varphi)|$.
-Finally, $\im(\varphi)\leq H$, so Lagrange's theorem shows that
-$|\im(\varphi)|$ divides $|H|$.
-\end{proof}
-
-\begin{example}[The alternating group]
-For $n\geq2$, the sign homomorphism $\sgn:S_n\to\{\pm1\}$ is surjective
-(a transposition has sign $-1$) and its kernel is $A_n$. Hence
-\[
-  n!=|A_n|\cdot2,\qquad |A_n|=\frac{n!}{2}.
-\]
-\end{example}
+%\section{The counting formula for homomorphisms}
+%
+%Let $\varphi:G\to H$ be a group homomorphism, and recall
+%\begin{align*}
+%  K=\ker(\varphi)&=\{x\in G:\varphi(x)=e_H\}\leq G,\\
+%  \im(\varphi)&=\{h\in H:\text{there is }a\in G\text{ with }\varphi(a)=h\}
+%  \leq H.
+%\end{align*}
+%Picture $G$ partitioned into the left cosets $K, g_1K, g_2K,\ldots$ of the
+%kernel. Since $\varphi(K)=\{e_H\}$, the whole coset $gK$ is sent to the
+%single element $\varphi(g)$:
+%\[
+%  \varphi(gk)=\varphi(g)\varphi(k)=\varphi(g)\qquad(k\in K).
+%\]
+%So $\varphi$ collapses each coset of $K$ to one point of $\im(\varphi)$.
+%
+%\begin{proposition}\label{prop:cosets-image}
+%The map
+%\[
+%  G/K\longrightarrow\im(\varphi),\qquad gK\longmapsto\varphi(g),
+%\]
+%is a well-defined bijection.
+%\end{proposition}
+%\begin{proof}
+%\emph{Well defined:} if $g_1K=g_2K$, then $g_1=g_2k$ for some $k\in K$,
+%so $\varphi(g_1)=\varphi(g_2)\varphi(k)=\varphi(g_2)$.
+%
+%\emph{Surjective:} every element of $\im(\varphi)$ is $\varphi(g)$ for
+%some $g\in G$, and this is the image of $gK$.
+%
+%\emph{Injective:} could we have $g_1K\neq g_2K$ but
+%$\varphi(g_1)=\varphi(g_2)$? No: if $\varphi(g_1)=\varphi(g_2)$, then
+%\[
+%  \varphi(g_2^{-1}g_1)=\varphi(g_2)^{-1}\varphi(g_1)=e_H,
+%\]
+%so $g_2^{-1}g_1\in K$. By the lemma on equality of cosets, this means
+%$g_1K=g_2K$.
+%\end{proof}
+%
+%\begin{theorem}[Counting formula for homomorphisms]\label{thm:hom-count}
+%If $G$ is finite and $\varphi:G\to H$ is a homomorphism, then
+%\begin{equation}
+%  |G|=|\ker(\varphi)|\cdot|\im(\varphi)|.
+%\end{equation}
+%In particular, $|\im(\varphi)|$ divides both $|G|$ and $|H|$ (the latter
+%when $H$ is finite).
+%\end{theorem}
+%\begin{proof}
+%By Proposition~\ref{prop:cosets-image}, $|\im(\varphi)|=|G/\ker(\varphi)|$.
+%The counting formula applied to $\ker(\varphi)\leq G$ gives
+%$|G|=|\ker(\varphi)|\cdot|G/\ker(\varphi)|=|\ker(\varphi)|\cdot|\im(\varphi)|$.
+%Finally, $\im(\varphi)\leq H$, so Lagrange's theorem shows that
+%$|\im(\varphi)|$ divides $|H|$.
+%\end{proof}
+%
+%\begin{example}[The alternating group]
+%For $n\geq2$, the sign homomorphism $\sgn:S_n\to\{\pm1\}$ is surjective
+%(a transposition has sign $-1$) and its kernel is $A_n$. Hence
+%\[
+%  n!=|A_n|\cdot2,\qquad |A_n|=\frac{n!}{2}.
+%\]
+%\end{example}
 %
 %\begin{remark}[Aside: short exact sequences]
 %In general, suppose we have three groups and two homomorphisms
