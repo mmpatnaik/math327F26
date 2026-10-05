@@ -7,19 +7,146 @@
 \begin{document}
 \makelecturetitle
 
-\section{Review: index and the tower law}
+\section{The counting formula for homomorphisms}
 
-For a subgroup $H\leq G$, the index $[G:H]$ is the number of left cosets
-of $H$ in $G$. Last time we proved the tower law, a generalization of the
-counting formula: if $K\leq H\leq G$, then
+
+\begin{question} How many elements does $A_n$ have?
+
+For $S_5$, the cycle types, their parity, and the number of permutations
+of each type are listed below. Here $1$ denotes a fixed point.
+\begin{center}
+\normalfont
+\begin{tabular}{ccl r}
+\hline
+Cycle type & Example & Parity & Count \\
+\hline
+$1^5$       & $1$             & Even & $1$  \\
+$2\,1^3$   & $(12)$          & Odd  & $10$ \\
+$2^2\,1$   & $(12)(34)$      & Even & $15$ \\
+$3\,1^2$   & $(123)$         & Even & $20$ \\
+$3\,2$     & $(123)(45)$     & Odd  & $20$ \\
+$4\,1$     & $(1234)$        & Odd  & $30$ \\
+$5$         & $(12345)$       & Even & $24$ \\
+\hline
+\end{tabular}
+\end{center}
+Thus $S_5$ has $60$ even and $60$ odd permutations, so $|A_5|=60$.
+
+\newcommand{\rr}{\rightarrow}
+
+By the way, how do we know that $(123)$ is even/odd? Remember our homomorphism $\sgn: S_n \rr \{ \pm 1\}$. Suppose $\sgn(123)=-1$, i.e. it is odd, then $\sgn\left( (123)^3 \right) = (-1)^3 = -1$, but it must also equal $1$ as $(123)^3=1$.
+
+\end{question}
+
+Let $\varphi:G\to H$ be a group homomorphism, and recall
+\begin{align*}
+  K=\ker(\varphi)&=\{x\in G:\varphi(x)=e_H\}\leq G,\\
+  \im(\varphi)&=\{h\in H:\text{there is }a\in G\text{ with }\varphi(a)=h\}
+  \leq H.
+\end{align*}
+Picture $G$ partitioned into the left cosets $K, g_1K, g_2K,\ldots$ of the
+kernel. Since $\varphi(K)=\{e_H\}$, the whole coset $gK$ is sent to the
+single element $\varphi(g)$:
 \[
-  [G:K]=[G:H]\,[H:K],
+  \varphi(gk)=\varphi(g)\varphi(k)=\varphi(g)\qquad(k\in K).
 \]
-assuming the terms on the right-hand side are finite. Taking
-$K=\{e_G\}$ recovers the counting formula
+So $\varphi$ collapses each coset of $K$ to one point of $\im(\varphi)$.
+
+\begin{proposition}\label{prop:cosets-image}
+The map
 \[
-  |G|=[G:H]\,|H|=|G/H|\cdot|H|.
+  G/K\longrightarrow\im(\varphi),\qquad gK\longmapsto\varphi(g),
 \]
+is a well-defined bijection.
+\end{proposition}
+\begin{proof}
+\emph{Well defined:} if $g_1K=g_2K$, then by what we proved earlier $g_1^{-1}g_2 \in K.$ Hence $\varphi(g_1^{-1}g_2)=e$, i.e. $\varphi(g_1)=\varphi(g_2)$.
+
+\emph{Surjective:} every element of $\im(\varphi)$ is $\varphi(g)$ for
+some $g\in G$, and this is the image of $gK$.
+
+\emph{Injective:} could we have $g_1K\neq g_2K$ but
+$\varphi(g_1)=\varphi(g_2)$? No: if $\varphi(g_1)=\varphi(g_2)$, then
+\[
+  \varphi(g_2^{-1}g_1)=\varphi(g_2)^{-1}\varphi(g_1)=e_H,
+\]
+so $g_2^{-1}g_1\in K$. By the lemma on equality of cosets, this means
+$g_1K=g_2K$.
+\end{proof}
+
+\begin{theorem}[Counting formula for homomorphisms]\label{thm:hom-count}
+If $G$ is finite and $\varphi:G\to H$ is a homomorphism, then
+\begin{equation}
+  |G|=|\ker(\varphi)|\cdot|\im(\varphi)|.
+\end{equation}
+In particular, $|\im(\varphi)|$ divides both $|G|$ and $|H|$ (the latter
+when $H$ is finite).
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:cosets-image}, $|\im(\varphi)|=|G/\ker(\varphi)|$.
+The counting formula applied to $\ker(\varphi)\leq G$ gives
+$|G|=|\ker(\varphi)|\cdot|G/\ker(\varphi)|=|\ker(\varphi)|\cdot|\im(\varphi)|$.
+Finally, $\im(\varphi)\leq H$, so Lagrange's theorem shows that
+$|\im(\varphi)|$ divides $|H|$.
+\end{proof}
+
+\begin{example}[The alternating group]
+For $n\geq2$, the sign homomorphism $\sgn:S_n\to\{\pm1\}$ is surjective
+(a transposition has sign $-1$) and its kernel is $A_n$. Hence
+\[
+  n!=|A_n|\cdot2,\qquad |A_n|=\frac{n!}{2}.
+\]
+\end{example}
+
+\section{Index in a tower of subgroups}
+
+Recall the counting formula $|G|=[G:H]\,|H|$, where the index
+$[G:H]=|G/H|$ is the number of left cosets of $H$ in $G$. (When we write
+$[G:H]$ we usually mean that it is finite.)
+
+\begin{theorem}[Tower law]\label{thm:tower}
+Let $K\leq H\leq G$ be a tower of subgroups. Then
+\begin{equation}
+  [G:K]=[G:H]\,[H:K].
+\end{equation}
+\end{theorem}
+\begin{proof}
+Assume $[G:H]=m$ and $[H:K]=n$ are finite. Then
+\[
+  G=g_1H\sqcup g_2H\sqcup\cdots\sqcup g_mH\quad(g_i\in G),
+  \qquad
+  H=h_1K\sqcup\cdots\sqcup h_nK\quad(h_j\in H).
+\]
+Substituting the second decomposition into the first,
+\[
+  G=g_1(h_1K\cup\cdots\cup h_nK)\cup\cdots\cup
+    g_m(h_1K\cup\cdots\cup h_nK)
+   =\bigcup_{\substack{1\leq i\leq m\\1\leq j\leq n}}g_ih_jK.
+\]
+It remains to show that the $mn$ cosets $g_ih_jK$ are distinct, and hence
+(being cosets) disjoint. Suppose $g_ih_jK=g_{i'}h_{j'}K$. Since
+$h_jK\subseteq H$, we have $g_ih_jK\subseteq g_iH$ and similarly
+$g_{i'}h_{j'}K\subseteq g_{i'}H$. So $g_iH\cap g_{i'}H\neq\varnothing$,
+which forces $i=i'$. Cancelling $g_i$ then gives $h_jK=h_{j'}K$, so
+$j=j'$. Therefore $G$ is the disjoint union of exactly $mn$ left cosets
+of $K$, and $[G:K]=mn$.
+\end{proof}
+
+When $G$ is finite, the tower law also follows directly from the counting
+formula:
+\[
+  [G:K]=\frac{|G|}{|K|}=\frac{|G|}{|H|}\cdot\frac{|H|}{|K|}=[G:H]\,[H:K].
+\]
+The proof above has the advantage that it works for infinite groups, as
+long as the indices are finite.
+
+\begin{example}
+For $8\Z\leq2\Z\leq\Z$ we have $[\Z:2\Z]=2$ and $[2\Z:8\Z]=4$ (the cosets
+are $8\Z$, $2+8\Z$, $4+8\Z$, $6+8\Z$), so
+$[\Z:8\Z]=2\cdot4=8$, matching Lecture~11.
+In $S_3$, the tower $\{1\}\leq\{1,x,x^2\}\leq S_3$ gives
+$6=[S_3:\{1\}]=2\cdot3$.
+\end{example}
 
 \section{Right cosets}
 
@@ -138,129 +265,129 @@ Combining the last two results:
 For example, $H=\{1,y\}$ is not normal in $S_3$, matching the computation
 $xH\neq Hx$ above.
 
-\section{Example: units modulo \texorpdfstring{$n$}{n} and Fermat's little theorem}
-
-Let $n\geq1$. The set $\Z/n\Z$ of residue classes modulo $n$ is a group
-under addition, with identity $\overline0$. Recall that
-\[
-  a\equiv b\pmod n\quad\text{means}\quad n\mid(b-a).
-\]
-Now consider the operation of \emph{multiplication} on this set,
-$\overline a\cdot\overline b=\overline{ab}$. It is not a group under
-multiplication (for instance $\overline0$ has no inverse), but we can
-ask: for which $a$ does the congruence
-\begin{equation}\label{eq:unit}
-  ax\equiv1\pmod n
-\end{equation}
-have a solution $x\in\Z/n\Z$?
-
-A solution means $ax-1=bn$ for some $b\in\Z$, i.e.
-\[
-  ax+(-b)n=1.
-\]
-Such an equation has an integer solution if and only if
-$\gcd(a,n)=1$: if $d$ divides $a$ and $n$ then it divides $1$;
-conversely, $\Z a+\Z n=\Z\gcd(a,n)$, so if $\gcd(a,n)=1$ then $1$ is an
-integer combination of $a$ and $n$. Note that $\gcd(a,n)$ depends only on
-$\overline a$, since $\gcd(a+kn,n)=\gcd(a,n)$.
-
-\begin{define}[Units modulo $n$]
-The \emph{group of units modulo $n$} is
-\[
-  (\Z/n\Z)^\times
-  =\{\overline a\in\Z/n\Z:\ ax\equiv1\ (\mathrm{mod}\ n)\text{ has a
-  solution}\}
-  =\{\overline a\in\Z/n\Z:\gcd(a,n)=1\},
-\]
-with the operation of multiplication.
-\end{define}
-
-This is not just a set but a group. The key point is closure: if
-$\overline a,\overline b\in(\Z/n\Z)^\times$, choose solutions
-$ax_1\equiv1$ and $bx_2\equiv1\pmod n$. Then $y=x_2x_1$ satisfies
-\[
-  (ab)y=a(bx_2)x_1\equiv ax_1\equiv1\pmod n,
-\]
-so $\overline{ab}\in(\Z/n\Z)^\times$. The remaining axioms are checked
-similarly.
-
-\begin{exercise}
-Complete the verification that $(\Z/n\Z)^\times$ is an abelian group:
-check associativity, that $\overline1$ is the identity, and that the
-solution $\overline x$ of \eqref{eq:unit} is an inverse of $\overline a$
-lying in $(\Z/n\Z)^\times$.
-\end{exercise}
-
-The order of this group is
-\[
-  |(\Z/n\Z)^\times|=\varphi(n)=\#\{1\leq a\leq n:\gcd(a,n)=1\},
-\]
-\emph{Euler's $\varphi$-function}. For example,
-$(\Z/8\Z)^\times=\{\overline1,\overline3,\overline5,\overline7\}$ and
-$\varphi(8)=4$.
-
-If $n=p$ is prime, every $a$ with $1\leq a\leq p-1$ is coprime to $p$, so
-$\varphi(p)=p-1$ and $(\Z/p\Z)^\times$ has order $p-1$. Lagrange's theorem
-now gives a classical result from number theory.
-
-\begin{theorem}[Fermat's little theorem]
-Let $p$ be prime and $a\in\Z$ with $p\nmid a$. Then
-\[
-  a^{p-1}\equiv1\pmod p.
-\]
-\end{theorem}
-\begin{proof}
-Since $p\nmid a$, $\overline a\in(\Z/p\Z)^\times$, a group of order
-$p-1$. By Lagrange's theorem the order $m$ of $\overline a$ divides
-$p-1$, say $p-1=mk$. Then $\overline a^{\,p-1}=(\overline a^{\,m})^k
-=\overline1$.
-\end{proof}
-
-The same argument applied to $(\Z/n\Z)^\times$ gives \emph{Euler's
-theorem}: if $\gcd(a,n)=1$, then $a^{\varphi(n)}\equiv1\pmod n$.
-
-\begin{remark}
-The group $(\Z/p\Z)^\times$ is in fact cyclic. A generator is called a
-\emph{primitive root} modulo $p$. For example, modulo $7$ the powers of
-$3$ are
-\[
-  3,\ 2,\ 6,\ 4,\ 5,\ 1,
-\]
-so $\overline3$ generates $(\Z/7\Z)^\times$. We will not prove this fact
-in general.
-\end{remark}
-
-\section{The correspondence theorem}
-
-Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism of groups,
-and let $K=\ker(\varphi)\trianglelefteq G$.
-
-\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
-\leavevmode
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item There is a bijective correspondence
-  \[
-    \{\text{subgroups }H\leq G\text{ with }K\leq H\}
-    \quad\longleftrightarrow\quad
-    \{\text{subgroups }\mathcal H\leq\mathcal G\},
-  \]
-  given by
-  \[
-    H\longmapsto\varphi(H)=\mathcal H,
-    \qquad
-    \mathcal H\longmapsto\varphi^{-1}(\mathcal H).
-  \]
-  \item Under this correspondence,
-  $H\trianglelefteq G$ if and only if
-  $\mathcal H\trianglelefteq\mathcal G$.
-  \item If $H$ is finite, then $|H|=|\mathcal H|\cdot|K|$.
-\end{enumerate}
-\end{theorem}
-
-Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$ is the
-preimage. Part~(3) follows from what we already know: the restriction
-$\varphi|_H:H\to\mathcal H$ is a surjective homomorphism with kernel
-$H\cap K=K$, so the counting formula for homomorphisms from Lecture~12
-gives $|H|=|K|\cdot|\mathcal H|$.
+%\section{Example: units modulo \texorpdfstring{$n$}{n} and Fermat's little theorem}
+%
+%Let $n\geq1$. The set $\Z/n\Z$ of residue classes modulo $n$ is a group
+%under addition, with identity $\overline0$. Recall that
+%\[
+%  a\equiv b\pmod n\quad\text{means}\quad n\mid(b-a).
+%\]
+%Now consider the operation of \emph{multiplication} on this set,
+%$\overline a\cdot\overline b=\overline{ab}$. It is not a group under
+%multiplication (for instance $\overline0$ has no inverse), but we can
+%ask: for which $a$ does the congruence
+%\begin{equation}\label{eq:unit}
+%  ax\equiv1\pmod n
+%\end{equation}
+%have a solution $x\in\Z/n\Z$?
+%
+%A solution means $ax-1=bn$ for some $b\in\Z$, i.e.
+%\[
+%  ax+(-b)n=1.
+%\]
+%Such an equation has an integer solution if and only if
+%$\gcd(a,n)=1$: if $d$ divides $a$ and $n$ then it divides $1$;
+%conversely, $\Z a+\Z n=\Z\gcd(a,n)$, so if $\gcd(a,n)=1$ then $1$ is an
+%integer combination of $a$ and $n$. Note that $\gcd(a,n)$ depends only on
+%$\overline a$, since $\gcd(a+kn,n)=\gcd(a,n)$.
+%
+%\begin{define}[Units modulo $n$]
+%The \emph{group of units modulo $n$} is
+%\[
+%  (\Z/n\Z)^\times
+%  =\{\overline a\in\Z/n\Z:\ ax\equiv1\ (\mathrm{mod}\ n)\text{ has a
+%  solution}\}
+%  =\{\overline a\in\Z/n\Z:\gcd(a,n)=1\},
+%\]
+%with the operation of multiplication.
+%\end{define}
+%
+%This is not just a set but a group. The key point is closure: if
+%$\overline a,\overline b\in(\Z/n\Z)^\times$, choose solutions
+%$ax_1\equiv1$ and $bx_2\equiv1\pmod n$. Then $y=x_2x_1$ satisfies
+%\[
+%  (ab)y=a(bx_2)x_1\equiv ax_1\equiv1\pmod n,
+%\]
+%so $\overline{ab}\in(\Z/n\Z)^\times$. The remaining axioms are checked
+%similarly.
+%
+%\begin{exercise}
+%Complete the verification that $(\Z/n\Z)^\times$ is an abelian group:
+%check associativity, that $\overline1$ is the identity, and that the
+%solution $\overline x$ of \eqref{eq:unit} is an inverse of $\overline a$
+%lying in $(\Z/n\Z)^\times$.
+%\end{exercise}
+%
+%The order of this group is
+%\[
+%  |(\Z/n\Z)^\times|=\varphi(n)=\#\{1\leq a\leq n:\gcd(a,n)=1\},
+%\]
+%\emph{Euler's $\varphi$-function}. For example,
+%$(\Z/8\Z)^\times=\{\overline1,\overline3,\overline5,\overline7\}$ and
+%$\varphi(8)=4$.
+%
+%If $n=p$ is prime, every $a$ with $1\leq a\leq p-1$ is coprime to $p$, so
+%$\varphi(p)=p-1$ and $(\Z/p\Z)^\times$ has order $p-1$. Lagrange's theorem
+%now gives a classical result from number theory.
+%
+%\begin{theorem}[Fermat's little theorem]
+%Let $p$ be prime and $a\in\Z$ with $p\nmid a$. Then
+%\[
+%  a^{p-1}\equiv1\pmod p.
+%\]
+%\end{theorem}
+%\begin{proof}
+%Since $p\nmid a$, $\overline a\in(\Z/p\Z)^\times$, a group of order
+%$p-1$. By Lagrange's theorem the order $m$ of $\overline a$ divides
+%$p-1$, say $p-1=mk$. Then $\overline a^{\,p-1}=(\overline a^{\,m})^k
+%=\overline1$.
+%\end{proof}
+%
+%The same argument applied to $(\Z/n\Z)^\times$ gives \emph{Euler's
+%theorem}: if $\gcd(a,n)=1$, then $a^{\varphi(n)}\equiv1\pmod n$.
+%
+%\begin{remark}
+%The group $(\Z/p\Z)^\times$ is in fact cyclic. A generator is called a
+%\emph{primitive root} modulo $p$. For example, modulo $7$ the powers of
+%$3$ are
+%\[
+%  3,\ 2,\ 6,\ 4,\ 5,\ 1,
+%\]
+%so $\overline3$ generates $(\Z/7\Z)^\times$. We will not prove this fact
+%in general.
+%\end{remark}
+%
+%\section{The correspondence theorem}
+%
+%Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism of groups,
+%and let $K=\ker(\varphi)\trianglelefteq G$.
+%
+%\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
+%\leavevmode
+%\begin{enumerate}[label=\textbf{(\arabic*)}]
+%  \item There is a bijective correspondence
+%  \[
+%    \{\text{subgroups }H\leq G\text{ with }K\leq H\}
+%    \quad\longleftrightarrow\quad
+%    \{\text{subgroups }\mathcal H\leq\mathcal G\},
+%  \]
+%  given by
+%  \[
+%    H\longmapsto\varphi(H)=\mathcal H,
+%    \qquad
+%    \mathcal H\longmapsto\varphi^{-1}(\mathcal H).
+%  \]
+%  \item Under this correspondence,
+%  $H\trianglelefteq G$ if and only if
+%  $\mathcal H\trianglelefteq\mathcal G$.
+%  \item If $H$ is finite, then $|H|=|\mathcal H|\cdot|K|$.
+%\end{enumerate}
+%\end{theorem}
+%
+%Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$ is the
+%preimage. Part~(3) follows from what we already know: the restriction
+%$\varphi|_H:H\to\mathcal H$ is a surjective homomorphism with kernel
+%$H\cap K=K$, so the counting formula for homomorphisms (Theorem~\ref{thm:hom-count})
+%gives $|H|=|K|\cdot|\mathcal H|$.
 
 \end{document}
