@@ -11,6 +11,12 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-05
+
+[Homework 2](hw/hw-02.pdf) has been revised to remove the questions from Sections 10–12 and the optional semidirect products question. The [Homework 2 solutions](hw/hw-02-solutions.pdf) and updated [Midterm 1 coverage sheet](exams/midterm-1-coverage.pdf) are also posted.
+
+Office hours this week are Monday, October 5, 2–3 pm and Wednesday, October 7, 2–3 pm.
+
 ## 2026-09-20
 
 [Homework 2](hw/hw-02.pdf) is posted. It covers Lectures 8–13; the suggested completion date is October 5.

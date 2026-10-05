@@ -12,7 +12,7 @@
 \usepackage[hidelinks]{hyperref}
 
 \hypersetup{
-  pdftitle={Homework 2, MATH 327, Fall 2026},
+  pdftitle={Homework 2 Solutions, MATH 327, Fall 2026},
   pdfauthor={Manish Patnaik},
   pdfsubject={MATH 327 homework problems}
 }
@@ -21,6 +21,8 @@
 \definecolor{lightblue}{HTML}{EAF2F8}
 \definecolor{boxborder}{HTML}{B8CBDC}
 \definecolor{darkgray}{HTML}{333333}
+\definecolor{lightyellow}{HTML}{FFF9DC}
+\definecolor{yellowborder}{HTML}{E4D58C}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.55em}
@@ -42,6 +44,25 @@
   bottom=1.5mm,
   before skip=0.8em,
   after skip=0.8em
+}
+
+\newtcolorbox{solution}{
+  enhanced,
+  breakable,
+  colback=lightyellow,
+  colframe=yellowborder,
+  colbacktitle=lightyellow,
+  coltitle=darkgray,
+  fonttitle=\bfseries,
+  title={Solution},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.2em,
+  after skip=1em
 }
 
 \newcommand{\chapterheading}[1]{%
@@ -66,6 +87,7 @@
         {\color{courseblue}\bfseries\LARGE Homework 2} &
         {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.4em]
         \multicolumn{2}{l}{\color{darkgray}\bfseries Fall 2026}\\[0.35em]
+        \multicolumn{2}{l}{\color{courseblue}\bfseries Questions and solutions}\\[0.35em]
         \multicolumn{2}{l}{\color{darkgray}Covers Lectures 8--13}\\[0.2em]
         \multicolumn{2}{l}{\color{darkgray}Suggested completion date: October 5}
       \end{tabular*}
@@ -78,6 +100,10 @@
 Unless otherwise indicated, the following exercises are from Michael Artin's
 \emph{Algebra}, second edition.
 
+% Solutions adapted from Homework (2025)/2025-Winter-MATH327-Homework2_solutions.tex.
+% The index-3 example in 8.10 and the corrected M.12 argument were added
+% with the instructor's permission.
+
 \chapterheading{Chapter 2: Groups}
 
 \sectionheading{Section 8: Cosets}
@@ -88,14 +114,56 @@ by the permutation $(123)$. Exhibit the left and the right cosets of $H$
 explicitly.
 \end{exercise}
 
+\begin{solution}
+The group $A_4$ has $12$ elements and $H=\langle(123)\rangle$ has $3$,
+so there are four left cosets and four right cosets. Direct computation gives
+the left cosets
+\begin{align*}
+  H&=\{1,(123),(132)\},\\
+  (12)(34)H&=\{(12)(34),(143),(243)\},\\
+  (13)(24)H&=\{(13)(24),(142),(234)\},\\
+  (14)(23)H&=\{(14)(23),(124),(134)\},
+\end{align*}
+and the right cosets
+\begin{align*}
+  H&=\{1,(123),(132)\},\\
+  H(12)(34)&=\{(12)(34),(134),(234)\},\\
+  H(13)(24)&=\{(13)(24),(124),(243)\},\\
+  H(14)(23)&=\{(14)(23),(142),(143)\}.
+\end{align*}
+\end{solution}
+
 \begin{exercise}{8.4}
 Does a group of order $35$ contain an element of order $5$? Of order $7$?
 \end{exercise}
+
+\begin{solution}
+If $G$ has an element $x$ of order $35$, then $x^7$ has order $5$ and
+$x^5$ has order $7$. Otherwise, to show that $G$ has an element of order
+$7$, suppose every nonidentity element has order $5$. Distinct subgroups
+of order $5$ intersect only in the identity, so counting their elements
+would give $35=1+4k$ for some integer $k$, a contradiction. The same
+argument shows that $G$ has an element of order $5$: if every
+nonidentity element had order $7$, then $35=1+6k$, also impossible.
+\end{solution}
 
 \begin{exercise}{8.10}
 Prove that every subgroup of index $2$ is a normal subgroup, and show by
 example that a subgroup of index $3$ need not be normal.
 \end{exercise}
+
+\begin{solution}
+Suppose $[G:H]=2$, and let $a\notin H$. Since $aH\ne H$ and $Ha\ne H$,
+the two-coset decompositions of $G$ give
+\[
+  G=H\sqcup aH=H\sqcup Ha.
+\]
+Thus $aH=Ha$ for every $a\notin H$; the same equality holds for $a\in H$.
+Hence $H$ is normal in $G$.
+
+For an index-$3$ example, take $G=S_3$ and $H=\{1,(12)\}$. Then
+$[G:H]=3$, but $(123)(12)(132)=(23)\notin H$, so $H$ is not normal.
+\end{solution}
 
 \sectionheading{Section 9: Modular Arithmetic}
 
@@ -111,6 +179,17 @@ integer $x$ such that
 \textit{Hint.} Do the case $u=0$ and $v=1$ first.
 \end{exercise}
 
+\begin{solution}
+Since $\gcd(a,b)=1$, choose integers $r,s$ with $ra+sb=1$. Set
+$x=ra$ and $y=sb$. Then
+\[
+  x\equiv0\pmod a,\quad x\equiv1\pmod b,
+  \qquad
+  y\equiv1\pmod a,\quad y\equiv0\pmod b.
+\]
+Therefore $ux+vy$ satisfies both required congruences.
+\end{solution}
+
 \sectionheading{Miscellaneous Problems}
 
 \begin{exercise}{M.12}
@@ -122,6 +201,22 @@ prime integers.
   \item Determine the largest integer that is not of this form.
 \end{enumerate}
 \end{exercise}
+
+\begin{solution}
+Since $\gcd(a,b)=1$, for any integer $n$ there is a unique
+$r\in\{1,\ldots,b\}$ such that $ra\equiv n\pmod b$. Thus
+\[
+  s=\frac{n-ra}{b}
+\]
+is an integer. If $n>ab$, then $ra\leq ab<n$, so $s>0$; also $r>0$.
+Hence every integer $n>ab$ has the required form $ra+sb$.
+
+The integer $ab$ itself does not have this form with $r,s>0$. Indeed,
+if $ab=ra+sb$, then reducing modulo $b$ gives $b\mid ra$. Since
+$\gcd(a,b)=1$, we have $b\mid r$, so $r\geq b$ and $ra\geq ab$,
+contradicting $sb>0$. Consequently, the largest integer not of the
+required form is $\boxed{ab}$.
+\end{solution}
 
 \vfill
 {\small\color{darkgray}Compiled \today.}
