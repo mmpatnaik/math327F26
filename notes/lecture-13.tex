@@ -1,7 +1,7 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\lectureinfo{13}{Oct. 5, 2026}{Right Cosets, Units Modulo \texorpdfstring{$n$}{n}, and the Correspondence Theorem}
+\lectureinfo{13}{Oct. 5, 2026}{The Counting Formula and the Tower Law}
 
 % Based on handwritten Lecture 10, Sep. 24, 2025.
 \begin{document}
@@ -147,123 +147,6 @@ $[\Z:8\Z]=2\cdot4=8$, matching Lecture~11.
 In $S_3$, the tower $\{1\}\leq\{1,x,x^2\}\leq S_3$ gives
 $6=[S_3:\{1\}]=2\cdot3$.
 \end{example}
-
-\section{Right cosets}
-
-So far we have mostly worked with left cosets $gH$. What about right
-cosets $Hg$?
-
-In general, left cosets are \emph{not} right cosets.
-
-\begin{example}[Left and right cosets in $S_3$]
-Write $S_3=\{1,x,x^2,y,xy,x^2y\}$ with $yx=x^2y$, and let $H=\{1,y\}$.
-Then
-\[
-\begin{array}{r@{\;=\;}l@{\qquad\qquad}r@{\;=\;}l}
-  H & \{1,y\}, & H\cdot1 & \{1,y\},\\[2pt]
-  xH & \{x,xy\}, & Hx & \{x,yx\}=\{x,x^2y\},\\[2pt]
-  x^2H & \{x^2,x^2y\}, & Hx^2 & \{x^2,yx^2\}=\{x^2,xy\}.
-\end{array}
-\]
-Here $yx^2=(yx)x=x^2yx=x^2\cdot x^2y=xy$. So $xH\neq Hx$ and
-$x^2H\neq Hx^2$; in fact neither $xH$ nor $x^2H$ is a right coset of $H$
-at all.
-\end{example}
-
-However, every statement you can make about left cosets has a right coset
-analogue, with the same proof after multiplying on the other side. For
-example:
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item Left cosets partition $G$; so do right cosets.
-  \item $g_1H=g_2H$ if and only if $g_2^{-1}g_1\in H$; similarly
-  $Hg_1=Hg_2$ if and only if $g_1g_2^{-1}\in H$.
-  \item $|gH|=|H|$, via $h\mapsto gh$; similarly $|Hg|=|H|$, via
-  $h\mapsto hg$.
-\end{enumerate}
-
-What about the index? Is the number of left cosets the same as the number
-of right cosets?
-
-\begin{proposition}\label{prop:left-right-bijection}
-Let $H\leq G$. The map
-\[
-  \{\text{left cosets of }H\}\longrightarrow\{\text{right cosets of }H\},
-  \qquad gH\longmapsto Hg^{-1},
-\]
-is a well-defined bijection.
-\end{proposition}
-\begin{proof}
-For a subset $S\subseteq G$ write $S^{-1}=\{s^{-1}:s\in S\}$. Since
-$(gh)^{-1}=h^{-1}g^{-1}$ and $H^{-1}=H$,
-\[
-  (gH)^{-1}=H^{-1}g^{-1}=Hg^{-1}.
-\]
-So the map is simply $S\mapsto S^{-1}$, which depends only on the set
-$gH$ and not on the choice of $g$; hence it is well defined. Applying the
-same operation to right cosets, $(Hg)^{-1}=g^{-1}H$, gives the inverse
-map. Thus it is a bijection.
-\end{proof}
-
-\begin{corollary}
-The index $[G:H]$ equals both the number of left cosets and the number of
-right cosets of $H$ in $G$. In particular, for finite $G$,
-$|G|=[G:H]\,|H|$ however we choose to count.
-\end{corollary}
-
-\begin{warningbox}
-The natural-looking map $gH\mapsto Hg$ is \emph{not} well defined in
-general. In the example above, $xH=xyH$, but
-$Hx=\{x,x^2y\}\neq\{xy,x^2\}=Hxy$. (Check: $Hxy=\{xy,yxy\}$ and
-$yxy=x^2y^2=x^2$.) This is why we use $g^{-1}$.
-\end{warningbox}
-
-\section{Normal subgroups and cosets}
-
-Recall that a subgroup $H\leq G$ is \emph{normal}, written
-$H\trianglelefteq G$, if $gHg^{-1}\subseteq H$ for all $g\in G$, or
-equivalently $gHg^{-1}=H$ for all $g\in G$.
-
-Although left cosets are not right cosets in general, they are for normal
-subgroups.
-
-\begin{lemma}\label{lem:normal-left-right}
-If $H\trianglelefteq G$, then every left coset of $H$ is also a right
-coset. In fact, $gH=Hg$ for all $g\in G$.
-\end{lemma}
-\begin{proof}
-Multiplying $gHg^{-1}=H$ on the right by $g$ gives $gH=Hg$.
-\end{proof}
-
-\begin{lemma}\label{lem:which-right-coset}
-If a left coset $gH$ equals some right coset $Hg'$, then in fact
-$Hg'=Hg$.
-\end{lemma}
-\begin{proof}
-Both the left cosets and the right cosets of $H$ partition $G$. The left
-coset $gH$ and the right coset $Hg$ both contain $g=ge_G=e_Gg$, so
-$Hg'=gH$ meets $Hg$. Two right cosets that meet are equal, so $Hg'=Hg$.
-\end{proof}
-
-\begin{corollary}
-If every left coset of $H$ is also some right coset, then $H$ is normal
-in $G$.
-\end{corollary}
-\begin{proof}
-Let $g\in G$. By hypothesis $gH$ is a right coset, so by
-Lemma~\ref{lem:which-right-coset}, $gH=Hg$. Multiplying on the right by
-$g^{-1}$ gives $gHg^{-1}=H$. This holds for all $g\in G$.
-\end{proof}
-
-Combining the last two results:
-\[
-  H\trianglelefteq G
-  \quad\Longleftrightarrow\quad
-  gH=Hg\text{ for all }g\in G
-  \quad\Longleftrightarrow\quad
-  \text{every left coset of $H$ is a right coset.}
-\]
-For example, $H=\{1,y\}$ is not normal in $S_3$, matching the computation
-$xH\neq Hx$ above.
 
 %\section{Example: units modulo \texorpdfstring{$n$}{n} and Fermat's little theorem}
 %
