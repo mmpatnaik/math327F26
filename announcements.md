@@ -11,6 +11,12 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-06
+
+**Extra office hours:** Wednesday, October 7, **2–3 pm**.
+
+Additional short-answer and true/false [review questions](exams/midterm-1-extra-practice.pdf) and [solutions](exams/midterm-1-extra-practice-solutions.pdf) are now posted for Midterm 1.
+
 ## 2026-10-05
 
 [Homework 2](hw/hw-02.pdf) has been revised to remove the questions from Sections 10–12 and the optional semidirect products question. The [Homework 2 solutions](hw/hw-02-solutions.pdf) and updated [Midterm 1 coverage sheet](exams/midterm-1-coverage.pdf) are also posted.
