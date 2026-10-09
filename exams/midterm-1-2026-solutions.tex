@@ -1,0 +1,166 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.8in,headheight=14pt,headsep=18pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={MATH 327 Midterm 1 -- Instructor Solutions -- Fall 2026},
+  pdfauthor={Manish Patnaik}
+}
+\definecolor{solutionblue}{HTML}{EAF4FF}
+\definecolor{solutionborder}{HTML}{7DA8CF}
+\newtcolorbox{solutionbox}{
+  enhanced,breakable,
+  colback=solutionblue,colframe=solutionborder,
+  boxrule=0.6pt,arc=1mm,
+  left=2.5mm,right=2.5mm,top=1.5mm,bottom=1.5mm,
+  before skip=4pt,after skip=12pt
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=2pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MATH 327: Algebra 1}
+\fancyhead[R]{\small Midterm 1 -- Instructor solutions}
+\fancyfoot[C]{\small Page \thepage}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+\begin{document}
+\begin{center}
+  {\LARGE\bfseries MATH 327: Algebra 1}\\[6pt]
+  {\Large Midterm 1 -- Instructor Solutions}\\[6pt]
+  Friday, October 9, 2026\qquad Total: 32 points
+\end{center}
+\medskip
+
+\section*{Short questions \hfill 8 points}
+\textbf{A. Short answer (2 points each)}
+
+\textbf{A1.} In the additive group $\Z/18\Z$, find the order of $\overline{6}$ and list the elements of $\langle\overline{6}\rangle$.
+\begin{solutionbox}
+The order is $3$, since $3\overline{6}=\overline{18}=\overline{0}$ and neither $\overline{6}$ nor $2\overline{6}=\overline{12}$ is zero. Thus
+\[
+  \langle\overline{6}\rangle
+  =\{\overline{0},\overline{6},\overline{12}\}.
+\]
+\end{solutionbox}
+
+\textbf{A2.} Let $\varphi:\Z\to\Z/8\Z$ be given by $\varphi(n)=\overline{n}$. Describe $\ker\varphi$ and $\im\varphi$.
+\begin{solutionbox}
+$\ker\varphi=8\Z$ and $\im\varphi=\Z/8\Z$.
+\end{solutionbox}
+
+\textbf{B. Multiple choice (1 point each)}
+
+\textbf{B1.} Let $H\leq G$ and $a,b\in G$. Which condition is equivalent to $aH=bH$?
+\begin{solutionbox}
+\textbf{(b)} $b^{-1}a\in H$. Indeed,
+$aH=bH$ if and only if $b^{-1}aH=H$, which holds if and only if $b^{-1}a\in H$.
+\end{solutionbox}
+
+\textbf{B2.} Let $a,b,c\in\Z$ be positive integers. Which statement is not always true?
+\begin{solutionbox}
+\textbf{(d)} The claim $a<b\implies a\Z\supseteq b\Z$ is not always true. For example, $2<3$, but $3\in3\Z$ and $3\notin2\Z$. Statements (a) and (c) follow from B\'ezout's identity, and (b) follows because every subgroup of $\Z$ is cyclic.
+\end{solutionbox}
+
+\textbf{C. True or false (1 point each)}
+
+\textbf{C1.} Every subgroup of an abelian group is normal.
+\begin{solutionbox}
+\textbf{True.} If $G$ is abelian, then $ghg^{-1}=h$ for every $g\in G$ and $h$ in any subgroup $H\leq G$.
+\end{solutionbox}
+
+\textbf{C2.} The set $M_2(\mathbb R)$ of all $2\times2$ real matrices is a group under matrix multiplication.
+\begin{solutionbox}
+\textbf{False.} The zero matrix, for example, has no multiplicative inverse.
+\end{solutionbox}
+
+\section*{Question 1 \hfill 8 points}
+\textbf{(a) [2 points]} Let $p=(1\ 4\ 2)(3\ 5)$ and $q=(1\ 2\ 3)$ in $S_5$. Compute $pq$ as a product of disjoint cycles.
+\begin{solutionbox}
+Using rightmost-first composition, $pq$ fixes $1$ and sends
+$2\mapsto5\mapsto3\mapsto4\mapsto2$. Hence
+\[
+  pq=(2\ 5\ 3\ 4).
+\]
+\emph{Marking note:} The student exam does not specify a composition convention. With leftmost-first composition, the answer is $(1\ 4\ 3\ 5)$.
+\end{solutionbox}
+
+\textbf{(b) [3 points]} Let $\sigma=(i_1\ i_2\ \cdots\ i_k)$ with $k$ odd. Find its order and parity.
+\begin{solutionbox}
+A $k$-cycle has order $k$. It is a product of $k-1$ transpositions, so
+\[
+  \sgn(\sigma)=(-1)^{k-1}=1.
+\]
+Thus $\sigma$ is an even permutation.
+\end{solutionbox}
+
+\textbf{(c) [3 points]} Let $a,b\in G$, with $a$ of order $7$ and $a^3b=ba^3$. Show that $ab=ba$.
+\begin{solutionbox}
+Since $3\cdot5=15\equiv1\pmod 7$, we have $a=(a^3)^5$. As $a^3 b = b a^3$, it also follows that $$a^3 a^3 b = a^3 b a^3 = b a^3 a^3.$$ Similarly, every power of $a^3$ commutes with $b$, so
+\[
+  ab=(a^3)^5b=b(a^3)^5=ba.
+\]
+\end{solutionbox}
+
+\section*{Question 2 \hfill 8 points}
+Let $H$ and $K$ be subgroups of a group $G$.
+
+\textbf{(a) [3 points]} Prove that $H\cap K$ is a subgroup of $G$.
+\begin{solutionbox}
+The identity belongs to both $H$ and $K$, so $H\cap K$ is nonempty. If $x,y\in H\cap K$, then $xy^{-1}\in H$ and $xy^{-1}\in K$, because both are subgroups. Therefore $xy^{-1}\in H\cap K$, and the subgroup test gives $H\cap K\leq G$.
+\end{solutionbox}
+
+\textbf{(b) [2 points]} Give explicit $G,H,K$ for which $H\cup K$ is not a subgroup of $G$.
+\begin{solutionbox}
+Take $G=(\Z,+)$, $H=2\Z$, and $K=3\Z$. Both are subgroups of $G$. Yet $2,3\in H\cup K$ while $2+3=5\notin H\cup K$. Thus the union is not closed under the group operation.
+\end{solutionbox}
+
+\textbf{(c) [3 points]} For a homomorphism $\varphi:G\to G'$, prove that $\ker\varphi$ is normal in $G$.
+\begin{solutionbox}
+The kernel is a subgroup of $G$. If $g\in G$ and $x\in\ker\varphi$, then
+\[
+  \varphi(gxg^{-1})
+  =\varphi(g)\varphi(x)\varphi(g)^{-1}
+  =\varphi(g)e_{G'}\varphi(g)^{-1}
+  =e_{G'}.
+\]
+Hence $gxg^{-1}\in\ker\varphi$ for all $g$ and $x$, so $\ker\varphi\trianglelefteq G$.
+\end{solutionbox}
+
+\section*{Question 3 \hfill 8 points}
+Let $p<q$ be primes and $|G|=pq$. Show that $G$ has an element of order $p$ without using Cauchy's theorem or a result that directly implies the claim.
+
+\textbf{(a) [2 points]} For $x\in G$ with $x\neq1$, show that $\operatorname{ord}(x)\in\{p,q,pq\}$.
+\begin{solutionbox}
+By Lagrange's theorem, $\operatorname{ord}(x)$ divides $pq$. Since $x\neq1$, its order is not $1$, leaving $p$, $q$, or $pq$.
+\end{solutionbox}
+
+\textbf{(b) [2 points]} If some element has order $pq$, show that $G$ has an element of order $p$.
+\begin{solutionbox}
+If $\operatorname{ord}(x)=pq$, then $x^q$ has order
+$pq/\gcd(pq,q)=p$.
+\end{solutionbox}
+
+\textbf{(c) [4 points]} Suppose every non-identity element has order $q$. Count elements to obtain a contradiction, then conclude.
+\begin{solutionbox}
+If $Q_1$ and $Q_2$ are distinct subgroups of order $q$, their intersection is a subgroup of each. Its order divides the prime $q$; if it had order $q$, the two subgroups would be equal. Hence $Q_1\cap Q_2=\{1\}$.
+
+Every non-identity element generates a subgroup of order $q$. Let $N$ be the number of distinct such subgroups. Their non-identity elements are disjoint and cover $G\setminus\{1\}$, so
+\[
+  pq-1=N(q-1).
+\]
+But $pq-1=p(q-1)+(p-1)$, with $0<p-1<q-1$. Thus $q-1$ cannot divide $pq-1$, a contradiction.
+
+Therefore some non-identity element has order other than $q$. By (a), it has order $p$ or $pq$; in the latter case, (b) produces an element of order $p$.
+\end{solutionbox}
+
+\end{document}
