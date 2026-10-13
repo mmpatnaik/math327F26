@@ -1,0 +1,250 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{tikz}
+\usepackage{needspace}
+\lectureinfo{15}{Oct. 14, 2026}{The Correspondence Theorem and Dihedral Groups}
+
+% Transcribed from handwritten Lecture 11, Sep. 26, 2025, pp. 1--12.
+% Historical course announcements are omitted. Products, announced on p. 1,
+% are developed in the next handwritten lecture and in typed Lecture 16.
+\begin{document}
+\makelecturetitle
+
+\section{The correspondence theorem}
+
+Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism, and set
+$K=\ker(\varphi)\trianglelefteq G$.
+
+\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
+\leavevmode
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item There is a bijective correspondence
+  \[
+    \{H\leq G:K\leq H\}\quad\longleftrightarrow\quad
+    \{\mathcal H\leq\mathcal G\},
+  \]
+  given by the mutually inverse maps
+  \[
+    H\longmapsto\varphi(H),\qquad
+    \mathcal H\longmapsto\varphi^{-1}(\mathcal H).
+  \]
+  \item Under this correspondence,
+  $H\trianglelefteq G$ if and only if
+  $\varphi(H)\trianglelefteq\mathcal G$.
+  \item If $H$ is finite, then $|H|=|K|\,|\varphi(H)|$.
+\end{enumerate}
+\end{theorem}
+
+Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$
+denotes the \emph{preimage} of a subgroup; it does not require $\varphi$
+to have an inverse function.
+
+\subsection{The maps are well defined}
+
+For $H\leq G$ containing $K$, the image $\varphi(H)$ is a subgroup of
+$\mathcal G$: it is the image of the homomorphism
+$\varphi|_H:H\to\mathcal G$.
+
+Conversely, let $\mathcal H\leq\mathcal G$. Then
+$\varphi^{-1}(\mathcal H)$ is a subgroup of $G$. Indeed,
+$\varphi(e_G)=e_{\mathcal G}\in\mathcal H$, and if
+$a,b\in\varphi^{-1}(\mathcal H)$, then
+\[
+  \varphi(ab)=\varphi(a)\varphi(b)\in\mathcal H.
+\]
+Also $K\leq\varphi^{-1}(\mathcal H)$, since every element of $K$ maps to
+$e_{\mathcal G}$.
+
+\begin{exercise}
+Complete the subgroup verification by showing that
+$a\in\varphi^{-1}(\mathcal H)$ implies
+$a^{-1}\in\varphi^{-1}(\mathcal H)$.
+\end{exercise}
+
+\subsection{The maps are inverse to each other}
+
+We claim that if $K\leq H\leq G$, then
+\begin{equation}\label{eq:preimage-image}
+  \varphi^{-1}(\varphi(H))=H.
+\end{equation}
+The inclusion $H\subseteq\varphi^{-1}(\varphi(H))$ is immediate.
+For the reverse inclusion, suppose
+$x\in\varphi^{-1}(\varphi(H))$. Then $\varphi(x)=\varphi(a)$ for some
+$a\in H$, so
+\[
+  \varphi(xa^{-1})=e_{\mathcal G}.
+\]
+Thus $xa^{-1}\in K\leq H$, and $x=(xa^{-1})a\in H$.
+
+\begin{exercise}
+Use the surjectivity of $\varphi$ to prove that
+$\varphi(\varphi^{-1}(\mathcal H))=\mathcal H$ for every
+$\mathcal H\leq\mathcal G$. Together with
+\eqref{eq:preimage-image}, this proves part~(1).
+\end{exercise}
+
+\subsection{Normality and orders}
+
+Suppose $H\trianglelefteq G$, and put $\mathcal H=\varphi(H)$.
+Given $x\in\mathcal G$, surjectivity gives $x=\varphi(g)$ for some
+$g\in G$. Hence
+\[
+  x\mathcal Hx^{-1}
+  =\varphi(g)\varphi(H)\varphi(g)^{-1}
+  =\varphi(gHg^{-1})
+  =\varphi(H)=\mathcal H.
+\]
+Therefore $\mathcal H\trianglelefteq\mathcal G$.
+
+\begin{exercise}
+Prove the converse: if $\mathcal H\trianglelefteq\mathcal G$, then
+$H=\varphi^{-1}(\mathcal H)\trianglelefteq G$.
+\end{exercise}
+
+Finally, the restriction $\varphi|_H:H\to\mathcal H$ is surjective,
+and its kernel is $H\cap K=K$. The counting formula from Lecture~13
+therefore gives
+\[
+  |H|=|\ker(\varphi|_H)|\,|\im(\varphi|_H)|=|K|\,|\mathcal H|,
+\]
+when $H$ is finite. This proves part~(3).
+
+\section{A surjective homomorphism from \texorpdfstring{$S_4$ to $S_3$}{S4 to S3}}
+
+There are exactly three ways to partition $\{1,2,3,4\}$ into two
+unordered pairs:
+\[
+\begin{aligned}
+  \Pi_1&=\bigl\{\{1,2\},\{3,4\}\bigr\},\\
+  \Pi_2&=\bigl\{\{1,3\},\{2,4\}\bigr\},\\
+  \Pi_3&=\bigl\{\{1,4\},\{2,3\}\bigr\}.
+\end{aligned}
+\]
+Every $\sigma\in S_4$ permutes these three partitions by applying
+$\sigma$ to each entry. Identifying $\Pi_i$ with $i$ gives a map
+\[
+  \varphi:S_4\longrightarrow S_3.
+\]
+This is a homomorphism: applying $\tau$ and then $\sigma$ to the
+partitions has the same effect as applying $\sigma\tau$.
+
+\begin{example}
+For $\sigma=(1\,2\,3\,4)$, we obtain
+\[
+  \Pi_1\longmapsto\Pi_3,\qquad
+  \Pi_2\longmapsto\Pi_2,\qquad
+  \Pi_3\longmapsto\Pi_1.
+\]
+Thus $\varphi((1\,2\,3\,4))=(1\,3)$.
+Similarly, $\varphi((1\,2))=(2\,3)$. Since $(1\,3)$ and $(2\,3)$
+generate $S_3$, the map $\varphi$ is surjective.
+\end{example}
+
+Each of the permutations
+\[
+  1,\quad (1\,2)(3\,4),\quad (1\,3)(2\,4),\quad (1\,4)(2\,3)
+\]
+fixes all three partitions. The counting formula gives
+$|\ker(\varphi)|=24/6=4$, so these are precisely the elements of the
+kernel:
+\[
+  K=\ker(\varphi)
+  =\{1,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}.
+\]
+This is the \emph{Klein four group} inside $S_4$.
+
+\subsection{Applying the correspondence theorem}
+
+Write $S_3=\{1,a,a^2,b,ab,a^2b\}$, where $a^3=b^2=1$ and
+$bab^{-1}=a^{-1}$. Its subgroups are
+\[
+  \{1\},\quad \langle a\rangle,\quad
+  \langle b\rangle,\quad \langle ab\rangle,\quad
+  \langle a^2b\rangle,\quad S_3.
+\]
+Consequently, there are exactly six subgroups of $S_4$ containing $K$.
+Their orders follow from $|\varphi^{-1}(\mathcal H)|=4|\mathcal H|$:
+\[
+\begin{array}{c|c|c}
+  \mathcal H\leq S_3 & \varphi^{-1}(\mathcal H)\leq S_4
+    & |\varphi^{-1}(\mathcal H)|\\ \hline
+  \{1\} & K & 4\\
+  \langle a\rangle & A_4 & 12\\
+  \langle b\rangle & H_1 & 8\\
+  \langle ab\rangle & H_2 & 8\\
+  \langle a^2b\rangle & H_3 & 8\\
+  S_3 & S_4 & 24
+\end{array}
+\]
+To identify the order-$12$ preimage, note that $K\leq A_4$.
+Since $|A_4|=12$, its image has order $3$, and $\langle a\rangle$ is
+the unique subgroup of order $3$ in $S_3$. Thus
+$\varphi^{-1}(\langle a\rangle)=A_4$.
+
+What are the three subgroups of order $8$? They are examples of
+\emph{dihedral groups}.
+
+\clearpage
+\section{Dihedral groups}
+
+Label the vertices of a square consecutively as follows:
+\begin{center}
+\begin{tikzpicture}[scale=1.15]
+  \draw[thick] (0,0)--(0,2)--(2,2)--(2,0)--cycle;
+  \draw[dashed,courseblue,thick] (-0.35,-0.35)--(2.35,2.35);
+  \fill (2,2) circle (1.7pt) node[above right] {$1$};
+  \fill (0,2) circle (1.7pt) node[above left] {$2$};
+  \fill (0,0) circle (1.7pt) node[below left] {$3$};
+  \fill (2,0) circle (1.7pt) node[below right] {$4$};
+  \node[courseblue,right] at (2.4,1) {reflection axis};
+\end{tikzpicture}
+\end{center}
+Counterclockwise rotation through $90^\circ$ is the permutation
+$x=(1\,2\,3\,4)$, and reflection across the diagonal through vertices
+$1$ and $3$ is $r=(2\,4)$. They satisfy
+\[
+  x^4=1,\qquad r^2=1,\qquad rxr^{-1}=x^{-1}.
+\]
+The last relation expresses the fact that reflecting a rotation reverses
+its direction.
+
+The subgroup $\langle x,r\rangle\leq S_4$ consists of the four rotations
+and four reflections of the square:
+\[
+  \{1,x,x^2,x^3,r,xr,x^2r,x^3r\}.
+\]
+These eight symmetries are distinct. Moreover,
+$\varphi(x)=\varphi(r)=(1\,3)$, so
+\[
+  \langle x,r\rangle=\varphi^{-1}(\langle(1\,3)\rangle).
+\]
+Relabelling the vertices produces the other two order-$8$ subgroups
+containing $K$.
+
+\begin{define}[Dihedral group]
+For $n\geq3$, the \emph{dihedral group} $D_{2n}$ is the group of
+symmetries of a regular $n$-gon. It is generated by a rotation $x$ of
+order $n$ and a reflection $y$ of order $2$, with relations
+\[
+  x^n=1,\qquad y^2=1,\qquad yxy^{-1}=x^{-1}.
+\]
+\end{define}
+
+The relation $yx=x^{-1}y$ lets us write every element as either $x^i$
+or $x^iy$, where $0\leq i<n$. Geometrically these are the $n$ rotations
+and $n$ reflections, so $|D_{2n}|=2n$. Our notation records the order
+of the group in its subscript.
+
+\begin{example}
+The symmetries of a triangle give $D_6\cong S_3$, with
+$x^3=y^2=1$ and $yxy^{-1}=x^2$.
+The square gives $D_8\cong\langle(1\,2\,3\,4),(2\,4)\rangle$.
+\end{example}
+
+\begin{exercise}
+Relabel the square to describe the other two subgroups of order $8$
+containing $K$. Explain why none of the three is normal in $S_4$,
+using the correspondence theorem.
+\end{exercise}
+
+\end{document}

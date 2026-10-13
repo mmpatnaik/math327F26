@@ -1,11 +1,10 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\lectureinfo{14}{Oct. 7, 2026}{Cosets, Normal Subgroups, and Units Modulo \texorpdfstring{$n$}{n}}
+\lectureinfo{14}{Oct. 7, 2026}{Left and Right Cosets and Normal Subgroups}
 
 % Left/right cosets and normality: handwritten Lecture 10, Sep. 24, 2025,
 % pp. 2--5; restored from the earlier Lecture 13 transcription.
-% Units and correspondence: material deferred from Lecture 13.
 \begin{document}
 \makelecturetitle
 
@@ -130,130 +129,5 @@ Combining the last two results:
 \end{align*}
 For example, $H=\{1,y\}$ is not normal in $S_3$, matching the computation
 $xH\neq Hx$ above.
-
-\section{Example: units modulo \texorpdfstring{$n$}{n} and Fermat's little theorem}
-
-Let $n\geq2$. The set $\Z/n\Z$ of residue classes modulo $n$ is a group
-under addition, with identity $\overline0$. Recall that
-\[
-  a\equiv b\pmod n\quad\text{means}\quad n\mid(b-a).
-\]
-Now consider the operation of \emph{multiplication} on this set,
-$\overline a\cdot\overline b=\overline{ab}$. It is not a group under
-multiplication (for instance $\overline0$ has no inverse), but we can
-ask: for which $a$ does the congruence
-\begin{equation}\label{eq:unit}
-  ax\equiv1\pmod n
-\end{equation}
-have a solution $x\in\Z/n\Z$?
-
-A solution means $ax-1=bn$ for some $b\in\Z$, i.e.
-\[
-  ax+(-b)n=1.
-\]
-Such an equation has an integer solution if and only if
-$\gcd(a,n)=1$: if $d$ divides $a$ and $n$ then it divides $1$;
-conversely, $\Z a+\Z n=\Z\gcd(a,n)$, so if $\gcd(a,n)=1$ then $1$ is an
-integer combination of $a$ and $n$. Note that $\gcd(a,n)$ depends only on
-$\overline a$, since $\gcd(a+kn,n)=\gcd(a,n)$.
-
-\begin{define}[Units modulo $n$]
-The \emph{group of units modulo $n$} is
-\[
-  (\Z/n\Z)^\times
-  =\{\overline a\in\Z/n\Z:\ ax\equiv1\ (\mathrm{mod}\ n)\text{ has a
-  solution}\}
-  =\{\overline a\in\Z/n\Z:\gcd(a,n)=1\},
-\]
-with the operation of multiplication.
-\end{define}
-
-This is not just a set but a group. The key point is closure: if
-$\overline a,\overline b\in(\Z/n\Z)^\times$, choose solutions
-$ax_1\equiv1$ and $bx_2\equiv1\pmod n$. Then $y=x_2x_1$ satisfies
-\[
-  (ab)y=a(bx_2)x_1\equiv ax_1\equiv1\pmod n,
-\]
-so $\overline{ab}\in(\Z/n\Z)^\times$. The remaining axioms are checked
-similarly.
-
-\begin{exercise}
-Complete the verification that $(\Z/n\Z)^\times$ is an abelian group:
-check associativity, that $\overline1$ is the identity, and that the
-solution $\overline x$ of \eqref{eq:unit} is an inverse of $\overline a$
-lying in $(\Z/n\Z)^\times$.
-\end{exercise}
-
-The order of this group is
-\[
-  |(\Z/n\Z)^\times|=\varphi(n)=\#\{1\leq a\leq n:\gcd(a,n)=1\},
-\]
-\emph{Euler's $\varphi$-function}. For example,
-$(\Z/8\Z)^\times=\{\overline1,\overline3,\overline5,\overline7\}$ and
-$\varphi(8)=4$.
-
-If $n=p$ is prime, every $a$ with $1\leq a\leq p-1$ is coprime to $p$, so
-$\varphi(p)=p-1$ and $(\Z/p\Z)^\times$ has order $p-1$. Lagrange's theorem
-now gives a classical result from number theory.
-
-\begin{theorem}[Fermat's little theorem]
-Let $p$ be prime and $a\in\Z$ with $p\nmid a$. Then
-\[
-  a^{p-1}\equiv1\pmod p.
-\]
-\end{theorem}
-\begin{proof}
-Since $p\nmid a$, $\overline a\in(\Z/p\Z)^\times$, a group of order
-$p-1$. By Lagrange's theorem the order $m$ of $\overline a$ divides
-$p-1$, say $p-1=mk$. Then $\overline a^{\,p-1}=(\overline a^{\,m})^k
-=\overline1$.
-\end{proof}
-
-The same argument applied to $(\Z/n\Z)^\times$ gives \emph{Euler's
-theorem}: if $\gcd(a,n)=1$, then $a^{\varphi(n)}\equiv1\pmod n$.
-
-\begin{remark}
-The group $(\Z/p\Z)^\times$ is in fact cyclic. A generator is called a
-\emph{primitive root} modulo $p$. For example, modulo $7$ the powers of
-$3$ are
-\[
-  3,\ 2,\ 6,\ 4,\ 5,\ 1,
-\]
-so $\overline3$ generates $(\Z/7\Z)^\times$. We will not prove this fact
-in general.
-\end{remark}
-
-\section{The correspondence theorem}
-
-Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism of groups,
-and let $K=\ker(\varphi)\trianglelefteq G$.
-
-\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
-\leavevmode
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item There is a bijective correspondence
-  \[
-    \{\text{subgroups }H\leq G\text{ with }K\leq H\}
-    \quad\longleftrightarrow\quad
-    \{\text{subgroups }\mathcal H\leq\mathcal G\},
-  \]
-  given by
-  \[
-    H\longmapsto\varphi(H)=\mathcal H,
-    \qquad
-    \mathcal H\longmapsto\varphi^{-1}(\mathcal H).
-  \]
-  \item Under this correspondence,
-  $H\trianglelefteq G$ if and only if
-  $\mathcal H\trianglelefteq\mathcal G$.
-  \item If $H$ is finite, then $|H|=|\mathcal H|\cdot|K|$.
-\end{enumerate}
-\end{theorem}
-
-Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$ is the
-preimage. Part~(3) follows from what we already know: the restriction
-$\varphi|_H:H\to\mathcal H$ is a surjective homomorphism with kernel
-$H\cap K=K$, so the counting formula for homomorphisms from Lecture~13
-gives $|H|=|K|\cdot|\mathcal H|$.
 
 \end{document}
