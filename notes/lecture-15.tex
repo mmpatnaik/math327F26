@@ -200,6 +200,22 @@ $bab^{-1}=a^{-1}$. Its subgroups are
   \langle b\rangle,\quad \langle ab\rangle,\quad
   \langle a^2b\rangle,\quad S_3.
 \]
+Their inclusion graph is shown below; inclusions run upward.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,every node/.style={inner sep=4pt,align=center}]
+  \node (top) at (0,3.2) {$S_3$};
+  \node (cyclic) at (-4.5,1.6) {$\langle a\rangle$\\$\{1,a,a^2\}$};
+  \node (b) at (-1.5,1.6) {$\langle b\rangle$\\$\{1,b\}$};
+  \node (ab) at (1.5,1.6) {$\langle ab\rangle$\\$\{1,ab\}$};
+  \node (aab) at (4.5,1.6) {$\langle a^2b\rangle$\\$\{1,a^2b\}$};
+  \node (bottom) at (0,0) {$\{1\}$};
+  \draw[courseblue,thick] (bottom) -- (cyclic) -- (top);
+  \draw[courseblue,thick] (bottom) -- (b) -- (top);
+  \draw[courseblue,thick] (bottom) -- (ab) -- (top);
+  \draw[courseblue,thick] (bottom) -- (aab) -- (top);
+\end{tikzpicture}
+\end{center}
+
 Consequently, there are exactly six subgroups of $S_4$ containing $K$.
 Their orders follow from $|\varphi^{-1}(\mathcal H)|=4|\mathcal H|$:
 \[
