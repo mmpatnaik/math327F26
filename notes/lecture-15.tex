@@ -2,6 +2,7 @@
 \usepackage{math327-lecture}
 \usepackage{tikz}
 \usepackage{needspace}
+\tcolorboxenvironment{example}{lecturebox,colback=definitiongreen,colframe=definitionborder}
 \lectureinfo{15}{Oct. 14, 2026}{The Correspondence Theorem and Dihedral Groups}
 
 % Transcribed from handwritten Lecture 11, Sep. 26, 2025, pp. 1--12.
@@ -10,18 +11,91 @@
 \begin{document}
 \makelecturetitle
 
-\section{The correspondence theorem}
+\section{Some motivation}
+
+The next result which we will study is a quite abstract. What is allows us to do is to get information about the structure of a group $G$ using the information encoded in a homomorphism from $G$ into another group. Let me first give you an example of a surjective homomorphism from $S_4$ to $S_3$
+
+There are exactly three ways to partition $\{1,2,3,4\}$ into two
+unordered pairs:
+\[
+\begin{aligned}
+	\Pi_1&=\bigl\{\{1,2\},\{3,4\}\bigr\},\\
+	\Pi_2&=\bigl\{\{1,3\},\{2,4\}\bigr\},\\
+	\Pi_3&=\bigl\{\{1,4\},\{2,3\}\bigr\}.
+\end{aligned}
+\]
+Every $\sigma\in S_4$ permutes these three partitions by applying
+$\sigma$ to each entry. Identifying $\Pi_i$ with $i$ gives a map
+\[
+\varphi:S_4\longrightarrow S_3.
+\]
+This is a homomorphism: applying $\tau$ and then $\sigma$ to the
+partitions has the same effect as applying $\sigma\tau$.
+
+\begin{example}
+	For $\sigma=(1\,2\,3\,4)$, we obtain
+	\[
+	\Pi_1\longmapsto\Pi_3,\qquad
+	\Pi_2\longmapsto\Pi_2,\qquad
+	\Pi_3\longmapsto\Pi_1.
+	\]
+	Thus $\varphi((1\,2\,3\,4))=(1\,3)$.
+	Similarly, $\varphi((1\,2))=(2\,3)$. Since $(1\,3)$ and $(2\,3)$
+	generate $S_3$, the map $\varphi$ is surjective.
+\end{example}
+
+\begin{example}
+For $\sigma=(1\,2\,3)$, the vertex $4$ is fixed. Applying $\sigma$ to
+each entry of the partitions gives
+\[
+\begin{aligned}
+  \Pi_1&=\bigl\{\{1,2\},\{3,4\}\bigr\}
+    \longmapsto\bigl\{\{2,3\},\{1,4\}\bigr\}=\Pi_3,\\
+  \Pi_2&=\bigl\{\{1,3\},\{2,4\}\bigr\}
+    \longmapsto\bigl\{\{2,1\},\{3,4\}\bigr\}=\Pi_1,\\
+  \Pi_3&=\bigl\{\{1,4\},\{2,3\}\bigr\}
+    \longmapsto\bigl\{\{2,4\},\{3,1\}\bigr\}=\Pi_2.
+\end{aligned}
+\]
+Thus the induced permutation cycles the partitions as
+$\Pi_1\mapsto\Pi_3\mapsto\Pi_2\mapsto\Pi_1$, and hence
+\[
+  \varphi((1\,2\,3))=(1\,3\,2).
+\]
+\end{example}
+
+\Needspace{12\baselineskip}
+\begin{example}[The kernel]
+Each of the permutations
+\[
+1,\quad (1\,2)(3\,4),\quad (1\,3)(2\,4),\quad (1\,4)(2\,3)
+\]
+fixes all three partitions. 
+
+The counting formula gives
+$|\ker(\varphi)|=24/6=4$, so these are precisely the elements of the
+kernel:
+\[
+K=\ker(\varphi)
+=\{1,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}.
+\]
+This is the \emph{Klein four group} inside $S_4$.
+\end{example}
+
+\section{Correspondence theorem}
 
 Let $\varphi:G\to\mathcal G$ be a \emph{surjective} homomorphism, and set
-$K=\ker(\varphi)\trianglelefteq G$.
+$K=\ker(\varphi)\trianglelefteq G$. 
+For any subgroup (or subset) we define $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$
+as the \emph{preimage} of $H$ under $\varphi$; \textit{note: }it does not require $\varphi$ to have an inverse function.
 
 \begin{theorem}[Correspondence theorem]\label{thm:correspondence}
 \leavevmode
 \begin{enumerate}[label=\textbf{(\arabic*)}]
   \item There is a bijective correspondence
   \[
-    \{H\leq G:K\leq H\}\quad\longleftrightarrow\quad
-    \{\mathcal H\leq\mathcal G\},
+    \{\text{subgroups } H\leq G \text{ which contain } K \}\quad\longleftrightarrow\quad
+    \{\text{subgroups } \mathcal H\leq\mathcal G\},
   \]
   given by the mutually inverse maps
   \[
@@ -35,9 +109,6 @@ $K=\ker(\varphi)\trianglelefteq G$.
 \end{enumerate}
 \end{theorem}
 
-Here $\varphi^{-1}(\mathcal H)=\{g\in G:\varphi(g)\in\mathcal H\}$
-denotes the \emph{preimage} of a subgroup; it does not require $\varphi$
-to have an inverse function.
 
 \subsection{The maps are well defined}
 
@@ -109,49 +180,7 @@ therefore gives
 \]
 when $H$ is finite. This proves part~(3).
 
-\section{A surjective homomorphism from \texorpdfstring{$S_4$ to $S_3$}{S4 to S3}}
 
-There are exactly three ways to partition $\{1,2,3,4\}$ into two
-unordered pairs:
-\[
-\begin{aligned}
-  \Pi_1&=\bigl\{\{1,2\},\{3,4\}\bigr\},\\
-  \Pi_2&=\bigl\{\{1,3\},\{2,4\}\bigr\},\\
-  \Pi_3&=\bigl\{\{1,4\},\{2,3\}\bigr\}.
-\end{aligned}
-\]
-Every $\sigma\in S_4$ permutes these three partitions by applying
-$\sigma$ to each entry. Identifying $\Pi_i$ with $i$ gives a map
-\[
-  \varphi:S_4\longrightarrow S_3.
-\]
-This is a homomorphism: applying $\tau$ and then $\sigma$ to the
-partitions has the same effect as applying $\sigma\tau$.
-
-\begin{example}
-For $\sigma=(1\,2\,3\,4)$, we obtain
-\[
-  \Pi_1\longmapsto\Pi_3,\qquad
-  \Pi_2\longmapsto\Pi_2,\qquad
-  \Pi_3\longmapsto\Pi_1.
-\]
-Thus $\varphi((1\,2\,3\,4))=(1\,3)$.
-Similarly, $\varphi((1\,2))=(2\,3)$. Since $(1\,3)$ and $(2\,3)$
-generate $S_3$, the map $\varphi$ is surjective.
-\end{example}
-
-Each of the permutations
-\[
-  1,\quad (1\,2)(3\,4),\quad (1\,3)(2\,4),\quad (1\,4)(2\,3)
-\]
-fixes all three partitions. The counting formula gives
-$|\ker(\varphi)|=24/6=4$, so these are precisely the elements of the
-kernel:
-\[
-  K=\ker(\varphi)
-  =\{1,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}.
-\]
-This is the \emph{Klein four group} inside $S_4$.
 
 \subsection{Applying the correspondence theorem}
 
