@@ -4,6 +4,7 @@ notes/*.pdf
 !notes/*-in-class.pdf
 hw/*.pdf
 exams/*.pdf
+!exams/midterm1-exam-statistics.pdf
 
 # LaTeX intermediates
 *.aux
