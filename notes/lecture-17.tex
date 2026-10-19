@@ -1,0 +1,1045 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\usepackage{tikz}
+\lectureinfo{17}{Oct. 19, 2026}{Group Actions, Dihedral Groups, and the Correspondence Theorem}
+
+
+
+\tcolorboxenvironment{example}{lecturebox,colback=definitiongreen,colframe=definitionborder}
+\definecolor{remarkpurple}{HTML}{F2ECFA}
+\definecolor{remarkpurpleborder}{HTML}{A68CC7}
+\tcolorboxenvironment{remark}{lecturebox,colback=remarkpurple,colframe=remarkpurpleborder}
+
+\begin{document}
+\raggedbottom
+\makelecturetitle
+
+\section{A word on group actions}
+
+Let $S$ be a set and $G$ a group. An action of $G$ on $S$ , or a group action, is defined as follows.
+
+\begin{define}[Group action]
+A \emph{(left) action} of $G$ on $S$ is a map
+\[
+  \circ:G\times S\longrightarrow S,\qquad (g,s)\longmapsto g\circ s,
+\]
+called the \emph{action map}, such that:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item $e_G\circ s=s$ for every $s\in S$.
+  \item $(gh)\circ s=g\circ(h\circ s)$ for all $g,h\in G$ and $s\in S$.
+\end{enumerate}
+
+\end{define}
+
+Let's give some examples which we have already seen before!
+
+\begin{example}[The natural action of $S_n$]
+The symmetric group $S_n$ acts on $S=\{1,2,\ldots,n\}$ by evaluation:
+\[
+  S_n\times S\longrightarrow S,\qquad (\sigma,i)\longmapsto
+  \sigma\circ i:=\sigma(i).
+\]
+The identity permutation fixes every $i\in S$, and composition of
+permutations gives
+\[
+  (\sigma\tau)\circ i=(\sigma\tau)(i)
+  =\sigma(\tau(i))=\sigma\circ(\tau\circ i).
+\]
+Thus both action axioms hold. For example, $(1\,2\,3)\in S_3$ sends
+$1$ to $2$, $2$ to $3$, and $3$ to $1$.
+\end{example}
+
+\begin{example}[The natural action of $\GL_n(\R)$]
+The group $\GL_n(\R)$ of invertible $n\times n$ real matrices acts on
+$\R^n$ by matrix multiplication. Regarding vectors as column vectors,
+the action map is
+\[
+  \GL_n(\R)\times\R^n\longrightarrow\R^n,\qquad
+  (A,v)\longmapsto A\circ v:=Av.
+\]
+The identity matrix satisfies $I_n\circ v=I_nv=v$, and associativity
+of matrix multiplication gives
+\[
+  (AB)\circ v=(AB)v=A(Bv)=A\circ(B\circ v).
+\]
+Thus both action axioms hold.
+\end{example}
+
+\begin{example}[The action of $S_4$ on three partitions]
+Recall the three partitions from Lecture~16:
+\[
+\begin{aligned}
+  \Pi_1&=\bigl\{\{1,2\},\{3,4\}\bigr\},\\
+  \Pi_2&=\bigl\{\{1,3\},\{2,4\}\bigr\},\\
+  \Pi_3&=\bigl\{\{1,4\},\{2,3\}\bigr\}.
+\end{aligned}
+\]
+Let $\mathcal P=\{\Pi_1,\Pi_2,\Pi_3\}$. The group $S_4$ acts on
+$\mathcal P$ by applying a permutation to every entry:
+\[
+  \sigma\circ\bigl\{\{a,b\},\{c,d\}\bigr\}
+  =\bigl\{\{\sigma(a),\sigma(b)\},
+            \{\sigma(c),\sigma(d)\}\bigr\}.
+\]
+Since $\sigma$ is a bijection, the result is again a partition into
+two unordered pairs, so it belongs to $\mathcal P$.
+The identity fixes each partition, and applying $\tau$ and then
+$\sigma$ to every entry is the same as applying $\sigma\tau$.
+Therefore
+\[
+  (\sigma\tau)\circ\Pi_i=\sigma\circ(\tau\circ\Pi_i),
+\]
+which verifies the second action axiom.
+
+For example, if $\sigma=(1\,2\,3\,4)$, then
+\[
+  \sigma\circ\Pi_1=\Pi_3,\qquad
+  \sigma\circ\Pi_2=\Pi_2,\qquad
+  \sigma\circ\Pi_3=\Pi_1.
+\]
+Identifying $\Pi_i$ with $i$ gives exactly the homomorphism
+$\varphi:S_4\to S_3$ from Lecture~16: if
+$\sigma\circ\Pi_i=\Pi_j$, then $\varphi(\sigma)(i)=j$.
+In particular, $\varphi((1\,2\,3\,4))=(1\,3)$.
+\end{example}
+
+
+\subsection{Actions as homomorphisms}
+
+The previous example is actually a general fact.
+
+\begin{proposition}
+An action of $G$ on a set $S=\{s_1,\ldots,s_d\}$ of cardinality $d$
+determines a homomorphism
+\[
+  \rho:G\longrightarrow S_d.
+\]
+The correspondence is given by $\rho(g)(i)=j$ if $g\circ s_i=s_j$.
+\end{proposition}
+\begin{proof}
+We need to check that $\rho(g)$ is a permutation of $\{1,\ldots,d\}$
+and that the map $g\mapsto\rho(g)$ is a homomorphism, that is,
+\[
+  \rho(g_1g_2)=\rho(g_1)\rho(g_2).
+\]
+For the first part, the map $S\to S$ given by $s\mapsto g\circ s$
+has inverse $s\mapsto g^{-1}\circ s$. Indeed, if $g\circ s_i=s_j$, then
+\[
+  g^{-1}\circ s_j=g^{-1}\circ(g\circ s_i)
+  =(g^{-1}g)\circ s_i=s_i.
+\]
+Likewise, $g\circ(g^{-1}\circ s_i)=s_i$.
+Thus $\rho(g)$ is a permutation of the indices, with inverse
+$\rho(g^{-1})$.
+
+For the homomorphism property, suppose $\rho(g_2)(i)=j$ and
+$\rho(g_1)(j)=k$. Then $g_2\circ s_i=s_j$ and $g_1\circ s_j=s_k$, so
+\[
+  (g_1g_2)\circ s_i=g_1\circ(g_2\circ s_i)=g_1\circ s_j=s_k.
+\]
+Consequently,
+\[
+  \rho(g_1g_2)(i)=k=\rho(g_1)(\rho(g_2)(i)).
+\]
+This holds for every $i$, proving that $\rho$ is a homomorphism.
+\end{proof}
+
+
+\begin{exercise} What is $\ker(\rho)$? Show that \be{} \ker(\rho) = \{ g \in G \mid g \circ s = s \text{ for all } s \in S \}. \ee \end{exercise}
+
+\section{Dihedral groups and their actions}
+
+
+Label the vertices of a square consecutively as follows:
+\begin{center}
+\begin{tikzpicture}[scale=1.15]
+  \draw[thick] (0,0)--(0,2)--(2,2)--(2,0)--cycle;
+  \draw[dashed,courseblue,thick] (-0.35,-0.35)--(2.35,2.35);
+  \fill (2,2) circle (1.7pt) node[above right] {$1$};
+  \fill (0,2) circle (1.7pt) node[above left] {$2$};
+  \fill (0,0) circle (1.7pt) node[below left] {$3$};
+  \fill (2,0) circle (1.7pt) node[below right] {$4$};
+  \node[courseblue,right] at (2.4,1) {reflection axis};
+\end{tikzpicture}
+\end{center}
+Counterclockwise rotation through $90^\circ$ is the permutation
+$x=(1\,2\,3\,4)$, and reflection across the diagonal through vertices
+$1$ and $3$ is $r=(2\,4)$. They satisfy
+\be{} \label{dihedral-rel}
+  x^4=1,\qquad r^2=1,\qquad rxr^{-1}=x^{-1}.
+\ee
+The last relation expresses the fact that reflecting a rotation reverses
+its direction. The picture below follows the vertex labels as we apply
+$r^{-1}$, then $x$, then $r$ (products act from right to left).
+Since $r^{-1}=r$, both reflections use the dashed diagonal.
+
+\Needspace{13\baselineskip}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.style={font=\small},
+  transformarrow/.style={-stealth,thick,courseblue}]
+  % Each label moves with its vertex; positions are fixed on the page.
+  \foreach \offset/\upperright/\upperleft/\lowerleft/\lowerright in
+    {0/1/2/3/4,3.7/1/4/3/2,7.4/2/1/4/3,11.1/2/3/4/1} {
+    \begin{scope}[xshift=\offset cm]
+      \draw[dashed,ForestGreen] (-0.95,-0.95)--(0.95,0.95);
+      \draw[thick] (-0.65,-0.65)--(-0.65,0.65)--(0.65,0.65)
+        --(0.65,-0.65)--cycle;
+      \foreach \px/\py/\vertex/\anchor in
+        {0.65/0.65/\upperright/south west,
+         -0.65/0.65/\upperleft/south east,
+         -0.65/-0.65/\lowerleft/north east,
+         0.65/-0.65/\lowerright/north west} {
+        \ifnum\vertex=1
+          \fill[courseblue] (\px,\py) circle (2.5pt)
+            node[anchor=\anchor,text=courseblue,font=\small\bfseries] {$\vertex$};
+        \else
+          \fill (\px,\py) circle (1.7pt)
+            node[anchor=\anchor] {$\vertex$};
+        \fi
+      }
+    \end{scope}
+  }
+  \node at (0,1.25) {start};
+  \node at (3.7,1.25) {after $r^{-1}$};
+  \node at (7.4,1.25) {after $xr^{-1}$};
+  \node at (11.1,1.25) {after $rxr^{-1}$};
+  \draw[transformarrow] (1.15,0)--(2.55,0)
+    node[midway,above] {$r^{-1}=r$}
+    node[midway,below,font=\scriptsize] {reflect};
+  \draw[transformarrow] (4.85,0)--(6.25,0)
+    node[midway,above] {$x$}
+    node[midway,below,align=center,font=\scriptsize] {$90^\circ$ counter-\\clockwise};
+  \draw[transformarrow] (8.55,0)--(9.95,0)
+    node[midway,above] {$r$}
+    node[midway,below,font=\scriptsize] {reflect};
+  % The same final labeling comes from a clockwise quarter-turn.
+  \draw[transformarrow] (0,-1.35)--(0,-1.75)--(11.1,-1.75)--(11.1,-1.35);
+  \node[fill=white,inner sep=3pt,text=courseblue] at (5.55,-1.75)
+    {$x^{-1}$: one $90^\circ$ clockwise rotation};
+\end{tikzpicture}
+\end{center}
+The final positions of all four labels agree with a clockwise
+quarter-turn of the original square, so $rxr^{-1}=x^{-1}$.
+
+If the group $D$ is generated by $x, r$ and satisfies the relations \eqref{dihedral-rel}, then in fact $D$ consist of the following eight elements:
+
+\[
+\langle x,r\rangle=\{1,x,x^2,x^3,r,xr,x^2r,x^3r\}.
+\]
+
+Now we know that $1, x, x^2, x^3$ are rotations of the square, and $r$ is a reflection. Do $xr, x^2r, x^3r$ also have geometric meanings ? Yes! Let's compute these products from right to left and identify their
+reflection axes.
+
+\noindent\begin{minipage}{\textwidth}
+\textbf{First example: understanding $xr$.}
+Remember that $xr$ means \emph{first reflect by $r=(2\,4)$, then
+rotate counterclockwise by $90^\circ$ using $x=(1\,2\,3\,4)$}.
+The labels in the pictures move with the vertices. The blue vertex
+tracks the original vertex $1$.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.style={font=\small,align=center}]
+  \foreach \offset/\panel/\upperright/\upperleft/\lowerleft/\lowerright in
+    {0/1/1/2/3/4,4.7/2/1/4/3/2,9.4/3/2/1/4/3} {
+    \begin{scope}[xshift=\offset cm]
+      \draw[thick] (-0.8,-0.8)--(-0.8,0.8)--(0.8,0.8)
+        --(0.8,-0.8)--cycle;
+      \ifnum\panel<3
+        \draw[dashed,ForestGreen,thick] (-1.05,-1.05)--(1.05,1.05);
+      \else
+        \draw[dashed,ForestGreen,thick] (0,-1.15)--(0,1.15);
+      \fi
+      \foreach \px/\py/\vertex/\anchor in
+        {0.8/0.8/\upperright/south west,
+         -0.8/0.8/\upperleft/south east,
+         -0.8/-0.8/\lowerleft/north east,
+         0.8/-0.8/\lowerright/north west} {
+        \ifnum\vertex=1
+          \fill[courseblue] (\px,\py) circle (2.5pt)
+            node[anchor=\anchor,text=courseblue,font=\small\bfseries] {$\vertex$};
+        \else
+          \fill (\px,\py) circle (1.6pt)
+            node[anchor=\anchor] {$\vertex$};
+        \fi
+      }
+      \ifnum\panel=1
+        \node at (0,1.55) {original square};
+        \node[ForestGreen] at (0,-1.5) {axis of $r$};
+      \fi
+      \ifnum\panel=2
+        \node at (0,1.55) {after $r$};
+      \fi
+      \ifnum\panel=3
+        \node at (0,1.55) {after $xr$};
+        \node[ForestGreen] at (0,-1.5) {axis of the resulting reflection};
+      \fi
+    \end{scope}
+  }
+  \draw[-stealth,courseblue,thick] (1.35,0)--(3.35,0)
+    node[midway,above] {$r$}
+    node[midway,below,font=\scriptsize] {reflect};
+  \draw[-stealth,courseblue,thick] (6.05,0)--(8.05,0)
+    node[midway,above] {$x$}
+    node[midway,below,align=center,font=\scriptsize]
+      {rotate $90^\circ$\\counterclockwise};
+\end{tikzpicture}
+\end{center}
+To compute the product, follow each original vertex through both steps:
+\[
+\begin{aligned}
+  1&\xrightarrow{\ r\ }1\xrightarrow{\ x\ }2,
+  &2&\xrightarrow{\ r\ }4\xrightarrow{\ x\ }1,\\
+  3&\xrightarrow{\ r\ }3\xrightarrow{\ x\ }4,
+  &4&\xrightarrow{\ r\ }2\xrightarrow{\ x\ }3.
+\end{aligned}
+\]
+Thus $xr=(1\,2)(3\,4)$. Comparing the first and last squares, the
+left and right vertices have exchanged places while their heights
+are unchanged. Therefore $xr$ is reflection across the \emph{vertical
+line through the midpoints of the top and bottom edges}.
+\end{minipage}
+
+\medskip
+\noindent\begin{minipage}{\textwidth}
+\textbf{The other two products: $x^2r$ and $x^3r$.}
+In each case we still apply $r$ first. We then rotate by $180^\circ$
+for $x^2r$, or by $270^\circ$ counterclockwise for $x^3r$.
+Following the vertices gives
+\[
+\begin{array}{c|cccc|c}
+  \text{product} & 1\mapsto & 2\mapsto & 3\mapsto & 4\mapsto
+    & \text{cycle notation}\\ \hline
+  x^2r & 3 & 2 & 1 & 4 & (1\,3)\\
+  x^3r & 4 & 3 & 2 & 1 & (1\,4)(2\,3)
+\end{array}
+\]
+The pictures show the resulting reflections on the original labeled
+square. Dashed lines are the reflection axes; double arrows indicate
+exchanged vertices, and circles mark fixed vertices.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.style={font=\small,align=center}]
+  \foreach \offset/\panel/\axiscolor in
+    {0/1/courseblue,7/2/BrickRed} {
+    \begin{scope}[xshift=\offset cm]
+      \draw[thick] (-0.8,-0.8)--(-0.8,0.8)--(0.8,0.8)
+        --(0.8,-0.8)--cycle;
+      \ifnum\panel=1
+        \draw[dashed,\axiscolor,line width=1pt] (-1.1,1.1)--(1.1,-1.1);
+        \draw[stealth-stealth,\axiscolor,thick] (-0.6,-0.6)--(0.6,0.6);
+        \draw[\axiscolor,thick] (-0.8,0.8) circle (0.1);
+        \draw[\axiscolor,thick] (0.8,-0.8) circle (0.1);
+        \node[\axiscolor] at (0,1.55) {$x^2r=(1\,3)$};
+        \node[\axiscolor] at (0,-1.6) {diagonal through $2$ and $4$};
+      \else
+        \draw[dashed,\axiscolor,line width=1pt] (-1.25,0)--(1.25,0);
+        \draw[stealth-stealth,\axiscolor,thick] (-0.65,-0.6)--(-0.65,0.6);
+        \draw[stealth-stealth,\axiscolor,thick] (0.65,-0.6)--(0.65,0.6);
+        \node[\axiscolor] at (0,1.55) {$x^3r=(1\,4)(2\,3)$};
+        \node[\axiscolor] at (0,-1.6) {horizontal line through edge midpoints};
+      \fi
+      \fill (0.8,0.8) circle (1.6pt) node[above right] {$1$};
+      \fill (-0.8,0.8) circle (1.6pt) node[above left] {$2$};
+      \fill (-0.8,-0.8) circle (1.6pt) node[below left] {$3$};
+      \fill (0.8,-0.8) circle (1.6pt) node[below right] {$4$};
+    \end{scope}
+  }
+\end{tikzpicture}
+\end{center}
+For $x^2r$, vertices $2$ and $4$ are fixed, so the reflection axis is
+exactly the diagonal joining them; vertices $1$ and $3$ are exchanged.
+For $x^3r$, the top and bottom vertices are exchanged while left and
+right positions are preserved, giving the horizontal reflection axis.
+\end{minipage}
+
+\medskip
+
+So we see that in $D$ we have two types of elements: rotations and reflections.
+
+Note that $D$ acts on $\{ 1, 2, 3, 4\}$ the vertices of the square and this gives us a homomorphism $\rho: D \rightarrow S_4$. What is its kernel? It must be trivial as only the identity element of $D$ fixes all the vertices. So we can really think of $D$ as a subset of $S_4$ if we like.
+If we do this,
+\[
+  x^2=(1\,3)(2\,4),\qquad xr=(1\,2)(3\,4),\qquad
+  x^3r=(1\,4)(2\,3),
+\]
+so this group contains the Klein four group $K$ that came up as the kernel of $\varphi: S_4 \rightarrow S_3.$
+
+You can also see this in pictures:
+
+\noindent\begin{minipage}{\textwidth}
+The three partitions are pictured in the top row. The other rows show
+what happens when we apply $x^2$, $xr$, or $x^3r$ to \emph{every entry}
+of each partition. Vertex positions and labels are fixed in these
+pictures; the colored segments show the resulting pairs.
+Blue and red distinguish the two pairs so that we can track them.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.style={font=\small,align=center},
+  partitionpair/.style={line width=1.7pt}]
+  \node at (-2.05,-0.0) {original};
+  \begin{scope}[shift={(0.0,-0.0)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v1)--(v2);
+    \draw[partitionpair,BrickRed] (v3)--(v4);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{1,2\}},\textcolor{BrickRed}{\{3,4\}}\bigr\}$};
+    \node[font=\bfseries] at (0,1.3) {$\Pi_1$};
+  \end{scope}
+  \begin{scope}[shift={(4.8,-0.0)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v1)--(v3);
+    \draw[partitionpair,BrickRed] (v2)--(v4);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{1,3\}},\textcolor{BrickRed}{\{2,4\}}\bigr\}$};
+    \node[font=\bfseries] at (0,1.3) {$\Pi_2$};
+  \end{scope}
+  \begin{scope}[shift={(9.6,-0.0)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v1)--(v4);
+    \draw[partitionpair,BrickRed] (v2)--(v3);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{1,4\}},\textcolor{BrickRed}{\{2,3\}}\bigr\}$};
+    \node[font=\bfseries] at (0,1.3) {$\Pi_3$};
+  \end{scope}
+  \node at (-2.05,-3.25) {$x^2$};
+  \begin{scope}[shift={(0.0,-3.25)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v3)--(v4);
+    \draw[partitionpair,BrickRed] (v1)--(v2);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{3,4\}},\textcolor{BrickRed}{\{1,2\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_1$};
+  \end{scope}
+  \begin{scope}[shift={(4.8,-3.25)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v3)--(v1);
+    \draw[partitionpair,BrickRed] (v4)--(v2);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{3,1\}},\textcolor{BrickRed}{\{4,2\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_2$};
+  \end{scope}
+  \begin{scope}[shift={(9.6,-3.25)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v3)--(v2);
+    \draw[partitionpair,BrickRed] (v4)--(v1);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{3,2\}},\textcolor{BrickRed}{\{4,1\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_3$};
+  \end{scope}
+  \node at (-2.05,-6.5) {$xr$};
+  \begin{scope}[shift={(0.0,-6.5)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v2)--(v1);
+    \draw[partitionpair,BrickRed] (v4)--(v3);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{2,1\}},\textcolor{BrickRed}{\{4,3\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_1$};
+  \end{scope}
+  \begin{scope}[shift={(4.8,-6.5)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v2)--(v4);
+    \draw[partitionpair,BrickRed] (v1)--(v3);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{2,4\}},\textcolor{BrickRed}{\{1,3\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_2$};
+  \end{scope}
+  \begin{scope}[shift={(9.6,-6.5)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v2)--(v3);
+    \draw[partitionpair,BrickRed] (v1)--(v4);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{2,3\}},\textcolor{BrickRed}{\{1,4\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_3$};
+  \end{scope}
+  \node at (-2.05,-9.75) {$x^3r$};
+  \begin{scope}[shift={(0.0,-9.75)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v4)--(v3);
+    \draw[partitionpair,BrickRed] (v2)--(v1);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{4,3\}},\textcolor{BrickRed}{\{2,1\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_1$};
+  \end{scope}
+  \begin{scope}[shift={(4.8,-9.75)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v4)--(v2);
+    \draw[partitionpair,BrickRed] (v3)--(v1);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{4,2\}},\textcolor{BrickRed}{\{3,1\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_2$};
+  \end{scope}
+  \begin{scope}[shift={(9.6,-9.75)}]
+    \coordinate (v1) at (0.65,0.65);
+    \coordinate (v2) at (-0.65,0.65);
+    \coordinate (v3) at (-0.65,-0.65);
+    \coordinate (v4) at (0.65,-0.65);
+    \draw[gray!55,thin] (v1)--(v2)--(v3)--(v4)--cycle;
+    \draw[partitionpair,courseblue] (v4)--(v1);
+    \draw[partitionpair,BrickRed] (v3)--(v2);
+    \fill (v1) circle (1.6pt) node[above right] {$1$};
+    \fill (v2) circle (1.6pt) node[above left] {$2$};
+    \fill (v3) circle (1.6pt) node[below left] {$3$};
+    \fill (v4) circle (1.6pt) node[below right] {$4$};
+    \node at (0,-1.35) {$\bigl\{\textcolor{courseblue}{\{4,1\}},\textcolor{BrickRed}{\{3,2\}}\bigr\}$};
+    \node at (0,-1.95) {$=\Pi_3$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+The order within each pair, and the order of the two pairs, do not
+matter. For example, $x^2$ sends $\Pi_1$ to
+$\{\{3,4\},\{1,2\}\}=\Pi_1$: the two pairs have simply exchanged places.
+Every column therefore remains the same partition. Thus
+\[
+  x^2\circ\Pi_i=xr\circ\Pi_i=x^3r\circ\Pi_i=\Pi_i
+  \quad(i=1,2,3),
+\]
+so all three symmetries lie in $\ker(\varphi)=K$.
+\end{minipage}
+
+
+
+
+\begin{define}[Dihedral group]
+	For an integer $n\geq3$, the \emph{dihedral group} $D_{2n}$ is the group of
+	symmetries of a regular $n$-gon. It is generated by a rotation $x$ of
+	order $n$ and a reflection $y$ of order $2$, with relations
+	\[
+	x^n=1,\qquad y^2=1,\qquad yxy^{-1}=x^{-1}.
+	\]
+The last relation is equivalent to $yx=x^{-1}y=x^{n-1}y$.
+Our notation records the order of the group in its subscript.
+\end{define}
+
+\begin{exercise}
+Verify that the relation $yx=x^{-1}y$ lets us write every element as
+either $x^i$ or $x^iy$, where $0\leq i<n$. Show that the following
+$2n$ elements of $D_{2n}$ are distinct:
+\[
+  \{1,x,x^2,\ldots,x^{n-1},y,xy,x^2y,\ldots,x^{n-1}y\}.
+\]
+Geometrically, these are the $n$ rotations and $n$ reflections, so
+$|D_{2n}|=2n$.
+
+For a regular hexagon, $n=6$ and $D_{12}$ has six rotations and six
+reflections. Label the vertices counterclockwise as shown below.
+The blue arrows show two rotations; the dashed lines show two
+reflection axes.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,every node/.style={font=\small,align=center}]
+  \foreach \offset/\panel in {0/1,3.5/2,7/3,10.5/4} {
+    \begin{scope}[xshift=\offset cm]
+      \ifnum\panel=1
+        \draw[-stealth,courseblue,line width=1pt]
+          (0:1.6) arc[start angle=0,end angle=60,radius=1.6];
+      \fi
+      \ifnum\panel=2
+        \draw[-stealth,courseblue,line width=1pt]
+          (0:1.6) arc[start angle=0,end angle=120,radius=1.6];
+      \fi
+      \ifnum\panel=3
+        \draw[dashed,ForestGreen,line width=1pt] (180:1.6)--(0:1.6);
+      \fi
+      \ifnum\panel=4
+        \draw[dashed,BrickRed,line width=1pt] (210:1.6)--(30:1.6);
+      \fi
+      \foreach \vertex in {1,...,6} {
+        \coordinate (v\vertex) at ({60*(\vertex-1)}:1.05);
+      }
+      \draw[thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+      \foreach \vertex in {1,...,6} {
+        \fill (v\vertex) circle (1.4pt);
+        \node[fill=exercisebackground,inner sep=1pt]
+          at ({60*(\vertex-1)}:1.33) {$\vertex$};
+      }
+      \ifnum\panel=1
+        \node[courseblue] at (0,-1.75) {$x$: $60^\circ$ rotation};
+      \fi
+      \ifnum\panel=2
+        \node[courseblue] at (0,-1.75) {$x^2$: $120^\circ$ rotation};
+      \fi
+      \ifnum\panel=3
+        \node[ForestGreen] at (0,-1.75) {$y$: reflection\\vertex axis};
+      \fi
+      \ifnum\panel=4
+        \node[BrickRed] at (0,-1.75) {$xy$: reflection\\edge-midpoint axis};
+      \fi
+    \end{scope}
+  }
+\end{tikzpicture}
+\end{center}
+For these labels, the symmetries are
+\[
+\begin{aligned}
+  x&=(1\,2\,3\,4\,5\,6), & x^2&=(1\,3\,5)(2\,4\,6),\\
+  y&=(2\,6)(3\,5), & xy&=(1\,2)(3\,6)(4\,5).
+\end{aligned}
+\]
+The axis of $xy$ passes through the midpoints of the edges
+$\{1,2\}$ and $\{4,5\}$.
+\end{exercise}
+
+\section{Back to correspondence theorem example}
+
+Recall that we have written  $S_3=\{1,a,a^2,b,ab,a^2b\}$, where $a^3=b^2=1$ and
+$bab^{-1}=a^{-1}$. Its subgroups are
+\[
+  \{1\},\quad \langle a\rangle,\quad
+  \langle b\rangle,\quad \langle ab\rangle,\quad
+  \langle a^2b\rangle,\quad S_3.
+\]
+Concretely, take $a=(1\,2\,3)$ and $b=(1\,3)$. Then
+$a^2=(1\,3\,2)$, $ab=(2\,3)$, and $a^2b=(1\,2)$, with permutation
+products composed from right to left. The subgroup inclusion graph is
+shown below; inclusions run upward.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,every node/.style={inner sep=4pt,align=center}]
+  \node (top) at (0,3.2) {$S_3$};
+  \node (cyclic) at (-4.5,1.6) {$\langle a\rangle$\\$\{1,a,a^2\}$};
+  \node (b) at (-1.5,1.6) {$\langle b\rangle$\\$\{1,b\}$};
+  \node (ab) at (1.5,1.6) {$\langle ab\rangle$\\$\{1,ab\}$};
+  \node (aab) at (4.5,1.6) {$\langle a^2b\rangle$\\$\{1,a^2b\}$};
+  \node (bottom) at (0,0) {$\{1\}$};
+  \draw[courseblue,thick] (bottom) -- (cyclic) -- (top);
+  \draw[courseblue,thick] (bottom) -- (b) -- (top);
+  \draw[courseblue,thick] (bottom) -- (ab) -- (top);
+  \draw[courseblue,thick] (bottom) -- (aab) -- (top);
+\end{tikzpicture}
+\end{center}
+
+Consequently, there are exactly six subgroups of $S_4$ containing $K$.
+Their orders follow from $|\varphi^{-1}(\mathcal H)|=4|\mathcal H|$:
+\[
+\begin{array}{c|c|c}
+  \mathcal H\leq S_3 & \varphi^{-1}(\mathcal H)\leq S_4
+    & |\varphi^{-1}(\mathcal H)|\\ \hline
+  \{1\} & K & 4\\
+  \langle a\rangle=\langle(1\,2\,3)\rangle & A & 12\\
+  \langle b\rangle=\langle(1\,3)\rangle & H_1 & 8\\
+  \langle ab\rangle=\langle(2\,3)\rangle & H_2 & 8\\
+  \langle a^2b\rangle=\langle(1\,2)\rangle & H_3 & 8\\
+  S_3 & S_4 & 24
+\end{array}
+\]
+
+What are the groups $A,H_1,H_2,H_3$? we already identified $A = A_4$. Let's now work with \[ H_1 = \varphi^{-1}( \{ 1, (13) \}). \] We know that $|H_1|=8$. Any guesses as to what it is?
+
+Note that: $\varphi(x)=\varphi(r)=(1\,3)$, so
+$\langle x,r\rangle\leq\varphi^{-1}(\langle(1\,3)\rangle)$.
+The preimage has order $|K|\cdot2=8$ by the correspondence theorem,
+and hence $\langle x,r\rangle=\varphi^{-1}(\langle(1\,3)\rangle)=H_1$.
+
+For $H_2$ and $H_3$, relabel the vertices as
+shown below. The opposite vertex pairs now form $\Pi_1$ and $\Pi_3$,
+respectively. The curved arrows indicate counterclockwise quarter-turns;
+the green dashed lines are diagonal reflection axes.
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,every node/.style={font=\small,align=center}]
+  \begin{scope}
+    \node[courseblue,font=\bfseries] at (0,2.4) {$H_2$};
+    \draw[-stealth,courseblue,line width=1pt]
+      (45:1.65) arc[start angle=45,end angle=135,radius=1.65];
+    \node[courseblue] at (0,1.9) {$x_2$};
+    \draw[dashed,ForestGreen,line width=1pt] (-1.3,-1.3)--(1.3,1.3);
+    \node[ForestGreen,right] at (1.35,1.3) {$r_2$};
+    \draw[thick] (-0.9,-0.9)--(-0.9,0.9)--(0.9,0.9)--(0.9,-0.9)--cycle;
+    \fill (0.9,0.9) circle (1.5pt) node[above] {$1$};
+    \fill (-0.9,0.9) circle (1.5pt) node[above] {$3$};
+    \fill (-0.9,-0.9) circle (1.5pt) node[below] {$2$};
+    \fill (0.9,-0.9) circle (1.5pt) node[below] {$4$};
+    \node[courseblue] at (0,-1.45) {opposite pairs: $\Pi_1$};
+    \node at (0,-2) {$x_2=(1\,3\,2\,4),\quad r_2=(3\,4)$};
+  \end{scope}
+  \begin{scope}[xshift=7cm]
+    \node[BrickRed,font=\bfseries] at (0,2.4) {$H_3$};
+    \draw[-stealth,BrickRed,line width=1pt]
+      (45:1.65) arc[start angle=45,end angle=135,radius=1.65];
+    \node[BrickRed] at (0,1.9) {$x_3$};
+    \draw[dashed,ForestGreen,line width=1pt] (-1.3,-1.3)--(1.3,1.3);
+    \node[ForestGreen,right] at (1.35,1.3) {$r_3$};
+    \draw[thick] (-0.9,-0.9)--(-0.9,0.9)--(0.9,0.9)--(0.9,-0.9)--cycle;
+    \fill (0.9,0.9) circle (1.5pt) node[above] {$1$};
+    \fill (-0.9,0.9) circle (1.5pt) node[above] {$2$};
+    \fill (-0.9,-0.9) circle (1.5pt) node[below] {$4$};
+    \fill (0.9,-0.9) circle (1.5pt) node[below] {$3$};
+    \node[BrickRed] at (0,-1.45) {opposite pairs: $\Pi_3$};
+    \node at (0,-2) {$x_3=(1\,2\,4\,3),\quad r_3=(2\,3)$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+The induced permutations of the three pairings are
+\[
+  \varphi(x_2)=\varphi(r_2)=(2\,3)=ab,\qquad
+  \varphi(x_3)=\varphi(r_3)=(1\,2)=a^2b.
+\]
+Each square symmetry group has order $8$, as does the corresponding
+preimage. Therefore
+\[
+\begin{aligned}
+  H_2&=\langle x_2,r_2\rangle=\varphi^{-1}(\langle ab\rangle),\\
+  H_3&=\langle x_3,r_3\rangle=\varphi^{-1}(\langle a^2b\rangle).
+\end{aligned}
+\]
+Both are copies of $D_8$ inside $S_4$ containing $K$.
+
+\begin{exercise}
+Use the correspondence theorem to explain why none of the three
+subgroups $H_1,H_2,H_3$ is normal in $S_4$.
+\end{exercise}
+
+%\section{External direct products}
+%
+%There are two ways to approach products of groups:
+%\begin{itemize}
+%  \item An \emph{external} product starts with groups $G_1,G_2$ and
+%  constructs a new group $G_1\times G_2$.
+%  \item An \emph{internal} product starts with a group $G$ and asks
+%  whether suitable subgroups $G_1,G_2\leq G$ give an isomorphism
+%  $G\cong G_1\times G_2$.
+%\end{itemize}
+%We first develop the external construction, then explain how to recognize
+%a direct product inside a given group.
+%
+%\begin{define}[External direct product]
+%Let $G_1$ and $G_2$ be groups. Their \emph{direct product}
+%$G_1\times G_2$ is the Cartesian product of their underlying sets,
+%with multiplication defined componentwise:
+%\[
+%  (g_1,g_2)(g'_1,g'_2)=(g_1g'_1,g_2g'_2).
+%\]
+%\end{define}
+%
+%\begin{lemma}\label{lem:product-group}
+%The direct product is a group. Its identity is $(e_1,e_2)$ and
+%\[
+%  (g_1,g_2)^{-1}=(g_1^{-1},g_2^{-1}).
+%\]
+%\end{lemma}
+%
+%\begin{exercise}
+%Verify the group axioms for $G_1\times G_2$, using the corresponding
+%axioms in each factor. If both groups are finite, show that
+%$|G_1\times G_2|=|G_1|\,|G_2|$.
+%\end{exercise}
+%
+%\subsection{The factors as normal subgroups}
+%
+%The maps
+%\[
+%  i_1:G_1\longrightarrow G_1\times G_2,\quad g_1\longmapsto(g_1,e_2),
+%\]
+%\[
+%  i_2:G_2\longrightarrow G_1\times G_2,\quad g_2\longmapsto(e_1,g_2)
+%\]
+%are injective homomorphisms. We often identify the factors with their
+%images, but the subgroups inside the product are, more precisely,
+%\[
+%  \widetilde G_1=G_1\times\{e_2\},\qquad
+%  \widetilde G_2=\{e_1\}\times G_2.
+%\]
+%
+%\begin{lemma}
+%Both $\widetilde G_1$ and $\widetilde G_2$ are normal in
+%$G_1\times G_2$, and
+%\[
+%  \widetilde G_1\cap\widetilde G_2=\{(e_1,e_2)\}.
+%\]
+%\end{lemma}
+%\begin{proof}
+%For $(g_1,g_2)\in G_1\times G_2$ and $h_1\in G_1$,
+%\[
+%  (g_1,g_2)(h_1,e_2)(g_1,g_2)^{-1}
+%  =(g_1h_1g_1^{-1},e_2)\in\widetilde G_1.
+%\]
+%Thus $\widetilde G_1$ is normal; the same computation in the second
+%coordinate proves normality of $\widetilde G_2$.
+%An element in both subgroups must have first coordinate $e_1$ and
+%second coordinate $e_2$, proving the intersection statement.
+%\end{proof}
+%
+%\section{Products of cyclic groups}
+%
+%Write $C_d$ for a cyclic group of order $d$.
+%
+%\begin{lemma}\label{lem:coprime-cyclic}
+%If $r,s\geq1$ and $\gcd(r,s)=1$, then
+%\[
+%  C_{rs}\cong C_r\times C_s.
+%\]
+%\end{lemma}
+%
+%\begin{warningbox}
+%The coprimality assumption matters. For example,
+%$C_4\not\cong C_2\times C_2$. Every element $(u,v)$ of
+%$C_2\times C_2$ satisfies
+%\[
+%  (u,v)^2=(u^2,v^2)=(1,1),
+%\]
+%whereas $C_4$ has an element of order $4$. An isomorphism preserves
+%element orders, so these groups cannot be isomorphic.
+%\end{warningbox}
+%
+%\begin{proof}[Proof of Lemma~\ref{lem:coprime-cyclic}]
+%Choose generators
+%\[
+%  C_{rs}=\langle x\rangle,\qquad C_r=\langle z\rangle,
+%  \qquad C_s=\langle y\rangle.
+%\]
+%Define
+%\[
+%  \varphi:C_{rs}\to C_r,\quad x^i\mapsto z^i,
+%  \qquad
+%  \psi:C_{rs}\to C_s,\quad x^i\mapsto y^i.
+%\]
+%These maps are well defined: if $x^i=x^j$, then $rs\mid(i-j)$,
+%so both $r$ and $s$ divide $i-j$, giving $z^i=z^j$ and $y^i=y^j$.
+%They are homomorphisms, since, for instance,
+%\[
+%  \varphi(x^ix^j)=z^{i+j}=z^iz^j.
+%\]
+%Define a map using these two coordinates:
+%\[
+%  \Phi:C_{rs}\longrightarrow C_r\times C_s,
+%  \qquad x^i\longmapsto(z^i,y^i).
+%\]
+%It is a homomorphism because multiplication is componentwise:
+%\[
+%  \Phi(x^ix^j)=(z^{i+j},y^{i+j})
+%  =(z^i,y^i)(z^j,y^j)=\Phi(x^i)\Phi(x^j).
+%\]
+%The two coordinate kernels are
+%\[
+%  \ker(\varphi)=\langle x^r\rangle,\qquad
+%  \ker(\psi)=\langle x^s\rangle.
+%\]
+%Consequently, $x^i\in\ker(\Phi)$ if and only if $r\mid i$ and
+%$s\mid i$. Since $\gcd(r,s)=1$, this is equivalent to $rs\mid i$,
+%so $\ker(\Phi)=\{1\}$ and $\Phi$ is injective.
+%
+%Both its domain and its codomain have order $rs$. Thus $\Phi$ is also
+%surjective, and hence an isomorphism. Equivalently, the counting
+%formula gives $|\im(\Phi)|=rs$, so its image is all of
+%$C_r\times C_s$.
+%\end{proof}
+%
+%\section{Internal direct products}
+%
+%\subsection{The product of two subgroups}
+%
+%Let $H,K\leq G$. The \emph{product set} of $H$ and $K$ is
+%\[
+%  HK=\{hk\mid h\in H,\ k\in K\}\subseteq G.
+%\]
+%Here $HK$ consists of elements of $G$, whereas $H\times K$ consists
+%of ordered pairs and has the external direct product group structure.
+%
+%\begin{warningbox}
+%The set $HK$ need not be a subgroup of $G$.
+%\end{warningbox}
+%
+%\begin{example}
+%In $S_3$, let $H=\langle(1\,2)\rangle$ and
+%$K=\langle(2\,3)\rangle$. Composing permutations from right to left,
+%\[
+%  HK=\{1,(1\,2),(2\,3),(1\,2\,3)\}.
+%\]
+%This set is not closed under multiplication: both $(2\,3)$ and
+%$(1\,2)$ belong to $HK$, but their product $(1\,3\,2)$ does not.
+%\end{example}
+%
+%\begin{lemma}[Unique factorization]\label{lem:unique-factorization}
+%If $H\cap K=\{1\}$, the multiplication map of sets
+%\[
+%  p:H\times K\longrightarrow G,\qquad (h,k)\longmapsto hk
+%\]
+%is injective. Thus each element of $HK$ has a unique expression $hk$
+%with $h\in H$ and $k\in K$.
+%\end{lemma}
+%\begin{proof}
+%If $h_1k_1=h_2k_2$, then
+%\[
+%  h_2^{-1}h_1=k_2k_1^{-1}.
+%\]
+%The left side lies in $H$ and the right side lies in $K$. Their common
+%value therefore belongs to $H\cap K=\{1\}$, so $h_1=h_2$ and $k_1=k_2$.
+%\end{proof}
+%
+%\begin{lemma}\label{lem:product-subgroup}
+%If either $H$ or $K$ is normal in $G$, then $HK=KH$ and $HK\leq G$.
+%\end{lemma}
+%\begin{proof}
+%Suppose first that $H\trianglelefteq G$. For $h\in H$ and $k\in K$,
+%\[
+%  hk=k(k^{-1}hk)\in KH,\qquad
+%  kh=(khk^{-1})k\in HK,
+%\]
+%because the conjugates $k^{-1}hk$ and $khk^{-1}$ lie in $H$.
+%Thus $HK=KH$.
+%
+%The identity lies in $HK$. For closure under multiplication, write
+%$k_1h_2=h'_2k'_1$ using $KH=HK$. Then
+%\[
+%  (h_1k_1)(h_2k_2)=(h_1h'_2)(k'_1k_2)\in HK.
+%\]
+%Also, $(hk)^{-1}=k^{-1}h^{-1}\in KH=HK$, so $HK$ is closed under
+%inverses and hence is a subgroup. If $K\trianglelefteq G$, interchange
+%$H$ and $K$ in the argument.
+%\end{proof}
+%
+%\Needspace{10\baselineskip}
+%\subsection{Recognizing a direct product}
+%
+%\begin{define}[Internal direct product]
+%A group $G$ is the \emph{internal direct product} of subgroups $H$ and
+%$K$ if
+%\[
+%  H\trianglelefteq G,\qquad K\trianglelefteq G,\qquad
+%  H\cap K=\{1\},\qquad HK=G.
+%\]
+%\end{define}
+%
+%\begin{theorem}[Recognizing direct products]\label{thm:internal-product}
+%If $G$ is the internal direct product of $H$ and $K$, then
+%\[
+%  G\cong H\times K.
+%\]
+%The isomorphism sends $g=hk$ to $(h,k)$.
+%\end{theorem}
+%\begin{proof}
+%Since $HK=G$, every $g\in G$ can be written $g=hk$. By
+%Lemma~\ref{lem:unique-factorization}, this expression is unique. Hence
+%\[
+%  \pi:G\longrightarrow H\times K,\qquad hk\longmapsto(h,k)
+%\]
+%is well defined.
+%
+%\emph{First we show that elements of $H$ commute with elements of $K$.}
+%For $h\in H$ and $k\in K$, consider the commutator
+%\[
+%  [h,k]=hkh^{-1}k^{-1}.
+%\]
+%Normality of $K$ gives $hkh^{-1}\in K$, so $[h,k]\in K$.
+%Normality of $H$ gives $kh^{-1}k^{-1}\in H$, so
+%$[h,k]=h(kh^{-1}k^{-1})\in H$. Consequently,
+%\[
+%  [h,k]\in H\cap K=\{1\},\qquad\text{and thus }hk=kh.
+%\]
+%
+%Now let $g_1=h_1k_1$ and $g_2=h_2k_2$. Since $k_1h_2=h_2k_1$,
+%\[
+%  g_1g_2=h_1k_1h_2k_2=(h_1h_2)(k_1k_2).
+%\]
+%It follows that
+%\[
+%  \pi(g_1g_2)=(h_1h_2,k_1k_2)
+%  =(h_1,k_1)(h_2,k_2)=\pi(g_1)\pi(g_2).
+%\]
+%Thus $\pi$ is a homomorphism. It is bijective, with inverse
+%$p(h,k)=hk$, and hence is an isomorphism.
+%\end{proof}
+%
+%\begin{exercise}
+%Verify directly that the maps $\pi$ and $p$ in
+%Theorem~\ref{thm:internal-product} are inverses. Then check that the
+%subgroups $\widetilde G_1$ and $\widetilde G_2$ of the external product
+%$G_1\times G_2$ satisfy all four conditions in the definition of an
+%internal direct product.
+%\end{exercise}
+%
+%\begin{remark}
+%Both normality assumptions matter. If only $H\trianglelefteq G$ is
+%assumed, together with $H\cap K=\{1\}$ and $HK=G$, the resulting
+%structure is called a \emph{semidirect product}, written
+%$G\cong H\rtimes K$; the factors need not commute.
+%
+%For example, in $S_3$ take $H=\langle a\rangle$ with $a=(1\,2\,3)$
+%and $K=\langle b\rangle$ with $b=(1\,2)$. Then $H\trianglelefteq S_3$,
+%$H\cap K=\{1\}$, and
+%\[
+%  HK=\{1,a,a^2,b,ab,a^2b\}=S_3.
+%\]
+%But $K$ is not normal: $aba^{-1}=(2\,3)\notin K$.
+%Moreover, $bab^{-1}=a^{-1}\ne a$, so the factors do not commute.
+%Thus $S_3\cong C_3\rtimes C_2$ is a semidirect product; it is not
+%isomorphic to the abelian group $C_3\times C_2$.
+%\end{remark}
+
+\end{document}
