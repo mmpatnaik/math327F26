@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-19
+
+[Homework 3](hw/hw-03.pdf) is posted. It covers Lectures 15–19, including product groups in Lecture 18 and quotient groups in Lecture 19. The suggested completion date is **Monday, October 26**.
+
 ## 2026-10-06
 
 **Extra office hours:** Wednesday, October 7, **2–3 pm**.
