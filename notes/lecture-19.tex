@@ -1,0 +1,278 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\usepackage{tikz}
+\lectureinfo{19}{Oct. 23, 2026}{Internal Direct Products and Quotient Groups}
+
+
+
+\tcolorboxenvironment{example}{lecturebox,colback=definitiongreen,colframe=definitionborder}
+\definecolor{remarkpurple}{HTML}{F2ECFA}
+\definecolor{remarkpurpleborder}{HTML}{A68CC7}
+\tcolorboxenvironment{remark}{lecturebox,colback=remarkpurple,colframe=remarkpurpleborder}
+
+\begin{document}
+\raggedbottom
+\makelecturetitle
+
+% Internal products carried forward from typed Lecture 18.
+% Source: handwritten Lecture 13, Oct. 1, 2025, pp. 2--11.
+\section{Internal direct products}
+
+\subsection{The product of two subgroups}
+
+Let $H,K\leq G$. The \emph{product set} of $H$ and $K$ is
+\[
+  HK=\{hk\mid h\in H,\ k\in K\}\subseteq G.
+\]
+Here $HK$ consists of elements of $G$, whereas $H\times K$ consists
+of ordered pairs and has the external direct product group structure.
+
+\begin{warningbox}
+The set $HK$ need not be a subgroup of $G$.
+\end{warningbox}
+
+\begin{example}
+In $S_3$, let $H=\langle(1\,2)\rangle$ and
+$K=\langle(2\,3)\rangle$. Composing permutations from right to left,
+\[
+  HK=\{1,(1\,2),(2\,3),(1\,2\,3)\}.
+\]
+This set is not closed under multiplication: both $(2\,3)$ and
+$(1\,2)$ belong to $HK$, but their product $(1\,3\,2)$ does not.
+\end{example}
+
+
+\begin{lemma}\label{lem:product-subgroup}
+If either $H$ or $K$ is normal in $G$, then $HK=KH$ and $HK\leq G$.
+\end{lemma}
+\begin{proof}
+Suppose first that $H\trianglelefteq G$. For $h\in H$ and $k\in K$,
+\[
+  hk=k(k^{-1}hk)\in KH,\qquad
+  kh=(khk^{-1})k\in HK,
+\]
+because the conjugates $k^{-1}hk$ and $khk^{-1}$ lie in $H$.
+Thus $HK=KH$.
+
+The identity lies in $HK$. For closure under multiplication, write
+$k_1h_2=h'_2k'_1$ using $KH=HK$. Then
+\[
+  (h_1k_1)(h_2k_2)=(h_1h'_2)(k'_1k_2)\in HK.
+\]
+Also, $(hk)^{-1}=k^{-1}h^{-1}\in KH=HK$, so $HK$ is closed under
+inverses and hence is a subgroup. If $K\trianglelefteq G$, interchange
+$H$ and $K$ in the argument.
+\end{proof}
+
+\Needspace{10\baselineskip}
+\subsection{Recognizing a direct product}
+
+\begin{define}[Internal direct product]
+A group $G$ is the \emph{internal direct product} of subgroups $H$ and
+$K$ if
+\[
+  H\trianglelefteq G,\qquad K\trianglelefteq G,\qquad
+  H\cap K=\{1\},\qquad HK=G.
+\]
+\end{define}
+
+Let's begin with a simple lemma.
+
+
+\begin{lemma}[Unique factorization]\label{lem:unique-factorization}
+	If $H\cap K=\{1\}$, the multiplication map of sets
+	\[
+	p:H\times K\longrightarrow G,\qquad (h,k)\longmapsto hk
+	\]
+	is injective. Thus each element of $HK$ has a unique expression $hk$
+	with $h\in H$ and $k\in K$.
+\end{lemma}
+\begin{proof}
+	If $h_1k_1=h_2k_2$, then
+	\[
+	h_2^{-1}h_1=k_2k_1^{-1}.
+	\]
+	The left side lies in $H$ and the right side lies in $K$. Their common
+	value therefore belongs to $H\cap K=\{1\}$, so $h_1=h_2$ and $k_1=k_2$.
+\end{proof}
+
+
+\begin{theorem}[Recognizing direct products]\label{thm:internal-product}
+If $G$ is the internal direct product of $H$ and $K$, then
+\[
+  G\cong H\times K.
+\]
+The isomorphism sends $g=hk$ to $(h,k)$.
+\end{theorem}
+\begin{proof}
+Since $HK=G$, every $g\in G$ can be written $g=hk$. By
+Lemma~\ref{lem:unique-factorization}, this expression is unique. Hence
+\[
+  \pi:G\longrightarrow H\times K,\qquad hk\longmapsto(h,k)
+\]
+is well defined.
+
+\emph{First we show that elements of $H$ commute with elements of $K$.}
+For $h\in H$ and $k\in K$, consider the commutator
+\[
+  [h,k]=hkh^{-1}k^{-1}.
+\]
+Normality of $K$ gives $hkh^{-1}\in K$, so $[h,k]\in K$.
+Normality of $H$ gives $kh^{-1}k^{-1}\in H$, so
+$[h,k]=h(kh^{-1}k^{-1})\in H$. Consequently,
+\[
+  [h,k]\in H\cap K=\{1\},\qquad\text{and thus }hk=kh.
+\]
+
+Now let $g_1=h_1k_1$ and $g_2=h_2k_2$. Since $k_1h_2=h_2k_1$,
+\[
+  g_1g_2=h_1k_1h_2k_2=(h_1h_2)(k_1k_2).
+\]
+It follows that
+\[
+  \pi(g_1g_2)=(h_1h_2,k_1k_2)
+  =(h_1,k_1)(h_2,k_2)=\pi(g_1)\pi(g_2).
+\]
+Thus $\pi$ is a homomorphism. It is bijective, with inverse
+$p(h,k)=hk$, and hence is an isomorphism.
+\end{proof}
+
+\begin{exercise}
+Verify directly that the maps $\pi$ and $p$ in
+Theorem~\ref{thm:internal-product} are inverses. Then check that the
+subgroups $\widetilde G_1$ and $\widetilde G_2$ of the external product
+$G_1\times G_2$ satisfy all four conditions in the definition of an
+internal direct product.
+\end{exercise}
+
+\begin{remark}
+Both normality assumptions matter. If only $H\trianglelefteq G$ is
+assumed, together with $H\cap K=\{1\}$ and $HK=G$, the resulting
+structure is called a \emph{semidirect product}, written
+$G\cong H\rtimes K$; the factors need not commute.
+
+For example, in $S_3$ take $H=\langle a\rangle$ with $a=(1\,2\,3)$
+and $K=\langle b\rangle$ with $b=(1\,2)$. Then $H\trianglelefteq S_3$,
+$H\cap K=\{1\}$, and
+\[
+  HK=\{1,a,a^2,b,ab,a^2b\}=S_3.
+\]
+But $K$ is not normal: $aba^{-1}=(2\,3)\notin K$.
+Moreover, $bab^{-1}=a^{-1}\ne a$, so the factors do not commute.
+Thus $S_3\cong C_3\rtimes C_2$ is a semidirect product; it is not
+isomorphic to the abelian group $C_3\times C_2$.
+\end{remark}
+
+
+\section{Quotient groups}
+
+Let $H\leq G$. Recall that $G/H$ denotes the \emph{set} of left
+cosets $gH$. We would like to multiply cosets by the rule
+\[
+  (g_1H)(g_2H)=(g_1g_2)H.
+\]
+Before checking the group axioms, we must check that this rule does not
+depend on the representatives $g_1$ and $g_2$.
+
+\subsection{Why normality is needed}
+
+If $g'_1=g_1h_1$ and $g'_2=g_2h_2$ with $h_1,h_2\in H$, then
+$g'_1H=g_1H$ and $g'_2H=g_2H$. But
+\[
+  g'_1g'_2=g_1h_1g_2h_2
+  =g_1g_2\bigl(g_2^{-1}h_1g_2\bigr)h_2.
+\]
+If $H\trianglelefteq G$, the parenthesized element lies in $H$, and
+therefore $g'_1g'_2H=g_1g_2H$, as required.
+
+\begin{example}[Failure for a nonnormal subgroup]
+Take $G=S_3$ and $H=\{1,(1\,2)\}$. The identity coset has both
+$1$ and $(1\,2)$ as representatives. Using $g_2=(2\,3)$ gives
+\[
+  1(2\,3)H=(2\,3)H,\qquad
+  (1\,2)(2\,3)H=(1\,2\,3)H.
+\]
+These cosets are distinct: otherwise
+$(2\,3)^{-1}(1\,2\,3)=(1\,3)$ would belong to $H$.
+Thus the proposed product depends on the chosen representative.
+\end{example}
+
+\begin{remark}
+In fact, normality is necessary for this multiplication rule to be well
+defined. If it is well defined, then for every $h\in H$ and $g\in G$,
+\[
+  (hH)(gH)=(1H)(gH),\qquad\text{so }hgH=gH.
+\]
+Hence $g^{-1}hg\in H$. Applying this for every $g$ proves
+$H\trianglelefteq G$.
+\end{remark}
+
+\subsection{The quotient construction}
+
+\begin{theorem}[Quotient group]
+Let $N\trianglelefteq G$. The set $G/N$ is a group under
+\[
+  (gN)(hN)=(gh)N.
+\]
+Its identity is $N=1N$, and the inverse of $gN$ is $g^{-1}N$.
+\end{theorem}
+\begin{proof}
+The preceding calculation proves that multiplication is well defined.
+Associativity follows from associativity in $G$:
+\[
+ ((gN)(hN))(kN)=((gh)k)N=(g(hk))N=(gN)((hN)(kN)).
+\]
+Also, $N(gN)=(gN)N=gN$, and
+\[
+  (gN)(g^{-1}N)=(g^{-1}N)(gN)=N.
+\]
+These are the group axioms.
+\end{proof}
+
+\Needspace{10\baselineskip}
+\begin{theorem}[The quotient map]
+The map
+\[
+  \pi:G\longrightarrow G/N,\qquad g\longmapsto gN
+\]
+is a surjective homomorphism with kernel $N$.
+\end{theorem}
+\begin{proof}
+By definition of the quotient multiplication,
+$\pi(gh)=(gh)N=(gN)(hN)=\pi(g)\pi(h)$.
+Every coset has a representative, so $\pi$ is surjective. Finally,
+\[
+  g\in\ker\pi\quad\Longleftrightarrow\quad gN=N
+  \quad\Longleftrightarrow\quad g\in N.
+\]
+\end{proof}
+
+\begin{corollary}
+If $G$ is finite, then $|G/N|=[G:N]=|G|/|N|$.
+\end{corollary}
+\begin{proof}
+The elements of $G/N$ are precisely the left cosets of $N$ in $G$.
+Each has $|N|$ elements, and they partition $G$.
+\end{proof}
+
+\begin{example}
+In additive notation, $n\Z\trianglelefteq\Z$ and
+\[
+  (a+n\Z)+(b+n\Z)=(a+b)+n\Z.
+\]
+Thus $\Z/n\Z$ is the familiar group of integers modulo $n$.
+The quotient map sends an integer to its residue class; its kernel is
+$n\Z$.
+\end{example}
+
+\begin{exercise}
+For the external product $H\times K$, show that
+\[
+  (H\times K)/(H\times\{1\})\cong K
+\]
+by defining a map $(h,k)(H\times\{1\})\mapsto k$.
+Check that it is well defined and is a bijective homomorphism.
+\end{exercise}
+
+\end{document}
