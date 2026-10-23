@@ -2,7 +2,7 @@
 \usepackage{math327-lecture}
 \usepackage{needspace}
 \usepackage{tikz}
-\lectureinfo{19}{Oct. 23, 2026}{Internal Direct Products and Quotient Groups}
+\lectureinfo{19}{Oct. 23, 2026}{Products of Cyclic Groups, Internal Direct Products, and Quotient Groups}
 
 
 
@@ -15,9 +15,81 @@
 \raggedbottom
 \makelecturetitle
 
-% Internal products carried forward from typed Lecture 18.
+Last time we introduce the notion of an external direct product of two groups. If $G_1$, and $G_2$ are two groups, this is defined as the set \be{} G_1 \times G_2 \ee equipped with componentwise multiplication. The identity if $(e_{G_1}, e_{G_2})$ and the inverse of $(g_1, g_2)$ is $(g_1^{-1}, g_2^{-1})$.
+
+
+\section{Products of cyclic groups}
+
+Write $C_d$ for a cyclic group of order $d$.
+
+\begin{lemma}\label{lem:coprime-cyclic}
+If $r,s\geq1$ and $\gcd(r,s)=1$, then
+\[
+  C_{rs}\cong C_r\times C_s.
+\]
+\end{lemma}
+
+\begin{warningbox}
+The coprimality assumption matters. For example,
+$C_4\not\cong C_2\times C_2$. Every element $(u,v)$ of
+$C_2\times C_2$ satisfies
+\[
+  (u,v)^2=(u^2,v^2)=(1,1),
+\]
+whereas $C_4$ has an element of order $4$. An isomorphism preserves
+element orders, so these groups cannot be isomorphic.
+\end{warningbox}
+
+\begin{proof}[Proof of Lemma~\ref{lem:coprime-cyclic}]
+Choose generators
+\[
+  C_{rs}=\langle x\rangle,\qquad C_r=\langle z\rangle,
+  \qquad C_s=\langle y\rangle.
+\]
+Define
+\[
+  \varphi:C_{rs}\to C_r,\quad x^i\mapsto z^i,
+  \qquad
+  \psi:C_{rs}\to C_s,\quad x^i\mapsto y^i.
+\]
+These maps are well defined: if $x^i=x^j$, then $rs\mid(i-j)$,
+so both $r$ and $s$ divide $i-j$, giving $z^i=z^j$ and $y^i=y^j$.
+They are homomorphisms, since, for instance,
+\[
+  \varphi(x^ix^j)=z^{i+j}=z^iz^j.
+\]
+Define a map using these two coordinates:
+\[
+  \Phi:C_{rs}\longrightarrow C_r\times C_s,
+  \qquad x^i\longmapsto(z^i,y^i).
+\]
+It is a homomorphism because multiplication is componentwise:
+\[
+  \Phi(x^ix^j)=(z^{i+j},y^{i+j})
+  =(z^i,y^i)(z^j,y^j)=\Phi(x^i)\Phi(x^j).
+\]
+The two coordinate kernels are
+\[
+  \ker(\varphi)=\langle x^r\rangle,\qquad
+  \ker(\psi)=\langle x^s\rangle.
+\]
+Consequently, $x^i\in\ker(\Phi)$ if and only if $r\mid i$ and
+$s\mid i$. Since $\gcd(r,s)=1$, this is equivalent to $rs\mid i$,
+so $\ker(\Phi)=\{1\}$ and $\Phi$ is injective.
+
+Both its domain and its codomain have order $rs$. Thus $\Phi$ is also
+surjective, and hence an isomorphism. Equivalently, the counting
+formula gives $|\im(\Phi)|=rs$, so its image is all of
+$C_r\times C_s$.
+\end{proof}
+
+% Cyclic and internal products carried forward from typed Lecture 18.
 % Source: handwritten Lecture 13, Oct. 1, 2025, pp. 2--11.
 \section{Internal direct products}
+
+We now take the internal
+point of view: given subgroups $H,K\leq G$, when can we identify $G$
+with $H\times K$ using the multiplication map $(h,k)\mapsto hk$?
 
 \subsection{The product of two subgroups}
 
