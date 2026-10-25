@@ -1,0 +1,293 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Nm}{\operatorname{N}}
+\lectureinfo{32}{Dec. 2, 2026}{Irreducibles, Primes, and Unique Factorization Domains}
+
+% Typeset from handwritten Lecture 34, Dec. 3, 2025, pp. 1--11.
+\begin{document}
+\raggedbottom
+\makelecturetitle
+
+\section{Units, associates, primes, and irreducibles}
+
+Last time we met the inclusions
+\[
+  \{\text{Euclidean domains}\}\subset\{\text{PIDs}\}\subset\{\text{UFDs}\},
+\]
+where UFD stands for \emph{unique factorization domain}. Today we
+define UFDs and prove the second inclusion. We begin with some
+preliminaries. Throughout, $R$ is a commutative ring with $1$.
+
+\begin{define}[Units and associates]
+An element $u\in R$ is a \emph{unit} if $u$ has an inverse in $R$.
+Two elements $a,b\in R$ are \emph{associates}, written $a\sim b$,
+if $a=bu$ for some unit $u$.
+\end{define}
+
+% NOTE: the handwritten definitions omit the standing conditions
+% "nonzero and not a unit" for primes and irreducibles; these are
+% the standard conventions and are added here.
+\begin{define}[Prime and irreducible elements]
+Let $p,x\in R$ be nonzero nonunits.
+\begin{itemize}
+  \item $p$ is \emph{prime} if whenever $p\mid ab$, either $p\mid a$
+  or $p\mid b$.
+  \item $x$ is \emph{irreducible} if whenever $x=ab$, either $a$ or
+  $b$ is a unit (and then the other factor is an associate of $x$).
+\end{itemize}
+\end{define}
+
+If $R$ is an integral domain (that is, $ab=0$ implies $a=0$ or
+$b=0$), then every prime element is irreducible. The converse holds
+in a PID.
+
+\begin{remark}
+Divisibility can be phrased in terms of ideals:
+$a\mid b$ if and only if $(b)\subseteq(a)$.
+\end{remark}
+
+\begin{lemma}\label{lem:irred-prime}
+If $R$ is a PID, then every irreducible element of $R$ is prime.
+\end{lemma}
+\begin{proof}
+Let $q$ be irreducible with $q\mid ab$, and assume $q\nmid a$.
+We want to show $q\mid b$. Since $R$ is a PID,
+\[
+  (q,a)=(d)\qquad\text{for some }d\in R.
+\]
+Because $(q)\subseteq(d)$ and $(a)\subseteq(d)$, we have $d\mid q$
+and $d\mid a$. As $q$ is irreducible, $d\mid q$ forces $d$ to be
+either a unit or an associate of $q$. If $d\sim q$, then $d\mid a$
+gives $q\mid a$, contrary to our assumption. Hence $d$ is a unit,
+that is, $(q,a)=(1)$. So
+\[
+  rq+sa=1\qquad\text{for some }r,s\in R.
+\]
+Multiplying by $b$ gives
+\[
+  rqb+sab=b.
+\]
+Since $q\mid ab$ by assumption, $q$ divides the left-hand side, so
+$q$ divides the right-hand side, that is, $q\mid b$.
+\end{proof}
+
+\section{Unique factorization domains}
+
+What does it mean to factor an element $x\in R$? If $x$ is not
+irreducible, write $x=ab$ with neither factor a unit. If $a$ or $b$
+is not irreducible, factor it further, say $a=a'a''$ and $b=b'b''$,
+and continue:
+\[
+  x=ab=(a'a'')(b'b'')=\cdots.
+\]
+Does this process terminate?
+
+\begin{define}[Unique factorization domain]
+An integral domain $R$ is called a \emph{unique factorization
+domain} (UFD) if
+\begin{enumerate}[label=(\arabic*)]
+  \item factorization into irreducibles terminates, so every nonzero
+  nonunit is a product of irreducibles; and
+  \item whenever
+  \[
+    x=p_1\cdots p_s=q_1\cdots q_\ell
+  \]
+  with all $p_i,q_j$ irreducible, we have $s=\ell$ and, after
+  reordering, $p_i\sim q_i$ for every $i$.
+\end{enumerate}
+\end{define}
+
+\begin{example}
+The integers $\Z$ form a UFD.
+\end{example}
+
+\begin{proposition}\label{prop:pid-ufd}
+Every PID is a UFD.
+\end{proposition}
+\begin{proof}
+For now, assume that factorization terminates in PIDs; we return
+to this point in Section~\ref{sec:termination}. We prove uniqueness.
+Suppose $a\in R$ has two factorizations
+\[
+  a=p_1\cdots p_r=q_1\cdots q_s
+\]
+with all $p_i,q_j$ irreducible. Since $R$ is a PID,
+Lemma~\ref{lem:irred-prime} shows that the $p_i$ and $q_j$ are also
+prime.
+
+The prime $p_1$ divides $q_1\cdots q_s$, so $p_1\mid q_j$ for some
+$j$. But $q_j$ is irreducible, so $p_1\sim q_j$; write $q_j=up_1$
+with $u$ a unit. Since we are in a domain, we may cancel $p_1$ and
+obtain
+\[
+  p_2\cdots p_r=u\,q_1\cdots\widehat{q_j}\cdots q_s,
+\]
+where the hat means that $q_j$ is omitted. Absorbing $u$ into one
+of the remaining factors, which keeps it irreducible, we get two
+factorizations with fewer factors. Repeating (or inducting on $r$)
+gives $r=s$ and pairs the factors off into associates.
+\end{proof}
+
+\section{Termination of factorization}\label{sec:termination}
+
+\begin{proposition}\label{prop:acc}
+Let $R$ be an integral domain. The following are equivalent.
+\begin{enumerate}[label=(\arabic*)]
+  \item Factorization into irreducibles terminates.
+  \item $R$ does not contain a strictly increasing infinite chain of
+  principal ideals
+  \[
+    (a_1)\subsetneq(a_2)\subsetneq(a_3)\subsetneq(a_4)\subsetneq\cdots.
+  \]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+We show that (2) implies (1). Let $a_1\in R$, and assume that the
+factorization of $a_1$ does not terminate. Then we can write
+\[
+  a_1=a_2b_2,\qquad a_2=a_3b_3,\qquad a_3=a_4b_4,\qquad\ldots,
+\]
+where at each stage neither factor is a unit and the factorization
+of $a_{n+1}$ again does not terminate. Since $a_{n+1}\mid a_n$, we
+have $(a_n)\subseteq(a_{n+1})$; equality would make $b_{n+1}$ a unit
+(cancel in the domain), so $(a_n)\subsetneq(a_{n+1})$. This gives
+\[
+  (a_1)\subsetneq(a_2)\subsetneq(a_3)\subsetneq\cdots,
+\]
+contradicting (2). The converse is similar and left as an exercise.
+\end{proof}
+
+\begin{proposition}\label{prop:pid-terminates}
+If $R$ is a PID, then factorization terminates.
+\end{proposition}
+\begin{proof}
+By Proposition~\ref{prop:acc}, it suffices to rule out an infinite
+strictly increasing sequence of principal ideals
+\[
+  (f_1)\subsetneq(f_2)\subsetneq(f_3)\subsetneq\cdots.
+\]
+% NOTE: the handwritten notes say "sequence of prime ideals" here;
+% "principal ideals" is meant.
+
+\emph{Claim:} $J=\bigcup_{n=1}^\infty(f_n)$ is also an ideal.
+Indeed, if $a,b\in J$, then since the ideals are nested there is a
+single $n$ with $a,b\in(f_n)$; hence $a-b\in(f_n)\subseteq J$.
+Similarly $ra\in J$ for all $r\in R$.
+
+Since we are in a PID, $J=(b)$ for some $b$. But $b\in J$, so
+$b\in(f_n)$ for some $n$. Then
+\[
+  (b)\subseteq(f_n)\subsetneq(f_{n+1})\subsetneq\cdots\subseteq J=(b),
+\]
+which contradicts the strictly increasing nature of the sequence of
+ideals.
+\end{proof}
+
+This completes the proof of Proposition~\ref{prop:pid-ufd}, so
+\[
+  \{\text{Euclidean domains}\}\subset\{\text{PIDs}\}\subset\{\text{UFDs}\}.
+\]
+
+\begin{example}
+If $F$ is a field, then $F[x]$ is a PID, and therefore $F[x]$ is
+also a UFD.
+\end{example}
+
+\begin{warningbox}
+The ring $\Z[x]$ is \emph{not} a PID. It is nevertheless a UFD, as
+we will see next time.
+\end{warningbox}
+
+\section{A non-example: \texorpdfstring{$\Z[\sqrt{-5}]$}{Z[sqrt(-5)]}}
+
+Consider
+\[
+  \Z[\sqrt{-5}]=\{a+b\sqrt{-5}:a,b\in\Z\},
+\]
+with addition and multiplication inherited from
+$\Z[\sqrt{-5}]\subset\C$. In this ring,
+\[
+  6=2\cdot3=(1+\sqrt{-5})(1-\sqrt{-5}).
+\]
+
+\emph{Claim:} these are not equivalent factorizations into
+irreducibles.
+
+\begin{remark}
+Compare with $\Z[i]$, where
+\[
+  5=(2+i)(2-i)=(1+2i)(1-2i).
+\]
+These two factorizations \emph{are} equivalent: for example,
+$1+2i=i(2-i)$ and $1-2i=-i(2+i)$.
+\end{remark}
+
+To show that $2$, $3$, $1+\sqrt{-5}$, and $1-\sqrt{-5}$ are
+irreducible and that $2$ and $3$ are not associates of
+$1\pm\sqrt{-5}$, introduce the norm.
+
+\begin{definition}[Norm]
+For $\alpha=m+n\sqrt{-5}\in\Z[\sqrt{-5}]$, define
+\[
+  \Nm(\alpha)=m^2+5n^2.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:norm-mult}
+For all $\alpha,\beta\in\Z[\sqrt{-5}]$,
+\[
+  \boxed{\Nm(\alpha\beta)=\Nm(\alpha)\Nm(\beta).}
+\]
+\end{lemma}
+\begin{proof}
+Write $\alpha=m+n\sqrt{-5}$ and $\beta=m'+n'\sqrt{-5}$. Then
+\[
+  \alpha\beta=(mm'-5nn')+(mn'+nm')\sqrt{-5},
+\]
+so
+\[
+  \Nm(\alpha\beta)=(mm'-5nn')^2+5(mn'+nm')^2.
+\]
+Expanding, the cross terms $\mp10mm'nn'$ cancel, and this equals
+\[
+  m^2m'^2+25n^2n'^2+5m^2n'^2+5n^2m'^2
+  =(m^2+5n^2)\bigl(m'^2+5n'^2\bigr)=\Nm(\alpha)\Nm(\beta).
+\]
+\end{proof}
+
+\begin{example}[$2$ is irreducible]
+We have $\Nm(2)=\Nm(2+0\cdot\sqrt{-5})=4$. Suppose $2=\alpha\beta$.
+Then
+\[
+  4=\Nm(2)=\Nm(\alpha)\Nm(\beta),
+\]
+so $\{\Nm(\alpha),\Nm(\beta)\}$ is $\{1,4\}$ or $\{2,2\}$. But
+$m^2+5n^2=2$ is impossible in integers, so no element of
+$\Z[\sqrt{-5}]$ has norm $2$. Hence one of $\alpha,\beta$ has norm
+$1$, and is therefore $\pm1$, a unit.
+\end{example}
+
+% NOTE: the handwritten lecture ends with the setup "alpha*beta = 1
+% implies N(alpha)N(beta) = 1"; the conclusion and the closing remark
+% for 3 and 1 +/- sqrt(-5) complete the argument as outlined on p. 9.
+Similarly, we can classify the units in $\Z[\sqrt{-5}]$. If
+$\alpha\beta=1$, then
+\[
+  \Nm(\alpha)\Nm(\beta)=\Nm(1)=1,
+\]
+so $\Nm(\alpha)=m^2+5n^2=1$. This forces $n=0$ and $m=\pm1$; thus
+the units of $\Z[\sqrt{-5}]$ are exactly $\pm1$.
+
+\begin{remark}
+The same argument applies to the other factors. Since
+$\Nm(3)=9$ and $\Nm(1\pm\sqrt{-5})=6$, a nontrivial factorization
+would require an element of norm $2$ or $3$, and $m^2+5n^2$ takes
+neither value. So all four elements are irreducible. Because the
+only units are $\pm1$, neither $2$ nor $3$ is an associate of
+$1\pm\sqrt{-5}$. Therefore $\Z[\sqrt{-5}]$ is not a UFD.
+\end{remark}
+
+\end{document}

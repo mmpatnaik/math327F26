@@ -1,0 +1,251 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\usepackage{tikz-cd}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\lectureinfo{29}{Nov. 25, 2026}{Quotient Rings, Gaussian Integers, and Adjoining Elements}
+
+% Typeset from handwritten Lecture 31, Nov. 26, 2025, pp. 1--12.
+\begin{document}
+\raggedbottom
+\makelecturetitle
+
+\section{Review: quotient rings}
+
+Last time we let $R$ be a commutative ring and $I\subseteq R$ an
+ideal. The quotient ring $R/I$ consists of the cosets $a+I$ with
+$a\in R$, and the map
+\[
+  \pi:R\to R/I,\qquad a\mapsto a\bmod I=a+I,
+\]
+is a surjective ring homomorphism.
+
+\begin{theorem}[Universal property of the quotient]\label{thm:universal}
+Let $\varphi:R\to S$ be a ring homomorphism with $\varphi(I)=0$.
+Then there is a unique homomorphism $\tilde\varphi:R/I\to S$
+lifting $\varphi$, that is, with $\tilde\varphi\circ\pi=\varphi$:
+\[
+  \begin{tikzcd}
+    R \arrow[r,"\varphi"] \arrow[d,"\pi"'] & S\\
+    R/I \arrow[ur,dashed,"\exists!\,\tilde\varphi"'] &
+  \end{tikzcd}
+\]
+\end{theorem}
+
+\begin{corollary}[First isomorphism theorem]\label{cor:first-iso}
+If $\varphi:R\to S$ is a surjective ring homomorphism, then $\varphi$
+induces an isomorphism
+\[
+  R/\ker(\varphi)\xrightarrow{\ \sim\ }S.
+\]
+More generally, if $\varphi$ is not surjective, it induces an
+isomorphism $R/\ker(\varphi)\xrightarrow{\sim}\im(\varphi)$.
+\end{corollary}
+
+\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
+Let $\pi:R\to R/I$ be the quotient map. There is a bijection
+\[
+  \{\text{ideals of }R\text{ containing }I\}
+  \longleftrightarrow
+  \{\text{ideals of }R/I\},\qquad
+  J\longmapsto\pi(J).
+\]
+Moreover, for such $J$ there is an isomorphism
+\[
+  R/J\xrightarrow{\ \sim\ }(R/I)/\pi(J).
+\]
+\end{theorem}
+% NOTE: the handwritten notes write \varphi(J) for the image of J under
+% the quotient map; we write \pi(J).
+
+\section{Quotienting in stages}
+
+\begin{example}\label{ex:gaussian-question}
+Consider the ring $\Z[i]/(i-2)$, where
+\[
+  \Z[i]=\{a+bi:a,b\in\Z\},\qquad i^2=-1,
+\]
+is the ring of \emph{Gaussian integers}. What is this quotient?
+\end{example}
+
+Before answering, we record a general principle. Let $R$ be a ring
+and $a,b\in R$. Under the quotient map $R\to R/(a)$, write
+$\bar b$ for the image of $b$. Setting $\bar b=0$ in $R/(a)$ means
+passing to the quotient $(R/(a))/(\bar b)$.
+
+\begin{proposition}\label{prop:stages}
+For $a,b\in R$,
+\[
+  \bigl(R/(a)\bigr)\big/(\bar b)\;\cong\;R/(a,b).
+\]
+\end{proposition}
+\begin{proof}
+Apply the correspondence theorem to the quotient map
+$\pi:R\to R/(a)$. The ideal $(a,b)$ contains $(a)$, and its image is
+\[
+  \pi\bigl((a,b)\bigr)=(\bar b)\subseteq R/(a),
+\]
+since $\pi(ra+sb)=\bar s\,\bar b$. Hence
+$R/(a,b)\cong\bigl(R/(a)\bigr)/(\bar b)$.
+\end{proof}
+% NOTE: the notes write (\bar b) \subset R/(0); this is a slip for R/(a).
+
+What does this have to do with $\Z[i]/(i-2)$? The key is to
+describe $\Z[i]$ itself as a quotient of a polynomial ring.
+
+\begin{proposition}\label{prop:gaussian-presentation}
+There is an isomorphism $\Z[x]/(x^2+1)\cong\Z[i]$, induced by
+$x\mapsto i$.
+\end{proposition}
+\begin{proof}
+Consider the substitution homomorphism
+\[
+  \varphi:\Z[x]\to\Z[i],\qquad f(x)\mapsto f(i).
+\]
+It is surjective, since $a+bx\mapsto a+bi$. By
+Corollary~\ref{cor:first-iso}, it suffices to show that
+\[
+  \ker(\varphi)=\{f\in\Z[x]:f(i)=0\}=(x^2+1).
+\]
+Clearly $x^2+1\in\ker(\varphi)$, so $(x^2+1)\subseteq\ker(\varphi)$.
+
+Conversely, suppose $f(x)\in\ker(\varphi)$. Since $x^2+1$ is monic,
+we can divide with remainder in $\Z[x]$:
+\[
+  f(x)=q(x)(x^2+1)+r(x),
+\]
+where $r(x)=0$ or $\deg r<2$. Then
+\[
+  0=f(i)=q(i)\underbrace{(i^2+1)}_{=0}+r(i),
+\]
+so $r(i)=0$. If $r(x)\neq0$, then $r(x)=ax+b$ with $a,b\in\Z$ and
+$ai+b=0$. Here $a\neq0$, since otherwise $b=0$ as well.
+
+Why can't this happen? It would mean that $i=-b/a\in\Q$, so that
+$x^2+1$ has a root in $\Q$. Then $x^2+1$ would factor into two linear
+terms over $\Q$,
+\[
+  x^2+1=(a_1x+b_1)(a_2x+b_2),\qquad a_1,a_2,b_1,b_2\in\Q.
+\]
+This is impossible, since $t^2+1\geq1>0$ for every rational $t$.
+Hence $r=0$ and $f\in(x^2+1)$.
+\end{proof}
+
+\begin{example}[Answer to Example~\ref{ex:gaussian-question}]
+We have the commutative square of quotient maps
+\[
+  \begin{tikzcd}
+    \Z[x] \arrow[r] \arrow[d,"x\,=\,2"'] &
+      \Z[i]\cong\Z[x]/(x^2+1) \arrow[d]\\
+    \Z\cong\Z[x]/(x-2) \arrow[r] & \Z[i]/(i-2)
+  \end{tikzcd}
+\]
+The left map is the substitution $x\mapsto2$, a surjection
+$\Z[x]\to\Z$ with kernel $(x-2)$. By
+Propositions~\ref{prop:gaussian-presentation} and~\ref{prop:stages},
+\[
+  \Z[i]/(i-2)\cong\Z[x]/(x^2+1,\,x-2).
+\]
+Quotienting in the other order, $x-2$ first, sends $x^2+1$ to
+$2^2+1=5$, so
+\[
+  \Z[i]/(i-2)\cong\Z[x]/(x^2+1,\,x-2)\cong\Z/(5)=\F_5.
+\]
+\end{example}
+
+\section{Adjoining elements}
+
+Given a ring $R$ and an element $\alpha$, we want a new ring
+containing both $R$ and $\alpha$, constructed in a ``minimal'' way.
+That ring is called $R[\alpha]$, read ``$R$ adjoin $\alpha$''.
+
+\begin{example}
+\leavevmode
+\begin{itemize}
+  \item Take $R=\Z$ and $\alpha=x$ a variable. Then $R[\alpha]=\Z[x]$
+    is the polynomial ring.
+  \item Take $R=\Z$ and $\alpha=i$, where $i^2+1=0$. Then
+    \[
+      \Z[i]\cong\Z[x]/(x^2+1)
+    \]
+    by Proposition~\ref{prop:gaussian-presentation}.
+  \item Take $R=\Q$ and $\gamma=\sqrt[3]{2}$. We saw earlier that
+    $\Q[x]/(x^3-2)$ is a field, and
+    \[
+      \Q[x]/(x^3-2)\cong\Q(\gamma)=\Q[\gamma].
+    \]
+\end{itemize}
+\end{example}
+
+\section{Quotients by monic polynomials}
+
+Let $R$ be any ring, and let $f(x)\in R[x]$ be a monic polynomial,
+\[
+  f(x)=x^n+a_{n-1}x^{n-1}+\cdots+a_0.
+\]
+
+\begin{theorem}\label{thm:monic-quotient}
+\leavevmode
+\begin{enumerate}[label=(\arabic*)]
+  \item The ring $R[x]/(f(x))$ has ``basis'' $1,x,x^2,\dots,x^{n-1}$
+    over $R$. That is, every element of $R[x]/(f)$ has a
+    representative of the form
+    \[
+      b_0+b_1x+\cdots+b_{n-1}x^{n-1},\qquad b_i\in R,
+    \]
+    and the coefficients $b_i$ are uniquely determined.
+  \item Addition is done in ``vector form'':
+    \[
+      \bigl(b_0+\cdots+b_{n-1}x^{n-1}\bigr)
+      +\bigl(c_0+\cdots+c_{n-1}x^{n-1}\bigr)
+      =(b_0+c_0)+\cdots+(b_{n-1}+c_{n-1})x^{n-1}.
+    \]
+  \item For multiplication, note that in $R[x]/(f)$ we have
+    \[
+      x^n=-a_{n-1}x^{n-1}-\cdots-a_0.
+    \]
+    Multiply as usual, and use this relation to reduce the answer to
+    a sum of terms of degree less than $n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of \textup{(1)}]
+Let $g(x)\in R[x]$. Since $f(x)$ is monic, we can divide:
+\[
+  g(x)=q(x)f(x)+r(x),\qquad r(x)=0\ \text{or}\ \deg r<n.
+\]
+Thus in $R[x]/(f)$ we have $g(x)+(f)=r(x)+(f)$, where
+$r(x)=b_0+b_1x+\cdots+b_{n-1}x^{n-1}$. So every element of
+$R[x]/(f)$ has a representative of this form.
+
+For uniqueness, suppose that $g(x)+(f)=r(x)+(f)=\tilde r(x)+(f)$
+with $r$ and $\tilde r$ both zero or of degree less than $n$. Then
+$r(x)-\tilde r(x)\in(f)$, and $r-\tilde r$ is zero or has degree
+less than $n$. By the claim below, every nonzero polynomial in $(f)$
+has degree at least $n$. Hence $r=\tilde r$.
+
+\emph{Claim.} If $f$ is monic of degree $n$, every nonzero polynomial
+in $(f)$ has degree $\geq n$. Indeed, an element of $(f)$ has the form
+$h(x)f(x)$. If $h\neq0$ has leading coefficient $c$ and degree $m$,
+then the leading term of $hf$ is $c\cdot1\cdot x^{m+n}$, which is
+nonzero because $f$ has leading coefficient $1$. So
+$\deg(hf)=m+n\geq n$.
+\end{proof}
+
+\begin{warningbox}
+The claim fails if $f$ is not monic. For example, work in
+$(\Z/6\Z)[x]$ with
+\[
+  f=2x^3+3x^2.
+\]
+Then $3\cdot f\in(f)$, but
+\[
+  3f=6x^3+9x^2=3x^2\quad\text{in }(\Z/6\Z)[x],
+\]
+a nonzero element of $(f)$ of degree $2<3$.
+\end{warningbox}
+% NOTE: the notes write "Z/6Z = F_3"; this is a slip (Z/6Z is not a field)
+% and has been omitted.
+
+\end{document}
