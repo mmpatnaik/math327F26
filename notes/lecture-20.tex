@@ -1,0 +1,197 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\lectureinfo{20}{Oct. 26, 2026}{Quotient Groups and the First Isomorphism Theorem}
+
+% Typeset from handwritten Lecture 14, Oct. 3, 2025, pp. 1--14.
+\begin{document}
+\makelecturetitle
+
+\section{The quotient group}
+
+Let $N\trianglelefteq G$. The elements of $G/N$ are the left cosets
+$gN$. We define their product by
+\[
+  (g_1N)(g_2N)=(g_1g_2)N.
+\]
+The main point is to check that this product does not depend on the
+representatives of the cosets.
+
+\begin{proposition}\label{prop:well-defined}
+The multiplication above is well defined.
+\end{proposition}
+\begin{proof}
+Suppose $g_1N=\widetilde g_1N$ and
+$g_2N=\widetilde g_2N$. Then
+\[
+  \widetilde g_1^{-1}g_1\in N,
+  \qquad \widetilde g_2^{-1}g_2\in N.
+\]
+We need to show that $g_1g_2N=\widetilde g_1\widetilde g_2N$.
+Indeed,
+\[
+  (\widetilde g_1\widetilde g_2)^{-1}g_1g_2
+  =\widetilde g_2^{-1}(\widetilde g_1^{-1}g_1)g_2
+  =\underbrace{\widetilde g_2^{-1}(\widetilde g_1^{-1}g_1)
+       \widetilde g_2}_{\in N}
+    \underbrace{\widetilde g_2^{-1}g_2}_{\in N}
+  \in N.
+\]
+The first factor belongs to $N$ by normality, so the resulting
+cosets are equal.
+\end{proof}
+
+The operation is associative because multiplication in $G$ is
+associative. Its identity is $N=1N$, and the inverse of $gN$ is
+$g^{-1}N$:
+\[
+  (gN)(1N)=(1N)(gN)=gN,
+  \qquad (gN)(g^{-1}N)=N.
+\]
+
+\begin{theorem}[Quotient group]\label{thm:quotient-group}
+If $N\trianglelefteq G$, then the coset multiplication
+$(g_1N)(g_2N)=(g_1g_2)N$ makes $G/N$ a group.
+\end{theorem}
+
+\begin{theorem}[The quotient map]\label{thm:quotient-map}
+The map
+\[
+  \pi:G\longrightarrow G/N,\qquad g\longmapsto gN,
+\]
+is a surjective homomorphism with $\ker\pi=N$.
+\end{theorem}
+\begin{proof}
+By the definition of coset multiplication,
+\[
+  \pi(g_1g_2)=(g_1g_2)N=(g_1N)(g_2N)
+  =\pi(g_1)\pi(g_2).
+\]
+Also, $gN=N$ exactly when $g\in N$, so $\ker\pi=N$.
+Every coset is $\pi(g)$ for some $g\in G$; hence
+$\im\pi=G/N$.
+\end{proof}
+
+\section{Applications of quotients}
+
+\begin{remark}
+For $a_1,\ldots,a_r\in G$, if
+$a_1\cdots a_r\in N$, then in $G/N$ we have
+\[
+  (a_1N)\cdots(a_rN)=(a_1\cdots a_r)N=N=1_{G/N}.
+\]
+Thus a product of elements of $G$ that lies in $N$ becomes the
+identity in the quotient.
+\end{remark}
+
+\subsection{The first isomorphism theorem}
+
+\begin{theorem}[First isomorphism theorem]\label{thm:first-iso}
+Let $\varphi:G\to G'$ be a homomorphism and put $N=\ker\varphi$.
+Then
+\[
+  G/N\cong\im\varphi.
+\]
+More precisely, the isomorphism is
+\[
+  \overline\varphi:G/N\longrightarrow\im\varphi,
+  \qquad gN\longmapsto\varphi(g),
+\]
+and $\varphi=\overline\varphi\circ\pi$.
+\end{theorem}
+\begin{proof}
+The kernel $N$ is normal in $G$, so $G/N$ is a group.
+To check that $\overline\varphi$ is well defined, observe that
+\begin{align*}
+  gN=\widetilde gN
+  &\iff \widetilde g^{-1}g\in N=\ker\varphi\\
+  &\iff \varphi(\widetilde g^{-1}g)=1\\
+  &\iff \varphi(g)=\varphi(\widetilde g).
+\end{align*}
+It is a homomorphism, since
+\[
+  \overline\varphi((g_1N)(g_2N))
+  =\varphi(g_1g_2)
+  =\varphi(g_1)\varphi(g_2)
+  =\overline\varphi(g_1N)\overline\varphi(g_2N).
+\]
+It is surjective onto $\im\varphi$ by definition of the image.
+If $\overline\varphi(gN)=1$, then $g\in\ker\varphi=N$, so
+$gN=N$. Hence it is injective. Finally,
+$\overline\varphi(\pi(g))=\varphi(g)$ for every $g\in G$.
+\end{proof}
+
+For a surjective homomorphism $\varphi:G\to G'$, this reads
+$G/\ker\varphi\cong G'$. The theorem also applies when $\varphi$
+is not surjective, provided that the target of the induced
+isomorphism is $\im\varphi$.
+
+\subsection{Examples}
+
+\begin{example}[The determinant]
+The determinant is a surjective homomorphism
+\[
+  \det:\GL_n(\R)\longrightarrow\R^\times,
+  \qquad A\longmapsto\det A,
+\]
+where $\R^\times=\R\setminus\{0\}$ under multiplication.
+It is surjective because
+$\det(\operatorname{diag}(r,1,\ldots,1))=r$ for every
+$r\in\R^\times$. Its kernel is
+$\SL_n(\R)=\{A\in\GL_n(\R):\det A=1\}$. Therefore
+\[
+  \GL_n(\R)/\SL_n(\R)\cong\R^\times.
+\]
+\end{example}
+
+\begin{remark}
+Every normal subgroup is a kernel: if $N\trianglelefteq G$, then
+$N=\ker\pi$ for the quotient map $\pi:G\to G/N$.
+For example, the sign homomorphism
+$\sgn:S_n\to\{\pm1\}$ has kernel $A_n$. For $n\geq2$ it is
+surjective, so
+\[
+  S_n/A_n\cong\{\pm1\}.
+\]
+The identity $G/\ker\varphi\cong\im\varphi$ applies even when
+$\varphi$ is not surjective onto its stated codomain.
+\end{remark}
+
+\Needspace{18\baselineskip}
+\begin{example}[An upper triangular matrix group]
+Let
+\[
+  H=\left\{
+   \begin{pmatrix}1&a&b\\0&1&c\\0&0&1\end{pmatrix}
+   :a,b,c\in\R\right\},\qquad
+  K=\left\{
+   \begin{pmatrix}1&0&x\\0&1&0\\0&0&1\end{pmatrix}
+   :x\in\R\right\}.
+\]
+Write $M(a,b,c)$ for the displayed matrix in $H$.
+Matrix multiplication gives
+\[
+  M(a,b,c)M(a',b',c')
+  =M(a+a',\,b+b'+ac',\,c+c'),
+\]
+so $H$ is a subgroup of $\GL_3(\R)$. Also,
+\[
+  M(a,b,c)^{-1}=M(-a,ac-b,-c).
+\]
+The subgroup $K$ is normal in $H$: indeed,
+$M(a,b,c)M(0,x,0)=M(a,b+x,c)=M(0,x,0)M(a,b,c)$,
+so $K$ is central in $H$.
+
+To identify $H/K$, define
+\[
+  \varphi:H\longrightarrow (\R,+)\times(\R,+),
+  \qquad M(a,b,c)\longmapsto(a,c).
+\]
+The multiplication formula shows that $\varphi$ is a homomorphism.
+It is surjective, and its kernel is precisely $K$. Hence
+\[
+  H/K\cong(\R,+)\times(\R,+).
+\]
+\end{example}
+
+\end{document}

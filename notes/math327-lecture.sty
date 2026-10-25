@@ -107,6 +107,10 @@
     \colorlet{exercisebackground}{lightpink}%
     \colorlet{exerciseframe}{WildStrawberry}%
   \fi
+  % Examples are green starting with Lecture 21.
+  \ifnum#1>20\relax
+    \tcolorboxenvironment{example}{lecturebox,colback=definitiongreen,colframe=definitionborder}%
+  \fi
   \hypersetup{pdftitle={Lecture #1, MATH 327: #3},
     pdfauthor={Manish Patnaik},pdfsubject={MATH 327 course notes}}%
 }

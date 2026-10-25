@@ -58,7 +58,8 @@ Lectures 1–5 retain their existing formatting.
 | `theorem`, `lemma`, `proposition`, `corollary` | Blue result box |
 | `exercise` | Orange exercise box from Lecture 7 onward; pink in Lecture 6 |
 | `warningbox` or `warning` | Yellow warning box |
-| `example`, `remark`, `proof` | Unboxed text |
+| `example` | Green box from Lecture 21 onward; some earlier lectures opt in individually |
+| `remark`, `proof` | Unboxed text |
 
 Named theorem-style environments accept an optional title, for example
 `\begin{lemma}[Equality of cosets]`. Labels and references work as usual.

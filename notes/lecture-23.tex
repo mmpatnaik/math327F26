@@ -1,0 +1,258 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\newcommand{\Cl}{\operatorname{Cl}}
+\lectureinfo{23}{Nov. 2, 2026}{Permutation Classes and the Simplicity of the Alternating Group A5}
+
+% Based on handwritten Lecture 20, Oct. 22, 2025, pp. 1--10,
+% and Lecture 21, Oct. 24, 2025, pp. 1--11.
+\begin{document}
+\raggedbottom
+\makelecturetitle
+
+\section{Normal subgroups and conjugacy classes}
+
+Recall that conjugation partitions a finite group into classes
+$\Cl_G(x)=\{gxg^{-1}:g\in G\}$. Its stabilizer is the
+centralizer $C_G(x)=\{g\in G:gx=xg\}$, and
+\[
+  |\Cl_G(x)|=[G:C_G(x)],\qquad
+  |G|=\sum_{\text{distinct classes }C}|C|.
+\]
+Each class size divides $|G|$, and the identity contributes the
+singleton class $\{1\}$.
+
+\begin{proposition}\label{prop:normal-union}
+A subgroup $N\leq G$ is normal if and only if it is a union of
+conjugacy classes of $G$.
+\end{proposition}
+\begin{proof}
+Normality says that $gng^{-1}\in N$ for all $n\in N$ and $g\in G$.
+Equivalently, $\Cl_G(n)\subseteq N$ for every $n\in N$.
+\end{proof}
+
+For finite $G$, a normal subgroup's order is therefore a sum of
+class sizes that includes the identity class. It must also divide
+$|G|$ by Lagrange's theorem. These two requirements can be restrictive.
+
+\begin{example}[Normal subgroups of $S_3$]
+The class sizes in $S_3$ are $1,2,3$. A normal subgroup must include
+the identity, so its possible orders from unions of classes are
+$1,3,4,6$. Of these, only $1,3,6$ divide $6$.
+Thus the only nontrivial proper normal subgroup is
+\[
+  A_3=\{1,(1\,2\,3),(1\,3\,2)\}.
+\]
+\end{example}
+
+\section{Cycle decompositions and cycle types}
+
+Every permutation is a product of disjoint cycles. Cycles are
+\emph{disjoint} when they have no entries in common; disjoint cycles
+commute. The decomposition is unique up to reordering the cycles
+and cyclically shifting the entries within each cycle.
+Fixed points may be recorded as cycles of length $1$.
+
+\begin{example}
+The cycles $(1\,2)$ and $(3\,4)$ are disjoint, whereas
+$(1\,3)$ and $(3\,2)$ are not. A permutation can also be expressed
+as a product of transpositions that need not be disjoint, for example
+\[
+  (1\,2\,3)=(2\,3)(1\,3).
+\]
+Products are composed from right to left.
+\end{example}
+
+\begin{lemma}[Parity and order of cycles]
+A cycle of length $r$ has order $r$ and sign $(-1)^{r-1}$.
+The order of a product of disjoint cycles of lengths
+$r_1,\ldots,r_k$ is $\operatorname{lcm}(r_1,\ldots,r_k)$.
+\end{lemma}
+\begin{proof}
+An $r$-cycle first returns every entry to its original position
+after $r$ applications. It can be written as $r-1$ transpositions:
+\[
+  (i_1\,i_2\,\cdots\,i_r)
+  =(i_1\,i_r)(i_1\,i_{r-1})\cdots(i_1\,i_2).
+\]
+For disjoint cycles, a power is the identity exactly when its
+exponent is divisible by every cycle length.
+\end{proof}
+
+In particular, cycles of odd length are even permutations, and
+cycles of even length are odd permutations.
+
+\begin{theorem}[Conjugacy in $S_n$]\label{thm:cycle-type}
+Two permutations in $S_n$ are conjugate if and only if they have
+the same cycle type, including fixed points.
+\end{theorem}
+\begin{proof}
+Conjugation relabels a cycle:
+\[
+  g(i_1\,\cdots\,i_r)g^{-1}=(g(i_1)\,\cdots\,g(i_r)).
+\]
+It therefore preserves the lengths of disjoint cycles.
+Conversely, for two permutations of the same cycle type, match
+their cycles of equal lengths and define $g$ by matching the
+entries in those cycles in order. The displayed formula then
+shows that $g$ conjugates one permutation to the other.
+\end{proof}
+
+\Needspace{18\baselineskip}
+\begin{example}[The class equation of $S_4$]
+The possible cycle types and their sizes are as follows.
+\begin{center}
+\begin{tabular}{ccl}
+  \textbf{Representative} & \textbf{Class size} & \textbf{Count}\\ \hline
+  $1$ & $1$ & Identity\\[2pt]
+  $(1\,2)$ & $6$ & $\binom42$\\[2pt]
+  $(1\,2\,3)$ & $8$ & $\binom43\cdot2$\\[2pt]
+  $(1\,2\,3\,4)$ & $6$ & $3!$\\[2pt]
+  $(1\,2)(3\,4)$ & $3$ & Three pairings of four entries
+\end{tabular}
+\end{center}
+For instance, after choosing the entries of a $3$-cycle there are
+two cyclic orders. For a $4$-cycle, putting $1$ first leaves $3!$
+orders for the other entries. The class equation is
+\[
+  24=1+6+8+6+3.
+\]
+\end{example}
+
+\Needspace{20\baselineskip}
+\begin{example}[The class equation of $S_5$]\label{ex:s5}
+There are seven cycle types in $S_5$.
+\begin{center}
+\begin{tabular}{cccl}
+  \textbf{Representative} & \textbf{Class size} & \textbf{Parity} & \textbf{Count}\\ \hline
+  $1$ & $1$ & Even & Identity\\[2pt]
+  $(1\,2)$ & $10$ & Odd & $\binom52$\\[2pt]
+  $(1\,2\,3)$ & $20$ & Even & $\binom53\cdot2$\\[2pt]
+  $(1\,2\,3\,4)$ & $30$ & Odd & $\binom54\cdot3!$\\[2pt]
+  $(1\,2\,3\,4\,5)$ & $24$ & Even & $4!$\\[2pt]
+  $(1\,2)(3\,4)$ & $15$ & Even & $\binom54\cdot3$\\[2pt]
+  $(1\,2\,3)(4\,5)$ & $20$ & Odd & $\binom53\cdot2$
+\end{tabular}
+\end{center}
+Thus
+\[
+  120=1+10+20+30+24+15+20.
+\]
+The even permutations have total size $1+20+24+15=60$.
+This is not yet the class equation of $A_5$: conjugation in $A_5$
+allows only even conjugating permutations.
+\end{example}
+
+\section{Comparing classes in S\texorpdfstring{$_n$}{n} and A\texorpdfstring{$_n$}{n}}
+
+For $\sigma\in A_n$, we have
+\[
+  \Cl_{A_n}(\sigma)\subseteq\Cl_{S_n}(\sigma),\qquad
+  C_{A_n}(\sigma)=C_{S_n}(\sigma)\cap A_n.
+\]
+The first inclusion can be strict: a class in $S_n$ may split when
+we restrict conjugation to $A_n$.
+
+\begin{lemma}[Splitting of conjugacy classes]\label{lem:splitting}
+Let $n\geq2$ and $\sigma\in A_n$.
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item If $C_{S_n}(\sigma)\subseteq A_n$, then
+  $\Cl_{S_n}(\sigma)$ splits into two $A_n$-classes of equal size, and
+  \[
+    |\Cl_{A_n}(\sigma)|=\tfrac12|\Cl_{S_n}(\sigma)|.
+  \]
+  \item If $C_{S_n}(\sigma)$ contains an odd permutation, then
+  $\Cl_{A_n}(\sigma)=\Cl_{S_n}(\sigma)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Put $H=C_{S_n}(\sigma)$ and $K=H\cap A_n=C_{A_n}(\sigma)$.
+Orbit--stabilizer gives
+\[
+  |\Cl_{S_n}(\sigma)|=\frac{n!}{|H|},\qquad
+  |\Cl_{A_n}(\sigma)|=\frac{n!/2}{|K|}.
+\]
+If $H\subseteq A_n$, then $K=H$, giving the factor $1/2$.
+Fix an odd permutation $t$. Every conjugator in $S_n$ is either
+even or belongs to the coset $A_nt$, so the $S_n$-class is the union
+of the $A_n$-classes of $\sigma$ and $t\sigma t^{-1}$.
+Conjugation by $t$ gives a bijection between these two classes,
+so they have equal size. The factor $1/2$ shows that they are distinct.
+
+If $H$ contains an odd permutation, the sign map on $H$ is
+surjective with kernel $K$. Hence $|H|=2|K|$, and the two class
+sizes are equal. The inclusion then gives equality of the classes.
+Equivalently, an odd conjugator can be multiplied by an odd
+element of $H$ to obtain an even conjugator with the same effect
+on $\sigma$.
+\end{proof}
+
+\Needspace{15\baselineskip}
+\begin{example}[Two $5$-cycles that are not conjugate in $A_5$]
+Let $c=(1\,2\,3\,4\,5)$ and $d=(1\,2\,3\,5\,4)$.
+They are conjugate in $S_5$ because $d=(4\,5)c(4\,5)^{-1}$.
+The centralizer of $c$ in $S_5$ is
+\[
+  C_{S_5}(c)=\langle c\rangle.
+\]
+Indeed, a permutation commuting with $c$ is determined by its
+value at $1$, since $h(c^j(1))=c^j(h(1))$. There are at most five
+choices, and the five powers of $c$ all commute with $c$.
+These powers are even.
+
+If an even $h$ also satisfied $hch^{-1}=d$, then
+$(4\,5)^{-1}h$ would belong to $C_{S_5}(c)$, which is impossible
+because it is odd. Thus $c$ and $d$ lie in distinct $A_5$-classes.
+Each class has size $60/5=12$.
+\end{example}
+
+\section{The class equation and simplicity of A\texorpdfstring{$_5$}{5}}
+
+The even cycle types in $S_5$ are the identity, $3$-cycles,
+double transpositions, and $5$-cycles.
+The centralizer of $(1\,2\,3)$ contains the odd permutation
+$(4\,5)$, so its class does not split. Likewise, $(1\,2)$ is an
+odd element centralizing $(1\,2)(3\,4)$, so that class does not
+split. The $5$-cycles split into two classes as above.
+
+\begin{example}[The class equation of $A_5$]
+The classes have the following representatives and sizes.
+\begin{center}
+\begin{tabular}{ccc}
+  \textbf{Representative} & \textbf{Class size} & \textbf{Centralizer order in $A_5$}\\ \hline
+  $1$ & $1$ & $60$\\[2pt]
+  $(1\,2\,3)$ & $20$ & $3$\\[2pt]
+  $(1\,2)(3\,4)$ & $15$ & $4$\\[2pt]
+  $(1\,2\,3\,4\,5)$ & $12$ & $5$\\[2pt]
+  $(1\,2\,3\,5\,4)$ & $12$ & $5$
+\end{tabular}
+\end{center}
+Hence
+\[
+  60=1+20+15+12+12.
+\]
+\end{example}
+
+\begin{define}[Simple group]
+A nontrivial group is \emph{simple} if its only normal subgroups
+are $\{1\}$ and the whole group.
+\end{define}
+
+\begin{theorem}
+The group $A_5$ is simple.
+\end{theorem}
+\begin{proof}
+Let $N\trianglelefteq A_5$. By Proposition~\ref{prop:normal-union},
+its order is $1$ plus a sum of some of $20,15,12,12$.
+If $N\neq\{1\}$, then $|N|\geq13$. If it is also proper, the
+only divisors of $60$ this large are $15,20,30$.
+None of these is $1$ plus a sum of some of $20,15,12,12$.
+Thus there is no nontrivial proper normal subgroup.
+\end{proof}
+
+\begin{remark}
+More generally, $A_n$ is simple for every $n\geq5$.
+The argument above proves the case $n=5$.
+\end{remark}
+
+\end{document}

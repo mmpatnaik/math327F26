@@ -1,0 +1,257 @@
+\documentclass[reqno,11pt]{amsart}
+\usepackage{math327-lecture}
+\usepackage{needspace}
+\usepackage{tikz}
+\lectureinfo{21}{Oct. 28, 2026}{Group Actions, Orbits, Stabilizers, and Rotations}
+
+% Draft based on handwritten Lectures 15 (Oct. 6, 2025) and
+% 16 (Oct. 8, 2025). Retain the full substantive sequence for editing.
+\begin{document}
+\makelecturetitle
+
+\section{Group actions}
+
+Groups become especially useful when they act on other objects.
+Let $G$ be a group and $S$ a set. When studying the correspondence theorem, we introduce the following notion:
+
+\begin{define}[Left group action]\label{def:action}
+A \emph{left action} of $G$ on $S$ is a map
+\[
+  G\times S\longrightarrow S,\qquad (g,s)\longmapsto g\cdot s,
+\]
+such that, for all $g,h\in G$ and $s\in S$,
+\[
+  1\cdot s=s,
+  \qquad (gh)\cdot s=g\cdot(h\cdot s).
+\]
+We also write $G\curvearrowright S$.
+\end{define}
+
+\begin{example}[Permutations]
+The symmetric group $S_n$ acts on $S=\{1,\ldots,n\}$ by
+$\sigma\cdot j=\sigma(j)$. The identity fixes each $j$, and the
+action axiom is the usual composition rule
+$(\sigma\tau)(j)=\sigma(\tau(j))$.
+\end{example}
+
+\begin{example}[Invertible matrices]
+The group $\GL_n(\R)$ acts on $\R^n$ by matrix multiplication:
+$A\cdot v=Av$. The identity matrix fixes every vector, and
+$(AB)v=A(Bv)$.
+\end{example}
+
+\begin{remark}
+Each $g\in G$ induces a bijection
+$m_g:S\to S$, $s\mapsto g\cdot s$. Its inverse is $m_{g^{-1}}$,
+since
+\[
+  g^{-1}\cdot(g\cdot s)=(g^{-1}g)\cdot s=s.
+\]
+The action law says $m_{gh}=m_g\circ m_h$. Thus an action gives a
+homomorphism $G\to\operatorname{Sym}(S)$.
+\end{remark}
+
+\section{Orbits and transitivity}
+
+\begin{define}[Orbit]\label{def:orbit}
+For $s\in S$, its \emph{orbit} is
+\[
+  \mathcal O_s=G\cdot s=\{g\cdot s:g\in G\}.
+\]
+An action is \emph{transitive} if $\mathcal O_s=S$ for every
+$s\in S$; equivalently, there is only one orbit.
+\end{define}
+
+\begin{example}
+The natural action $S_n\curvearrowright\{1,\ldots,n\}$ is
+transitive: for any $i,j$, a permutation can send $i$ to $j$.
+By contrast, $\{1,(1\,2)\}\leq S_3$ has two orbits on
+$\{1,2,3\}$, namely $\{1,2\}$ and $\{3\}$.
+\end{example}
+
+\begin{example}
+For the natural action $\GL_n(\R)\curvearrowright\R^n$,
+\[
+  \mathcal O_0=\{0\},\qquad
+  \mathcal O_{e_1}=\R^n\setminus\{0\}.
+\]
+An invertible matrix cannot send a nonzero vector to zero.
+Conversely, any nonzero $v$ extends to a basis, whose vectors can
+be used as the columns of an invertible matrix sending $e_1$ to $v$.
+Thus this action has two orbits and is not transitive on $\R^n$.
+\end{example}
+
+\begin{proposition}[Orbits partition the set]\label{prop:orbit-partition}
+The orbits of an action $G\curvearrowright S$ partition $S$.
+In particular, if $S$ is finite, then
+\[
+  |S|=\sum_{\mathcal O\text{ an orbit}}|\mathcal O|.
+\]
+\end{proposition}
+\begin{proof}
+Define $s\sim t$ if $t=g\cdot s$ for some $g\in G$.
+This is an equivalence relation: $s=1\cdot s$;
+if $t=g\cdot s$, then $s=g^{-1}\cdot t$; and if
+$t=g\cdot s$ and $u=h\cdot t$, then $u=(hg)\cdot s$.
+The equivalence class of $s$ is exactly $\mathcal O_s$.
+\end{proof}
+
+\section{Stabilizers}
+
+\begin{define}[Stabilizer]\label{def:stabilizer}
+The \emph{stabilizer} of $s\in S$ is
+\[
+  G_s=\{g\in G:g\cdot s=s\}.
+\]
+\end{define}
+
+\begin{lemma}\label{lem:stabilizer-subgroup}
+The stabilizer $G_s$ is a subgroup of $G$.
+\end{lemma}
+\begin{proof}
+The identity fixes $s$. If $g,h\in G_s$, then
+$(gh)\cdot s=g\cdot(h\cdot s)=s$. Finally, if $g\cdot s=s$,
+then $g^{-1}\cdot s=g^{-1}\cdot(g\cdot s)=s$.
+\end{proof}
+
+\begin{example}
+For $S_n\curvearrowright\{1,\ldots,n\}$,
+$(S_n)_n$ consists of the permutations fixing $n$. Restriction to
+$\{1,\ldots,n-1\}$ identifies this stabilizer with $S_{n-1}$.
+\end{example}
+
+\begin{example}
+For $\GL_n(\R)\curvearrowright\R^n$, the stabilizer of $0$ is
+all of $\GL_n(\R)$. The stabilizer of $e_1$ consists of the
+invertible matrices whose first column is $e_1$, namely those of
+block form
+\[
+  \begin{pmatrix}1&u\\0&B\end{pmatrix},
+  \qquad u\in\R^{1\times(n-1)},\quad B\in\GL_{n-1}(\R).
+\]
+\end{example}
+
+\begin{lemma}[Stabilizers in the same orbit]\label{lem:conjugate-stabilizers}
+If $s'=a\cdot s$, then $G_{s'}=aG_sa^{-1}$.
+\end{lemma}
+\begin{proof}
+For $x\in G$,
+\begin{align*}
+  x\in G_{s'}
+  &\iff x\cdot(a\cdot s)=a\cdot s\\
+  &\iff (a^{-1}xa)\cdot s=s\\
+  &\iff a^{-1}xa\in G_s.
+\end{align*}
+This is equivalent to $x\in aG_sa^{-1}$.
+\end{proof}
+
+\Needspace{29\baselineskip}
+\begin{example}[Stabilizer of a short diagonal]\label{ex:short-diagonal-stabilizer}
+As in Homework~3, let $D_{12}=\langle x,y\rangle$ act on a regular
+hexagon with vertices $v_1,\ldots,v_6$ labeled counterclockwise.
+Here $x$ rotates through $\pi/3$ and $y$ reflects across the long
+diagonal $\overline{v_1v_4}$. Consider the short diagonal
+$d_1=\overline{v_1v_3}$, regarded as an \emph{unordered} pair of
+endpoints.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \foreach \i in {1,...,6} {
+    \coordinate (v\i) at ({60*(\i-1)}:1.55);
+  }
+  \draw[thick,gray] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+  \draw[dashed,thick,Plum] (240:2.05)--(60:2.05);
+  \draw[very thick,courseblue] (v1)--(v3)
+    node[midway,below left,text=courseblue] {$d_1$};
+  \foreach \i in {1,...,6} {\fill (v\i) circle (2pt);}
+  \node[right] at (v1) {$v_1$};
+  \node[above left] at (v2) {$v_2$};
+  \node[above left] at (v3) {$v_3$};
+  \node[left] at (v4) {$v_4$};
+  \node[below right] at (v5) {$v_5$};
+  \node[below right] at (v6) {$v_6$};
+  \node[right,text=Plum] at (1.1,1.75) {axis of $x^2y$};
+\end{tikzpicture}
+
+{\small The reflection $x^2y$ swaps $v_1$ and $v_3$, preserving $d_1$.}
+\end{center}
+
+With subscripts read modulo $6$, rotations and reflections send
+\[
+  x^k\cdot d_1=d_{1+k},\qquad
+  x^ky\cdot d_1=d_{5+k}.
+\]
+The first equals $d_1$ only for $k=0$, and the second only for
+$k=2$. In particular, $x^2y$ preserves $d_1$ by exchanging its
+endpoints. Thus
+\[
+  (D_{12})_{d_1}=\{1,x^2y\},
+\]
+a subgroup of order $2$. This is the stabilizer that appears in the
+short-diagonals part of Homework~3.
+\end{example}
+
+\section{The orbit--stabilizer theorem}
+
+\begin{theorem}[Orbit--stabilizer]\label{thm:orbit-stabilizer}
+For any action $G\curvearrowright S$ and $s\in S$, there is a
+bijection of sets
+\[
+  G/G_s\longrightarrow\mathcal O_s,
+  \qquad gG_s\longmapsto g\cdot s.
+\]
+Here $G/G_s$ is the set of left cosets; $G_s$ need not be normal.
+\end{theorem}
+\begin{proof}
+If $gG_s=\widetilde gG_s$, then
+$\widetilde g^{-1}g\in G_s$ and hence
+$g\cdot s=\widetilde g\cdot s$. Thus the map is well defined.
+It is surjective by the definition of $\mathcal O_s$.
+If $g\cdot s=\widetilde g\cdot s$, then
+$\widetilde g^{-1}g\in G_s$, so $gG_s=\widetilde gG_s$.
+Therefore it is injective.
+\end{proof}
+
+\begin{corollary}\label{cor:orbit-size}
+If $G$ is finite, then
+\[
+  |\mathcal O_s|=[G:G_s],
+  \qquad |G|=|\mathcal O_s|\,|G_s|.
+\]
+In particular, every orbit size divides $|G|$.
+\end{corollary}
+
+Together with Proposition~\ref{prop:orbit-partition}, this gives
+two useful counting formulas: one measures each orbit using its
+stabilizer, and the other adds the sizes of all distinct orbits.
+The bijection in Theorem~\ref{thm:orbit-stabilizer} itself does not
+require $G$ or $S$ to be finite. For example, the action of
+$\GL_n(\R)$ on $\R^n$ has the infinite orbit
+$\R^n\setminus\{0\}$ and the singleton orbit $\{0\}$.
+
+\Needspace{16\baselineskip}
+\section{Conjugation as an action}
+
+Every group acts on itself by \emph{conjugation}:
+\[
+  g\cdot x=gxg^{-1}.
+\]
+Indeed, $1\cdot x=x$ and
+$(gh)\cdot x=ghx(gh)^{-1}=g\cdot(h\cdot x)$.
+The orbit of $x$ is its \emph{conjugacy class}
+$\{gxg^{-1}:g\in G\}$, and its stabilizer is the
+\emph{centralizer}
+\[
+  C_G(x)=\{g\in G:gx=xg\}.
+\]
+Thus, for finite $G$, orbit--stabilizer gives
+\[
+  |\operatorname{Cl}_G(x)|=[G:C_G(x)].
+\]
+Choosing one representative from each conjugacy class gives the
+\emph{class equation} $|G|=\sum_x[G:C_G(x)]$, where the sum runs over
+those representatives. This action is a starting point for later
+counting arguments, including the Sylow theorems.
+
+
+\end{document}
