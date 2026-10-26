@@ -160,6 +160,35 @@ $\varphi$ is not surjective onto its stated codomain.
 \end{remark}
 
 \Needspace{18\baselineskip}
+\begin{example}[A quotient of $S_4$]
+Let
+\[
+  V=\{1,(12)(34),(13)(24),(14)(23)\}.
+\]
+Recall the action of $S_4$ on the three partitions of
+$\{1,2,3,4\}$ into two unordered pairs:
+\[
+  P_1=\{12\mid34\},\qquad
+  P_2=\{13\mid24\},\qquad
+  P_3=\{14\mid23\}.
+\]
+This action gives a homomorphism $\varphi:S_4\to S_3$, where
+$S_3$ permutes the labels $1,2,3$ of the partitions. For example,
+\[
+  \varphi((12))=(23),\qquad \varphi((123))=(132).
+\]
+A transposition and a $3$-cycle generate $S_3$, so $\varphi$ is
+surjective. Each element of $V$ fixes all three partitions, so
+$V\subseteq\ker\varphi$. The counting formula gives
+$|\ker\varphi|=24/6=4$, hence $\ker\varphi=V$.
+Thus $V\trianglelefteq S_4$, and the first isomorphism theorem gives
+\[
+  S_4/V\cong S_3,\qquad \sigma V\longmapsto\varphi(\sigma).
+\]
+In particular, this quotient has six elements, each a coset of size four.
+\end{example}
+
+\Needspace{18\baselineskip}
 \begin{example}[An upper triangular matrix group]
 Let
 \[
