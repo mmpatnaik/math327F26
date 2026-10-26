@@ -10,15 +10,18 @@
 \section{The quotient group}
 
 Let $N\trianglelefteq G$. The elements of $G/N$ are the left cosets
-$gN$. We define their product by
+$gN$. In general such a space of cosets is just a set, but under the normal condition we can say more.
+
+We define their product by
 \[
   (g_1N)(g_2N)=(g_1g_2)N.
 \]
-The main point is to check that this product does not depend on the
+
+The first point is to note that this product does not depend on the
 representatives of the cosets.
 
 \begin{proposition}\label{prop:well-defined}
-The multiplication above is well defined.
+The multiplication above is well defined on $G/N$.
 \end{proposition}
 \begin{proof}
 Suppose $g_1N=\widetilde g_1N$ and
@@ -49,20 +52,21 @@ $g^{-1}N$:
   \qquad (gN)(g^{-1}N)=N.
 \]
 
-\begin{theorem}[Quotient group]\label{thm:quotient-group}
-If $N\trianglelefteq G$, then the coset multiplication
+\begin{theorem}[Quotient group and quotient map]\label{thm:quotient-group}\label{thm:quotient-map}
+Let $N\trianglelefteq G$. Then:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The coset multiplication
 $(g_1N)(g_2N)=(g_1g_2)N$ makes $G/N$ a group.
-\end{theorem}
-
-\begin{theorem}[The quotient map]\label{thm:quotient-map}
-The map
+\item The map
 \[
   \pi:G\longrightarrow G/N,\qquad g\longmapsto gN,
 \]
 is a surjective homomorphism with $\ker\pi=N$.
+\end{enumerate}
 \end{theorem}
 \begin{proof}
-By the definition of coset multiplication,
+The group axioms in part~(a) were checked above. For part~(b), by the
+definition of coset multiplication,
 \[
   \pi(g_1g_2)=(g_1g_2)N=(g_1N)(g_2N)
   =\pi(g_1)\pi(g_2).

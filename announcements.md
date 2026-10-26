@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-25
+
+[Homework 4](hw/hw-04.pdf) is posted. It covers Lectures 20–24 and is good practice for Midterm 2. The suggested completion date is **Thursday, November 5**, before the midterm on **Friday, November 6**.
+
 ## 2026-10-19
 
 [Homework 3](hw/hw-03.pdf) is posted. It covers Lectures 15–19, including product groups in Lecture 18 and quotient groups in Lecture 19. The suggested completion date is **Monday, October 26**.
