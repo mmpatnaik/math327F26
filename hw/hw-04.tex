@@ -1,0 +1,301 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={Homework 4, MATH 327, Fall 2026},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 homework problems}
+}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{boxborder}{HTML}{B8CBDC}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{lightyellow}{HTML}{FFF9DC}
+\definecolor{yellowborder}{HTML}{E4D58C}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.3em}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Stab}{\operatorname{Stab}}
+
+\newtcolorbox{exercise}[2][]{
+  enhanced,
+  colback=white,
+  colframe=boxborder,
+  colbacktitle=lightblue,
+  coltitle=courseblue,
+  fonttitle=\bfseries,
+  title={Exercise #2},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.6em,
+  after skip=0.6em,
+  #1
+}
+
+\newtcolorbox{solution}{
+  enhanced,
+  breakable,
+  colback=lightyellow,
+  colframe=yellowborder,
+  colbacktitle=lightyellow,
+  coltitle=darkgray,
+  fonttitle=\bfseries,
+  title={Solution},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.2em,
+  after skip=1em
+}
+
+\newcommand{\chapterheading}[1]{%
+  \par\Needspace{12\baselineskip}\vspace{0.5em}
+  {\color{courseblue}\Large\bfseries #1}\par\vspace{0.35em}
+  {\color{boxborder}\hrule height 0.6pt}\vspace{0.35em}
+}
+
+\newcommand{\sectionheading}[1]{%
+  \Needspace{8\baselineskip}
+  \vspace{0.25em}
+  {\color{darkgray}\large\bfseries #1}\par
+}
+
+\begin{document}
+
+\begin{center}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.92\textwidth}
+      \vspace{0.6em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Homework 4} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.4em]
+        \multicolumn{2}{l}{\color{darkgray}\bfseries Fall 2026}\\[0.35em]
+        \multicolumn{2}{l}{\color{darkgray}Covers Lectures 20--24}\\[0.2em]
+        \multicolumn{2}{l}{\color{darkgray}Suggested completion date: Thursday, November 5}
+      \end{tabular*}
+      \vspace{0.5em}
+    \end{minipage}}
+\end{center}
+
+\vspace{0.5em}
+
+Unless otherwise indicated, the following exercises are from Michael Artin's
+\emph{Algebra}, second edition. Exercises marked \emph{Supplementary} are
+not from the text. This set is also good practice for Midterm~2.
+
+% Problems drawn in part from Homework (2025)/2025-Winter-MATH327-Homework3.tex
+% (Ch. 6: 9.2, 12.3; Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
+
+%======================================================================
+\chapterheading{Chapter 2: Groups}
+
+\sectionheading{Section 12: Quotient Groups and the First Isomorphism Theorem}
+
+\begin{exercise}{S.1 (Supplementary)}
+Use the first isomorphism theorem to establish each of the following
+isomorphisms. In each case, write down the homomorphism you use and
+compute its kernel and image.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item $\C^{\times}/U\cong\R_{>0}$, where $U=\{z\in\C:|z|=1\}$ and
+        $\R_{>0}$ is the group of positive reals under multiplication.
+  \item $(\R,+)/\Z\cong U$.
+  \item $S_4/V\cong S_3$, where $V=\{1,(12)(34),(13)(24),(14)(23)\}$.
+        \textit{Hint.} Let $S_4$ act on the three ways of partitioning
+        $\{1,2,3,4\}$ into two pairs,
+        \[
+          \pi_1=\{12\,|\,34\},\qquad
+          \pi_2=\{13\,|\,24\},\qquad
+          \pi_3=\{14\,|\,23\}.
+        \]
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{S.2 (Supplementary)}
+Let $N$ be a normal subgroup of a group $G$. The \emph{commutator} of
+$a,b\in G$ is $[a,b]=aba^{-1}b^{-1}$.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Prove that $G/N$ is abelian if and only if $[a,b]\in N$ for all
+        $a,b\in G$.
+  \item Deduce that for $n\geq 2$ every commutator in $S_n$ is an even permutation.
+\end{enumerate}
+\end{exercise}
+
+%======================================================================
+\chapterheading{Chapter 7: More Group Theory}
+
+\sectionheading{Sections 2--3: The Class Equation and the Center}
+
+\begin{exercise}{2.8(b)}
+Determine the possible class equations of a nonabelian group of order $21$.
+\end{exercise}
+
+\begin{exercise}{3.2}
+Let $Z$ be the center of a group $G$. Prove that if $G/Z$ is a cyclic
+group, then $G$ is abelian, and hence $G=Z$.
+\end{exercise}
+
+\begin{exercise}{S.3 (Supplementary)}
+Let $p$ be a prime.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $G$ be a group of order $p^n$ with $n\geq1$. Use the class
+        equation to prove that the center $Z(G)$ is nontrivial.
+  \item Prove that every group of order $p^2$ is abelian.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[breakable]{S.4 (Supplementary)}
+Let $\F_3=\Z/3\Z$ and $G=\SL_2(\F_3)$, which has order $24$ (Lecture 22).
+Put
+\[
+  U=\begin{pmatrix}1&1\\0&1\end{pmatrix},\qquad
+  J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item The group $G$ acts on the set of $8$ nonzero vectors in $\F_3^2$ by
+        matrix multiplication. Show that this action is transitive, compute
+        the stabilizer of $e_1=\binom10$, and use it to recover $|G|=24$.
+  \item Show that $Z(G)=\{\pm I\}$.
+  \item Compute the centralizers $C_G(U)$ and $C_G(J)$, and the sizes of
+        the conjugacy classes of $U$ and $J$.
+  \item Show that $U$ and $U^{-1}$ are \emph{not} conjugate in $G$.
+        (They are conjugate in $\GL_2(\F_3)$.)
+  \item Conclude that the class equation of $G$ is
+        \[
+          24=1+1+4+4+4+4+6,
+        \]
+        with class representatives $I$, $-I$, $U$, $U^{-1}$, $-U$, $-U^{-1}$, and $J$.
+\end{enumerate}
+\end{exercise}
+
+\sectionheading{Sections 4--5: Conjugation in $S_n$ and $A_n$}
+
+\begin{exercise}{5.6 (Adapted)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Find all subgroups of order $4$ of $S_4$, and decide which ones
+        are normal.
+  \item Use the class equation of $S_4$ to prove that $A_4$ is the only
+        subgroup of $S_4$ of order $12$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{S.5 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Use the splitting lemma from Lecture 23 to compute the class equation
+        of $A_4$. Give a representative of each class, and decide whether
+        $(123)$ and $(132)$ are conjugate in $A_4$.
+  \item Deduce that $A_4$ has no subgroup of order $6$. (So the converse of
+        Lagrange's theorem fails.)
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{4.2 (Adapted)}
+Determine all normal subgroups of the symmetric group $S_5$.
+\textit{Hint.} Use the class equation of $S_5$ from Lecture 23, or the
+simplicity of $A_5$.
+\end{exercise}
+
+%======================================================================
+\chapterheading{Chapter 6: Symmetry}
+
+\sectionheading{Sections 7--9: Group Operations and the Counting Formula}
+
+\begin{exercise}{S.6 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $p$ be a prime and let $G$ be a group of order $p^k$ acting
+        on a finite set $S$. Prove that if $p$ does not divide $|S|$, then
+        the action has a \emph{fixed point}, that is, some $s\in S$ with
+        $g\cdot s=s$ for every $g\in G$.
+  \item Prove that every action of a group of order $15$ on a set with
+        $7$ elements has a fixed point.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{9.2 (Adapted)}
+Let $G$ be the group of rotational symmetries of a cube, and let $V$, $E$,
+$F$ denote the sets of vertices, edges, and faces of the cube. Fix a
+vertex $v$, an edge $e$, and a face $f$, and let $G_v$, $G_e$, $G_f$ be
+their stabilizers.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Determine $|G_v|$, $|G_e|$, and $|G_f|$, and describe each
+        stabilizer geometrically.
+  \item For each of the three subgroups $G_v$, $G_e$, $G_f$, decompose each of
+        $V$, $E$, $F$ into orbits. Record your answers as sums
+        of orbit sizes (for example $8=1+1+3+3$).
+\end{enumerate}
+\end{exercise}
+
+\sectionheading{Section 12: Finite Subgroups of the Rotation Group}
+
+\begin{exercise}{S.7 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Use Euler's rotation theorem to prove that the composition of two rotations
+        of $\R^3$ (about axes through the origin) is again a rotation.
+  \item Let $\rho_1$ be the rotation by $\pi/2$ about the $e_3$-axis and
+        $\rho_2$ the rotation by $\pi/2$ about the $e_1$-axis, each
+        counterclockwise when viewed from the tip of the axis vector.
+        Find a pole and the angle of rotation of $\rho_2\circ\rho_1$.
+        \textit{Hint.} The trace of a rotation through angle $\theta$
+        is $1+2\cos\theta$. Why?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{S.8 (Supplementary)}
+For a finite group $G\leq\SO_3(\R)$ of order $N$, let $\mathcal P$ be its
+set of poles: the unit vectors fixed by some nonidentity element of $G$.
+Recall the pole-counting formula
+\[
+  \sum_{p\in\mathcal P}\bigl(|G_p|-1\bigr)=2(N-1).
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $O$ be the group of rotational symmetries of the cube
+        $[-1,1]^3$, which has order $24$. Describe all the poles of $O$, sort them into
+        $O$-orbits, give the order of the stabilizer of a pole in each orbit,
+        and verify the formula. Which row of the table from
+        Lecture 24 does this realize?
+  \item Let $n\geq3$, and let $D_n\leq\SO_3(\R)$ be the group of rotational symmetries
+        of a regular $n$-gon in the $xy$-plane centered at the origin.
+        It consists of $n$ rotations about the $z$-axis and $n$ half-turns
+        about axes in the $xy$-plane. Do the same for $D_n$, and check that you obtain the
+        dihedral pattern $(r_1,r_2,r_3)=(2,2,n)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{12.3 (Adapted)}
+Let $O$ be the group of rotational symmetries of a cube. Its elements may
+exchange the two endpoints of a long diagonal. Determine the stabilizer in
+$O$ of a long diagonal (a line through two opposite vertices), list its
+elements geometrically, and identify it with a familiar group.
+\end{exercise}
+
+\vfill
+{\small\color{darkgray}Compiled \today.}
+
+\end{document}
