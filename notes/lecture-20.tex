@@ -1,6 +1,7 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
+\usepackage{tikz}
 \lectureinfo{20}{Oct. 26, 2026}{Quotient Groups and the First Isomorphism Theorem}
 
 % Typeset from handwritten Lecture 14, Oct. 3, 2025, pp. 1--14.
@@ -76,17 +77,8 @@ Every coset is $\pi(g)$ for some $g\in G$; hence
 $\im\pi=G/N$.
 \end{proof}
 
-\begin{remark}
-For $a_1,\ldots,a_r\in G$, if
-$a_1\cdots a_r\in N$, then in $G/N$ we have
-\[
-  (a_1N)\cdots(a_rN)=(a_1\cdots a_r)N=N=1_{G/N}.
-\]
-Thus a product of elements of $G$ that lies in $N$ becomes the
-identity in the quotient.
-\end{remark}
+How can one identify the quotient group? Often if you think you know the answer, you can use the following result.
 
-\subsection{The first isomorphism theorem}
 
 \begin{theorem}[First isomorphism theorem]\label{thm:first-iso}
 Let $\varphi:G\to G'$ be a homomorphism and put $N=\ker\varphi$.
@@ -128,7 +120,97 @@ $G/\ker\varphi\cong G'$. The theorem also applies when $\varphi$
 is not surjective, provided that the target of the induced
 isomorphism is $\im\varphi$.
 
+
+
+The quotient group makes every element of $N$ equal to the identity.
+For example, if $a_1,\ldots,a_r\in G$ and
+$a_1\cdots a_r\in N$, then in $G/N$ we have
+\[
+(a_1N)\cdots(a_rN)=(a_1\cdots a_r)N=N=1_{G/N}.
+\]
+Thus a product of elements of $G$ that lies in $N$ becomes the
+identity in the quotient. The universal property describes exactly
+which homomorphisms from $G$ descend to $G/N$.
+
+\section{The universal property of quotient groups}
+
+\begin{theorem}[Universal property]\label{thm:universal-quotient}
+Let $N\trianglelefteq G$, let $\pi:G\to G/N$ be the quotient map,
+and let $f:G\to H$ be a homomorphism. There is a homomorphism
+$\overline f:G/N\to H$ such that $f=\overline f\circ\pi$ if and
+only if $N\subseteq\ker f$. When it exists, $\overline f$ is unique
+and is given by
+\[
+  \overline f(gN)=f(g).
+\]
+Thus the following diagram commutes:
+\[
+\begin{tikzpicture}[baseline=(current bounding box.center),>=stealth]
+  \node (G) at (0,1.3) {$G$};
+  \node (Q) at (0,0) {$G/N$};
+  \node (H) at (3,1.3) {$H$};
+  \draw[->] (G)--node[above] {$f$} (H);
+  \draw[->] (G)--node[left] {$\pi$} (Q);
+  \draw[->,dashed] (Q)--node[below right] {$\exists!\,\overline f$} (H);
+\end{tikzpicture}
+\]
+\end{theorem}
+\Needspace{7\baselineskip}
+\begin{proof}
+If $f=\overline f\circ\pi$ and $n\in N$, then
+$f(n)=\overline f(N)=1_H$, so $N\subseteq\ker f$.
+
+Conversely, suppose $N\subseteq\ker f$. If $gN=g'N$, then
+$(g')^{-1}g\in N$, hence $f(g')^{-1}f(g)=1_H$.
+Thus $f(g)=f(g')$, so the formula
+$\overline f(gN)=f(g)$ is well defined. Moreover,
+\[
+  \overline f\bigl((gN)(hN)\bigr)
+  =f(gh)=f(g)f(h)=\overline f(gN)\overline f(hN),
+\]
+so $\overline f$ is a homomorphism, and
+$\overline f(\pi(g))=f(g)$ for every $g\in G$.
+Finally, any map satisfying $f=\overline f\circ\pi$ must send
+$gN=\pi(g)$ to $f(g)$. Since $\pi$ is surjective, this determines
+$\overline f$ uniquely.
+\end{proof}
+
+The inclusion $N\subseteq\ker f$ allows a map out of $G/N$
+to send additional cosets to the identity. If $N=\ker f$, the
+induced map is injective and gives
+the first isomorphism theorem after restricting its codomain
+to $\im f$.
+
 \section{Examples}
+
+\begin{example}[Integers modulo $n$]\label{ex:integers-mod-n}
+Let $n\geq1$. Since $(\Z,+)$ is abelian, $n\Z\trianglelefteq\Z$.
+The quotient group is
+\[
+  \Z/n\Z=\{\overline0,\overline1,\ldots,\overline{n-1}\},
+  \qquad \overline a=a+n\Z,
+\]
+with addition
+\[
+  \overline a+\overline b=\overline{a+b}.
+\]
+Two integers give the same coset exactly when their difference
+is divisible by $n$. The identity is $\overline0$, the inverse
+of $\overline a$ is $\overline{-a}$, and $\overline1$ generates
+the group, so $\Z/n\Z$ is cyclic of order $n$.
+For example, in $\Z/5\Z$,
+$\overline3+\overline4=\overline7=\overline2$.
+
+The quotient map is $\pi:\Z\to\Z/n\Z$, $a\mapsto\overline a$,
+with kernel $n\Z$. To illustrate the universal property, choose
+$h\in H$ and define $f:\Z\to H$ by $f(a)=h^a$.
+Then $f$ factors through $\Z/n\Z$ exactly when $h^n=1_H$.
+In that case the unique induced homomorphism is
+\[
+  \overline f:\Z/n\Z\longrightarrow H,
+  \qquad \overline a\longmapsto h^a.
+\]
+\end{example}
 
 \begin{example}[The determinant]
 The determinant is a surjective homomorphism
