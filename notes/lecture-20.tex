@@ -132,7 +132,6 @@ Thus a product of elements of $G$ that lies in $N$ becomes the
 identity in the quotient. The universal property describes exactly
 which homomorphisms from $G$ descend to $G/N$.
 
-\section{The universal property of quotient groups}
 
 \begin{theorem}[Universal property]\label{thm:universal-quotient}
 Let $N\trianglelefteq G$, let $\pi:G\to G/N$ be the quotient map,
@@ -228,7 +227,7 @@ $\SL_n(\R)=\{A\in\GL_n(\R):\det A=1\}$. Therefore
 \]
 \end{example}
 
-\begin{remark}
+\begin{example}
 Every normal subgroup is a kernel: if $N\trianglelefteq G$, then
 $N=\ker\pi$ for the quotient map $\pi:G\to G/N$.
 For example, the sign homomorphism
@@ -239,7 +238,7 @@ surjective, so
 \]
 The identity $G/\ker\varphi\cong\im\varphi$ applies even when
 $\varphi$ is not surjective onto its stated codomain.
-\end{remark}
+\end{example}
 
 \Needspace{18\baselineskip}
 \begin{example}[A quotient of $S_4$]
@@ -287,15 +286,15 @@ Matrix multiplication gives
   M(a,b,c)M(a',b',c')
   =M(a+a',\,b+b'+ac',\,c+c'),
 \]
-so $H$ is a subgroup of $\GL_3(\R)$. Also,
+Also,
 \[
   M(a,b,c)^{-1}=M(-a,ac-b,-c).
 \]
-The subgroup $K$ is normal in $H$: indeed,
+Thus $H$ is a subgroup of $\GL_3(\R)$. it is easy to see that $K$ is a subgroup of $H$, and in fact it is normal in $H$: indeed,
 $M(a,b,c)M(0,x,0)=M(a,b+x,c)=M(0,x,0)M(a,b,c)$,
-so $K$ is central in $H$.
+so $K$ is central in $H$, i.e. $K$ commutes with everything in $H$. 
 
-To identify $H/K$, define
+Naively, we would expect $H/K$ to be two dimensional, and expressed in terms ot the two coordinates $a$ and $c$. How to make this precise ? Use the first isomorphism theorem and define
 \[
   \varphi:H\longrightarrow (\R,+)\times(\R,+),
   \qquad M(a,b,c)\longmapsto(a,c).
