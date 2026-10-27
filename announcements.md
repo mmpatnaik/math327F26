@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-27
+
+The [Midterm 2 review and coverage sheet](exams/midterm-2-coverage.pdf) is now posted. Midterm 2 covers Lectures 15–23 (through Monday, November 2).
+
 ## 2026-10-25
 
 [Homework 4](hw/hw-04.pdf) is posted. It covers Lectures 20–24 and is good practice for Midterm 2. The suggested completion date is **Thursday, November 5**, before the midterm on **Friday, November 6**.
