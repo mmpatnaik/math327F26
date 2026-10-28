@@ -1,0 +1,63 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.72in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Practice Questions for Midterm 2},pdfauthor={Manish Patnaik}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[enumerate]{leftmargin=*,topsep=2pt,itemsep=2pt,parsep=0pt}
+\newcommand{\question}[1]{\par\medskip\noindent\textbf{#1}\par}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Practice Questions for Midterm 2}\\[2pt]
+MATH 327: Algebra 1 \quad\textbar\quad Fall 2026
+\end{center}
+\vspace{-5pt}
+\hrule
+\vspace{5pt}
+\textbf{Directions.} Show your work and justify your claims. State any theorem you use and check its hypotheses. You may use results proved in class through Lecture 23 unless a question asks you to prove that result.
+
+% Adapted from 2025-Fall-MATH327-MidtermExam.tex, Question 3.
+\question{1. Products and quotients}
+Let $H,K\leq G$, and define $HK=\{hk:h\in H,\ k\in K\}$. Assume that $H$ normalizes $K$: $hKh^{-1}=K$ for every $h\in H$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $HK$ is a subgroup of $G$.
+\item Show that $K\trianglelefteq HK$ and $H\cap K\trianglelefteq H$.
+\item Construct an isomorphism $H/(H\cap K)\cong HK/K$. Prove that your map is well defined and is an isomorphism.
+\end{enumerate}
+
+% Based on the S_4 -> S_3 action and correspondence theorem in Lectures 15--18.
+\question{2. The homomorphism $S_4\to S_3$}
+Let $S_4$ act on the three partitions $\Pi_1=12\mid34$, $\Pi_2=13\mid24$, and $\Pi_3=14\mid23$, where $12\mid34$ abbreviates $\{\{1,2\},\{3,4\}\}$. Let $\varphi:S_4\to S_3$ be the resulting homomorphism. You may use that $\varphi$ is surjective and that $\ker\varphi=V=\{1,(12)(34),(13)(24),(14)(23)\}$. Set $H=\varphi^{-1}(\langle(13)\rangle)$.
+\begin{enumerate}[label=(\alph*)]
+\item Compute $\varphi((1234))$.
+\item Show that $H=\langle(1234),(12)(34)\rangle$, and determine $|H|$.
+\item Identify $H$ up to isomorphism. Is $H$ normal in $S_4$? Justify both answers.
+\end{enumerate}
+
+% Adapted from 2025-Fall-MATH327-MidtermExam.tex, Question 4.
+\question{3. Conjugation in $S_3$}
+Let $G$ be a group. Define $g\cdot x=gxg^{-1}$ for $g,x\in G$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that this rule defines a left action of $G$ on itself.
+\item Show that the center $Z(G)$ is the union of all orbits of cardinality $1$.
+\item Show that every normal subgroup of $G$ is a union of orbits under this action.
+\item Describe all orbits and stabilizers for this action when $G=S_3$.
+\end{enumerate}
+
+% Adapted from 2026-Summer-MATH327-MidtermExam2-corrected.tex, Question 1.
+\question{4. Conjugation in $\mathrm{GL}_2(\mathbb R)$}
+Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$. The group $\mathrm{GL}_2(\mathbb R)$ acts on itself by conjugation: $g\cdot B=gBg^{-1}$.
+\begin{enumerate}[label=(\alph*)]
+\item Describe the stabilizer of $A$ under this action. Justify your answer.
+\item Describe the orbit of $A$ under this action. Justify your answer.
+\end{enumerate}
+
+% Adapted from 2026-Summer-MATH327-MidtermExam2-corrected.tex, Question 2.
+\question{5. A normal subgroup of order $5$}
+Let $N\trianglelefteq G$, where $|N|=5$ and $|G|$ is odd. Prove that $N\subseteq Z(G)$.
+\end{document}

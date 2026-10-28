@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-10-28
+
+[Practice Questions for Midterm 2](exams/midterm-2-practice-questions.pdf) are now posted.
+
 ## 2026-10-27
 
 The [Midterm 2 review and coverage sheet](exams/midterm-2-coverage.pdf) is now posted. Midterm 2 covers Lectures 15–23 (through Monday, November 2).
