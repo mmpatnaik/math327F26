@@ -3,7 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,microtype,amsmath,amssymb,enumitem}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{fancyhdr}
+\usepackage{fancyhdr,needspace}
+\usepackage[most]{tcolorbox}
 \usepackage[hidelinks]{hyperref}
 \definecolor{courseblue}{HTML}{1F4E79}
 \definecolor{lightblue}{HTML}{EAF2F8}
@@ -25,11 +26,53 @@
 \newcommand{\heading}[1]{\begin{center}\colorbox{lightblue}{\parbox{0.94\textwidth}{\centering\vspace{5pt}{\Large\bfseries\color{courseblue}#1}\\[3pt]MATH 327: Algebra 1\quad |\quad Fall 2026\vspace{5pt}}}\end{center}}
 
 \hypersetup{pdftitle={Practice Questions for Midterm 2: Solutions},pdfauthor={Manish Patnaik}}
+
+\definecolor{boxborder}{HTML}{B8CBDC}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{lightyellow}{HTML}{FFF9DC}
+\definecolor{yellowborder}{HTML}{E4D58C}
+\newtcolorbox{solution}{
+  enhanced,
+  breakable,
+  colback=lightyellow,
+  colframe=yellowborder,
+  colbacktitle=lightyellow,
+  coltitle=darkgray,
+  fonttitle=\bfseries,
+  title={Solution},
+  title after break={Solution (continued)},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.2em,
+  after skip=1em
+}
+
+
+\newtcolorbox{questionblock}[1]{
+ enhanced,breakable,colback=white,colframe=boxborder,
+ colbacktitle=lightblue,coltitle=courseblue,fonttitle=\bfseries,
+ title={Question #1},title after break={Question #1 (continued)},boxrule=0.6pt,arc=1mm,
+ left=2.5mm,right=2.5mm,top=1.5mm,bottom=1.5mm,
+ before skip=0.8em,after skip=0.8em
+}
 \begin{document}
 \heading{Practice Questions for Midterm 2: Solutions}
-% Questions 1 and 3 adapted from the instructor's Fall 2025 midterm solutions.
-% Questions 2, 4 and 5: new solutions for the current practice sheet.
-\problem{1. Products and quotients}
+% Full questions from the practice sheet; solutions retain their original numbering.
+% Solutions 1 and 3 adapted from the instructor's Fall 2025 midterm solutions.
+\Needspace{8\baselineskip}
+\begin{questionblock}{1. Products and quotients}
+Let $H,K\leq G$, and define $HK=\{hk:h\in H,\ k\in K\}$. Assume that $H$ normalizes $K$: $hKh^{-1}=K$ for every $h\in H$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $HK$ is a subgroup of $G$.
+\item Show that $K\trianglelefteq HK$ and $H\cap K\trianglelefteq H$.
+\item Construct an isomorphism $H/(H\cap K)\cong HK/K$. Prove that your map is well defined and is an isomorphism.
+\end{enumerate}
+\end{questionblock}
+\begin{solution}
 Assume $H,K\leq G$ and $hKh^{-1}=K$ for all $h\in H$.
 \partlabel{a} The identity belongs to $HK$. For $h,h'\in H$ and $k,k'\in K$,
 \[
@@ -54,9 +97,17 @@ If $h(H\cap K)=h'(H\cap K)$, then $h'^{-1}h\in H\cap K\subseteq K$, so $hK=h'K$.
  F\bigl(h(H\cap K)\,h'(H\cap K)\bigr)=hh'K=(hK)(h'K).
 \]
 Every coset in $HK/K$ has the form $hkK=hK$, proving surjectivity. If $F(h(H\cap K))=K$, then $h\in K$; since also $h\in H$, the original coset is $H\cap K$. Hence $F$ has trivial kernel and is injective. Therefore $F$ is the required isomorphism.
-
+\end{solution}
 \newpage
-\problem{2. The homomorphism $S_4\to S_3$}
+\begin{questionblock}{2. The homomorphism $S_4\to S_3$}
+Let $S_4$ act on the three partitions $\Pi_1=12\mid34$, $\Pi_2=13\mid24$, and $\Pi_3=14\mid23$, where $12\mid34$ abbreviates $\{\{1,2\},\{3,4\}\}$. Let $\varphi:S_4\to S_3$ be the resulting homomorphism. You may use that $\varphi$ is surjective and that $\ker\varphi=V=\{1,(12)(34),(13)(24),(14)(23)\}$. Set $H=\varphi^{-1}(\langle(13)\rangle)$.
+\begin{enumerate}[label=(\alph*)]
+\item Compute $\varphi((1234))$.
+\item Show that $H=\langle(1234),(12)(34)\rangle$, and determine $|H|$.
+\item Identify $H$ up to isomorphism. Is $H$ normal in $S_4$? Justify both answers.
+\end{enumerate}
+\end{questionblock}
+\begin{solution}
 Use the partitions $\Pi_1=12\mid34$, $\Pi_2=13\mid24$, and $\Pi_3=14\mid23$ from the question, and set $r=(1234)$ and $s=(12)(34)$.
 \partlabel{a} Applying $r$ to the entries of each partition gives
 \[
@@ -81,9 +132,18 @@ The subgroup $H$ is \textbf{not normal} in $S_4$. Under the correspondence theor
 \[
  (123)(13)(123)^{-1}=(12)\notin\langle(13)\rangle.
 \]
-
+\end{solution}
 \newpage
-\problem{3. Conjugation in $S_3$}
+\begin{questionblock}{3. Conjugation in $S_3$}
+Let $G$ be a group. Define $g\cdot x=gxg^{-1}$ for $g,x\in G$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that this rule defines a left action of $G$ on itself.
+\item Show that the center $Z(G)$ is the union of all orbits of cardinality $1$.
+\item Show that every normal subgroup of $G$ is a union of orbits under this action.
+\item Describe all orbits and stabilizers for this action when $G=S_3$.
+\end{enumerate}
+\end{questionblock}
+\begin{solution}
 \partlabel{a} For every $x\in G$, $1\cdot x=x$. Also, for $g,h,x\in G$,
 \[
  (gh)\cdot x=ghx(gh)^{-1}=g(hxh^{-1})g^{-1}=g\cdot(h\cdot x).
@@ -107,9 +167,16 @@ The stabilizer of $x$ is its centralizer $C_{S_3}(x)$, namely
 \end{array}
 \]
 For example, $1$ and $(12)$ commute with $(12)$, and its orbit has size $3$, so its stabilizer has order $6/3=2$. Likewise, a $3$-cycle has orbit size $2$, so its stabilizer has order $3$ and equals the cyclic subgroup it generates.
-
+\end{solution}
 \newpage
-\problem{4. Conjugation in $\GL_2(\R)$}
+\begin{questionblock}{4. Conjugation in $\mathrm{GL}_2(\mathbb R)$}
+Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$. The group $\mathrm{GL}_2(\mathbb R)$ acts on itself by conjugation: $g\cdot B=gBg^{-1}$.
+\begin{enumerate}[label=(\alph*)]
+\item Describe the stabilizer of $A$ under this action. Justify your answer.
+\item Describe the orbit of $A$ under this action. Justify your answer.
+\end{enumerate}
+\end{questionblock}
+\begin{solution}
 Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$.
 \partlabel{a} A matrix $P$ stabilizes $A$ if and only if $PA=AP$. For $P=\begin{pmatrix}a&b\\c&d\end{pmatrix}$,
 \[
@@ -127,11 +194,16 @@ Conversely, if a real $2\times2$ matrix $B$ has trace $3$ and determinant $2$, i
  \boxed{\operatorname{Orb}(A)=\{B\in M_2(\R):\operatorname{tr}(B)=3,\ \det(B)=2\}.}
 \]
 All these matrices are invertible because their determinant is $2$.
-
-\problem{5. A normal subgroup of order $5$}
+\end{solution}
+\newpage
+\begin{questionblock}{5. A normal subgroup of order $5$}
+Let $N\trianglelefteq G$, where $|N|=5$ and $|G|$ is odd. Prove that $N\subseteq Z(G)$.
+\end{questionblock}
+\begin{solution}
 Since $|N|=5$, write $N=\langle a\rangle$. Normality makes conjugation by each $g\in G$ an automorphism of $N$, giving a homomorphism
 \[
  \theta:G\longrightarrow\Aut(N),\qquad\theta(g)(n)=gng^{-1}.
 \]
 An automorphism is determined by the image of $a$, which may be any of $a,a^2,a^3,a^4$; each choice does give an automorphism. Thus $|\Aut(N)|=4$. By the first isomorphism theorem and Lagrange's theorem, $|\operatorname{im}\theta|$ divides both $|G|$ and $4$. Since $|G|$ is odd, the image has order $1$. Therefore $gng^{-1}=n$ for all $g\in G$ and $n\in N$, proving $\boxed{N\subseteq Z(G)}$.
+\end{solution}
 \end{document}
