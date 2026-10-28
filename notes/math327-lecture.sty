@@ -114,6 +114,8 @@
   \hypersetup{pdftitle={Lecture #1, MATH 327: #3},
     pdfauthor={Manish Patnaik},pdfsubject={MATH 327 course notes}}%
 }
+% Set the textbook sections in each lecture preamble.
+\newcommand{\artinsections}[1]{\def\lectureartinsections{#1}}
 \newcommand{\makelecturetitle}{%
   \begin{center}
     \colorbox{lightblue}{\begin{minipage}{0.94\textwidth}
@@ -126,6 +128,9 @@
       \vspace{0.45em}
     \end{minipage}}
   \end{center}
+  \ifdefined\lectureartinsections
+    \noindent{\small\textbf{Artin, \emph{Algebra}, 2nd ed., sections:} \lectureartinsections}\par
+  \fi
   \setcounter{tocdepth}{1}
   \tableofcontents
 }

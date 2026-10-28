@@ -38,13 +38,18 @@ shows a dead link. You do not need to touch `index.html` to publish notes.
 ## Shared lecture template (Lecture 6 onward)
 
 Lectures 6 and 7 use `notes/math327-lecture.sty`. Start each later lecture by
-copying the starter and updating the number, date, and topic in `\lectureinfo`:
+copying the starter and updating the number, date, and topic in `\lectureinfo`,
+and the matching textbook sections in `\artinsections`:
 
 ```bash
 cp notes/templates/lecture.tex notes/lecture-08.tex
 cd notes
 latexmk -pdf -interaction=nonstopmode -halt-on-error lecture-08.tex
 ```
+
+The `\artinsections{2.5--2.6; 7.5}` field prints the Artin 2nd edition references
+below the lecture header and above the table of contents. Keep these references
+in sync with the website schedule.
 
 Keep the `.sty` file alongside the lecture sources. Edit it once to change
 formatting for every lecture that uses it. The starter lives in a subfolder
