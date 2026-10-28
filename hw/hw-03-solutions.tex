@@ -1,0 +1,192 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.8in,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=4pt,parsep=2pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small MATH 327: Algebra 1}
+\fancyhead[R]{\small Fall 2026}
+\fancyfoot[C]{\thepage}
+\newcommand{\problem}[1]{\par\medskip{\large\bfseries\color{courseblue}#1}\par\smallskip}
+\newcommand{\partlabel}[1]{\par\textbf{(#1)}\ }
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\heading}[1]{\begin{center}\colorbox{lightblue}{\parbox{0.94\textwidth}{\centering\vspace{5pt}{\Large\bfseries\color{courseblue}#1}\\[3pt]MATH 327: Algebra 1\quad |\quad Fall 2026\vspace{5pt}}}\end{center}}
+
+\hypersetup{pdftitle={Homework 3 Solutions, MATH 327, Fall 2026},pdfauthor={Manish Patnaik}}
+\begin{document}
+\heading{Homework 3: Solutions}
+The exercise labels and vertex labels agree with Homework 3. Products of permutations act from right to left. We write $D_{2n}$ for the dihedral group of order $2n$.
+% Adapted from the instructor's Homework (2025)/2025-Winter-MATH327-Homework2_solutions.tex:
+% Artin 2.10.5, 2.11.6, 2.11.9, 2.12.4 and 2.12.5.
+% S.1 adapts the normal-subgroup/conjugacy argument in the instructor's 2025 Homework 3 solutions.
+% Dihedral supplementary exercises: new solutions matching the current labels.
+\problem{Section 10, Exercise 10.5 (adapted)}
+Use $\Pi_1=12\mid34$, $\Pi_2=13\mid24$, $\Pi_3=14\mid23$ and
+\[
+ V=\ker\varphi=\{1,(12)(34),(13)(24),(14)(23)\}.
+\]
+Let $r=(1243)$, the quarter-turn of the relabeled square, and $s=(23)$, reflection in the diagonal through vertices $1$ and $4$. Applying these permutations to the partitions gives
+\[
+ \varphi(r)=\varphi(s)=(12).
+\]
+Thus $L=\langle r,s\rangle\subseteq H_2=\varphi^{-1}(\langle(12)\rangle)$. We have $r^4=s^2=1$ and $srs=r^{-1}$, so the elements of $L$ are among $r^k,r^ks$ for $0\leq k<4$. These eight elements are distinct: the four powers of $r$ are distinct, and $s\notin\langle r\rangle$ (none of those powers is a transposition). Hence $|L|=8$ and $L\cong D_8$.
+
+The correspondence theorem gives $|H_2|=|V|\,|\langle(12)\rangle|=8$. Since $L\subseteq H_2$, they are equal. Explicitly,
+\[
+ \boxed{H_2=\{1,(12)(34),(13)(24),(14)(23),(14),(23),(1243),(1342)\}.}
+\]
+Geometrically, these are exactly the symmetries of the square labeled $1,2,4,3$ around its boundary. The subgroup is not normal in $S_4$, since its image $\langle(12)\rangle$ is not normal in $S_3$.
+
+\problem{Supplementary Exercise S.1}
+Suppose $f:S_5\to S_4$ were surjective. Its kernel $K$ would be normal and would have order
+\[
+ |K|=\frac{120}{24}=5.
+\]
+Choose $1\ne a\in K$. Lagrange's theorem implies $a$ has order $5$, so as a permutation of five letters it is a $5$-cycle. Every $5$-cycle is conjugate to $a$: conjugation simply relabels its five entries. There are $5!/5=24$ such cycles. Normality would force all $24$ into $K$, contradicting $|K|=5$. Therefore no such surjection exists.
+
+\newpage
+\problem{Dihedral groups, Supplementary Exercise 1}
+Recall $D_{2n}=\langle x,y\mid x^n=y^2=1,\ yx=x^{-1}y\rangle$.
+\partlabel{a} The relation $yx=x^{-1}y$ moves every occurrence of $y$ to the right of every power of $x$. Using $y^2=1$ and reducing exponents modulo $n$, every word becomes $x^k$ or $x^ky$ with $0\leq k<n$. This proves that there are \emph{at most} $2n$ elements.
+
+For uniqueness, act on $\Z/n\Z$ by $X(t)=t+1$ and $Y(t)=-t$. These maps satisfy all the defining relations, so $x\mapsto X$, $y\mapsto Y$ defines a homomorphism from the presented group into the permutation group of $\Z/n\Z$. The proposed normal forms act as
+\[
+ X^k(t)=t+k,\qquad X^kY(t)=k-t.
+\]
+Distinct $k$ give distinct maps of either type. Equality between the two types would, on evaluating at $0$ and $1$, imply $2\equiv0\pmod n$, impossible for $n\geq3$. Thus all $2n$ normal forms are distinct, proving uniqueness and $|D_{2n}|=2n$.
+\partlabel{b} $H=\langle x\rangle$ is invariant under conjugation by $x$, and $yx^ky^{-1}=x^{-k}\in H$. Since $x,y$ generate the group, $H\trianglelefteq D_{2n}$. Equivalently, $H$ has index $2$.
+\partlabel{c} $I=\{1,y\}$ is a subgroup of order $2$, but
+\[
+ xyx^{-1}=x^2y\ne y
+\]
+since $x$ has order $n\geq3$. Also $x^2y\ne1$ by uniqueness of normal forms. Thus $I$ is not normal.
+
+\problem{Square action, Supplementary Exercise 2}
+Every vertex can be carried to $v_1$ by a rotation, so
+\[
+ O_{v_1}=\{v_1,v_2,v_3,v_4\}.
+\]
+The only symmetries fixing $v_1$ are the identity and reflection in the diagonal through $v_1$ and $v_3$. Therefore
+\[
+ \boxed{\Stab_{D_8}(v_1)=\{1,(v_2\ v_4)\}.}
+\]
+This also agrees with orbit--stabilizer: the stabilizer has size $8/4=2$.
+
+\newpage
+\problem{Hexagon action, Supplementary Exercise 3}
+Number the vertices counterclockwise. In coordinates $t=i-1\in\Z/6\Z$ for $v_i$, the generators act by $x(t)=t+1$ and $y(t)=-t$.
+\partlabel{a} The transformation $x^ky$ is reflection in the line through the center at angle $k\pi/6$ from the $v_1v_4$ axis. Indeed, on angles it sends $\theta$ to $k\pi/3-\theta$. Its axes are:
+\begin{center}
+\begin{tabular}{c|l}
+Element & Reflection axis\\ \hline
+$xy$ & Midpoints of $v_1v_2$ and $v_4v_5$\\
+$x^2y$ & Vertices $v_2,v_5$\\
+$x^3y$ & Midpoints of $v_2v_3$ and $v_5v_6$\\
+$x^4y$ & Vertices $v_3,v_6$\\
+$x^5y$ & Midpoints of $v_3v_4$ and $v_6v_1$
+\end{tabular}
+\end{center}
+\partlabel{b} On the vertices,
+\[
+ \rho(x)=(123456),\qquad \rho(y)=(26)(35).
+\]
+The kernel is trivial: a rotation fixing every vertex is the identity, while a reflection fixes at most two vertices. Hence $\ker\rho=\{1\}$.
+\partlabel{c} For the short diagonals $d_i=\overline{v_i v_{i+2}}$, rotation gives $x(d_i)=d_{i+1}$. Reflection sends $d_i$ to $d_{-i}$ (indices modulo $6$, so $d_0=d_6$). Consequently
+\[
+ \rho_s(x)=(123456),\qquad \rho_s(y)=(15)(24).
+\]
+There is one orbit, $\mathcal D_s$. Both $1$ and $x^2y$ preserve $d_1=\overline{v_1v_3}$, and orbit--stabilizer gives stabilizer size $12/6=2$. Thus
+\[
+ \Stab(d_1)=\{1,x^2y\}.
+\]
+The kernel lies in this stabilizer, but $x^2y$ sends $d_2$ to $d_6$. Hence $\ker\rho_s=\{1\}$.
+\partlabel{d} On the long diagonals,
+\[
+ \rho_\ell(x)=(123),\qquad \rho_\ell(y)=(23).
+\]
+These generate $S_3$, and there is one orbit $\mathcal D_\ell$. Hence the kernel has order $12/6=2$. The half-turn $x^3$ preserves every long diagonal, so $\ker\rho_\ell=\{1,x^3\}$. The stabilizer of $\ell_1$ has order $12/3=4$ and is
+\[
+ \Stab(\ell_1)=\{1,x^3,y,x^3y\}.
+\]
+\partlabel{e} Length is preserved, and each of the short and long diagonal sets is transitive. Thus the two orbits are $\mathcal D_s$ and $\mathcal D_\ell$, with representative stabilizers as above. With the prescribed labels $1,\ldots,9$,
+\[
+ \rho_{\mathcal D}(x)=(123456)(789),\qquad
+ \rho_{\mathcal D}(y)=(15)(24)(89).
+\]
+The kernel is trivial, since an element fixing every diagonal fixes every short diagonal and $\ker\rho_s=\{1\}$.
+
+\newpage
+\problem{Section 11, Exercise 11.6}
+Let $H,K\trianglelefteq G$ have orders $3$ and $5$. Both are cyclic, so choose generators $a\in H$ and $b\in K$. The subgroup $H\cap K$ has order dividing both $3$ and $5$, hence $H\cap K=\{1\}$.
+
+Normality implies
+\[
+ aba^{-1}b^{-1}=(aba^{-1})b^{-1}\in K,
+ \qquad
+ aba^{-1}b^{-1}=a(ba^{-1}b^{-1})\in H.
+\]
+Thus the commutator is trivial, and $a,b$ commute. Certainly $(ab)^{15}=1$. Conversely, if $(ab)^m=1$, commutativity gives $a^m=b^{-m}\in H\cap K$. Therefore $a^m=b^m=1$, forcing $3\mid m$ and $5\mid m$, hence $15\mid m$. It follows that $\boxed{\operatorname{ord}(ab)=15}$.
+
+\problem{Section 11, Exercise 11.9}
+Suppose first that $HK=KH$. The identity belongs to $HK$. If $h,h'\in H$ and $k,k'\in K$, then $kh'\in KH=HK$, so write $kh'=h''k''$. Hence
+\[
+ (hk)(h'k')=hh''k''k'\in HK.
+\]
+Also $(hk)^{-1}=k^{-1}h^{-1}\in KH=HK$. Thus $HK$ is a subgroup.
+
+Conversely, if $HK$ is a subgroup, its set of inverses is itself. Since inversion reverses the order of multiplication,
+\[
+ HK=(HK)^{-1}=K^{-1}H^{-1}=KH.
+\]
+This argument does not require either subgroup to be finite.
+
+\newpage
+\problem{Section 12, Exercise 12.4}
+For $z\in\C^\times$,
+\[
+ \boxed{zH=\{z,-z,iz,-iz\}.}
+\]
+These are the four vertices of a square centered at the origin, obtained by successively rotating $z$ through $\pi/2$. Two nonzero complex numbers define the same coset exactly when their ratio is one of $1,-1,i,-i$.
+
+Consider the homomorphism $f:\C^\times\to\C^\times$ defined by $f(z)=z^4$. It is surjective because every nonzero complex number has a fourth root, and its kernel is exactly $H$. The first isomorphism theorem gives
+\[
+ \boxed{\C^\times/H\cong\C^\times,\qquad zH\longmapsto z^4.}
+\]
+The displayed map is well defined because $(zh)^4=z^4$ for $h\in H$.
+
+\problem{Section 12, Exercise 12.5}
+Write $g=\begin{pmatrix}a&b\\0&d\end{pmatrix}$, with $a,d\ne0$. Multiplication and inversion in $G$ satisfy
+\[
+ \begin{pmatrix}a&b\\0&d\end{pmatrix}
+ \begin{pmatrix}a'&b'\\0&d'\end{pmatrix}
+ =\begin{pmatrix}aa'&ab'+bd'\\0&dd'\end{pmatrix},
+ \qquad
+ g^{-1}=\begin{pmatrix}a^{-1}&-b/(ad)\\0&d^{-1}\end{pmatrix}.
+\]
+\partlabel{i} The diagonal matrices ($b=0$) form a subgroup, since the identity, products, and inverses are diagonal. It is not normal: for $u=\begin{pmatrix}1&1\\0&1\end{pmatrix}$,
+\[
+ u\begin{pmatrix}1&0\\0&2\end{pmatrix}u^{-1}
+ =\begin{pmatrix}1&1\\0&2\end{pmatrix},
+\]
+which is not diagonal. Thus the indicated cosets do not form a quotient group under coset multiplication.
+\partlabel{ii} The map $f_d:G\to\R^\times$, $g\mapsto d$, is a homomorphism by the multiplication formula. It is onto, since $\operatorname{diag}(1,t)$ maps to any $t\ne0$. Its kernel is exactly the subset $d=1$. Thus this subset is a normal subgroup and
+\[
+ \boxed{G/S\cong\R^\times,\qquad gS\longmapsto d.}
+\]
+\partlabel{iii} Similarly, $f_{a/d}:G\to\R^\times$, $g\mapsto a/d$, is a homomorphism, since the diagonal entries multiply separately. It is onto, using $\operatorname{diag}(t,1)$. Its kernel is exactly $a=d$. Consequently this subset is a normal subgroup and
+\[
+ \boxed{G/S\cong\R^\times,\qquad gS\longmapsto a/d.}
+\]
+\end{document}

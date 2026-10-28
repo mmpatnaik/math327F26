@@ -13,7 +13,7 @@
 
 ## 2026-10-28
 
-[Practice Questions for Midterm 2](exams/midterm-2-practice-questions.pdf) are now posted.
+[Practice Questions for Midterm 2](exams/midterm-2-practice-questions.pdf) and [solutions](exams/midterm-2-practice-questions-solutions.pdf) are now posted. [Homework 3 solutions](hw/hw-03-solutions.pdf) are also available.
 
 ## 2026-10-27
 

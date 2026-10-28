@@ -1,0 +1,137 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.8in,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=4pt,parsep=2pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small MATH 327: Algebra 1}
+\fancyhead[R]{\small Fall 2026}
+\fancyfoot[C]{\thepage}
+\newcommand{\problem}[1]{\par\medskip{\large\bfseries\color{courseblue}#1}\par\smallskip}
+\newcommand{\partlabel}[1]{\par\textbf{(#1)}\ }
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\heading}[1]{\begin{center}\colorbox{lightblue}{\parbox{0.94\textwidth}{\centering\vspace{5pt}{\Large\bfseries\color{courseblue}#1}\\[3pt]MATH 327: Algebra 1\quad |\quad Fall 2026\vspace{5pt}}}\end{center}}
+
+\hypersetup{pdftitle={Practice Questions for Midterm 2: Solutions},pdfauthor={Manish Patnaik}}
+\begin{document}
+\heading{Practice Questions for Midterm 2: Solutions}
+% Questions 1 and 3 adapted from the instructor's Fall 2025 midterm solutions.
+% Questions 2, 4 and 5: new solutions for the current practice sheet.
+\problem{1. Products and quotients}
+Assume $H,K\leq G$ and $hKh^{-1}=K$ for all $h\in H$.
+\partlabel{a} The identity belongs to $HK$. For $h,h'\in H$ and $k,k'\in K$,
+\[
+ (hk)(h'k')=hh'\bigl(h'^{-1}kh'\bigr)k'\in HK,
+\]
+because $h'^{-1}kh'\in K$. Also
+\[
+ (hk)^{-1}=k^{-1}h^{-1}=h^{-1}\bigl(hk^{-1}h^{-1}\bigr)\in HK.
+\]
+Thus $HK$ is a subgroup.
+\partlabel{b} If $u\in K$ and $hk\in HK$, then
+\[
+ (hk)u(hk)^{-1}=h(kuk^{-1})h^{-1}\in K.
+\]
+Applying this also to $(hk)^{-1}$ gives equality under conjugation, so $K\trianglelefteq HK$. If $u\in H\cap K$ and $h\in H$, then $huh^{-1}\in H$ because $H$ is a subgroup, and $huh^{-1}\in K$ because $H$ normalizes $K$. Applying the same argument to $h^{-1}$ proves $H\cap K\trianglelefteq H$.
+\partlabel{c} Define
+\[
+ F:H/(H\cap K)\longrightarrow HK/K,\qquad F\bigl(h(H\cap K)\bigr)=hK.
+\]
+If $h(H\cap K)=h'(H\cap K)$, then $h'^{-1}h\in H\cap K\subseteq K$, so $hK=h'K$. Thus $F$ is well defined. It is a homomorphism, since
+\[
+ F\bigl(h(H\cap K)\,h'(H\cap K)\bigr)=hh'K=(hK)(h'K).
+\]
+Every coset in $HK/K$ has the form $hkK=hK$, proving surjectivity. If $F(h(H\cap K))=K$, then $h\in K$; since also $h\in H$, the original coset is $H\cap K$. Hence $F$ has trivial kernel and is injective. Therefore $F$ is the required isomorphism.
+
+\newpage
+\problem{2. The homomorphism $S_4\to S_3$}
+Use the partitions $\Pi_1=12\mid34$, $\Pi_2=13\mid24$, and $\Pi_3=14\mid23$ from the question, and set $r=(1234)$ and $s=(12)(34)$.
+\partlabel{a} Applying $r$ to the entries of each partition gives
+\[
+ r\Pi_1=\Pi_3,\qquad r\Pi_2=\Pi_2,\qquad r\Pi_3=\Pi_1.
+\]
+Consequently $\boxed{\varphi(r)=(13)}$.
+\partlabel{b} Write $L=\langle r,s\rangle$. Since $\varphi(r)=(13)$ and $s\in V=\ker\varphi$, both generators lie in $H$, so $L\subseteq H$. Conversely,
+\[
+ r^2=(13)(24),\qquad r^2s=(14)(23),
+\]
+so $V\subseteq L$. If $h\in H$, then $\varphi(h)$ is either $1$ or $(13)$. In the first case $h\in V\subseteq L$. In the second, $\varphi(r^{-1}h)=1$, so $r^{-1}h\in V$ and $h\in rV\subseteq L$. Thus
+\[
+ H=\langle(1234),(12)(34)\rangle=V\sqcup rV,\qquad \boxed{|H|=8}.
+\]
+\partlabel{c} Direct computation gives
+\[
+ r^4=s^2=1,\qquad srs^{-1}=r^{-1}.
+\]
+These are the dihedral relations. They define a surjective homomorphism $D_8\to H$ sending the rotation generator to $r$ and a reflection generator to $s$. Both groups have order $8$, so this map is an isomorphism: $\boxed{H\cong D_8}$.
+
+The subgroup $H$ is \textbf{not normal} in $S_4$. Under the correspondence theorem, $H\trianglelefteq S_4$ would imply $\varphi(H)=\langle(13)\rangle\trianglelefteq S_3$. But
+\[
+ (123)(13)(123)^{-1}=(12)\notin\langle(13)\rangle.
+\]
+
+\newpage
+\problem{3. Conjugation in $S_3$}
+\partlabel{a} For every $x\in G$, $1\cdot x=x$. Also, for $g,h,x\in G$,
+\[
+ (gh)\cdot x=ghx(gh)^{-1}=g(hxh^{-1})g^{-1}=g\cdot(h\cdot x).
+\]
+These are exactly the axioms of a left group action.
+\partlabel{b} The orbit of $x$ is a singleton if and only if $gxg^{-1}=x$ for every $g\in G$. This is equivalent to $gx=xg$ for every $g$, or $x\in Z(G)$. Hence $Z(G)$ is precisely the union of the singleton orbits.
+\partlabel{c} If $N\trianglelefteq G$ and $n\in N$, then $gng^{-1}\in N$ for every $g\in G$. Thus the entire orbit of each element of $N$ is contained in $N$. Since every $n$ lies in its own orbit, $N$ is a union of orbits.
+\partlabel{d} The three orbits are
+\[
+ \{1\},\qquad \{(12),(13),(23)\},\qquad \{(123),(132)\}.
+\]
+The stabilizer of $x$ is its centralizer $C_{S_3}(x)$, namely
+\[
+\begin{array}{c|l}
+ x & \Stab_{S_3}(x)\\ \hline
+ 1 & S_3\\
+ (12)&\{1,(12)\}\\
+ (13)&\{1,(13)\}\\
+ (23)&\{1,(23)\}\\
+ (123),\ (132)&\{1,(123),(132)\}
+\end{array}
+\]
+For example, $1$ and $(12)$ commute with $(12)$, and its orbit has size $3$, so its stabilizer has order $6/3=2$. Likewise, a $3$-cycle has orbit size $2$, so its stabilizer has order $3$ and equals the cyclic subgroup it generates.
+
+\newpage
+\problem{4. Conjugation in $\GL_2(\R)$}
+Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$.
+\partlabel{a} A matrix $P$ stabilizes $A$ if and only if $PA=AP$. For $P=\begin{pmatrix}a&b\\c&d\end{pmatrix}$,
+\[
+ PA=\begin{pmatrix}a&2b\\c&2d\end{pmatrix},\qquad
+ AP=\begin{pmatrix}a&b\\2c&2d\end{pmatrix}.
+\]
+Equality forces $b=c=0$. Invertibility then requires $a,d\ne0$. Therefore
+\[
+ \boxed{\Stab(A)=\left\{\begin{pmatrix}a&0\\0&d\end{pmatrix}:a,d\in\R^{\times}\right\}.}
+\]
+\partlabel{b} Conjugation preserves the characteristic polynomial. Thus every matrix in the orbit has characteristic polynomial $(t-1)(t-2)$, or equivalently trace $3$ and determinant $2$.
+
+Conversely, if a real $2\times2$ matrix $B$ has trace $3$ and determinant $2$, its characteristic polynomial is $(t-1)(t-2)$. Choose nonzero eigenvectors $v_1,v_2$ with eigenvalues $1,2$. They are linearly independent: if $v_2=cv_1$, then $2cv_1=Bv_2=cBv_1=cv_1$, forcing $c=0$, a contradiction. The invertible matrix $P=[\,v_1\ v_2\,]$ therefore satisfies $BP=PA$, so $B=PAP^{-1}$. Hence
+\[
+ \boxed{\operatorname{Orb}(A)=\{B\in M_2(\R):\operatorname{tr}(B)=3,\ \det(B)=2\}.}
+\]
+All these matrices are invertible because their determinant is $2$.
+
+\problem{5. A normal subgroup of order $5$}
+Since $|N|=5$, write $N=\langle a\rangle$. Normality makes conjugation by each $g\in G$ an automorphism of $N$, giving a homomorphism
+\[
+ \theta:G\longrightarrow\Aut(N),\qquad\theta(g)(n)=gng^{-1}.
+\]
+An automorphism is determined by the image of $a$, which may be any of $a,a^2,a^3,a^4$; each choice does give an automorphism. Thus $|\Aut(N)|=4$. By the first isomorphism theorem and Lagrange's theorem, $|\operatorname{im}\theta|$ divides both $|G|$ and $4$. Since $|G|$ is odd, the image has order $1$. Therefore $gng^{-1}=n$ for all $g\in G$ and $n\in N$, proving $\boxed{N\subseteq Z(G)}$.
+\end{document}
