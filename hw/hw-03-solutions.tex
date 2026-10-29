@@ -231,7 +231,7 @@ Let $n\geq3$. Define $D_{2n}$ by the presentation
 	\[
 	x^k \qquad\text{or}\qquad x^k y,
 	\qquad 0\leq k<n.
-	\] Conclude that $D_{2n}$ has exactly $2n$ elements.
+	\] 
 
 	\item Let $H:=\{1,x,\ldots,x^{n-1}\}$. Show that $H$ is a normal subgroup of $D_{2n}$.
 
@@ -245,13 +245,7 @@ Let $n\geq3$. Define $D_{2n}$ by the presentation
 
 \begin{solution}
 Recall $D_{2n}=\langle x,y\mid x^n=y^2=1,\ yx=x^{-1}y\rangle$.
-\partlabel{a} The relation $yx=x^{-1}y$ moves every occurrence of $y$ to the right of every power of $x$. Using $y^2=1$ and reducing exponents modulo $n$, every word becomes $x^k$ or $x^ky$ with $0\leq k<n$. This proves that there are \emph{at most} $2n$ elements.
-
-For uniqueness, act on $\Z/n\Z$ by $X(t)=t+1$ and $Y(t)=-t$. These maps satisfy all the defining relations, so $x\mapsto X$, $y\mapsto Y$ defines a homomorphism from the presented group into the permutation group of $\Z/n\Z$. The proposed normal forms act as
-\[
- X^k(t)=t+k,\qquad X^kY(t)=k-t.
-\]
-Distinct $k$ give distinct maps of either type. Equality between the two types would, on evaluating at $0$ and $1$, imply $2\equiv0\pmod n$, impossible for $n\geq3$. Thus all $2n$ normal forms are distinct, proving uniqueness and $|D_{2n}|=2n$.
+\partlabel{a} The relation $yx=x^{-1}y$ moves every occurrence of $y$ to the right of every power of $x$. Using $y^2=1$ and reducing exponents modulo $n$, every word becomes $x^k$ or $x^ky$ with $0\leq k<n$. 
 \partlabel{b} $H=\langle x\rangle$ is invariant under conjugation by $x$, and $yx^ky^{-1}=x^{-k}\in H$. Since $x,y$ generate the group, $H\trianglelefteq D_{2n}$. Equivalently, $H$ has index $2$.
 \partlabel{c} $I=\{1,y\}$ is a subgroup of order $2$, but
 \[
@@ -479,7 +473,6 @@ Consider the homomorphism $f:\C^\times\to\C^\times$ defined by $f(z)=z^4$. It is
 The displayed map is well defined because $(zh)^4=z^4$ for $h\in H$.
 \end{solution}
 
-\newpage
 \begin{exercise}{12.5}
 Let $G$ be the group of upper triangular real matrices
 $\begin{bmatrix}a&b\\0&d\end{bmatrix}$ with $a$ and $d$ different from
