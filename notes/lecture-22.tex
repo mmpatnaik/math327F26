@@ -1,7 +1,6 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\newcommand{\Cl}{\operatorname{Cl}}
 \newcommand{\F}{\mathbb F}
 \lectureinfo{22}{Oct. 30, 2026}{Conjugation, Centralizers, and the Class Equation}
 \artinsections{7.2--7.3, 7.5}
@@ -12,17 +11,88 @@
 \raggedbottom
 \makelecturetitle
 
-\section{The conjugation action}
+Last time we studied the notion of a left action of a group $G$ on a set $S$.
+For every $s\in S$, we also defined its orbit
+\begin{equation}\label{orbit}
+  \mathcal O_s:=\{g\cdot s\mid g\in G\}
+\end{equation}
+as a subset of $S$. Moreover, we showed that the orbits partition $S$;
+that is, we have a disjoint union
+\[
+  S=\bigsqcup_{s\in\Xi}\mathcal O_s,
+\]
+where $\Xi\subseteq S$ contains one representative from each orbit.
+Finally, for each $s\in S$, we introduced the stabilizer subgroup
+\begin{equation}\label{stab:s}
+  G_s:=\{g\in G\mid g\cdot s=s\}.
+\end{equation}
 
-Every group $G$ acts on itself by conjugation:
+An important observation which I forgot to mention last time is the following:
+
+
+\begin{lemma}[Stabilizers in the same orbit]\label{lem:conjugate-stabilizers}
+Let $s\in S$ and $a\in G$. If $s'=a\cdot s$, then $G_{s'}=aG_sa^{-1}$.
+\end{lemma}
+\begin{proof}
+For $x\in G$,
+\begin{align*}
+  x\in G_{s'}
+  &\iff x\cdot(a\cdot s)=a\cdot s\\
+  &\iff (a^{-1}xa)\cdot s=s\\
+  &\iff a^{-1}xa\in G_s.
+\end{align*}
+This is equivalent to $x\in aG_sa^{-1}$.
+\end{proof}
+
+Thus stabilizers of points in the same orbit are conjugate subgroups.
+A stabilizer need not be normal in $G$. 
+
+
+\Needspace{12\baselineskip}
+\section{The orbit--stabilizer theorem}
+
+The orbits and stabilizers are related by the following important result.
+
+
+\begin{theorem}[Orbit--stabilizer]\label{thm:orbit-stabilizer}
+For any action $G\curvearrowright S$ and $s\in S$, there is a
+bijection of sets
+\[
+  G/G_s\longrightarrow\mathcal O_s,
+  \qquad gG_s\longmapsto g\cdot s.
+\]
+Here $G/G_s$ is the set of left cosets; $G_s$ need not be normal.
+\end{theorem}
+\begin{proof}
+If $gG_s=\widetilde gG_s$, then
+$\widetilde g^{-1}g\in G_s$ and hence
+$g\cdot s=\widetilde g\cdot s$. Thus the map is well defined.
+It is surjective by the definition of $\mathcal O_s$.
+If $g\cdot s=\widetilde g\cdot s$, then
+$\widetilde g^{-1}g\in G_s$, so $gG_s=\widetilde gG_s$.
+Therefore it is injective.
+\end{proof}
+
+\begin{corollary}\label{cor:orbit-size}
+If $G$ is finite, then
+\[
+  |\mathcal O_s|=[G:G_s],
+  \qquad |G|=|\mathcal O_s|\,|G_s|.
+\]
+In particular, every orbit size divides $|G|$.
+\end{corollary}
+
+
+
+\section{Conjugation as an action}
+
+Every group acts on itself by \emph{conjugation}:
 \[
   g\cdot x=gxg^{-1}.
 \]
-Indeed, $1\cdot x=x$, and
-\[
-  (gh)\cdot x=ghx(gh)^{-1}
-  =g(hxh^{-1})g^{-1}=g\cdot(h\cdot x).
-\]
+Indeed, $1\cdot x=x$ and
+$(gh)\cdot x=ghx(gh)^{-1}=g\cdot(h\cdot x)$.
+
 
 \begin{define}[Centralizer and conjugacy class]
 The stabilizer of $x\in G$ under conjugation is its
@@ -33,22 +103,26 @@ The stabilizer of $x\in G$ under conjugation is its
 \]
 Its orbit is the \emph{conjugacy class}
 \[
-  \Cl_G(x)=\{gxg^{-1}:g\in G\}.
+  \mathcal{O}_G(x)=\{gxg^{-1}:g\in G\}.
 \]
 \end{define}
 
-As a stabilizer, $C_G(x)$ is a subgroup of $G$.
+Thus, for finite $G$, orbit--stabilizer gives
+\[
+  |\mathcal{O}_G(x)|=[G:C_G(x)].
+\]
+
 The center of $G$ is
 \[
   Z(G)=\{z\in G:zx=xz\text{ for every }x\in G\}
       =\bigcap_{x\in G}C_G(x).
 \]
-In particular, $Z(G)\leq C_G(x)$ for every $x$.
+In particular, $Z(G)\leq C_G(x)$ for every $x\in G$.
 
 \begin{lemma}\label{lem:central-elements}
 For $x\in G$, the following are equivalent:
 \[
-  x\in Z(G),\qquad C_G(x)=G,\qquad\Cl_G(x)=\{x\}.
+  x\in Z(G),\qquad C_G(x)=G,\qquad\mathcal{O}_G(x)=\{x\}.
 \]
 \end{lemma}
 \begin{proof}
@@ -57,19 +131,21 @@ Each condition says that every $g\in G$ satisfies $gxg^{-1}=x$.
 
 \section{The class equation}
 
-The orbits of any action partition the underlying set. Choosing one
-representative $x_i$ from each conjugacy class therefore gives
+The orbits of any action partition the underlying set. Suppose $G$ is
+finite, and choose representatives $x_1,\ldots,x_k$, one from each
+conjugacy class. Then
 \[
-  G=\Cl_G(x_1)\sqcup\cdots\sqcup\Cl_G(x_k).
+  G=\mathcal{O}_G(x_1)\sqcup\cdots\sqcup\mathcal{O}_G(x_k).
 \]
 
 \Needspace{10\baselineskip}
 \begin{theorem}[Class equation]\label{thm:class-equation}
-If $G$ is finite, then
+If $G$ is finite and $x_1,\ldots,x_k$ represent its distinct
+conjugacy classes, then
 \[
-  |G|=\sum_{i=1}^k|\Cl_G(x_i)|,
+  |G|=\sum_{i=1}^k|\mathcal{O}_G(x_i)|,
   \qquad
-  |\Cl_G(x_i)|=[G:C_G(x_i)].
+  |\mathcal{O}_G(x_i)|=[G:C_G(x_i)].
 \]
 In particular, every conjugacy class size divides $|G|$.
 \end{theorem}
@@ -78,7 +154,7 @@ The first equality counts the elements of the disjoint union.
 The second is orbit--stabilizer for the conjugation action.
 \end{proof}
 
-The singleton classes are exactly the elements of $Z(G)$.
+The singleton classes are exactly the sets $\{z\}$ with $z\in Z(G)$.
 Consequently, another useful form of the class equation is
 \[
   |G|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)],
@@ -94,7 +170,8 @@ Recall that conjugation relabels the entries of a cycle:
 \]
 More generally, two permutations in $S_n$ are conjugate if and only
 if their decompositions into disjoint cycles have the same cycle
-lengths, including fixed points. We call this their \emph{cycle type}.
+lengths, counting fixed points as cycles of length $1$. This collection
+of cycle lengths, with repetitions, is called the \emph{cycle type}.
 
 \begin{example}[The class equation of $S_3$]\label{ex:s3}
 There are three cycle types in $S_3$, giving the classes
@@ -115,7 +192,7 @@ singleton conjugacy class.
 Orbit--stabilizer determines the orders of the centralizers:
 \[
 \begin{array}{c|c|c}
-  x & |\Cl_{S_3}(x)| & C_{S_3}(x)\\ \hline
+  x & |\mathcal{O}_{S_3}(x)| & C_{S_3}(x)\\ \hline
   1 & 1 & S_3\\[2pt]
   (1\,2\,3) & 2 & \langle(1\,2\,3)\rangle\\[2pt]
   (1\,3) & 3 & \{1,(1\,3)\}
@@ -124,9 +201,13 @@ Orbit--stabilizer determines the orders of the centralizers:
 For example, the centralizer of $(1\,2\,3)$ has order $3$ and
 contains its cyclic subgroup of order $3$, so the two are equal.
 
-Conjugate elements have conjugate centralizers. The two $3$-cycles
-have the same centralizer, since their centralizer has index $2$
-and is normal. The three transpositions instead have three
+By Lemma~\ref{lem:conjugate-stabilizers}, conjugate elements have
+conjugate centralizers:
+\[
+  C_G(axa^{-1})=aC_G(x)a^{-1}.
+\]
+The two $3$-cycles have the same centralizer, since
+$\langle(1\,2\,3)\rangle$ has index $2$ in $S_3$ and is therefore normal. The three transpositions instead have three
 distinct, conjugate centralizers of order $2$:
 \[
   \langle(1\,2)\rangle,\qquad
@@ -165,7 +246,7 @@ The determinant homomorphism
 is surjective: the diagonal matrix $\operatorname{diag}(a,1)$
 has determinant $a$ for each $a\in\F_3^\times$.
 Its kernel is $\SL_2(\F_3)$, and $|\F_3^\times|=2$.
-The counting formula therefore gives
+The counting formula for a homomorphism therefore gives
 \[
   |\SL_2(\F_3)|=\frac{48}{2}=24.
 \]

@@ -132,21 +132,8 @@ block form
 \]
 \end{example}
 
-\begin{lemma}[Stabilizers in the same orbit]\label{lem:conjugate-stabilizers}
-If $s'=a\cdot s$, then $G_{s'}=aG_sa^{-1}$.
-\end{lemma}
-\begin{proof}
-For $x\in G$,
-\begin{align*}
-  x\in G_{s'}
-  &\iff x\cdot(a\cdot s)=a\cdot s\\
-  &\iff (a^{-1}xa)\cdot s=s\\
-  &\iff a^{-1}xa\in G_s.
-\end{align*}
-This is equivalent to $x\in aG_sa^{-1}$.
-\end{proof}
 
-\Needspace{29\baselineskip}
+
 \begin{example}[Stabilizer of a short diagonal]\label{ex:short-diagonal-stabilizer}
 As in Homework~3, let $D_{12}=\langle x,y\rangle$ act on a regular
 hexagon with vertices $v_1,\ldots,v_6$ labeled counterclockwise.
@@ -191,68 +178,6 @@ endpoints. Thus
 a subgroup of order $2$. This is the stabilizer that appears in the
 short-diagonals part of Homework~3.
 \end{example}
-
-\section{The orbit--stabilizer theorem}
-
-\begin{theorem}[Orbit--stabilizer]\label{thm:orbit-stabilizer}
-For any action $G\curvearrowright S$ and $s\in S$, there is a
-bijection of sets
-\[
-  G/G_s\longrightarrow\mathcal O_s,
-  \qquad gG_s\longmapsto g\cdot s.
-\]
-Here $G/G_s$ is the set of left cosets; $G_s$ need not be normal.
-\end{theorem}
-\begin{proof}
-If $gG_s=\widetilde gG_s$, then
-$\widetilde g^{-1}g\in G_s$ and hence
-$g\cdot s=\widetilde g\cdot s$. Thus the map is well defined.
-It is surjective by the definition of $\mathcal O_s$.
-If $g\cdot s=\widetilde g\cdot s$, then
-$\widetilde g^{-1}g\in G_s$, so $gG_s=\widetilde gG_s$.
-Therefore it is injective.
-\end{proof}
-
-\begin{corollary}\label{cor:orbit-size}
-If $G$ is finite, then
-\[
-  |\mathcal O_s|=[G:G_s],
-  \qquad |G|=|\mathcal O_s|\,|G_s|.
-\]
-In particular, every orbit size divides $|G|$.
-\end{corollary}
-
-Together with Proposition~\ref{prop:orbit-partition}, this gives
-two useful counting formulas: one measures each orbit using its
-stabilizer, and the other adds the sizes of all distinct orbits.
-The bijection in Theorem~\ref{thm:orbit-stabilizer} itself does not
-require $G$ or $S$ to be finite. For example, the action of
-$\GL_n(\R)$ on $\R^n$ has the infinite orbit
-$\R^n\setminus\{0\}$ and the singleton orbit $\{0\}$.
-
-\Needspace{16\baselineskip}
-\section{Conjugation as an action}
-
-Every group acts on itself by \emph{conjugation}:
-\[
-  g\cdot x=gxg^{-1}.
-\]
-Indeed, $1\cdot x=x$ and
-$(gh)\cdot x=ghx(gh)^{-1}=g\cdot(h\cdot x)$.
-The orbit of $x$ is its \emph{conjugacy class}
-$\{gxg^{-1}:g\in G\}$, and its stabilizer is the
-\emph{centralizer}
-\[
-  C_G(x)=\{g\in G:gx=xg\}.
-\]
-Thus, for finite $G$, orbit--stabilizer gives
-\[
-  |\operatorname{Cl}_G(x)|=[G:C_G(x)].
-\]
-Choosing one representative from each conjugacy class gives the
-\emph{class equation} $|G|=\sum_x[G:C_G(x)]$, where the sum runs over
-those representatives. This action is a starting point for later
-counting arguments, including the Sylow theorems.
 
 
 \end{document}
