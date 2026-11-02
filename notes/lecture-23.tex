@@ -11,17 +11,61 @@
 \raggedbottom
 \makelecturetitle
 
-\section{Normal subgroups and conjugacy classes}
+\section{Review: conjugation, the center, and the class equation}
 
-Recall that conjugation partitions a finite group into classes
-$\Cl_G(x)=\{gxg^{-1}:g\in G\}$. Its stabilizer is the
-centralizer $C_G(x)=\{g\in G:gx=xg\}$, and
+In Lecture 22 we considered the action of a group $G$ on itself by
+\emph{conjugation}:
 \[
-  |\Cl_G(x)|=[G:C_G(x)],\qquad
-  |G|=\sum_{\text{distinct classes }C}|C|.
+  g\cdot x=gxg^{-1}.
 \]
-Each class size divides $|G|$, and the identity contributes the
-singleton class $\{1\}$.
+This is an action because $1\cdot x=x$ and
+$(gh)\cdot x=g\cdot(h\cdot x)$. The orbit of $x$ is its
+\emph{conjugacy class}, which we write as
+\[
+  \Cl_G(x)=\mathcal O_G(x)=\{gxg^{-1}:g\in G\}.
+\]
+Its stabilizer is the \emph{centralizer}
+\[
+  C_G(x)=\{g\in G:gxg^{-1}=x\}
+        =\{g\in G:gx=xg\}.
+\]
+For finite $G$, orbit--stabilizer gives
+\[
+  |\Cl_G(x)|=[G:C_G(x)].
+\]
+In particular, every conjugacy class size divides $|G|$.
+Since the conjugacy classes partition $G$, choosing one representative
+$x_i$ from each class gives the \emph{class equation}
+\[
+  |G|=\sum_i|\Cl_G(x_i)|=\sum_i[G:C_G(x_i)].
+\]
+
+Recall also that the \emph{center} is
+\[
+  Z(G)=\{z\in G:zg=gz\text{ for every }g\in G\}
+      =\bigcap_{x\in G}C_G(x).
+\]
+For any $x\in G$,
+\[
+  x\in Z(G)\quad\Longleftrightarrow\quad C_G(x)=G
+  \quad\Longleftrightarrow\quad\Cl_G(x)=\{x\}.
+\]
+Thus the central elements are exactly the elements whose conjugacy
+classes have size $1$. In the class equation with one summand for
+each conjugacy class, \emph{the number of $1$s is $|Z(G)|$}.
+There is always at least one, coming from the identity, but other
+central elements each contribute another $1$.
+Collecting these singleton classes gives
+\[
+  |G|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)],
+\]
+where the sum contains one representative from each noncentral class.
+For example, $G$ is abelian exactly when every class has size $1$;
+in that case $Z(G)=G$ and the class equation has $|G|$ copies of $1$.
+
+Conjugacy classes also help us find normal subgroups. The center is
+normal, since $gzg^{-1}=z$ for every $z\in Z(G)$ and $g\in G$.
+More generally, we have the following criterion.
 
 \begin{proposition}\label{prop:normal-union}
 A subgroup $N\leq G$ is normal if and only if it is a union of
@@ -37,7 +81,9 @@ class sizes that includes the identity class. It must also divide
 $|G|$ by Lagrange's theorem. These two requirements can be restrictive.
 
 \begin{example}[Normal subgroups of $S_3$]
-The class sizes in $S_3$ are $1,2,3$. A normal subgroup must include
+The class equation is $6=1+2+3$. There is exactly one $1$, so
+$|Z(S_3)|=1$ and hence $Z(S_3)=\{1\}$.
+A normal subgroup must include
 the identity, so its possible orders from unions of classes are
 $1,3,4,6$. Of these, only $1,3,6$ divide $6$.
 Thus the only nontrivial proper normal subgroup is
@@ -46,42 +92,89 @@ Thus the only nontrivial proper normal subgroup is
 \]
 \end{example}
 
-\section{Cycle decompositions and cycle types}
-
-Every permutation is a product of disjoint cycles. Cycles are
-\emph{disjoint} when they have no entries in common; disjoint cycles
-commute. The decomposition is unique up to reordering the cycles
-and cyclically shifting the entries within each cycle.
-Fixed points may be recorded as cycles of length $1$.
-
-\begin{example}
-The cycles $(1\,2)$ and $(3\,4)$ are disjoint, whereas
-$(1\,3)$ and $(3\,2)$ are not. A permutation can also be expressed
-as a product of transpositions that need not be disjoint, for example
+\Needspace{12\baselineskip}
+\begin{example}[The class equation of $D_{12}$]
+Let $D_{12}$ be the symmetry group of a regular hexagon, of order $12$.
+Write $x$ for rotation through $60^\circ$ and $r$ for a reflection.
+Then
 \[
-  (1\,2\,3)=(2\,3)(1\,3).
+  x^6=r^2=1,\qquad rxr^{-1}=x^{-1},
 \]
-Products are composed from right to left.
+and the elements are $x^k$ and $x^kr$ for $0\leq k<6$.
+
+Before computing the classes, let us narrow down the possible class
+equations. Each class size divides $12$, and each central element
+contributes a $1$. A rotation $x^k$ commutes with $r$ exactly when
+$x^k=x^{-k}$, or $2k\equiv0\pmod6$. No reflection commutes with
+$x$, since conjugation by any reflection sends $x$ to $x^{-1}\neq x$.
+Thus
+\[
+  Z(D_{12})=\{1,x^3\},
+\]
+so there are exactly two $1$s. Moreover, $Z(D_{12})\leq C_{D_{12}}(y)$
+for every $y$, so
+\[
+  [D_{12}:C_{D_{12}}(y)]\text{ divides }[D_{12}:Z(D_{12})]=6.
+\]
+The remaining class sizes must therefore be $2$, $3$, or $6$,
+and must sum to $10$. Writing $10=2a+3b+6c$ with $a,b,c\geq0$,
+we see that $b$ is even and $c\leq1$. This leaves just three
+possibilities, up to reordering the summands:
+\[
+\begin{aligned}
+  12&=1+1+2+2+2+2+2,\\
+  12&=1+1+2+2+3+3,\\
+  12&=1+1+2+2+6.
+\end{aligned}
+\]
+We now compute the classes to decide which possibility occurs.
+
+Since $x$ and $r$ generate $D_{12}$, every conjugation is a
+composition of conjugations by these generators (and their inverses):
+\[
+  (gh)y(gh)^{-1}=g(hyh^{-1})g^{-1}.
+\]
+Thus we find a conjugacy class by starting with an element and
+repeatedly conjugating by $x$ and $r$; their inverses are powers of
+the same generators.
+
+For a rotation $x^k$, conjugation by $x$ does nothing, while
+conjugation by $r$ inverts it:
+\[
+  x x^k x^{-1}=x^k,\qquad
+  r x^k r^{-1}=(rxr^{-1})^k=x^{-k}.
+\]
+Further conjugations can only interchange $x^k$ and $x^{-k}$.
+Both occur, so $\Cl_{D_{12}}(x^k)=\{x^k,x^{-k}\}$, with a
+singleton when $x^k=x^{-k}$. Hence the conjugacy classes of the
+rotation elements are
+\[
+  \{1\},\qquad \{x^3\},\qquad
+  \{x,x^5\},\qquad \{x^2,x^4\}.
+\]
+For the reflections, conjugating $r$ by $x$ gives
+$xrx^{-1}=x^2r$, using $rx^{-1}=xr$. More generally, the relations give
+\[
+  x^a(x^kr)x^{-a}=x^{k+2a}r,\qquad
+  r(x^kr)r^{-1}=x^{-k}r.
+\]
+These conjugations preserve the parity of $k$, and conjugation by
+powers of $x$ reaches all three exponents of the same parity.
+Hence the two reflection classes are
+\[
+  \{r,x^2r,x^4r\},\qquad \{xr,x^3r,x^5r\}.
+\]
+The class equation is therefore
+\[
+  12=1+1+2+2+3+3.
+\]
+This is the second of our three candidates, with the two $1$s
+corresponding to $1$ and $x^3$ in the center.
 \end{example}
 
-\begin{lemma}[Parity and order of cycles]
-A cycle of length $r$ has order $r$ and sign $(-1)^{r-1}$.
-The order of a product of disjoint cycles of lengths
-$r_1,\ldots,r_k$ is $\operatorname{lcm}(r_1,\ldots,r_k)$.
-\end{lemma}
-\begin{proof}
-An $r$-cycle first returns every entry to its original position
-after $r$ applications. It can be written as $r-1$ transpositions:
-\[
-  (i_1\,i_2\,\cdots\,i_r)
-  =(i_1\,i_r)(i_1\,i_{r-1})\cdots(i_1\,i_2).
-\]
-For disjoint cycles, a power is the identity exactly when its
-exponent is divisible by every cycle length.
-\end{proof}
+\section{Cycle decompositions and cycle types}
 
-In particular, cycles of odd length are even permutations, and
-cycles of even length are odd permutations.
+Every permutation is a product of disjoint cycles.  Recall also the following fact
 
 \begin{theorem}[Conjugacy in $S_n$]\label{thm:cycle-type}
 Two permutations in $S_n$ are conjugate if and only if they have
@@ -120,7 +213,6 @@ orders for the other entries. The class equation is
 \]
 \end{example}
 
-\Needspace{20\baselineskip}
 \begin{example}[The class equation of $S_5$]\label{ex:s5}
 There are seven cycle types in $S_5$.
 \begin{center}
@@ -188,7 +280,6 @@ element of $H$ to obtain an even conjugator with the same effect
 on $\sigma$.
 \end{proof}
 
-\Needspace{15\baselineskip}
 \begin{example}[Two $5$-cycles that are not conjugate in $A_5$]
 Let $c=(1\,2\,3\,4\,5)$ and $d=(1\,2\,3\,5\,4)$.
 They are conjugate in $S_5$ because $d=(4\,5)c(4\,5)^{-1}$.
