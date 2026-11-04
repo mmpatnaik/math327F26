@@ -2,302 +2,358 @@
 \usepackage{math327-lecture}
 \usepackage{needspace}
 \usepackage{tikz}
-\newcommand{\SO}{\operatorname{SO}}
-\lectureinfo{24}{Nov. 4, 2026}{Rotations, Euler's Theorem, and Poles of Finite Rotation Groups}
-\artinsections{5.1; 6.12}
+\newcommand{\Cl}{\operatorname{Cl}}
+\lectureinfo{24}{Nov. 4, 2026}{Class Equations for Dihedral and Symmetric Groups, and the Simplicity of A5}
+\artinsections{7.4--7.5}
 
-% Typeset from handwritten Lecture 17, Oct. 10, 2025, pp. 1--10,
-% and handwritten Lecture 18, Oct. 15, 2025, pp. 5--16.
+% Adapted from Lecture 23. Based on handwritten Lecture 20, Oct. 22, 2025, pp. 1--10,
+% and Lecture 21, Oct. 24, 2025, pp. 1--11.
 \begin{document}
 \raggedbottom
 \makelecturetitle
 
+\section{The class equation of D\texorpdfstring{$_{12}$}{12}}
 
+Recall the regular hexagon with vertices $v_1,\ldots,v_6$ labeled
+counterclockwise. Its symmetry group is $D_{12}$: it consists of
+six rotations and six reflections, so $|D_{12}|=12$.
+Let $x$ be counterclockwise rotation through $60^\circ$, and let
+$r$ be reflection across the long diagonal $\overline{v_1v_4}$.
 
-\section{Rotations and the special orthogonal group}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \foreach \i in {1,...,6} {
+    \coordinate (v\i) at ({60*(\i-1)}:1.55);
+  }
+  \draw[thick,gray] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+  \draw[dashed,thick,Plum] (-2.15,0)--(2.15,0);
+  \node[below,text=Plum] at (0,0) {axis of $r$};
+  \draw[->,thick,courseblue] (15:2.05) arc (15:65:2.05);
+  \node[right,text=courseblue] at (35:2.15) {$x$};
+  \foreach \i in {1,...,6} {\fill (v\i) circle (2pt);}
+  \node[above right] at (v1) {$v_1$};
+  \node[above left] at (v2) {$v_2$};
+  \node[above left] at (v3) {$v_3$};
+  \node[above left] at (v4) {$v_4$};
+  \node[below left] at (v5) {$v_5$};
+  \node[below right] at (v6) {$v_6$};
+\end{tikzpicture}
+\end{center}
 
-Recall that
+Thus $x$ sends $v_i$ to $v_{i+1}$ (with subscripts read modulo $6$),
+while $r$ fixes $v_1,v_4$ and interchanges $v_2$ with $v_6$ and
+$v_3$ with $v_5$. These symmetries generate $D_{12}$ and satisfy
 \[
-  \SO_3(\R)=\{A\in\GL_3(\R):A^{\mathsf T}A=I,\ \det A=1\}.
+  x^6=r^2=1,\qquad rxr^{-1}=x^{-1}.
 \]
-This is a group under matrix multiplication.
+The six rotations are $x^k$ and the six reflections are $x^kr$,
+for $0\leq k<6$.
 
-\begin{lemma}[Preservation of dot products]\label{lem:dot-product}
-If $A\in\SO_3(\R)$ and $v,w\in\R^3$, then
-$(Av)\cdot(Aw)=v\cdot w$.
-\end{lemma}
-\begin{proof}
-Writing $v\cdot w=v^{\mathsf T}w$, we have
+Before computing the classes, let us narrow down the possible class
+equations. Each class size divides $12$, and each central element
+contributes a $1$. 
+
+Note that we have the relation \be{} r x^k r^{-1} = x^{-k} \ee which follows immediatley from the relation $rxr^{-1} = x^{-1}$. 
+Hence, a rotation $x^k$ commutes with $r$ exactly when
+$x^k=x^{-k}$, or $2k\equiv0\pmod6$. 
+
+No reflection, i.e. the elements $x^kr$, commutes with
+$x$, since conjugation by any reflection sends $x$ to $x^{-1}\neq x$.
+Thus
 \[
-  (Av)\cdot(Aw)=v^{\mathsf T}A^{\mathsf T}Aw
-  =v^{\mathsf T}w=v\cdot w.
+  Z(D_{12})=\{1,x^3\},
 \]
-\end{proof}
+so there are exactly two $1$s. Moreover, $Z(D_{12})\leq C_{D_{12}}(y)$
+for every $y$, so
+\[
+  [D_{12}:C_{D_{12}}(y)]\text{ divides }[D_{12}:Z(D_{12})]=6.
+\]
+The remaining class sizes must therefore be $2$, $3$, or $6$,
+and must sum to $10$. Writing $10=2a+3b+6c$ with $a,b,c\geq0$,
+we see that $b$ is even and $c\leq1$. This leaves just three
+possibilities, up to reordering the summands:
+\[
+\begin{aligned}
+  12&=1+1+2+2+2+2+2,\\
+  12&=1+1+2+2+3+3,\\
+  12&=1+1+2+2+6.
+\end{aligned}
+\]
+We now compute the classes to decide which possibility occurs.
 
-\begin{define}[Rotation and pole]
-A \emph{rotation} of $\R^3$ is a linear map $\rho:\R^3\to\R^3$
-that fixes a unit vector $u$ and acts as a planar rotation on
-$u^\perp$. The vector $u$ is called a \emph{pole} of $\rho$;
-the line $\R u$ is its axis.
-\end{define}
+Since $x$ and $r$ generate $D_{12}$, we find a conjugacy class by starting with an element and
+repeatedly conjugating by $x$ and $r$.
 
-\Needspace{11\baselineskip}
-\begin{lemma}\label{lem:fixed-vector}
-Every $A\in\SO_3(\R)$ has $1$ as an eigenvalue.
-\end{lemma}
-\begin{proof}
-Since $\det A=1$ and $AA^{\mathsf T}=I$,
-\begin{align*}
-  \det(A-I)
-  &=\det(A^{\mathsf T}-I)\\
-  &=\det\bigl(A(A^{\mathsf T}-I)\bigr)\\
-  &=\det(I-A)=-\det(A-I).
-\end{align*}
-The last sign occurs because the matrices are $3\times3$.
-Thus $\det(A-I)=0$, so $Au=u$ for some nonzero $u$.
-\end{proof}
+For a rotation $x^k$, conjugation by $x$ does nothing, while
+conjugation by $r$ inverts it:
+\[
+  x x^k x^{-1}=x^k,\qquad
+  r x^k r^{-1}=(rxr^{-1})^k=x^{-k}.
+\]
+Further conjugations can only interchange $x^k$ and $x^{-k}$.
+Both occur, so $\Cl_{D_{12}}(x^k)=\{x^k,x^{-k}\}$, with a
+singleton when $x^k=x^{-k}$. Hence the conjugacy classes of the
+rotation elements are
+\[
+  \{1\},\qquad \{x^3\},\qquad
+  \{x,x^5\},\qquad \{x^2,x^4\}.
+\]
+For the reflections, conjugating $r$ by $x$ gives
+$xrx^{-1}=x^2r$, using $rx^{-1}=xr$. More generally, the relations give
+\[
+  x^a(x^kr)x^{-a}=x^{k+2a}r,\qquad
+  r(x^kr)r^{-1}=x^{-k}r.
+\]
+These conjugations preserve the parity of $k$, and conjugation by
+powers of $x$ reaches all three exponents of the same parity.
+Hence the two reflection classes are
+\[
+  \{r,x^2r,x^4r\},\qquad \{xr,x^3r,x^5r\}.
+\]
+The class equation is therefore
+\[
+  12=1+1+2+2+3+3.
+\]
+The corresponding disjoint union of conjugacy classes is
+\[
+  D_{12}
+  =\underbrace{\{1\}}_{1}
+  \sqcup\underbrace{\{x^3\}}_{1}
+  \sqcup\underbrace{\{x,x^5\}}_{2}
+  \sqcup\underbrace{\{x^2,x^4\}}_{2}
+  \sqcup\underbrace{\{r,x^2r,x^4r\}}_{3}
+  \sqcup\underbrace{\{xr,x^3r,x^5r\}}_{3}.
+\]
+This is the second of our three candidates, with the two $1$s
+corresponding to $1$ and $x^3$ in the center.
 
-\begin{theorem}[Euler's rotation theorem]\label{thm:euler}
-A linear map $\rho:\R^3\to\R^3$ is a rotation if and only if its
-matrix in the standard basis belongs to $\SO_3(\R)$.
+Now let's try to understand the normal subgroups of $D_{12}$
+
+\begin{proposition}\label{prop:normal-union}
+A subgroup $N\leq G$ is normal if and only if it is a union of
+conjugacy classes of $G$.
+\end{proposition}
+
+
+For finite $G$, a normal subgroup's order is therefore a sum of
+class sizes that includes the identity class. It must also divide
+$|G|$ by Lagrange's theorem.  In $D_{12}$, a normal subgroup must therefore contain $\{1\}$
+and some of the other five classes in
+\[
+  12=1+1+2+2+3+3.
+\]
+Its order must divide $12$, so the possible orders are
+$1,2,3,4,6,12$. That doesn't seeem very helpful! 
+
+However, a union of classes with an allowable
+size need not be a subgroup: we must also check closure.
+For example, $\{1\}\sqcup\{r,x^2r,x^4r\}$ has size $4$, but
+\[
+  (x^2r)r=x^2
+\]
+is not in this union.
+
+We can find all the normal subgroups by separating two cases.
+
+\textbf{Only rotations.}
+If $N\subseteq\langle x\rangle$, then $N$ is one of the subgroups
+of this cyclic group of order $6$:
+\[
+  \{1\},\qquad \langle x^3\rangle,\qquad
+  \langle x^2\rangle,\qquad \langle x\rangle.
+\]
+Each is normal in $D_{12}$: conjugation by $x$ fixes rotations,
+and conjugation by $r$ inverts them. Their decompositions into
+classes appear in the table below.
+
+\textbf{At least one reflection.}
+If $x^kr\in N$, normality forces its entire conjugacy class into
+$N$, so $x^{k+2}r\in N$ as well. Closure then gives
+\[
+  (x^{k+2}r)(x^kr)^{-1}=x^2\in N.
+\]
+Thus $N$ contains $\langle x^2,x^kr\rangle$, which consists of
+three rotations and the three reflections in the class of $x^kr$.
+This subgroup has order $6$, so Lagrange's theorem forces $N$
+to equal it or all of $D_{12}$. For even $k$ it is
+$\langle x^2,r\rangle$; for odd $k$ it is $\langle x^2,xr\rangle$.
+Both have index $2$ and hence are normal.
+
+\Needspace{16\baselineskip}
+The complete list is therefore:
+\begin{center}
+\small
+\begin{tabular}{lll}
+  \textbf{Normal subgroup} & \textbf{Union of conjugacy classes} & \textbf{Order}\\ \hline
+  $\{1\}$ & $\{1\}$ & $1$\\[4pt]
+  $\langle x^3\rangle$ & $\{1\}\sqcup\{x^3\}$ & $1+1=2$\\[4pt]
+  $\langle x^2\rangle$ & $\{1\}\sqcup\{x^2,x^4\}$ & $1+2=3$\\[4pt]
+  $\langle x\rangle$ & $\{1\}\sqcup\{x^3\}\sqcup\{x,x^5\}\sqcup\{x^2,x^4\}$ & $1+1+2+2=6$\\[4pt]
+  $\langle x^2,r\rangle$ & $\{1\}\sqcup\{x^2,x^4\}\sqcup\{r,x^2r,x^4r\}$ & $1+2+3=6$\\[4pt]
+  $\langle x^2,xr\rangle$ & $\{1\}\sqcup\{x^2,x^4\}\sqcup\{xr,x^3r,x^5r\}$ & $1+2+3=6$\\[4pt]
+  $D_{12}$ & All six classes & $1+1+2+2+3+3=12$
+\end{tabular}
+\end{center}
+In particular, there is no normal subgroup of order $4$.
+The class equation supplies the possible pieces; the subgroup
+condition determines which unions actually occur.
+
+\section{Conjugacy classes and the class equation of S\texorpdfstring{$_5$}{5}}
+
+Every permutation is a product of disjoint cycles.  Recall also the following fact
+
+\begin{theorem}[Conjugacy in $S_n$]\label{thm:cycle-type}
+Two permutations in $S_n$ are conjugate if and only if they have
+the same cycle type, including fixed points.
 \end{theorem}
 \begin{proof}
-Suppose first that $\rho$ is a rotation with pole $u$.
-Choose an orthonormal basis $\mathcal B=(u,v,w)$, where $(v,w)$
-is an orthonormal basis of $u^\perp$. In this basis its matrix is
+Conjugation relabels a cycle:
 \[
-  B_\theta=
-  \begin{pmatrix}
-    1&0&0\\
-    0&\cos\theta&-\sin\theta\\
-    0&\sin\theta&\cos\theta
-  \end{pmatrix}.
+  g(i_1\,\cdots\,i_r)g^{-1}=(g(i_1)\,\cdots\,g(i_r)).
 \]
-Let $P$ have columns $u,v,w$. Since $P$ is orthogonal, the matrix
-in the standard basis is $PB_\theta P^{-1}=PB_\theta P^{\mathsf T}$.
-This matrix is orthogonal and has determinant $1$.
+It therefore preserves the lengths of disjoint cycles.
+Conversely, for two permutations of the same cycle type, match
+their cycles of equal lengths and define $g$ by matching the
+entries in those cycles in order. The displayed formula then
+shows that $g$ conjugates one permutation to the other.
+\end{proof}
 
-Conversely, let $A\in\SO_3(\R)$. By Lemma~\ref{lem:fixed-vector},
-there is a unit vector $u$ with $Au=u$. Put $W=u^\perp$.
-For $w\in W$, Lemma~\ref{lem:dot-product} gives
+\begin{example}[The class equation of $S_5$]\label{ex:s5}
+There are seven cycle types in $S_5$.
+\begin{center}
+\begin{tabular}{cccl}
+  \textbf{Representative} & \textbf{Class size} & \textbf{Parity} & \textbf{Count}\\ \hline
+  $1$ & $1$ & Even & Identity\\[2pt]
+  $(1\,2)$ & $10$ & Odd & $\binom52$\\[2pt]
+  $(1\,2\,3)$ & $20$ & Even & $\binom53\cdot2$\\[2pt]
+  $(1\,2\,3\,4)$ & $30$ & Odd & $\binom54\cdot3!$\\[2pt]
+  $(1\,2\,3\,4\,5)$ & $24$ & Even & $4!$\\[2pt]
+  $(1\,2)(3\,4)$ & $15$ & Even & $\binom54\cdot3$\\[2pt]
+  $(1\,2\,3)(4\,5)$ & $20$ & Odd & $\binom53\cdot2$
+\end{tabular}
+\end{center}
+Thus
 \[
-  (Aw)\cdot u=(Aw)\cdot(Au)=w\cdot u=0,
+  120=1+10+20+30+24+15+20.
 \]
-so $A$ preserves $W$. In an orthonormal basis adapted to
-$\R^3=\R u\oplus W$, its matrix has the form
+The even permutations have total size $1+20+24+15=60$.
+This is not yet the class equation of $A_5$: conjugation in $A_5$
+allows only even conjugating permutations.
+\end{example}
+
+\section{Conjugacy in S\texorpdfstring{$_5$}{5} versus A\texorpdfstring{$_5$}{5}}
+
+To compare conjugacy in $S_5$ and $A_5$, we use the following
+general criterion for $S_n$ and $A_n$.
+
+For $\sigma\in A_n$, we have
 \[
-  \begin{pmatrix}1&0\\0&B\end{pmatrix},
+  \Cl_{A_n}(\sigma)\subseteq\Cl_{S_n}(\sigma),\qquad
+  C_{A_n}(\sigma)=C_{S_n}(\sigma)\cap A_n.
 \]
-where $B$ is a $2\times2$ orthogonal matrix and $\det B=\det A=1$.
-An orthogonal matrix in dimension $2$ with determinant $1$ has the
-form
+The first inclusion can be strict: a class in $S_n$ may split when
+we restrict conjugation to $A_n$.
+
+\begin{lemma}[Splitting of conjugacy classes]\label{lem:splitting}
+Let $n\geq2$ and $\sigma\in A_n$.
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item If $C_{S_n}(\sigma)\subseteq A_n$, then
+  $\Cl_{S_n}(\sigma)$ splits into two $A_n$-classes of equal size, and
+  \[
+    |\Cl_{A_n}(\sigma)|=\tfrac12|\Cl_{S_n}(\sigma)|.
+  \]
+  \item If $C_{S_n}(\sigma)$ contains an odd permutation, then
+  $\Cl_{A_n}(\sigma)=\Cl_{S_n}(\sigma)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Put $H=C_{S_n}(\sigma)$ and $K=H\cap A_n=C_{A_n}(\sigma)$.
+Orbit--stabilizer gives
 \[
-  B=\begin{pmatrix}\cos\theta&-\sin\theta\\
-                       \sin\theta&\cos\theta\end{pmatrix}.
+  |\Cl_{S_n}(\sigma)|=\frac{n!}{|H|},\qquad
+  |\Cl_{A_n}(\sigma)|=\frac{n!/2}{|K|}.
 \]
-Hence $A$ fixes $u$ and rotates its perpendicular plane.
+If $H\subseteq A_n$, then $K=H$, giving the factor $1/2$.
+Fix an odd permutation $t$. Every conjugator in $S_n$ is either
+even or belongs to the coset $A_nt$, so the $S_n$-class is the union
+of the $A_n$-classes of $\sigma$ and $t\sigma t^{-1}$.
+Conjugation by $t$ gives a bijection between these two classes,
+so they have equal size. The factor $1/2$ shows that they are distinct.
+
+If $H$ contains an odd permutation, the sign map on $H$ is
+surjective with kernel $K$. Hence $|H|=2|K|$, and the two class
+sizes are equal. The inclusion then gives equality of the classes.
+Equivalently, an odd conjugator can be multiplied by an odd
+element of $H$ to obtain an even conjugator with the same effect
+on $\sigma$.
+\end{proof}
+
+\begin{example}[Two $5$-cycles that are not conjugate in $A_5$]
+Let $c=(1\,2\,3\,4\,5)$ and $d=(1\,2\,3\,5\,4)$.
+They are conjugate in $S_5$ because $d=(4\,5)c(4\,5)^{-1}$.
+The centralizer of $c$ in $S_5$ is
+\[
+  C_{S_5}(c)=\langle c\rangle.
+\]
+Indeed, a permutation commuting with $c$ is determined by its
+value at $1$, since $h(c^j(1))=c^j(h(1))$. There are at most five
+choices, and the five powers of $c$ all commute with $c$.
+These powers are even.
+
+If an even $h$ also satisfied $hch^{-1}=d$, then
+$(4\,5)^{-1}h$ would belong to $C_{S_5}(c)$, which is impossible
+because it is odd. Thus $c$ and $d$ lie in distinct $A_5$-classes.
+Each class has size $60/5=12$.
+\end{example}
+
+\section{The class equation and simplicity of A\texorpdfstring{$_5$}{5}}
+
+The even cycle types in $S_5$ are the identity, $3$-cycles,
+double transpositions, and $5$-cycles.
+The centralizer of $(1\,2\,3)$ contains the odd permutation
+$(4\,5)$, so its class does not split. Likewise, $(1\,2)$ is an
+odd element centralizing $(1\,2)(3\,4)$, so that class does not
+split. The $5$-cycles split into two classes as above.
+
+\Needspace{13\baselineskip}
+\begin{example}[The class equation of $A_5$]
+The classes have the following representatives and sizes.
+\begin{center}
+\begin{tabular}{ccc}
+  \textbf{Representative} & \textbf{Class size} & \textbf{Centralizer order in $A_5$}\\ \hline
+  $1$ & $1$ & $60$\\[2pt]
+  $(1\,2\,3)$ & $20$ & $3$\\[2pt]
+  $(1\,2)(3\,4)$ & $15$ & $4$\\[2pt]
+  $(1\,2\,3\,4\,5)$ & $12$ & $5$\\[2pt]
+  $(1\,2\,3\,5\,4)$ & $12$ & $5$
+\end{tabular}
+\end{center}
+Hence
+\[
+  60=1+20+15+12+12.
+\]
+\end{example}
+
+\begin{define}[Simple group]
+A nontrivial group is \emph{simple} if its only normal subgroups
+are $\{1\}$ and the whole group.
+\end{define}
+
+\begin{theorem}
+The group $A_5$ is simple.
+\end{theorem}
+\begin{proof}
+Let $N\trianglelefteq A_5$. By Proposition~\ref{prop:normal-union},
+its order is $1$ plus a sum of some of $20,15,12,12$.
+If $N\neq\{1\}$, then $|N|\geq13$. If it is also proper, the
+only divisors of $60$ this large are $15,20,30$.
+None of these is $1$ plus a sum of some of $20,15,12,12$.
+Thus there is no nontrivial proper normal subgroup.
 \end{proof}
 
 \begin{remark}
-Orthogonal maps of a plane have determinant $1$ or $-1$.
-The first are rotations and the second are reflections.
-The determinant condition above is what rules out a reflection
-on $W$.
+More generally, $A_n$ is simple for every $n\geq5$.
+The argument above proves the case $n=5$.
 \end{remark}
-
-\section{Poles of a finite rotation group}
-
-Let $G\leq\SO_3(\R)$ be finite, and write $N=|G|$.
-We want to study $G$ by letting it act on the poles of its rotations.
-
-\begin{define}[Poles of a group]
-The set of \emph{poles of $G$} is
-\[
-  \mathcal P=\{p\in S^2:gp=p\text{ for some }g\in G\setminus\{1\}\},
-\]
-where $S^2=\{p\in\R^3:\|p\|=1\}$ is the unit sphere.
-\end{define}
-
-A nonidentity rotation fixes exactly two points on the unit sphere,
-the two unit vectors along its axis. Indeed, its restriction to the
-perpendicular plane is a nonidentity planar rotation and fixes no
-nonzero vector. Since $G$ is finite, $\mathcal P$ is finite as well.
-
-\Needspace{18\baselineskip}
-\begin{example}[Poles of the tetrahedral group]
-Let $T$ be the group of rotational symmetries of a regular
-tetrahedron centered at the origin. Its poles are the directions
-from the origin through the following points:
-
-\begin{minipage}[c]{0.53\linewidth}
-\centering
-\begin{tabular}{lr}
-  \textbf{Direction through} & \textbf{Poles}\\[3pt]
-  A vertex & $4$\\
-  A face center & $4$\\
-  An edge midpoint & $6$\\[2pt]
-  \hline
-  Total & $14$
-\end{tabular}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.43\linewidth}
-\centering
-\begin{tikzpicture}[scale=0.8]
-  \draw[gray] (0,0) circle (1.65);
-  \draw[dashed,gray!65] (-1.65,0) arc (180:360:1.65 and 0.35);
-  \draw[gray!65] (1.65,0) arc (0:180:1.65 and 0.35);
-  \coordinate (a) at (0,1.429);
-  \coordinate (b) at (1.556,-0.476);
-  \coordinate (c) at (-0.778,0.197);
-  \coordinate (d) at (-0.778,-1.150);
-  \draw[dashed,courseblue] (c)--(a) (c)--(b) (c)--(d);
-  \draw[thick,courseblue] (a)--(b)--(d)--cycle;
-  \foreach \v in {a,b,c,d} {\fill[courseblue] (\v) circle (2pt);}
-\end{tikzpicture}
-\end{minipage}
-
-The axes through a vertex and the opposite face center give
-rotations of order $3$. The axes through midpoints of opposite
-edges give half-turns. A pole is the point on the unit sphere in
-the indicated direction, rather than the face center or edge
-midpoint itself.
-\end{example}
-
-\begin{proposition}\label{prop:action-on-poles}
-The natural action of $G$ on $S^2$ restricts to an action on
-$\mathcal P$.
-\end{proposition}
-\begin{proof}
-Let $p\in\mathcal P$, and choose $g\neq1$ with $gp=p$.
-For $h\in G$, the nonidentity element $hgh^{-1}\in G$ satisfies
-\[
-  (hgh^{-1})(hp)=hgp=hp.
-\]
-Also, $hp$ is a unit vector because $h$ preserves lengths.
-Thus $hp\in\mathcal P$.
-\end{proof}
-
-\section{Counting poles and stabilizers}
-
-Decompose the pole set into distinct orbits:
-\[
-  \mathcal P=\mathcal O_{p_1}\sqcup\cdots\sqcup\mathcal O_{p_k}.
-\]
-Write
-\[
-  n_i=|\mathcal O_{p_i}|,\qquad r_i=|G_{p_i}|.
-\]
-Every $r_i\geq2$, since $p_i$ is fixed by a nonidentity element.
-By orbit--stabilizer,
-\[
-  n_i r_i=N.
-\]
-The stabilizers of points in the same orbit are conjugate, so their
-orders agree.
-
-\begin{theorem}[Pole-counting formula]\label{thm:pole-counting}
-For a finite subgroup $G\leq\SO_3(\R)$ of order $N$,
-\[
-  \boxed{\displaystyle
-  \sum_{p\in\mathcal P}\bigl(|G_p|-1\bigr)=2(N-1).}
-\]
-\end{theorem}
-\begin{proof}
-Count the pairs $(g,p)$ with $g\in G\setminus\{1\}$,
-$p\in\mathcal P$, and $gp=p$.
-For each $p$, there are $|G_p|-1$ choices of $g$.
-For each nonidentity $g$, there are exactly two choices of $p$,
-its two poles. The two counts give the formula.
-\end{proof}
-
-Grouping the sum by orbits gives the equivalent identities
-\[
-  \sum_{i=1}^k n_i(r_i-1)=2(N-1),
-  \qquad
-  \sum_{i=1}^k\left(1-\frac1{r_i}\right)=2-\frac2N.
-\]
-These combine the orbit sizes and stabilizer orders into a
-restriction on finite rotation groups, the starting point for
-their classification.
-
-\section{Consequences of the pole-counting formula}
-
-Suppose throughout that $G$ is nontrivial. Since $r_i\geq2$,
-each term $1-1/r_i$ is at least $1/2$ and strictly less than $1$.
-The right side of the pole-counting formula lies in $[1,2)$.
-Consequently the poles form either two or three $G$-orbits:
-one orbit would contribute less than $1$, while four would
-contribute at least $2$.
-
-\begin{lemma}[Point stabilizers are cyclic]\label{lem:cyclic-stabilizer}
-For every $p\in\mathcal P$, the stabilizer $G_p$ is cyclic.
-\end{lemma}
-\begin{proof}
-Every element of $G_p$ fixes $p$ and restricts to an
-orientation-preserving orthogonal map of $p^\perp$. Restriction
-embeds $G_p$ into $\SO_2(\R)$, the group of planar rotations.
-A finite subgroup of $\SO_2(\R)$ is cyclic: choose its smallest
-positive rotation angle $\theta$; division with remainder by
-$\theta$ shows that every angle is an integral multiple of it.
-\end{proof}
-
-\subsection*{Two orbits}
-If $k=2$, then
-\[
-  \frac1{r_1}+\frac1{r_2}=\frac2N.
-\]
-Since $r_i\leq N$, each summand on the left is at least $1/N$.
-Equality forces $r_1=r_2=N$, hence $n_1=n_2=1$.
-The pole set is therefore $\{p,-p\}$, and every element of $G$
-fixes both poles. Thus $G=G_p$ is cyclic by
-Lemma~\ref{lem:cyclic-stabilizer}. Geometrically, these are the
-rotations about one common axis.
-
-\subsection*{Three orbits}
-For $k=3$, order the stabilizer sizes as $2\leq r_1\leq r_2\leq r_3$.
-The formula becomes
-\[
-  \frac1{r_1}+\frac1{r_2}+\frac1{r_3}=1+\frac2N>1.
-\]
-This forces $r_1=2$: three reciprocals with denominators at
-least $3$ sum to at most $1$. It also forces $r_2\leq3$,
-since $1/2+1/4+1/4=1$. If $r_2=2$, write $r_3=m\geq2$.
-If $r_2=3$, then $r_3<6$, so $r_3$ is $3$, $4$, or $5$.
-Using $n_i=N/r_i$ gives all the numerical possibilities:
-\[
-\begin{array}{c|c|c}
- (r_1,r_2,r_3) & N=|G| & (n_1,n_2,n_3)\\ \hline
- (2,2,m),\ m\geq2 & 2m & (m,m,2)\\
- (2,3,3) & 12 & (6,4,4)\\
- (2,3,4) & 24 & (12,8,6)\\
- (2,3,5) & 60 & (30,20,12)
-\end{array}
-\]
-The first row is the dihedral pattern. The remaining rows are
-realized by rotational symmetry groups of the tetrahedron,
-cube or octahedron, and dodecahedron or icosahedron,
-respectively. The pole-counting argument gives the possible
-orders and orbit sizes; identifying a group from these data
-requires a geometric argument.
-
-\begin{example}[The tetrahedral pattern]
-For the tetrahedral rotation group $T$ from the earlier example,
-the six edge-midpoint poles have stabilizers of order $2$.
-The four vertex poles and four face-center poles each have
-stabilizers of order $3$. Thus the three orbit sizes are
-$(6,4,4)$ and $|T|=12$, as in the $(2,3,3)$ row.
-
-Let $V$ be one of the four-point orbits, and choose $z\in V$.
-The order-$3$ stabilizer $T_z$ cyclically permutes the other
-three points of $V$. Indeed, a nonidentity rotation fixing $z$
-can fix on the sphere only $z$ and $-z$. If $-z$ lay in $V$,
-the remaining two points would also have to be fixed by an
-order-$3$ permutation, a contradiction. Thus $T_z$ acts as a
-$3$-cycle on $V\setminus\{z\}$, and $T$ is transitive on ordered
-pairs of distinct points of $V$.
-Since rotations preserve distances, every pair of distinct
-points of $V$ has the same distance: the four points are the
-vertices of a regular tetrahedron inscribed in $S^2$.
-\end{example}
 
 \end{document}
