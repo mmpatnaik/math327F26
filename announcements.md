@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-11-03
+
+[Multiple choice and true/false practice for Midterm 2](exams/midterm-2-tf-mc-practice.pdf) and [solutions](exams/midterm-2-tf-mc-practice-solutions.pdf) are now posted.
+
 ## 2026-10-28
 
 [Practice Questions for Midterm 2](exams/midterm-2-practice-questions.pdf) and [solutions](exams/midterm-2-practice-questions-solutions.pdf) are now posted. [Homework 3 solutions](hw/hw-03-solutions.pdf) are also available.
