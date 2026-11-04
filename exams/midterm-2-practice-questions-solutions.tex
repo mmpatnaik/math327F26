@@ -155,10 +155,10 @@ These are exactly the axioms of a left group action.
 \[
  \{1\},\qquad \{(12),(13),(23)\},\qquad \{(123),(132)\}.
 \]
-The stabilizer of $x$ is its centralizer $C_{S_3}(x)$, namely
+The stabilizer of $x$ is its centralizer $Z_{S_3}(x)$, namely
 \[
 \begin{array}{c|l}
- x & \Stab_{S_3}(x)\\ \hline
+ x & Z_{S_3}(x)\\ \hline
  1 & S_3\\
  (12)&\{1,(12)\}\\
  (13)&\{1,(13)\}\\
@@ -177,7 +177,7 @@ Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$. The group $\mathrm{GL}_2(\mathbb R
 \end{enumerate}
 \end{questionblock}
 \begin{solution}
-Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$.
+Let $G=\mathrm{GL}_2(\R)$ and $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$.
 \partlabel{a} A matrix $P$ stabilizes $A$ if and only if $PA=AP$. For $P=\begin{pmatrix}a&b\\c&d\end{pmatrix}$,
 \[
  PA=\begin{pmatrix}a&2b\\c&2d\end{pmatrix},\qquad
@@ -185,13 +185,13 @@ Let $A=\begin{pmatrix}1&0\\0&2\end{pmatrix}$.
 \]
 Equality forces $b=c=0$. Invertibility then requires $a,d\ne0$. Therefore
 \[
- \boxed{\Stab(A)=\left\{\begin{pmatrix}a&0\\0&d\end{pmatrix}:a,d\in\R^{\times}\right\}.}
+ \boxed{Z_G(A)=\left\{\begin{pmatrix}a&0\\0&d\end{pmatrix}:a,d\in\R^{\times}\right\}.}
 \]
 \partlabel{b} Conjugation preserves the characteristic polynomial. Thus every matrix in the orbit has characteristic polynomial $(t-1)(t-2)$, or equivalently trace $3$ and determinant $2$.
 
 Conversely, if a real $2\times2$ matrix $B$ has trace $3$ and determinant $2$, its characteristic polynomial is $(t-1)(t-2)$. Choose nonzero eigenvectors $v_1,v_2$ with eigenvalues $1,2$. They are linearly independent: if $v_2=cv_1$, then $2cv_1=Bv_2=cBv_1=cv_1$, forcing $c=0$, a contradiction. The invertible matrix $P=[\,v_1\ v_2\,]$ therefore satisfies $BP=PA$, so $B=PAP^{-1}$. Hence
 \[
- \boxed{\operatorname{Orb}(A)=\{B\in M_2(\R):\operatorname{tr}(B)=3,\ \det(B)=2\}.}
+ \boxed{\mathcal{O}_G(A)=\{B\in M_2(\R):\operatorname{tr}(B)=3,\ \det(B)=2\}.}
 \]
 All these matrices are invertible because their determinant is $2$.
 \end{solution}

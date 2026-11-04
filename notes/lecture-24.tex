@@ -2,7 +2,6 @@
 \usepackage{math327-lecture}
 \usepackage{needspace}
 \usepackage{tikz}
-\newcommand{\Cl}{\operatorname{Cl}}
 \lectureinfo{24}{Nov. 4, 2026}{Class Equations for Dihedral and Symmetric Groups, and the Simplicity of A5}
 \artinsections{7.4--7.5}
 
@@ -63,10 +62,10 @@ Thus
 \[
   Z(D_{12})=\{1,x^3\},
 \]
-so there are exactly two $1$s. Moreover, $Z(D_{12})\leq C_{D_{12}}(y)$
+so there are exactly two $1$s. Moreover, $Z(D_{12})\leq Z_{D_{12}}(y)$
 for every $y$, so
 \[
-  [D_{12}:C_{D_{12}}(y)]\text{ divides }[D_{12}:Z(D_{12})]=6.
+  [D_{12}:Z_{D_{12}}(y)]\text{ divides }[D_{12}:Z(D_{12})]=6.
 \]
 The remaining class sizes must therefore be $2$, $3$, or $6$,
 and must sum to $10$. Writing $10=2a+3b+6c$ with $a,b,c\geq0$,
@@ -91,7 +90,7 @@ conjugation by $r$ inverts it:
   r x^k r^{-1}=(rxr^{-1})^k=x^{-k}.
 \]
 Further conjugations can only interchange $x^k$ and $x^{-k}$.
-Both occur, so $\Cl_{D_{12}}(x^k)=\{x^k,x^{-k}\}$, with a
+Both occur, so $\mathcal{O}_{D_{12}}(x^k)=\{x^k,x^{-k}\}$, with a
 singleton when $x^k=x^{-k}$. Hence the conjugacy classes of the
 rotation elements are
 \[
@@ -248,8 +247,8 @@ general criterion for $S_n$ and $A_n$.
 
 For $\sigma\in A_n$, we have
 \[
-  \Cl_{A_n}(\sigma)\subseteq\Cl_{S_n}(\sigma),\qquad
-  C_{A_n}(\sigma)=C_{S_n}(\sigma)\cap A_n.
+  \mathcal{O}_{A_n}(\sigma)\subseteq\mathcal{O}_{S_n}(\sigma),\qquad
+  Z_{A_n}(\sigma)=Z_{S_n}(\sigma)\cap A_n.
 \]
 The first inclusion can be strict: a class in $S_n$ may split when
 we restrict conjugation to $A_n$.
@@ -257,21 +256,21 @@ we restrict conjugation to $A_n$.
 \begin{lemma}[Splitting of conjugacy classes]\label{lem:splitting}
 Let $n\geq2$ and $\sigma\in A_n$.
 \begin{enumerate}[label=\textbf{(\arabic*)}]
-  \item If $C_{S_n}(\sigma)\subseteq A_n$, then
-  $\Cl_{S_n}(\sigma)$ splits into two $A_n$-classes of equal size, and
+  \item If $Z_{S_n}(\sigma)\subseteq A_n$, then
+  $\mathcal{O}_{S_n}(\sigma)$ splits into two $A_n$-classes of equal size, and
   \[
-    |\Cl_{A_n}(\sigma)|=\tfrac12|\Cl_{S_n}(\sigma)|.
+    |\mathcal{O}_{A_n}(\sigma)|=\tfrac12|\mathcal{O}_{S_n}(\sigma)|.
   \]
-  \item If $C_{S_n}(\sigma)$ contains an odd permutation, then
-  $\Cl_{A_n}(\sigma)=\Cl_{S_n}(\sigma)$.
+  \item If $Z_{S_n}(\sigma)$ contains an odd permutation, then
+  $\mathcal{O}_{A_n}(\sigma)=\mathcal{O}_{S_n}(\sigma)$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-Put $H=C_{S_n}(\sigma)$ and $K=H\cap A_n=C_{A_n}(\sigma)$.
+Put $H=Z_{S_n}(\sigma)$ and $K=H\cap A_n=Z_{A_n}(\sigma)$.
 Orbit--stabilizer gives
 \[
-  |\Cl_{S_n}(\sigma)|=\frac{n!}{|H|},\qquad
-  |\Cl_{A_n}(\sigma)|=\frac{n!/2}{|K|}.
+  |\mathcal{O}_{S_n}(\sigma)|=\frac{n!}{|H|},\qquad
+  |\mathcal{O}_{A_n}(\sigma)|=\frac{n!/2}{|K|}.
 \]
 If $H\subseteq A_n$, then $K=H$, giving the factor $1/2$.
 Fix an odd permutation $t$. Every conjugator in $S_n$ is either
@@ -293,7 +292,7 @@ Let $c=(1\,2\,3\,4\,5)$ and $d=(1\,2\,3\,5\,4)$.
 They are conjugate in $S_5$ because $d=(4\,5)c(4\,5)^{-1}$.
 The centralizer of $c$ in $S_5$ is
 \[
-  C_{S_5}(c)=\langle c\rangle.
+  Z_{S_5}(c)=\langle c\rangle.
 \]
 Indeed, a permutation commuting with $c$ is determined by its
 value at $1$, since $h(c^j(1))=c^j(h(1))$. There are at most five
@@ -301,7 +300,7 @@ choices, and the five powers of $c$ all commute with $c$.
 These powers are even.
 
 If an even $h$ also satisfied $hch^{-1}=d$, then
-$(4\,5)^{-1}h$ would belong to $C_{S_5}(c)$, which is impossible
+$(4\,5)^{-1}h$ would belong to $Z_{S_5}(c)$, which is impossible
 because it is odd. Thus $c$ and $d$ lie in distinct $A_5$-classes.
 Each class has size $60/5=12$.
 \end{example}

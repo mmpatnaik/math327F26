@@ -1,7 +1,6 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\newcommand{\Cl}{\operatorname{Cl}}
 \lectureinfo{23}{Nov. 2, 2026}{Conjugacy Classes, Normal Subgroups, and Cycle Types}
 \artinsections{7.4--7.5}
 
@@ -22,33 +21,33 @@ This is an action because $1\cdot x=x$ and
 $(gh)\cdot x=g\cdot(h\cdot x)$. The orbit of $x$ is its
 \emph{conjugacy class}, which we write as
 \[
-  \Cl_G(x)=\mathcal O_G(x)=\{gxg^{-1}:g\in G\}.
+  \mathcal{O}_G(x)=\{gxg^{-1}:g\in G\}.
 \]
 Its stabilizer is the \emph{centralizer}
 \[
-  C_G(x)=\{g\in G:gxg^{-1}=x\}
+  Z_G(x)=\{g\in G:gxg^{-1}=x\}
         =\{g\in G:gx=xg\}.
 \]
 For finite $G$, orbit--stabilizer gives
 \[
-  |\Cl_G(x)|=[G:C_G(x)].
+  |\mathcal{O}_G(x)|=[G:Z_G(x)].
 \]
 In particular, every conjugacy class size divides $|G|$.
 Since the conjugacy classes partition $G$, choosing one representative
 $x_i$ from each class gives the \emph{class equation}
 \[
-  |G|=\sum_i|\Cl_G(x_i)|=\sum_i[G:C_G(x_i)].
+  |G|=\sum_i|\mathcal{O}_G(x_i)|=\sum_i[G:Z_G(x_i)].
 \]
 
 Recall also that the \emph{center} is
 \[
   Z(G)=\{z\in G:zg=gz\text{ for every }g\in G\}
-      =\bigcap_{x\in G}C_G(x).
+      =\bigcap_{x\in G}Z_G(x).
 \]
 For any $x\in G$,
 \[
-  x\in Z(G)\quad\Longleftrightarrow\quad C_G(x)=G
-  \quad\Longleftrightarrow\quad\Cl_G(x)=\{x\}.
+  x\in Z(G)\quad\Longleftrightarrow\quad Z_G(x)=G
+  \quad\Longleftrightarrow\quad\mathcal{O}_G(x)=\{x\}.
 \]
 Thus the central elements are exactly the elements whose conjugacy
 classes have size $1$. In the class equation with one summand for
@@ -57,7 +56,7 @@ There is always at least one, coming from the identity, but other
 central elements each contribute another $1$.
 Collecting these singleton classes gives
 \[
-  |G|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)],
+  |G|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:Z_G(x_i)],
 \]
 where the sum contains one representative from each noncentral class.
 For example, $G$ is abelian exactly when every class has size $1$;
@@ -73,7 +72,7 @@ conjugacy classes of $G$.
 \end{proposition}
 \begin{proof}
 Normality says that $gng^{-1}\in N$ for all $n\in N$ and $g\in G$.
-Equivalently, $\Cl_G(n)\subseteq N$ for every $n\in N$.
+Equivalently, $\mathcal{O}_G(n)\subseteq N$ for every $n\in N$.
 \end{proof}
 
 For finite $G$, a normal subgroup's order is therefore a sum of

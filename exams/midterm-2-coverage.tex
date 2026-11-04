@@ -1,6 +1,5 @@
 \documentclass[11pt,reqno]{amsart}
 \usepackage{../notes/math327-lecture}
-\newcommand{\Cl}{\operatorname{Cl}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\SO}{\operatorname{SO}}
@@ -130,11 +129,11 @@ there is a single orbit. If $s'=a\cdot s$, then $G_{s'}=aG_sa^{-1}$.
 well-defined bijection $G/G_s\to\mathcal O_s$. When $G$ is finite,
 $|G|=|\mathcal O_s|\,|G_s|$ and $|\mathcal O_s|=[G:G_s]$ divides $|G|$.
 \item \textbf{Conjugation, centralizers, and center:} $G$ acts on itself by
-$g\cdot x=gxg^{-1}$. The orbit of $x$ is its conjugacy class $\Cl_G(x)$ and the
-stabilizer is its centralizer $C_G(x)=\{g\in G:gx=xg\}\leq G$. The center is
-$Z(G)=\bigcap_{x\in G}C_G(x)$, and $x\in Z(G)\iff C_G(x)=G\iff\Cl_G(x)=\{x\}$.
+$g\cdot x=gxg^{-1}$. The orbit of $x$ is its conjugacy class $\mathcal{O}_G(x)$ and the
+stabilizer is its centralizer $Z_G(x)=\{g\in G:gx=xg\}\leq G$. The center is
+$Z(G)=\bigcap_{x\in G}Z_G(x)$, and $x\in Z(G)\iff Z_G(x)=G\iff\mathcal{O}_G(x)=\{x\}$.
 \item \textbf{Class equation:} for finite $G$, every conjugacy class size divides $|G|$, and
-$|G|=\sum_{i=1}^k|\Cl_G(x_i)|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)]$.
+$|G|=\sum_{i=1}^k|\mathcal{O}_G(x_i)|=|Z(G)|+\sum_{x_i\notin Z(G)}[G:Z_G(x_i)]$.
 \item \textbf{Applications:} class equation and centralizers of $S_3$ ($6=1+3+2$);
 if $G/Z(G)$ is cyclic then $G$ is abelian; a group of prime-power order $|G|=p^n$
 ($n\geq1$) has $Z(G)\neq\{1\}$, and every group of order $p^2$ is abelian;
@@ -153,10 +152,10 @@ counting $|\GL_2(\F_3)|=48$ and $|\SL_2(\F_3)|=24$.
 %only if they have the same cycle type. Count class sizes and write the class
 %equations of $S_3$, $S_4$ ($24=1+6+8+6+3$), and $S_5$ ($120=1+10+20+30+24+15+20$).
 %\item \textbf{Splitting in $A_n$:} for $\sigma\in A_n$,
-%$C_{A_n}(\sigma)=C_{S_n}(\sigma)\cap A_n$. If $C_{S_n}(\sigma)$ contains an odd
-%permutation, then $\Cl_{A_n}(\sigma)=\Cl_{S_n}(\sigma)$. If
-%$C_{S_n}(\sigma)\subseteq A_n$, then $\Cl_{S_n}(\sigma)$ splits into two
-%$A_n$-classes of equal size $\tfrac12|\Cl_{S_n}(\sigma)|$.
+%$Z_{A_n}(\sigma)=Z_{S_n}(\sigma)\cap A_n$. If $Z_{S_n}(\sigma)$ contains an odd
+%permutation, then $\mathcal{O}_{A_n}(\sigma)=\mathcal{O}_{S_n}(\sigma)$. If
+%$Z_{S_n}(\sigma)\subseteq A_n$, then $\mathcal{O}_{S_n}(\sigma)$ splits into two
+%$A_n$-classes of equal size $\tfrac12|\mathcal{O}_{S_n}(\sigma)|$.
 %\item \textbf{Simplicity of $A_5$:} in $A_5$, the $5$-cycles split into two classes of
 %size $12$ represented by $(1\,2\,3\,4\,5)$ and $(1\,2\,3\,5\,4)$, while the
 %$3$-cycles ($20$) and double transpositions ($15$) do not split, giving the class

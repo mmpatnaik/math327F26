@@ -35,7 +35,6 @@
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\SO}{\mathrm{SO}}
-\newcommand{\Cl}{\operatorname{Cl}}
 \newcommand{\Stab}{\operatorname{Stab}}
 
 \newtcolorbox{exercise}[2][]{
@@ -264,9 +263,9 @@ Let $p$ be a prime.
 \begin{solution}
 \textbf{(a)} Write the class equation as
 \[
-  p^n=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)].
+  p^n=|Z(G)|+\sum_{x_i\notin Z(G)}[G:Z_G(x_i)].
 \]
- Each noncentral class has size $[G:C_G(x_i)]>1$ dividing $p^n$, so it is
+ Each noncentral class has size $[G:Z_G(x_i)]>1$ dividing $p^n$, so it is
  divisible by $p$. Hence $p$ divides $|Z(G)|$. Since $1\in Z(G)$, we get
  $|Z(G)|\geq p$.
 
@@ -288,7 +287,7 @@ Put
         matrix multiplication. Show that this action is transitive, compute
         the stabilizer of $e_1=\binom10$, and use it to recover $|G|=24$.
   \item Show that $Z(G)=\{\pm I\}$.
-  \item Compute the centralizers $C_G(U)$ and $C_G(J)$, and the sizes of
+  \item Compute the centralizers $Z_G(U)$ and $Z_G(J)$, and the sizes of
         the conjugacy classes of $U$ and $J$.
   \item Show that $U$ and $U^{-1}$ are \emph{not} conjugate in $G$.
         (They are conjugate in $\GL_2(\F_3)$.)
@@ -324,8 +323,8 @@ Put
  So $PU=UP$ if and only if $c=0$ and $a=d$, and then $\det P=a^2=1$ holds
  automatically. Hence
 \[
-  C_G(U)=\left\{\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}:b\in\F_3\right\},
-  \qquad |C_G(U)|=6,\qquad |\Cl_G(U)|=24/6=4.
+  Z_G(U)=\left\{\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}:b\in\F_3\right\},
+  \qquad |Z_G(U)|=6,\qquad |\mathcal{O}_G(U)|=24/6=4.
 \]
 For $J$, solving $PJ=JP$ for
 $P=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\SL_2(\F_3)$ gives
@@ -333,7 +332,7 @@ $b=-c$ and $a=d$. Together with $\det P=1$, this gives
 $a^2+c^2=1$. The only possibilities in $\F_3$ are
 $a=\pm1,c=0$ or $a=0,c=\pm1$. Hence the centralizer has four elements:
 \[
-  C_G(J)=\{\pm I,\pm J\},\qquad |\Cl_G(J)|=24/4=6.
+  Z_G(J)=\{\pm I,\pm J\},\qquad |\mathcal{O}_G(J)|=24/4=6.
 \]
 Thus $J$ gives the conjugacy class of size $6$ in the class equation.
 
@@ -352,7 +351,7 @@ $P=\operatorname{diag}(1,-1)$ works.)
 
 \textbf{(e)} The classes of $I$ and $-I$ are singletons. $U$ has order $3$
  and its class has size $4$. $U^{-1}$ also has order $3$, its class has size $4$ (its centralizer equals
- $C_G(U)$), and by (d) it is a different class. Since $-I$ is central, $X\mapsto -X$ maps the class
+ $Z_G(U)$), and by (d) it is a different class. Since $-I$ is central, $X\mapsto -X$ maps the class
  of $X$ bijectively onto the class of $-X$. So $-U$ and $-U^{-1}$ also give classes of size $4$.
  These have elements of order $6$, so they are different from the classes of $U$ and $U^{-1}$, and they are different from each other
  by (d). This accounts for $1+1+4+4+4+4=18$ elements. The class of
@@ -436,7 +435,7 @@ $3$-cycles. These are exactly the even permutations, so $H=A_4$.
 $\bullet$ $(12)(34)$ commutes with the odd permutation $(12)$, so its
 $S_4$-class does not split: it gives an $A_4$-class of size $3$.
 
-$\bullet$ $C_{S_4}((123))$ has order $24/8=3$, so it equals
+$\bullet$ $Z_{S_4}((123))$ has order $24/8=3$, so it equals
 $\langle(123)\rangle\subseteq A_4$. Hence the $8$ three-cycles split into two
 $A_4$-classes of size $4$. The two classes are represented by $(123)$ and
 $(12)(123)(12)^{-1}=(213)=(132)$. In particular $(123)$ and $(132)$ are
