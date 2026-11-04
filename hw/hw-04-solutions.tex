@@ -112,8 +112,12 @@ Unless otherwise indicated, the following exercises are from Michael Artin's
 \emph{Algebra}, second edition. Exercises marked \emph{Supplementary} are
 not from the text. This set is also good practice for Midterm~2.
 
+% Solutions for 2.8(b), 3.2, 4.2, 5.6(a), and the centralizers in S.4
+% adapted from Homework (2025)/2025-Winter-MATH327-Homework3solutions.tex.
+% Corrected divisibility wording, coset notation, the Klein four list, and
+% the determinant-one matrix J; supplemented the added subparts.
 % Problems drawn in part from Homework (2025)/2025-Winter-MATH327-Homework3.tex
-% (Ch. 6: 9.2, 12.3; Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
+% (Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
 
 %======================================================================
 \chapterheading{Chapter 2: Groups}
@@ -204,24 +208,32 @@ Determine the possible class equations of a nonabelian group of order $21$.
 \end{exercise}
 
 \begin{solution}
- Let $G$ be nonabelian of order $21$ with center $Z$. Then $|Z|$ divides
- $21$ and $Z\neq G$. If $|Z|=3$ or $7$, then $G/Z$ has prime order and is
- therefore cyclic, so $G$ is abelian by Exercise~3.2, a contradiction. So
-$|Z|=1$.
+As $G$ is nonabelian, some of the terms in its class equation are not
+$1$. Each term divides $21$, so the noncentral classes have size $3$
+or $7$; a class of size $21$ would leave no room for the identity.
 
- Every noncentral class has size dividing $21$ and greater than $1$, so of
- size $3$, $7$, or $21$. A class of size $21$ would be all of $G$, which is impossible
- since $\{1\}$ is a class. So
+If there is a class of size $3$, its stabilizer (centralizer) has order
+$7$, and if there is a class of size $7$, its centralizer has order $3$.
+As the center is contained in every centralizer, if both sizes occur,
+the center must be trivial, so there is just one $1$.
+
+If there are no $3$s, there is a $7$, so the center has size $1$ or $3$.
+But neither $21-1$ nor $21-3$ is a sum of $7$s. Thus there must be at
+least one $3$. Similarly, if there are no $7$s, the center has size
+$1$ or $7$, and neither $21-1$ nor $21-7$ is a sum of $3$s.
+Thus both sizes occur and $|Z(G)|=1$.
+
+We must therefore write
 \[
-  21=1+3a+7b,\qquad\text{i.e.}\qquad 3a+7b=20,\quad a,b\geq0.
+  21=1+3a+7b,\qquad a,b\geq1.
 \]
- Checking $b=0,1,2$ leaves $20,13,6$, and only $6$ is divisible by $3$.
- Hence $a=b=2$ and the only possibility is
+Here $b\leq2$, and reducing $3a+7b=20$ modulo $3$ gives
+$b\equiv2\pmod3$. Hence $b=2$ and $a=2$, so the only possibility is
 \[
   21=1+3+3+7+7.
 \]
- (Such a group exists: for example, the group of maps $x\mapsto ax+b$ of
-$\F_7$ with $a\in\{1,2,4\}$.)
+Such a group exists: take the affine maps $t\mapsto at+b$ of $\F_7$
+with $a\in\{1,2,4\}$ and $b\in\F_7$.
 \end{solution}
 
 \begin{exercise}{3.2}
@@ -230,13 +242,14 @@ group, then $G$ is abelian, and hence $G=Z$.
 \end{exercise}
 
 \begin{solution}
- Let $xZ$ generate $G/Z$. Then every element of $G$ lies in some coset
-$x^jZ$, so it can be written as $x^jz$ with $j\in\Z$ and $z\in Z$. Given
-$g=x^jz$ and $h=x^kz'$, since $z,z'$ are central,
+Let $xZ$ generate $G/Z$. Then every $g\in G$ can be written as
+$g=x^jz$ for some $j\in\Z$ and $z\in Z$. If $h\in G$ is similarly
+written as $h=x^kz'$, then
 \[
-  gh=x^jzx^kz'=x^{j+k}zz'=x^{k+j}z'z=x^kz'x^jz=hg.
+  gh=x^jzx^kz'=x^{j+k}zz'.
 \]
- So $G$ is abelian, hence every element is central and $G=Z$.
+Similarly $hg=x^{k+j}z'z$, and since $zz'=z'z$, we have shown that
+$G$ is abelian. Hence $G=Z$.
 \end{solution}
 
 \begin{exercise}{S.3 (Supplementary)}
@@ -256,8 +269,6 @@ Let $p$ be a prime.
  Each noncentral class has size $[G:C_G(x_i)]>1$ dividing $p^n$, so it is
  divisible by $p$. Hence $p$ divides $|Z(G)|$. Since $1\in Z(G)$, we get
  $|Z(G)|\geq p$.
-(This is also a special case of Exercise S.6(a) below, applied to conjugation on $G$:
- the fixed points are the central elements.)
 
 \textbf{(b)} Let $|G|=p^2$. By (a), $|Z(G)|$ is $p$ or $p^2$. If it were
 $p$, then $G/Z(G)$ would have order $p$, hence be cyclic, and
@@ -316,16 +327,15 @@ Put
   C_G(U)=\left\{\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}:b\in\F_3\right\},
   \qquad |C_G(U)|=6,\qquad |\Cl_G(U)|=24/6=4.
 \]
- Similarly,
-\[
-  PJ=\begin{pmatrix}b&-a\\d&-c\end{pmatrix},\qquad
-  JP=\begin{pmatrix}-c&-d\\a&b\end{pmatrix},
-\]
- so $PJ=JP$ if and only if $c=-b$ and $d=a$. Then $\det P=a^2+b^2=1$. In $\F_3$
- the squares are $0,1$, so exactly one of $a,b$ is zero and the other is $\pm1$:
+For $J$, solving $PJ=JP$ for
+$P=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\SL_2(\F_3)$ gives
+$b=-c$ and $a=d$. Together with $\det P=1$, this gives
+$a^2+c^2=1$. The only possibilities in $\F_3$ are
+$a=\pm1,c=0$ or $a=0,c=\pm1$. Hence the centralizer has four elements:
 \[
   C_G(J)=\{\pm I,\pm J\},\qquad |\Cl_G(J)|=24/4=6.
 \]
+Thus $J$ gives the conjugacy class of size $6$ in the class equation.
 
 \textbf{(b)} A central element commutes with $U$, so it has the form
 $\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}$, and it commutes with $J$, so
@@ -369,27 +379,38 @@ $18+6=24$. Therefore
  transpositions ($6$), double transpositions ($3$), $3$-cycles ($8$), and
  $4$-cycles ($6$).
 
-\textbf{(a)} A group of order $4$ is cyclic or isomorphic to $C_2\times C_2$.
- A cyclic one is generated by an element of order $4$, which in $S_4$ must be a
-$4$-cycle. Each such subgroup contains two $4$-cycles, so there are $6/2=3$ of them:
+\textbf{(a)} Every subgroup of order $4$ is either $C_2\times C_2$ or $C_4$.
+If it is $C_4$, it is generated by a four-cycle, and there are three
+such subgroups, namely
 \[
-  \langle(1234)\rangle=\{1,(1234),(13)(24),(1432)\},\quad
-  \langle(1243)\rangle,\quad
-  \langle(1324)\rangle.
+\begin{aligned}
+  &\{1,(1234),(13)(24),(1432)\},\\
+  &\{1,(1243),(14)(23),(1342)\},\\
+  &\{1,(1324),(12)(34),(1423)\}.
+\end{aligned}
 \]
- A Klein four-subgroup consists of $1$ and three commuting involutions. The
- possibilities are
+On the other hand, if it is $C_2\times C_2$, its nonidentity elements
+are commuting involutions. If it contains a transposition, the
+possibilities are
 \[
-  V=\{1,(12)(34),(13)(24),(14)(23)\},
+\begin{aligned}
+  &\{1,(12),(34),(12)(34)\},\\
+  &\{1,(13),(24),(13)(24)\},\\
+  &\{1,(14),(23),(14)(23)\}.
+\end{aligned}
 \]
- and the three subgroups $\{1,(12),(34),(12)(34)\}$,
-$\{1,(13),(24),(13)(24)\}$, $\{1,(14),(23),(14)(23)\}$.
- So there are seven subgroups of order $4$.
+If it contains no transpositions, it must consist of the identity
+and the three double transpositions:
+\[
+  V=\{1,(12)(34),(13)(24),(14)(23)\}.
+\]
+Thus there are seven subgroups of order $4$.
 
- A normal subgroup is a union of conjugacy classes. Its order is $4$ and it contains the class $\{1\}$, so the other classes contribute $3$.
- The only class sizes available are $6,3,8,6$, so the only option is $4=1+3$, which is $V$. Since $V$ is a union of classes, it is
- normal. The other six subgroups are not normal, since each contains a
- transposition or a $4$-cycle without containing that entire class.
+The class equation shows that there is exactly one normal subgroup
+of order $4$: a normal subgroup contains the identity class, and the
+only way to obtain order $4$ is $4=1+3$. It therefore consists of
+$V$, which is indeed a subgroup and a union of conjugacy classes.
+The other six subgroups are not normal.
 
 \textbf{(b)} A subgroup $H$ of order $12$ has index $2$, so it is normal
 (Homework 2), and hence a union of conjugacy classes containing $\{1\}$.
@@ -400,7 +421,7 @@ $3$-cycles. These are exactly the even permutations, so $H=A_4$.
 
 \begin{exercise}{S.5 (Supplementary)}
 \begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Use the splitting lemma from Lecture 23 to compute the class equation
+  \item Use the splitting lemma from Lecture 24 to compute the class equation
         of $A_4$. Give a representative of each class, and decide whether
         $(123)$ and $(132)$ are conjugate in $A_4$.
   \item Deduce that $A_4$ has no subgroup of order $6$. (So the converse of
@@ -432,237 +453,40 @@ $(12)(123)(12)^{-1}=(213)=(132)$. In particular $(123)$ and $(132)$ are
 
 \begin{exercise}{4.2 (Adapted)}
 Determine all normal subgroups of the symmetric group $S_5$.
-\textit{Hint.} Use the class equation of $S_5$ from Lecture 23, or the
+\textit{Hint.} Use the class equation of $S_5$ from Lecture 24, or the
 simplicity of $A_5$.
 \end{exercise}
 
 \begin{solution}
- The normal subgroups are $\{1\}$, $A_5$, and $S_5$. They are normal since
-$A_5=\ker(\operatorname{sgn})$.
-
- Conversely, let $N\trianglelefteq S_5$. Then $N\cap A_5$ is normal in
-$A_5$, so since $A_5$ is simple, $N\cap A_5$ is $\{1\}$ or $A_5$.
-
-$\bullet$ If $N\cap A_5=A_5$, then $A_5\subseteq N\subseteq S_5$, and since
-$[S_5:A_5]=2$, $N$ is $A_5$ or $S_5$.
-
-$\bullet$ If $N\cap A_5=\{1\}$, then $\operatorname{sgn}|_N$ is injective, so
-$|N|\leq2$. If $N=\{1,\tau\}$, normality gives $g\tau g^{-1}=\tau$ for all
-$g$, so $\tau\in Z(S_5)$. But the class equation
-$120=1+10+20+30+24+15+20$ has only one class of size $1$, so
-$Z(S_5)=\{1\}$. Hence $N=\{1\}$.
-
-\emph{Alternative.} Using only the class equation: $|N|$ divides $120$ and equals
-$1$ plus a sum of some of $10,20,30,24,15,20$. Apart from $1$ and $120$, the only
- possibilities are $40=1+15+24$ and $60=1+15+20+24$, where the $20$ in the second sum can be either class of size $20$. Any such $N$ contains $(12)(34)$ and
-$(12345)$. Their product $(12)(34)(12345)=(245)$ is a $3$-cycle, so $N$ contains all $20$ three-cycles. This rules out $40$ and the other sum giving $60$, and leaves
-$N=A_5$.
-\end{solution}
-
-%======================================================================
-\chapterheading{Chapter 6: Symmetry}
-
-\sectionheading{Sections 7--9: Group Operations and the Counting Formula}
-
-\begin{exercise}{S.6 (Supplementary)}
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Let $p$ be a prime and let $G$ be a group of order $p^k$ acting
-        on a finite set $S$. Prove that if $p$ does not divide $|S|$, then
-        the action has a \emph{fixed point}, that is, some $s\in S$ with
-        $g\cdot s=s$ for every $g\in G$.
-  \item Prove that every action of a group of order $15$ on a set with
-        $7$ elements has a fixed point.
-\end{enumerate}
-\end{exercise}
-
-\begin{solution}
-\textbf{(a)} The orbits partition $S$, so $|S|=\sum|\mathcal O|$ over
- the distinct orbits. By orbit--stabilizer, each $|\mathcal O_s|=[G:G_s]$
- divides $p^k$, so it is a power of $p$. If there were no fixed point,
- every orbit would have size $p^j$ with $j\geq1$, so $p$ would divide
- every term and hence $|S|$, a contradiction. An orbit of size $1$ is
- exactly a fixed point.
-
-\textbf{(b)} Orbit sizes divide $15$, so they lie in $\{1,3,5,15\}$, and
- they sum to $7$. A size-$15$ orbit is impossible. If there were no fixed point we would
- have $7=3a+5b$ with $a,b\geq0$, which has no solution ($b=0,1$ leaves
- $7$ or $2$, neither divisible by $3$). So some orbit has size $1$.
-\end{solution}
-
-\begin{exercise}{9.2 (Adapted)}
-Let $G$ be the group of rotational symmetries of a cube, and let $V$, $E$,
-$F$ denote the sets of vertices, edges, and faces of the cube. Fix a
-vertex $v$, an edge $e$, and a face $f$, and let $G_v$, $G_e$, $G_f$ be
-their stabilizers.
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Determine $|G_v|$, $|G_e|$, and $|G_f|$, and describe each
-        stabilizer geometrically.
-  \item For each of the three subgroups $G_v$, $G_e$, $G_f$, decompose each of
-        $V$, $E$, $F$ into orbits. Record your answers as sums
-        of orbit sizes (for example $8=1+1+3+3$).
-\end{enumerate}
-\end{exercise}
-
-\begin{solution}
-\textbf{(a)} $|G|=24$, and $G$ acts transitively on the $8$ vertices,
-$12$ edges, and $6$ faces. By orbit--stabilizer,
+In Lecture 24 we verified the class equation
 \[
-  |G_v|=24/8=3,\qquad |G_e|=24/12=2,\qquad |G_f|=24/6=4.
+  120=1+\underbrace{10}_{(12)}+\underbrace{15}_{(12)(34)}
+  +\underbrace{20}_{(123)}+\underbrace{20}_{(123)(45)}
+  +\underbrace{30}_{(1234)}+\underbrace{24}_{(12345)}.
 \]
-$G_v$ is the cyclic group of rotations by $0,2\pi/3,4\pi/3$ about the long
- diagonal through $v$. $G_e$ is generated by the half-turn about the axis
- through the midpoints of $e$ and of the opposite edge $e'$. $G_f$ is
- the cyclic group of rotations by multiples of $\pi/2$ about the axis
- through the centers of $f$ and of the opposite face $f'$.
-
-\textbf{(b)} Let $v'$, $e'$, $f'$ be the vertex, edge, and face opposite
-$v$, $e$, $f$.
-
-\emph{$G_v$ (order $3$).} On vertices: $v$ and $v'$ are fixed; the three
- neighbours of $v$ form an orbit, as do the three neighbours of $v'$:
-$8=1+1+3+3$. On faces: the three faces containing $v$ and the three
- containing $v'$: $6=3+3$. On edges: the three edges at $v$, the three
- edges at $v'$, and the remaining six edges split into two orbits of size
-$3$. No edge is fixed, since a rotation of order $3$ cannot map an edge to itself (it would have to fix both endpoints, and the only fixed vertices are $v$ and $v'$, which are not adjacent): $12=3+3+3+3$.
-
-\emph{$G_e$ (order $2$).} The half-turn fixes no vertex: $8=2+2+2+2$.
- It swaps the two faces containing $e$, swaps the two containing $e'$, and swaps
- the remaining two: $6=2+2+2$. It fixes $e$ and $e'$ (reversing each) and
- moves every other edge: $12=1+1+2+2+2+2+2$.
-
-\emph{$G_f$ (order $4$).} The four vertices of $f$ form an orbit, as do
- the four of $f'$: $8=4+4$. Faces: $f$ and $f'$ are fixed and the four
- side faces are cycled: $6=1+1+4$. Edges: the four edges of $f$, the four
- of $f'$, and the four vertical edges: $12=4+4+4$.
-
- As a check, each orbit size divides the order of the subgroup and the sizes add up
- to $|V|$, $|E|$, $|F|$.
-\end{solution}
-
-\sectionheading{Section 12: Finite Subgroups of the Rotation Group}
-
-\begin{exercise}{S.7 (Supplementary)}
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Use Euler's rotation theorem to prove that the composition of two rotations
-        of $\R^3$ (about axes through the origin) is again a rotation.
-  \item Let $\rho_1$ be the rotation by $\pi/2$ about the $e_3$-axis and
-        $\rho_2$ the rotation by $\pi/2$ about the $e_1$-axis, each
-        counterclockwise when viewed from the tip of the axis vector.
-        Find a pole and the angle of rotation of $\rho_2\circ\rho_1$.
-        \textit{Hint.} The trace of a rotation through angle $\theta$
-        is $1+2\cos\theta$. Why?
-\end{enumerate}
-\end{exercise}
-
-\begin{solution}
-\textbf{(a)} By Euler's theorem the two rotations have matrices $A,B\in\SO_3(\R)$.
- Since $\SO_3(\R)$ is a group, $AB\in\SO_3(\R)$, and by Euler's theorem again
-$AB$ is a rotation.
-
-\textbf{(b)} In the standard basis,
+A normal subgroup includes the identity class and some of the other
+classes, and its order must divide $120$. Apart from the trivial
+subgroup and the whole group, the only sums of this form that divide
+$120$ are
 \[
-  \rho_1=\begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix},\qquad
-  \rho_2=\begin{pmatrix}1&0&0\\0&0&-1\\0&1&0\end{pmatrix},\qquad
-  A=\rho_2\rho_1=\begin{pmatrix}0&-1&0\\0&0&-1\\1&0&0\end{pmatrix}.
+  40=1+24+15,\qquad 60=1+24+15+20,
 \]
- Solving $Au=u$ gives $u=(1,-1,1)$, so a pole is $\tfrac1{\sqrt3}(1,-1,1)$.
+where the $20$ in the second sum can initially be either class of size $20$.
 
- In an orthonormal basis $(u,v,w)$ adapted to the axis, a rotation through
-$\theta$ has matrix $B_\theta$ with trace $1+2\cos\theta$. Trace is
- invariant under conjugation. Here $\operatorname{tr}A=0$, so
-$\cos\theta=-\tfrac12$ and the angle is $2\pi/3$ (up to orientation).
- Equivalently, $A$ permutes the vectors $e_1\mapsto e_3\mapsto -e_2\mapsto e_1$,
- so $A^3=I$. Since $u\cdot(e_1\times Ae_1)=u\cdot(-e_2)=1/\sqrt3>0$,
- the rotation is counterclockwise when viewed from the tip of $u$. Thus
- $\rho_2\circ\rho_1$ is the rotation through
-$2\pi/3$ about $\tfrac1{\sqrt3}(1,-1,1)$, counterclockwise when viewed from the tip of the vector.
- Geometrically, it is one of the order-$3$
- rotations of the cube $[-1,1]^3$ about a long diagonal.
-\end{solution}
-
-\begin{exercise}{S.8 (Supplementary)}
-For a finite group $G\leq\SO_3(\R)$ of order $N$, let $\mathcal P$ be its
-set of poles: the unit vectors fixed by some nonidentity element of $G$.
-Recall the pole-counting formula
+In each case, the subgroup contains $(12345)$ and $(12)(34)$.
+So it contains their product
 \[
-  \sum_{p\in\mathcal P}\bigl(|G_p|-1\bigr)=2(N-1).
+  (12)(34)(12345)=(245),
 \]
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Let $O$ be the group of rotational symmetries of the cube
-        $[-1,1]^3$, which has order $24$. Describe all the poles of $O$, sort them into
-        $O$-orbits, give the order of the stabilizer of a pole in each orbit,
-        and verify the formula. Which row of the table from
-        Lecture 24 does this realize?
-  \item Let $n\geq3$, and let $D_n\leq\SO_3(\R)$ be the group of rotational symmetries
-        of a regular $n$-gon in the $xy$-plane centered at the origin.
-        It consists of $n$ rotations about the $z$-axis and $n$ half-turns
-        about axes in the $xy$-plane. Do the same for $D_n$, and check that you obtain the
-        dihedral pattern $(r_1,r_2,r_3)=(2,2,n)$.
-\end{enumerate}
-\end{exercise}
+which is a $3$-cycle. It must therefore contain all $20$ elements
+conjugate to $(123)$ as well. This rules out order $40$ and forces
+the second case $60=1+24+15+20$, with the $20$ corresponding to
+$3$-cycles. These are exactly the even permutations, so the subgroup
+is $A_5$.
 
-\begin{solution}
-\textbf{(a)} The nonidentity elements of $O$ are:
-\begin{itemize}[leftmargin=1.5em]
-  \item $9$ rotations about the $3$ axes through opposite face centers
-        (angles $\pi/2,\pi,3\pi/2$),
-  \item $8$ rotations about the $4$ long diagonals (angles $2\pi/3,4\pi/3$),
-  \item $6$ half-turns about the $6$ axes through midpoints of opposite edges,
-\end{itemize}
- and $1+9+8+6=24$. The poles fall into three orbits:
-\[
-\begin{array}{l|c|c|c}
-  \text{poles through} & \text{number } n_i & |G_p|=r_i & n_i(r_i-1)\\\hline
-  \text{face centers} & 6 & 4 & 18\\
-  \text{vertices} & 8 & 3 & 16\\
-  \text{edge midpoints} & 12 & 2 & 12
-\end{array}
-\]
- Each set is a single orbit because $O$ is transitive on faces, vertices,
- and edges. The stabilizer orders follow from $n_ir_i=24$. The sum is
-$18+16+12=46=2(24-1)$, which verifies the formula. With $r_1\leq r_2\leq r_3$
- this is the row $(2,3,4)$, $N=24$, $(n_1,n_2,n_3)=(12,8,6)$.
-
-\textbf{(b)} Here $N=2n$. The $z$-axis gives two poles $\pm e_3$, each
- with stabilizer the cyclic group of $n$ rotations about the $z$-axis. A half-turn about an
- in-plane axis swaps them, so $\{\pm e_3\}$ is one orbit with $r=n$.
- The $n$ half-turn axes give $2n$ poles in the $xy$-plane: the $n$ unit
- vectors toward the vertices and the $n$ unit vectors toward the edge midpoints.
- (For $n$ even, an axis through a vertex passes through the opposite vertex.
- For $n$ odd, it passes through the midpoint of the opposite edge.) The rotations about the $z$-axis
- permute the vertex directions transitively, and likewise the midpoint directions. No symmetry takes a vertex direction to a midpoint direction.
- So these form two orbits of size $n$, and each in-plane pole has stabilizer of order
-$2n/n=2$. Hence
-\[
-  (r_1,r_2,r_3)=(2,2,n),\qquad (n_1,n_2,n_3)=(n,n,2),
-\]
- and $n(2-1)+n(2-1)+2(n-1)=4n-2=2(2n-1)$, as required.
-\end{solution}
-
-\begin{exercise}{12.3 (Adapted)}
-Let $O$ be the group of rotational symmetries of a cube. Its elements may
-exchange the two endpoints of a long diagonal. Determine the stabilizer in
-$O$ of a long diagonal (a line through two opposite vertices), list its
-elements geometrically, and identify it with a familiar group.
-\end{exercise}
-
-\begin{solution}
- $O$ permutes the $4$ long diagonals transitively, so the stabilizer
-$O_\ell$ of a diagonal $\ell$ has order $24/4=6$. Take $\ell$ to be the line through
-$\pm(1,1,1)$. Then $O_\ell$ contains:
-\begin{itemize}[leftmargin=1.5em]
-  \item the identity and the rotations $x,x^2$ through $2\pi/3,4\pi/3$
-        about $\ell$, which fix each endpoint, and
-  \item three half-turns about the edge-midpoint axes perpendicular to $\ell$,
-        namely those through $\pm(1,-1,0)$, $\pm(1,0,-1)$, $\pm(0,1,-1)$.
-        Each one swaps $(1,1,1)$ and $(-1,-1,-1)$.
-\end{itemize}
- These are $6$ elements, so they make up all of $O_\ell$. Let $y$ be one of the half-turns. It reverses
- the direction of $\ell$, so $yxy^{-1}$ is the rotation about $\ell$ in the opposite sense,
- namely $x^{-1}$. In particular $O_\ell$ is nonabelian of order $6$, and so
- $O_\ell\cong S_3$, with elements $\{1,x,x^2,y,xy,x^2y\}$. Concretely, $O_\ell$ acts faithfully on
- the three other long diagonals as all of $S_3$, which is consistent with
- the isomorphism $O\cong S_4$ coming from the action on the four diagonals.
+Thus the normal subgroups are $\{1\}$, $A_5$, and $S_5$.
+The subgroup $A_5$ is indeed normal, since it is the kernel of the sign
+homomorphism.
 \end{solution}
 
 \vfill

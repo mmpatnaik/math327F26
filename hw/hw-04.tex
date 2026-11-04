@@ -112,7 +112,7 @@ Unless otherwise indicated, the following exercises are from Michael Artin's
 not from the text. This set is also good practice for Midterm~2.
 
 % Problems drawn in part from Homework (2025)/2025-Winter-MATH327-Homework3.tex
-% (Ch. 6: 9.2, 12.3; Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
+% (Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
 
 %======================================================================
 \chapterheading{Chapter 2: Groups}
@@ -208,7 +208,7 @@ Put
 
 \begin{exercise}{S.5 (Supplementary)}
 \begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Use the splitting lemma from Lecture 23 to compute the class equation
+  \item Use the splitting lemma from Lecture 24 to compute the class equation
         of $A_4$. Give a representative of each class, and decide whether
         $(123)$ and $(132)$ are conjugate in $A_4$.
   \item Deduce that $A_4$ has no subgroup of order $6$. (So the converse of
@@ -218,81 +218,8 @@ Put
 
 \begin{exercise}{4.2 (Adapted)}
 Determine all normal subgroups of the symmetric group $S_5$.
-\textit{Hint.} Use the class equation of $S_5$ from Lecture 23, or the
+\textit{Hint.} Use the class equation of $S_5$ from Lecture 24, or the
 simplicity of $A_5$.
-\end{exercise}
-
-%======================================================================
-\chapterheading{Chapter 6: Symmetry}
-
-\sectionheading{Sections 7--9: Group Operations and the Counting Formula}
-
-\begin{exercise}{S.6 (Supplementary)}
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Let $p$ be a prime and let $G$ be a group of order $p^k$ acting
-        on a finite set $S$. Prove that if $p$ does not divide $|S|$, then
-        the action has a \emph{fixed point}, that is, some $s\in S$ with
-        $g\cdot s=s$ for every $g\in G$.
-  \item Prove that every action of a group of order $15$ on a set with
-        $7$ elements has a fixed point.
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}{9.2 (Adapted)}
-Let $G$ be the group of rotational symmetries of a cube, and let $V$, $E$,
-$F$ denote the sets of vertices, edges, and faces of the cube. Fix a
-vertex $v$, an edge $e$, and a face $f$, and let $G_v$, $G_e$, $G_f$ be
-their stabilizers.
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Determine $|G_v|$, $|G_e|$, and $|G_f|$, and describe each
-        stabilizer geometrically.
-  \item For each of the three subgroups $G_v$, $G_e$, $G_f$, decompose each of
-        $V$, $E$, $F$ into orbits. Record your answers as sums
-        of orbit sizes (for example $8=1+1+3+3$).
-\end{enumerate}
-\end{exercise}
-
-\sectionheading{Section 12: Finite Subgroups of the Rotation Group}
-
-\begin{exercise}{S.7 (Supplementary)}
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Use Euler's rotation theorem to prove that the composition of two rotations
-        of $\R^3$ (about axes through the origin) is again a rotation.
-  \item Let $\rho_1$ be the rotation by $\pi/2$ about the $e_3$-axis and
-        $\rho_2$ the rotation by $\pi/2$ about the $e_1$-axis, each
-        counterclockwise when viewed from the tip of the axis vector.
-        Find a pole and the angle of rotation of $\rho_2\circ\rho_1$.
-        \textit{Hint.} The trace of a rotation through angle $\theta$
-        is $1+2\cos\theta$. Why?
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}{S.8 (Supplementary)}
-For a finite group $G\leq\SO_3(\R)$ of order $N$, let $\mathcal P$ be its
-set of poles: the unit vectors fixed by some nonidentity element of $G$.
-Recall the pole-counting formula
-\[
-  \sum_{p\in\mathcal P}\bigl(|G_p|-1\bigr)=2(N-1).
-\]
-\begin{enumerate}[label=\textbf{(\alph*)}]
-  \item Let $O$ be the group of rotational symmetries of the cube
-        $[-1,1]^3$, which has order $24$. Describe all the poles of $O$, sort them into
-        $O$-orbits, give the order of the stabilizer of a pole in each orbit,
-        and verify the formula. Which row of the table from
-        Lecture 24 does this realize?
-  \item Let $n\geq3$, and let $D_n\leq\SO_3(\R)$ be the group of rotational symmetries
-        of a regular $n$-gon in the $xy$-plane centered at the origin.
-        It consists of $n$ rotations about the $z$-axis and $n$ half-turns
-        about axes in the $xy$-plane. Do the same for $D_n$, and check that you obtain the
-        dihedral pattern $(r_1,r_2,r_3)=(2,2,n)$.
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}{12.3 (Adapted)}
-Let $O$ be the group of rotational symmetries of a cube. Its elements may
-exchange the two endpoints of a long diagonal. Determine the stabilizer in
-$O$ of a long diagonal (a line through two opposite vertices), list its
-elements geometrically, and identify it with a familiar group.
 \end{exercise}
 
 \vfill
