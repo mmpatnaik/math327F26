@@ -1,0 +1,671 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={Homework 4 Solutions, MATH 327, Fall 2026},
+  pdfauthor={Manish Patnaik},
+  pdfsubject={MATH 327 homework problems}
+}
+
+\definecolor{courseblue}{HTML}{1F4E79}
+\definecolor{lightblue}{HTML}{EAF2F8}
+\definecolor{boxborder}{HTML}{B8CBDC}
+\definecolor{darkgray}{HTML}{333333}
+\definecolor{lightyellow}{HTML}{FFF9DC}
+\definecolor{yellowborder}{HTML}{E4D58C}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.25em, topsep=0.3em}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Stab}{\operatorname{Stab}}
+
+\newtcolorbox{exercise}[2][]{
+  enhanced,
+  colback=white,
+  colframe=boxborder,
+  colbacktitle=lightblue,
+  coltitle=courseblue,
+  fonttitle=\bfseries,
+  title={Exercise #2},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.8em,
+  after skip=0.8em,
+  #1
+}
+
+\newtcolorbox{solution}{
+  enhanced,
+  breakable,
+  colback=lightyellow,
+  colframe=yellowborder,
+  colbacktitle=lightyellow,
+  coltitle=darkgray,
+  fonttitle=\bfseries,
+  title={Solution},
+  boxrule=0.6pt,
+  arc=1mm,
+  left=2.5mm,
+  right=2.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=0.2em,
+  after skip=1em
+}
+
+\newcommand{\chapterheading}[1]{%
+  \par\Needspace{12\baselineskip}\vspace{0.5em}
+  {\color{courseblue}\Large\bfseries #1}\par\vspace{0.35em}
+  {\color{boxborder}\hrule height 0.6pt}\vspace{0.35em}
+}
+
+\newcommand{\sectionheading}[1]{%
+  \Needspace{8\baselineskip}
+  \vspace{0.25em}
+  {\color{darkgray}\large\bfseries #1}\par
+}
+
+\begin{document}
+
+\begin{center}
+  \colorbox{lightblue}{%
+    \begin{minipage}{0.92\textwidth}
+      \vspace{0.6em}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+        {\color{courseblue}\bfseries\LARGE Homework 4} &
+        {\color{courseblue}\bfseries\LARGE MATH 327}\\[0.4em]
+        \multicolumn{2}{l}{\color{darkgray}\bfseries Fall 2026}\\[0.35em]
+        \multicolumn{2}{l}{\color{courseblue}\bfseries Questions and solutions}\\[0.35em]
+        \multicolumn{2}{l}{\color{darkgray}Covers Lectures 20--24}\\[0.2em]
+        \multicolumn{2}{l}{\color{darkgray}Suggested completion date: Thursday, November 5}
+      \end{tabular*}
+      \vspace{0.5em}
+    \end{minipage}}
+\end{center}
+
+\vspace{0.5em}
+
+Unless otherwise indicated, the following exercises are from Michael Artin's
+\emph{Algebra}, second edition. Exercises marked \emph{Supplementary} are
+not from the text. This set is also good practice for Midterm~2.
+
+% Problems drawn in part from Homework (2025)/2025-Winter-MATH327-Homework3.tex
+% (Ch. 6: 9.2, 12.3; Ch. 7: 2.8(b), 3.2, 4.2, 5.6, and the SL_2(F_3) class equation).
+
+%======================================================================
+\chapterheading{Chapter 2: Groups}
+
+\sectionheading{Section 12: Quotient Groups and the First Isomorphism Theorem}
+
+\begin{exercise}{S.1 (Supplementary)}
+Use the first isomorphism theorem to establish each of the following
+isomorphisms. In each case, write down the homomorphism you use and
+compute its kernel and image.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item $\C^{\times}/U\cong\R_{>0}$, where $U=\{z\in\C:|z|=1\}$ and
+        $\R_{>0}$ is the group of positive reals under multiplication.
+  \item $(\R,+)/\Z\cong U$.
+  \item $S_4/V\cong S_3$, where $V=\{1,(12)(34),(13)(24),(14)(23)\}$.
+        \textit{Hint.} Let $S_4$ act on the three ways of partitioning
+        $\{1,2,3,4\}$ into two pairs,
+        \[
+          \pi_1=\{12\,|\,34\},\qquad
+          \pi_2=\{13\,|\,24\},\qquad
+          \pi_3=\{14\,|\,23\}.
+        \]
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} Let $\varphi:\C^\times\to\R_{>0}$, $z\mapsto|z|$. Since
+$|zw|=|z|\,|w|$, this is a homomorphism. It is surjective because
+$\varphi(r)=r$ for each $r>0$, and its kernel is
+$\{z:|z|=1\}=U$. Hence $\C^\times/U\cong\R_{>0}$.
+
+\textbf{(b)} Let $\psi:\R\to U$, $t\mapsto e^{2\pi it}$. Then
+$\psi(s+t)=e^{2\pi is}e^{2\pi it}=\psi(s)\psi(t)$. Every $z\in U$ can be
+ written $z=e^{i\theta}=\psi(\theta/2\pi)$, so $\psi$ is surjective.
+ Its kernel is $\{t:e^{2\pi it}=1\}=\Z$. Hence $\R/\Z\cong U$.
+
+\textbf{(c)} Each $\sigma\in S_4$ sends a partition into two pairs to
+ another such partition, so we get an action of $S_4$ on
+$\{\pi_1,\pi_2,\pi_3\}$ and hence a homomorphism
+$\varphi:S_4\to S_3$. For example $(12)$ fixes $\pi_1$ and swaps $\pi_2$ and
+$\pi_3$, so $\varphi((12))=(23)$; and $(123)$ sends
+$\pi_1\mapsto\{23\,|\,14\}=\pi_3$, $\pi_3\mapsto\{24\,|\,31\}=\pi_2$,
+$\pi_2\mapsto\{21\,|\,34\}=\pi_1$, so $\varphi((123))=(132)$.
+ The image therefore contains a transposition and a $3$-cycle, so it has
+ order divisible by $6$, and $\varphi$ is surjective.
+
+ By the counting formula, $|\ker\varphi|=24/6=4$. Each element of $V$ fixes all three
+ partitions: for example $(12)(34)$ preserves $\{12\,|\,34\}$, and sends
+$\{13\,|\,24\}\mapsto\{24\,|\,13\}$ and $\{14\,|\,23\}\mapsto\{23\,|\,14\}$.
+ So $V\subseteq\ker\varphi$, and comparing orders gives $\ker\varphi=V$.
+ The first isomorphism theorem gives $S_4/V\cong S_3$.
+\end{solution}
+
+\begin{exercise}{S.2 (Supplementary)}
+Let $N$ be a normal subgroup of a group $G$. The \emph{commutator} of
+$a,b\in G$ is $[a,b]=aba^{-1}b^{-1}$.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Prove that $G/N$ is abelian if and only if $[a,b]\in N$ for all
+        $a,b\in G$.
+  \item Deduce that for $n\geq 2$ every commutator in $S_n$ is an even permutation.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} For $a,b\in G$,
+\[
+  (aN)(bN)=(bN)(aN)\iff abN=baN\iff (ba)^{-1}ab\in N
+  \iff a^{-1}b^{-1}ab\in N.
+\]
+ So $G/N$ is abelian if and only if $a^{-1}b^{-1}ab\in N$ for all $a,b$.
+ As $a$ and $b$ range over $G$, so do $a^{-1}$ and $b^{-1}$, and
+$a^{-1}b^{-1}ab=[a^{-1},b^{-1}]$. Hence the condition is equivalent to
+$[a,b]\in N$ for all $a,b\in G$.
+
+\textbf{(b)} $A_n$ is the kernel of $\operatorname{sgn}$, so it is normal, and
+$S_n/A_n\cong\{\pm1\}$ is abelian. By (a), every commutator lies in $A_n$.
+ (Directly: $\operatorname{sgn}[a,b]=\operatorname{sgn}(a)\operatorname{sgn}(b)
+\operatorname{sgn}(a)^{-1}\operatorname{sgn}(b)^{-1}=1$.)
+\end{solution}
+
+%======================================================================
+\chapterheading{Chapter 7: More Group Theory}
+
+\sectionheading{Sections 2--3: The Class Equation and the Center}
+
+\begin{exercise}{2.8(b)}
+Determine the possible class equations of a nonabelian group of order $21$.
+\end{exercise}
+
+\begin{solution}
+ Let $G$ be nonabelian of order $21$ with center $Z$. Then $|Z|$ divides
+ $21$ and $Z\neq G$. If $|Z|=3$ or $7$, then $G/Z$ has prime order and is
+ therefore cyclic, so $G$ is abelian by Exercise~3.2, a contradiction. So
+$|Z|=1$.
+
+ Every noncentral class has size dividing $21$ and greater than $1$, so of
+ size $3$, $7$, or $21$. A class of size $21$ would be all of $G$, which is impossible
+ since $\{1\}$ is a class. So
+\[
+  21=1+3a+7b,\qquad\text{i.e.}\qquad 3a+7b=20,\quad a,b\geq0.
+\]
+ Checking $b=0,1,2$ leaves $20,13,6$, and only $6$ is divisible by $3$.
+ Hence $a=b=2$ and the only possibility is
+\[
+  21=1+3+3+7+7.
+\]
+ (Such a group exists: for example, the group of maps $x\mapsto ax+b$ of
+$\F_7$ with $a\in\{1,2,4\}$.)
+\end{solution}
+
+\begin{exercise}{3.2}
+Let $Z$ be the center of a group $G$. Prove that if $G/Z$ is a cyclic
+group, then $G$ is abelian, and hence $G=Z$.
+\end{exercise}
+
+\begin{solution}
+ Let $xZ$ generate $G/Z$. Then every element of $G$ lies in some coset
+$x^jZ$, so it can be written as $x^jz$ with $j\in\Z$ and $z\in Z$. Given
+$g=x^jz$ and $h=x^kz'$, since $z,z'$ are central,
+\[
+  gh=x^jzx^kz'=x^{j+k}zz'=x^{k+j}z'z=x^kz'x^jz=hg.
+\]
+ So $G$ is abelian, hence every element is central and $G=Z$.
+\end{solution}
+
+\begin{exercise}{S.3 (Supplementary)}
+Let $p$ be a prime.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $G$ be a group of order $p^n$ with $n\geq1$. Use the class
+        equation to prove that the center $Z(G)$ is nontrivial.
+  \item Prove that every group of order $p^2$ is abelian.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} Write the class equation as
+\[
+  p^n=|Z(G)|+\sum_{x_i\notin Z(G)}[G:C_G(x_i)].
+\]
+ Each noncentral class has size $[G:C_G(x_i)]>1$ dividing $p^n$, so it is
+ divisible by $p$. Hence $p$ divides $|Z(G)|$. Since $1\in Z(G)$, we get
+ $|Z(G)|\geq p$.
+(This is also a special case of Exercise S.6(a) below, applied to conjugation on $G$:
+ the fixed points are the central elements.)
+
+\textbf{(b)} Let $|G|=p^2$. By (a), $|Z(G)|$ is $p$ or $p^2$. If it were
+$p$, then $G/Z(G)$ would have order $p$, hence be cyclic, and
+ Exercise~3.2 would give $G=Z(G)$, a contradiction. So $|Z(G)|=p^2$ and
+$G$ is abelian.
+\end{solution}
+
+\begin{exercise}[breakable]{S.4 (Supplementary)}
+Let $\F_3=\Z/3\Z$ and $G=\SL_2(\F_3)$, which has order $24$ (Lecture 22).
+Put
+\[
+  U=\begin{pmatrix}1&1\\0&1\end{pmatrix},\qquad
+  J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item The group $G$ acts on the set of $8$ nonzero vectors in $\F_3^2$ by
+        matrix multiplication. Show that this action is transitive, compute
+        the stabilizer of $e_1=\binom10$, and use it to recover $|G|=24$.
+  \item Show that $Z(G)=\{\pm I\}$.
+  \item Compute the centralizers $C_G(U)$ and $C_G(J)$, and the sizes of
+        the conjugacy classes of $U$ and $J$.
+  \item Show that $U$ and $U^{-1}$ are \emph{not} conjugate in $G$.
+        (They are conjugate in $\GL_2(\F_3)$.)
+  \item Conclude that the class equation of $G$ is
+        \[
+          24=1+1+4+4+4+4+6,
+        \]
+        with class representatives $I$, $-I$, $U$, $U^{-1}$, $-U$, $-U^{-1}$, and $J$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+ Throughout, write $P=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in G$, so
+ $ad-bc=1$. Note that $a^2=1$ for every $a\in\F_3^\times$.
+
+\textbf{(a)} $Pe_1=\binom ac$ is the first column of $P$. Given a nonzero
+ $v\in\F_3^2$, choose $w$ with $(v,w)$ a basis. The matrix with columns $v,w$
+ has determinant $\delta\neq0$, and replacing $w$ by $\delta^{-1}w$ gives a matrix
+ in $G$ that sends $e_1$ to $v$. So the action is transitive and the orbit
+ of $e_1$ has size $8$. The stabilizer consists of the $P$ with
+ first column $e_1$, that is, $\begin{pmatrix}1&b\\0&d\end{pmatrix}$ with $d=1$:
+\[
+  G_{e_1}=\left\{\begin{pmatrix}1&b\\0&1\end{pmatrix}:b\in\F_3\right\}
+  =\{I,U,U^{-1}\},
+\]
+ of order $3$. Hence $|G|=8\cdot3=24$.
+
+\textbf{(c)} (We do (c) before (b).) Computing,
+\[
+  PU=\begin{pmatrix}a&a+b\\c&c+d\end{pmatrix},\qquad
+  UP=\begin{pmatrix}a+c&b+d\\c&d\end{pmatrix}.
+\]
+ So $PU=UP$ if and only if $c=0$ and $a=d$, and then $\det P=a^2=1$ holds
+ automatically. Hence
+\[
+  C_G(U)=\left\{\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}:b\in\F_3\right\},
+  \qquad |C_G(U)|=6,\qquad |\Cl_G(U)|=24/6=4.
+\]
+ Similarly,
+\[
+  PJ=\begin{pmatrix}b&-a\\d&-c\end{pmatrix},\qquad
+  JP=\begin{pmatrix}-c&-d\\a&b\end{pmatrix},
+\]
+ so $PJ=JP$ if and only if $c=-b$ and $d=a$. Then $\det P=a^2+b^2=1$. In $\F_3$
+ the squares are $0,1$, so exactly one of $a,b$ is zero and the other is $\pm1$:
+\[
+  C_G(J)=\{\pm I,\pm J\},\qquad |\Cl_G(J)|=24/4=6.
+\]
+
+\textbf{(b)} A central element commutes with $U$, so it has the form
+$\pm\begin{pmatrix}1&b\\0&1\end{pmatrix}$, and it commutes with $J$, so
+$c=-b$, giving $b=0$. Thus $Z(G)\subseteq\{\pm I\}$, and scalar matrices are
+ clearly central.
+
+\textbf{(d)} Suppose $PUP^{-1}=U^{-1}$, that is, $PU=U^{-1}P$. Now
+\[
+  U^{-1}P=\begin{pmatrix}a-c&b-d\\c&d\end{pmatrix}.
+\]
+ Comparing with $PU$ gives $c=0$ (top-left entries) and $a+b=b-d$, so $d=-a$. Then
+$\det P=ad=-a^2=-1\neq1$, a contradiction. (In $\GL_2(\F_3)$,
+$P=\operatorname{diag}(1,-1)$ works.)
+
+\textbf{(e)} The classes of $I$ and $-I$ are singletons. $U$ has order $3$
+ and its class has size $4$. $U^{-1}$ also has order $3$, its class has size $4$ (its centralizer equals
+ $C_G(U)$), and by (d) it is a different class. Since $-I$ is central, $X\mapsto -X$ maps the class
+ of $X$ bijectively onto the class of $-X$. So $-U$ and $-U^{-1}$ also give classes of size $4$.
+ These have elements of order $6$, so they are different from the classes of $U$ and $U^{-1}$, and they are different from each other
+ by (d). This accounts for $1+1+4+4+4+4=18$ elements. The class of
+$J$ has $6$ elements of order $4$, distinct from all of these, and
+$18+6=24$. Therefore
+\[
+  24=1+1+4+4+4+4+6.
+\]
+\end{solution}
+
+\sectionheading{Sections 4--5: Conjugation in $S_n$ and $A_n$}
+
+\begin{exercise}{5.6 (Adapted)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Find all subgroups of order $4$ of $S_4$, and decide which ones
+        are normal.
+  \item Use the class equation of $S_4$ to prove that $A_4$ is the only
+        subgroup of $S_4$ of order $12$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+ Recall the class equation $24=1+6+3+8+6$, with classes the identity,
+ transpositions ($6$), double transpositions ($3$), $3$-cycles ($8$), and
+ $4$-cycles ($6$).
+
+\textbf{(a)} A group of order $4$ is cyclic or isomorphic to $C_2\times C_2$.
+ A cyclic one is generated by an element of order $4$, which in $S_4$ must be a
+$4$-cycle. Each such subgroup contains two $4$-cycles, so there are $6/2=3$ of them:
+\[
+  \langle(1234)\rangle=\{1,(1234),(13)(24),(1432)\},\quad
+  \langle(1243)\rangle,\quad
+  \langle(1324)\rangle.
+\]
+ A Klein four-subgroup consists of $1$ and three commuting involutions. The
+ possibilities are
+\[
+  V=\{1,(12)(34),(13)(24),(14)(23)\},
+\]
+ and the three subgroups $\{1,(12),(34),(12)(34)\}$,
+$\{1,(13),(24),(13)(24)\}$, $\{1,(14),(23),(14)(23)\}$.
+ So there are seven subgroups of order $4$.
+
+ A normal subgroup is a union of conjugacy classes. Its order is $4$ and it contains the class $\{1\}$, so the other classes contribute $3$.
+ The only class sizes available are $6,3,8,6$, so the only option is $4=1+3$, which is $V$. Since $V$ is a union of classes, it is
+ normal. The other six subgroups are not normal, since each contains a
+ transposition or a $4$-cycle without containing that entire class.
+
+\textbf{(b)} A subgroup $H$ of order $12$ has index $2$, so it is normal
+(Homework 2), and hence a union of conjugacy classes containing $\{1\}$.
+ The only way to write $12=1+\cdots$ using the class sizes $6,3,8,6$ is $12=1+3+8$.
+ So $H$ consists of the identity, the double transpositions, and the
+$3$-cycles. These are exactly the even permutations, so $H=A_4$.
+\end{solution}
+
+\begin{exercise}{S.5 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Use the splitting lemma from Lecture 23 to compute the class equation
+        of $A_4$. Give a representative of each class, and decide whether
+        $(123)$ and $(132)$ are conjugate in $A_4$.
+  \item Deduce that $A_4$ has no subgroup of order $6$. (So the converse of
+        Lagrange's theorem fails.)
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} The even classes of $S_4$ are $\{1\}$, the $3$ double
+ transpositions, and the $8$ three-cycles.
+
+$\bullet$ $(12)(34)$ commutes with the odd permutation $(12)$, so its
+$S_4$-class does not split: it gives an $A_4$-class of size $3$.
+
+$\bullet$ $C_{S_4}((123))$ has order $24/8=3$, so it equals
+$\langle(123)\rangle\subseteq A_4$. Hence the $8$ three-cycles split into two
+$A_4$-classes of size $4$. The two classes are represented by $(123)$ and
+$(12)(123)(12)^{-1}=(213)=(132)$. In particular $(123)$ and $(132)$ are
+\emph{not} conjugate in $A_4$. Therefore
+\[
+  12=1+3+4+4.
+\]
+
+\textbf{(b)} A subgroup of order $6$ would have index $2$ in $A_4$, so it
+ would be normal and hence a union of classes containing $\{1\}$. But the
+ possible sums $1+(\text{some of }3,4,4)$ are $1,4,5,8,9,12$, and $6$ is not
+ among them.
+\end{solution}
+
+\begin{exercise}{4.2 (Adapted)}
+Determine all normal subgroups of the symmetric group $S_5$.
+\textit{Hint.} Use the class equation of $S_5$ from Lecture 23, or the
+simplicity of $A_5$.
+\end{exercise}
+
+\begin{solution}
+ The normal subgroups are $\{1\}$, $A_5$, and $S_5$. They are normal since
+$A_5=\ker(\operatorname{sgn})$.
+
+ Conversely, let $N\trianglelefteq S_5$. Then $N\cap A_5$ is normal in
+$A_5$, so since $A_5$ is simple, $N\cap A_5$ is $\{1\}$ or $A_5$.
+
+$\bullet$ If $N\cap A_5=A_5$, then $A_5\subseteq N\subseteq S_5$, and since
+$[S_5:A_5]=2$, $N$ is $A_5$ or $S_5$.
+
+$\bullet$ If $N\cap A_5=\{1\}$, then $\operatorname{sgn}|_N$ is injective, so
+$|N|\leq2$. If $N=\{1,\tau\}$, normality gives $g\tau g^{-1}=\tau$ for all
+$g$, so $\tau\in Z(S_5)$. But the class equation
+$120=1+10+20+30+24+15+20$ has only one class of size $1$, so
+$Z(S_5)=\{1\}$. Hence $N=\{1\}$.
+
+\emph{Alternative.} Using only the class equation: $|N|$ divides $120$ and equals
+$1$ plus a sum of some of $10,20,30,24,15,20$. Apart from $1$ and $120$, the only
+ possibilities are $40=1+15+24$ and $60=1+15+20+24$, where the $20$ in the second sum can be either class of size $20$. Any such $N$ contains $(12)(34)$ and
+$(12345)$. Their product $(12)(34)(12345)=(245)$ is a $3$-cycle, so $N$ contains all $20$ three-cycles. This rules out $40$ and the other sum giving $60$, and leaves
+$N=A_5$.
+\end{solution}
+
+%======================================================================
+\chapterheading{Chapter 6: Symmetry}
+
+\sectionheading{Sections 7--9: Group Operations and the Counting Formula}
+
+\begin{exercise}{S.6 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $p$ be a prime and let $G$ be a group of order $p^k$ acting
+        on a finite set $S$. Prove that if $p$ does not divide $|S|$, then
+        the action has a \emph{fixed point}, that is, some $s\in S$ with
+        $g\cdot s=s$ for every $g\in G$.
+  \item Prove that every action of a group of order $15$ on a set with
+        $7$ elements has a fixed point.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} The orbits partition $S$, so $|S|=\sum|\mathcal O|$ over
+ the distinct orbits. By orbit--stabilizer, each $|\mathcal O_s|=[G:G_s]$
+ divides $p^k$, so it is a power of $p$. If there were no fixed point,
+ every orbit would have size $p^j$ with $j\geq1$, so $p$ would divide
+ every term and hence $|S|$, a contradiction. An orbit of size $1$ is
+ exactly a fixed point.
+
+\textbf{(b)} Orbit sizes divide $15$, so they lie in $\{1,3,5,15\}$, and
+ they sum to $7$. A size-$15$ orbit is impossible. If there were no fixed point we would
+ have $7=3a+5b$ with $a,b\geq0$, which has no solution ($b=0,1$ leaves
+ $7$ or $2$, neither divisible by $3$). So some orbit has size $1$.
+\end{solution}
+
+\begin{exercise}{9.2 (Adapted)}
+Let $G$ be the group of rotational symmetries of a cube, and let $V$, $E$,
+$F$ denote the sets of vertices, edges, and faces of the cube. Fix a
+vertex $v$, an edge $e$, and a face $f$, and let $G_v$, $G_e$, $G_f$ be
+their stabilizers.
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Determine $|G_v|$, $|G_e|$, and $|G_f|$, and describe each
+        stabilizer geometrically.
+  \item For each of the three subgroups $G_v$, $G_e$, $G_f$, decompose each of
+        $V$, $E$, $F$ into orbits. Record your answers as sums
+        of orbit sizes (for example $8=1+1+3+3$).
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} $|G|=24$, and $G$ acts transitively on the $8$ vertices,
+$12$ edges, and $6$ faces. By orbit--stabilizer,
+\[
+  |G_v|=24/8=3,\qquad |G_e|=24/12=2,\qquad |G_f|=24/6=4.
+\]
+$G_v$ is the cyclic group of rotations by $0,2\pi/3,4\pi/3$ about the long
+ diagonal through $v$. $G_e$ is generated by the half-turn about the axis
+ through the midpoints of $e$ and of the opposite edge $e'$. $G_f$ is
+ the cyclic group of rotations by multiples of $\pi/2$ about the axis
+ through the centers of $f$ and of the opposite face $f'$.
+
+\textbf{(b)} Let $v'$, $e'$, $f'$ be the vertex, edge, and face opposite
+$v$, $e$, $f$.
+
+\emph{$G_v$ (order $3$).} On vertices: $v$ and $v'$ are fixed; the three
+ neighbours of $v$ form an orbit, as do the three neighbours of $v'$:
+$8=1+1+3+3$. On faces: the three faces containing $v$ and the three
+ containing $v'$: $6=3+3$. On edges: the three edges at $v$, the three
+ edges at $v'$, and the remaining six edges split into two orbits of size
+$3$. No edge is fixed, since a rotation of order $3$ cannot map an edge to itself (it would have to fix both endpoints, and the only fixed vertices are $v$ and $v'$, which are not adjacent): $12=3+3+3+3$.
+
+\emph{$G_e$ (order $2$).} The half-turn fixes no vertex: $8=2+2+2+2$.
+ It swaps the two faces containing $e$, swaps the two containing $e'$, and swaps
+ the remaining two: $6=2+2+2$. It fixes $e$ and $e'$ (reversing each) and
+ moves every other edge: $12=1+1+2+2+2+2+2$.
+
+\emph{$G_f$ (order $4$).} The four vertices of $f$ form an orbit, as do
+ the four of $f'$: $8=4+4$. Faces: $f$ and $f'$ are fixed and the four
+ side faces are cycled: $6=1+1+4$. Edges: the four edges of $f$, the four
+ of $f'$, and the four vertical edges: $12=4+4+4$.
+
+ As a check, each orbit size divides the order of the subgroup and the sizes add up
+ to $|V|$, $|E|$, $|F|$.
+\end{solution}
+
+\sectionheading{Section 12: Finite Subgroups of the Rotation Group}
+
+\begin{exercise}{S.7 (Supplementary)}
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Use Euler's rotation theorem to prove that the composition of two rotations
+        of $\R^3$ (about axes through the origin) is again a rotation.
+  \item Let $\rho_1$ be the rotation by $\pi/2$ about the $e_3$-axis and
+        $\rho_2$ the rotation by $\pi/2$ about the $e_1$-axis, each
+        counterclockwise when viewed from the tip of the axis vector.
+        Find a pole and the angle of rotation of $\rho_2\circ\rho_1$.
+        \textit{Hint.} The trace of a rotation through angle $\theta$
+        is $1+2\cos\theta$. Why?
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} By Euler's theorem the two rotations have matrices $A,B\in\SO_3(\R)$.
+ Since $\SO_3(\R)$ is a group, $AB\in\SO_3(\R)$, and by Euler's theorem again
+$AB$ is a rotation.
+
+\textbf{(b)} In the standard basis,
+\[
+  \rho_1=\begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix},\qquad
+  \rho_2=\begin{pmatrix}1&0&0\\0&0&-1\\0&1&0\end{pmatrix},\qquad
+  A=\rho_2\rho_1=\begin{pmatrix}0&-1&0\\0&0&-1\\1&0&0\end{pmatrix}.
+\]
+ Solving $Au=u$ gives $u=(1,-1,1)$, so a pole is $\tfrac1{\sqrt3}(1,-1,1)$.
+
+ In an orthonormal basis $(u,v,w)$ adapted to the axis, a rotation through
+$\theta$ has matrix $B_\theta$ with trace $1+2\cos\theta$. Trace is
+ invariant under conjugation. Here $\operatorname{tr}A=0$, so
+$\cos\theta=-\tfrac12$ and the angle is $2\pi/3$ (up to orientation).
+ Equivalently, $A$ permutes the vectors $e_1\mapsto e_3\mapsto -e_2\mapsto e_1$,
+ so $A^3=I$. Since $u\cdot(e_1\times Ae_1)=u\cdot(-e_2)=1/\sqrt3>0$,
+ the rotation is counterclockwise when viewed from the tip of $u$. Thus
+ $\rho_2\circ\rho_1$ is the rotation through
+$2\pi/3$ about $\tfrac1{\sqrt3}(1,-1,1)$, counterclockwise when viewed from the tip of the vector.
+ Geometrically, it is one of the order-$3$
+ rotations of the cube $[-1,1]^3$ about a long diagonal.
+\end{solution}
+
+\begin{exercise}{S.8 (Supplementary)}
+For a finite group $G\leq\SO_3(\R)$ of order $N$, let $\mathcal P$ be its
+set of poles: the unit vectors fixed by some nonidentity element of $G$.
+Recall the pole-counting formula
+\[
+  \sum_{p\in\mathcal P}\bigl(|G_p|-1\bigr)=2(N-1).
+\]
+\begin{enumerate}[label=\textbf{(\alph*)}]
+  \item Let $O$ be the group of rotational symmetries of the cube
+        $[-1,1]^3$, which has order $24$. Describe all the poles of $O$, sort them into
+        $O$-orbits, give the order of the stabilizer of a pole in each orbit,
+        and verify the formula. Which row of the table from
+        Lecture 24 does this realize?
+  \item Let $n\geq3$, and let $D_n\leq\SO_3(\R)$ be the group of rotational symmetries
+        of a regular $n$-gon in the $xy$-plane centered at the origin.
+        It consists of $n$ rotations about the $z$-axis and $n$ half-turns
+        about axes in the $xy$-plane. Do the same for $D_n$, and check that you obtain the
+        dihedral pattern $(r_1,r_2,r_3)=(2,2,n)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\textbf{(a)} The nonidentity elements of $O$ are:
+\begin{itemize}[leftmargin=1.5em]
+  \item $9$ rotations about the $3$ axes through opposite face centers
+        (angles $\pi/2,\pi,3\pi/2$),
+  \item $8$ rotations about the $4$ long diagonals (angles $2\pi/3,4\pi/3$),
+  \item $6$ half-turns about the $6$ axes through midpoints of opposite edges,
+\end{itemize}
+ and $1+9+8+6=24$. The poles fall into three orbits:
+\[
+\begin{array}{l|c|c|c}
+  \text{poles through} & \text{number } n_i & |G_p|=r_i & n_i(r_i-1)\\\hline
+  \text{face centers} & 6 & 4 & 18\\
+  \text{vertices} & 8 & 3 & 16\\
+  \text{edge midpoints} & 12 & 2 & 12
+\end{array}
+\]
+ Each set is a single orbit because $O$ is transitive on faces, vertices,
+ and edges. The stabilizer orders follow from $n_ir_i=24$. The sum is
+$18+16+12=46=2(24-1)$, which verifies the formula. With $r_1\leq r_2\leq r_3$
+ this is the row $(2,3,4)$, $N=24$, $(n_1,n_2,n_3)=(12,8,6)$.
+
+\textbf{(b)} Here $N=2n$. The $z$-axis gives two poles $\pm e_3$, each
+ with stabilizer the cyclic group of $n$ rotations about the $z$-axis. A half-turn about an
+ in-plane axis swaps them, so $\{\pm e_3\}$ is one orbit with $r=n$.
+ The $n$ half-turn axes give $2n$ poles in the $xy$-plane: the $n$ unit
+ vectors toward the vertices and the $n$ unit vectors toward the edge midpoints.
+ (For $n$ even, an axis through a vertex passes through the opposite vertex.
+ For $n$ odd, it passes through the midpoint of the opposite edge.) The rotations about the $z$-axis
+ permute the vertex directions transitively, and likewise the midpoint directions. No symmetry takes a vertex direction to a midpoint direction.
+ So these form two orbits of size $n$, and each in-plane pole has stabilizer of order
+$2n/n=2$. Hence
+\[
+  (r_1,r_2,r_3)=(2,2,n),\qquad (n_1,n_2,n_3)=(n,n,2),
+\]
+ and $n(2-1)+n(2-1)+2(n-1)=4n-2=2(2n-1)$, as required.
+\end{solution}
+
+\begin{exercise}{12.3 (Adapted)}
+Let $O$ be the group of rotational symmetries of a cube. Its elements may
+exchange the two endpoints of a long diagonal. Determine the stabilizer in
+$O$ of a long diagonal (a line through two opposite vertices), list its
+elements geometrically, and identify it with a familiar group.
+\end{exercise}
+
+\begin{solution}
+ $O$ permutes the $4$ long diagonals transitively, so the stabilizer
+$O_\ell$ of a diagonal $\ell$ has order $24/4=6$. Take $\ell$ to be the line through
+$\pm(1,1,1)$. Then $O_\ell$ contains:
+\begin{itemize}[leftmargin=1.5em]
+  \item the identity and the rotations $x,x^2$ through $2\pi/3,4\pi/3$
+        about $\ell$, which fix each endpoint, and
+  \item three half-turns about the edge-midpoint axes perpendicular to $\ell$,
+        namely those through $\pm(1,-1,0)$, $\pm(1,0,-1)$, $\pm(0,1,-1)$.
+        Each one swaps $(1,1,1)$ and $(-1,-1,-1)$.
+\end{itemize}
+ These are $6$ elements, so they make up all of $O_\ell$. Let $y$ be one of the half-turns. It reverses
+ the direction of $\ell$, so $yxy^{-1}$ is the rotation about $\ell$ in the opposite sense,
+ namely $x^{-1}$. In particular $O_\ell$ is nonabelian of order $6$, and so
+ $O_\ell\cong S_3$, with elements $\{1,x,x^2,y,xy,x^2y\}$. Concretely, $O_\ell$ acts faithfully on
+ the three other long diagonals as all of $S_3$, which is consistent with
+ the isomorphism $O\cong S_4$ coming from the action on the four diagonals.
+\end{solution}
+
+\vfill
+{\small\color{darkgray}Compiled \today.}
+
+\end{document}

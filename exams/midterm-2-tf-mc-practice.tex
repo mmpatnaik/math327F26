@@ -1,0 +1,81 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Midterm 2 Practice: Multiple Choice and True/False},pdfauthor={Manish Patnaik}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=10pt}
+
+\newcommand{\F}{\mathbb F}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\GL}{\mathrm{GL}}
+\newif\ifsolutions
+\ifdefined\showsolutions\solutionstrue\fi
+\newcommand{\sol}[1]{\ifsolutions\par\smallskip{\color{blue!50!black}\textbf{Answer.} #1}\fi}
+\newcommand{\choices}[4]{\par
+  \begin{tabular}{@{}p{0.22\linewidth}p{0.22\linewidth}p{0.22\linewidth}p{0.22\linewidth}@{}}
+    (a) #1 & (b) #2 & (c) #3 & (d) #4
+  \end{tabular}}
+\newcommand{\TF}{\hfill\textbf{T\quad F}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Midterm 2 Practice: Multiple Choice and True/False\ifsolutions\ --- Solutions\fi}\\[2pt]
+MATH 327: Algebra 1 \quad\textbar\quad Fall 2026
+\end{center}
+\vspace{-5pt}
+\hrule
+\vspace{5pt}
+\textbf{Directions.} For multiple choice, circle exactly one answer. For true/false, circle T or F. These cover Lectures 15--23; work out \emph{why} each answer is correct, since that reasoning is what the written questions test.
+
+\section*{A. Multiple choice}
+\begin{enumerate}[label=\textbf{A\arabic*.}]
+\item Let $H\leq S_3$. For which subgroups $H$ is the rule $(aH)(bH)=(ab)H$ a well-defined operation on the set of left cosets of $H$?
+\par\begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}
+(a) Only $H=\{1\}$ and $H=S_3$ & (b) $H=\{1\}$, $H=A_3$, and $H=S_3$\\[3pt]
+(c) Every subgroup of $S_3$ & (d) Only $H=A_3$
+\end{tabular}
+\sol{(b). The rule is well defined exactly when $H\trianglelefteq S_3$. The normal subgroups of $S_3$ are $\{1\}$, $A_3=\langle(1\,2\,3)\rangle$, and $S_3$; the subgroups $\langle(1\,2)\rangle$, $\langle(1\,3)\rangle$, $\langle(2\,3)\rangle$ are not normal.}
+
+\item In $D_{12}$, the symmetry group of a regular hexagon, let $x$ be rotation by $60^\circ$ and $y$ a reflection, so $yxy^{-1}=x^{-1}$. Which of the following elements is a reflection?
+\choices{$x^3$}{$yxy$}{$x^2y$}{$yx^2y$}
+\sol{(c). Every element of the form $x^ky$ is a reflection. Since $y=y^{-1}$, we have $yxy=x^{-1}$ and $yx^2y=x^{-2}$, which are rotations, and $x^3$ is rotation by $180^\circ$.}
+
+\item Let $U=\{z\in\C:|z|=1\}$ be the unit circle under multiplication. The quotient group $(\R,+)/\Z$ is isomorphic to which of the following?
+\choices{$(\R_{>0},\cdot)$}{$U$}{$(\R^\times,\cdot)$}{$(\Z,+)$}
+\sol{(b). The map $\varphi:\R\to U$, $\varphi(t)=e^{2\pi i t}$, is a surjective homomorphism from $(\R,+)$ to $U$, because $e^{2\pi i(s+t)}=e^{2\pi i s}e^{2\pi i t}$. Its kernel is $\Z$. By the first isomorphism theorem, $\R/\Z\cong U$.}
+
+\item What is the order of the element $(1,1)$ in $\Z/4\Z\times\Z/6\Z$?
+\choices{$4$}{$6$}{$12$}{$24$}
+\sol{(c). The element $n(1,1)=(n,n)$ is the identity exactly when $4\mid n$ and $6\mid n$. So the order is $\operatorname{lcm}(4,6)=12$. Every element of this group has order dividing $12$, so the group has no element of order $24$ and is not cyclic. Coprimality fails here: $\gcd(4,6)=2$.}
+
+\item A group $G$ acts on a set $S$, and $s'=a\cdot s$ for some $a\in G$. Which of the following equals the stabilizer $G_{s'}$?
+\choices{$G_s$}{$aG_sa^{-1}$}{$a^{-1}G_sa$}{$aG_s$}
+\sol{(b). If $g\in G_s$, then $(aga^{-1})\cdot s'=ag\cdot s=a\cdot s=s'$, so $aG_sa^{-1}\subseteq G_{s'}$. Since $s=a^{-1}\cdot s'$, the same argument gives $a^{-1}G_{s'}a\subseteq G_s$. Choice (a) fails in general, for example for $S_3$ acting on $\{1,2,3\}$. Choice (d) is a coset, and it is not a subgroup unless $a\in G_s$.}
+\end{enumerate}
+
+\section*{B. True or false}
+\begin{enumerate}[label=\textbf{B\arabic*.}]
+\item \parbox[t]{0.86\linewidth}{There exists a group $G$ with $|G/Z(G)|=7$.}\TF
+\sol{False. A group of order $7$ is cyclic. If $G/Z(G)$ is cyclic, then $G$ is abelian, so $Z(G)=G$ and $|G/Z(G)|=1$.}
+
+\item \parbox[t]{0.86\linewidth}{Every group of order $49$ is cyclic.}\TF
+\sol{False. Every group of order $p^2$ is abelian, but $C_7\times C_7$ has order $49$ and is not cyclic, since every non-identity element has order $7$.}
+
+\item \parbox[t]{0.86\linewidth}{If $H\leq G$ and $K\trianglelefteq G$, then $HK=\{hk:h\in H,\ k\in K\}$ is a subgroup of $G$.}\TF
+\sol{True. Normality of $K$ gives $HK=KH$, and this implies that $HK$ is closed under products and inverses. Only one of the two subgroups needs to be normal.}
+
+\item \parbox[t]{0.86\linewidth}{If $H\trianglelefteq G$ and $K\trianglelefteq G$ with $H\cap K=\{1\}$, then $G\cong H\times K$.}\TF
+\sol{False. The condition $HK=G$ is also needed. For example, take $G=S_3$, $H=A_3$, and $K=\{1\}$. Both are normal and $H\cap K=\{1\}$, but $H\times K\cong C_3\not\cong S_3$.}
+
+\item \parbox[t]{0.86\linewidth}{Every action of a group of order $7$ on a set with $3$ elements is trivial; that is, every element acts as the identity.}\TF
+\sol{True. The action gives a homomorphism $\rho:G\to S_3$. By the first isomorphism theorem, $|\operatorname{im}\rho|$ divides $|G|=7$, and by Lagrange it divides $|S_3|=6$. Thus $\operatorname{im}\rho$ is trivial. An orbit-size argument also works: each orbit size divides $7$ and is at most $3$, so every orbit has size $1$.}
+\end{enumerate}
+\end{document}

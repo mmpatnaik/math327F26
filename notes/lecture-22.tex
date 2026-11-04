@@ -1,7 +1,6 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
 \usepackage{needspace}
-\newcommand{\F}{\mathbb F}
 \lectureinfo{22}{Oct. 30, 2026}{Conjugation, Centralizers, and the Class Equation}
 \artinsections{7.2--7.3, 7.5}
 
@@ -218,40 +217,6 @@ distinct, conjugate centralizers of order $2$:
 \]
 These, together with $\{1\}$, $A_3$, and $S_3$, are all the
 subgroups of $S_3$.
-\end{example}
-
-\Needspace{20\baselineskip}
-\section{A matrix group over a finite field}
-
-Let $\F_3=\Z/3\Z=\{\overline0,\overline1,\overline2\}$.
-Matrix operations over $\F_3$ use arithmetic modulo $3$.
-We consider
-\[
-  \SL_2(\F_3)=
-  \left\{\begin{pmatrix}a&b\\c&d\end{pmatrix}:
-     a,b,c,d\in\F_3,\ ad-bc=1\right\}.
-\]
-
-\begin{example}[The order of $\SL_2(\F_3)$]
-First count the matrices in $\GL_2(\F_3)$ by choosing their columns.
-The first column $v_1$ can be any nonzero vector in $\F_3^2$,
-giving $3^2-1=8$ choices. The second column must lie outside the
-span of $v_1$. That span contains $3$ vectors, so there are
-$3^2-3=6$ choices. Hence
-\[
-  |\GL_2(\F_3)|=8\cdot6=48.
-\]
-The determinant homomorphism
-\[
-  \det:\GL_2(\F_3)\longrightarrow\F_3^\times
-\]
-is surjective: the diagonal matrix $\operatorname{diag}(a,1)$
-has determinant $a$ for each $a\in\F_3^\times$.
-Its kernel is $\SL_2(\F_3)$, and $|\F_3^\times|=2$.
-The counting formula for a homomorphism therefore gives
-\[
-  |\SL_2(\F_3)|=\frac{48}{2}=24.
-\]
 \end{example}
 
 \end{document}
