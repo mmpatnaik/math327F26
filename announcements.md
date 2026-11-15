@@ -13,6 +13,8 @@
 
 ## 2026-11-15
 
+[Homework 5](hw/hw-05.pdf) on ring theory is posted. Use it for practice as we work through Lectures 25–29. The suggested completion date is **Monday, November 30**.
+
 The [Midterm 2 solutions](exams/midterm-2-2026-solutions.pdf), [grading rubric](exams/midterm2-grading-rubric.pdf), and [class statistics](exams/midterm2-exam-statistics.pdf) are now posted.
 
 ## 2026-11-03
