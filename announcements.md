@@ -13,7 +13,7 @@
 
 ## 2026-11-15
 
-The [Midterm 2 solutions](exams/midterm-2-2026-solutions.pdf) and [class statistics](exams/midterm2-exam-statistics.pdf) are now posted.
+The [Midterm 2 solutions](exams/midterm-2-2026-solutions.pdf), [grading rubric](exams/midterm2-grading-rubric.pdf), and [class statistics](exams/midterm2-exam-statistics.pdf) are now posted.
 
 ## 2026-11-03
 
