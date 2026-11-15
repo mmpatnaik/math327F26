@@ -5,6 +5,8 @@ notes/*.pdf
 hw/*.pdf
 exams/*.pdf
 !exams/midterm1-exam-statistics.pdf
+!exams/midterm-2-2026-solutions.pdf
+!exams/midterm2-exam-statistics.pdf
 
 # LaTeX intermediates
 *.aux
