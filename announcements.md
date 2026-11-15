@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-11-15
+
+The [Midterm 2 solutions](exams/midterm-2-2026-solutions.pdf) and [class statistics](exams/midterm2-exam-statistics.pdf) are now posted.
+
 ## 2026-11-03
 
 [Multiple choice and true/false practice for Midterm 2](exams/midterm-2-tf-mc-practice.pdf) and [solutions](exams/midterm-2-tf-mc-practice-solutions.pdf) are now posted.
