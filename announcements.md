@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-11-18
+
+The **final exam** is on **Tuesday, December 22, 5:30–8:30 pm**, in **BUS 1-09**.
+
 ## 2026-11-15
 
 [Homework 5](hw/hw-05.pdf) on ring theory is posted. Use it for practice as we work through Lectures 25–29. The suggested completion date is **Monday, November 30**.
