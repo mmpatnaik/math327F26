@@ -2,8 +2,8 @@
 \usepackage{math327-lecture}
 \usepackage{needspace}
 \newcommand{\C}{\mathbb{C}}
-\lectureinfo{25}{Nov. 16, 2026}{Rings, Units, Ring Homomorphisms, and Polynomial Rings}
-\artinsections{11.1--11.3}
+\lectureinfo{25}{Nov. 16, 2026}{Rings, Subrings, Units, Fields, and Gaussian Integers}
+\artinsections{11.1}
 
 % Typeset from handwritten Lecture 27, Nov. 17, 2025, pp. 1--13.
 \begin{document}
@@ -52,7 +52,30 @@ the usual group we have been dealing with, but $\Z$ also has a
 multiplication: if $m,n\in\Z$, then $m\cdot n\in\Z$.
 \end{example}
 
-\section{Units}
+\Needspace{13\baselineskip}
+\section{The zero ring and subrings}
+
+What happens in a ring $(R,+,\cdot,0,1)$ if $0=1$?
+
+\begin{proposition}[The zero ring]\label{prop:zero-ring}
+If $0=1$ in a ring $R$, then $R=\{0\}$.
+\end{proposition}
+\begin{proof}
+For any $a\in R$, distributivity gives
+\[
+  0\cdot a=(1-1)a=a-a=0.
+\]
+If $0=1$, then $a=1\cdot a=0\cdot a=0$.
+Conversely, $\{0\}$ is a ring with $0+0=0$ and $0\cdot0=0$
+(here $1=0$).
+\end{proof}
+
+\begin{define}[Subring]
+A subset $S$ of a ring $R$ is a \emph{subring} if it is closed under
+$+$, additive inverses, and $\cdot$, and contains $0$ and $1$.
+\end{define}
+
+\section{Units and fields}
 
 In general an integer $m$ does not have an ``inverse'' under
 multiplication. However,
@@ -100,10 +123,17 @@ For $R=\Z$, these are $(\Z,+,0)$ and
 \]
 \end{example}
 
-\section{First examples: Gaussian integers, the zero ring, subrings}
+\begin{define}[Field]
+A ring $R$ is a \emph{field} if $0\neq1$ and
+$R^\times=R\setminus\{0\}$. In other words, every nonzero element
+of a field has a multiplicative inverse.
+\end{define}
+
+\Needspace{26\baselineskip}
+\section{Gaussian integers}
 
 \begin{example}[Gaussian integers]
-Inside $\C$, where $i^2=-1$, consider
+Inside the ring $\C$ of complex numbers, where $i^2=-1$, consider
 \[
   \Z[i]=\{a+ib:a,b\in\Z\}\subseteq\C.
 \]
@@ -123,154 +153,41 @@ operations $+$ and $\cdot$ above and with $0=0+i\cdot0$,
 $1=1+i\cdot0$, is a ring.
 \end{exercise}
 
-What happens in a ring $(R,+,\cdot,0,1)$ if $0=1$?
+The operations above are inherited from $\C$, so $\Z[i]$ is a
+subring of $\C$.
 
-\begin{proposition}[The zero ring]\label{prop:zero-ring}
-If $0=1$ in a ring $R$, then $R=\{0\}$.
+\begin{define}[Gaussian norm]
+For $z=a+ib\in\Z[i]$, define the \emph{norm} by $N(z)=a^2+b^2$.
+If $\overline{z}=a-ib$ is the complex conjugate of $z$, then
+\[
+  N(z)=z\overline{z}=(a+ib)(a-ib).
+\]
+\end{define}
+
+\begin{proposition}[Multiplicativity of the norm]
+For all $z,w\in\Z[i]$, $N(zw)=N(z)N(w)$.
 \end{proposition}
 \begin{proof}
-Pick $a\in R$. Since $0=1-1$, distributivity gives
+The product formula above gives
+$\overline{zw}=\overline{z}\,\overline{w}$. Hence
 \[
-  0\cdot a=(1-1)a=a-a=0.
+  N(zw)=(zw)\overline{zw}
+  =zw\overline{z}\,\overline{w}
+  =(z\overline{z})(w\overline{w})=N(z)N(w).
 \]
-Hence
-\[
-  a=1\cdot a=0\cdot a=0.
-\]
-Conversely, $\{0\}$ is a ring with $0+0=0$ and $0\cdot0=0$
-(here $1=0$).
 \end{proof}
 
-\begin{define}[Subring]
-A subset $S$ of a ring $R$ is a \emph{subring} if it is closed under
-$+$, additive inverses, and $\cdot$, and contains $0$ and $1$.
-\end{define}
+\begin{example}[Gaussian integer units]
+If $z$ is a unit with inverse $w\in\Z[i]$, then
+$1=N(1)=N(zw)=N(z)N(w)$. Both norms are nonnegative integers, so
+$N(z)=1$. Conversely, if $N(z)=1$, then $z\overline{z}=1$ and
+$\overline{z}\in\Z[i]$, so $z$ is a unit.
 
-\begin{example}
-$\C$ is a ring under the usual addition and multiplication of
-complex numbers, and $\Z[i]\subseteq\C$ is a subring.
+For $z=a+ib$, the equation $N(z)=1$ is $a^2+b^2=1$. Exactly one of
+$a,b$ is $\pm1$ and the other is $0$. Therefore
+\[
+  \Z[i]^\times=\{1,-1,i,-i\}.
+\]
 \end{example}
-
-\section{Ring homomorphisms}
-
-Before more examples, let us introduce the notion of a ring
-homomorphism.
-
-\begin{define}[Ring homomorphism]
-Let $R=(R,+_R,\cdot_R,0_R,1_R)$ and $S=(S,+_S,\cdot_S,0_S,1_S)$ be
-two rings. A \emph{ring homomorphism} is a map $\varphi:R\to S$ such
-that for all $a,b\in R$,
-\begin{align*}
-  \varphi(a+_Rb)&=\varphi(a)+_S\varphi(b),\\
-  \varphi(a\cdot_Rb)&=\varphi(a)\cdot_S\varphi(b),\\
-  \varphi(1_R)&=1_S.
-\end{align*}
-\end{define}
-
-\begin{remark}
-The condition $\varphi(0_R)=0_S$ follows from the first condition,
-exactly as for group homomorphisms. The identity
-$\varphi(1_R)=1_S$, however, must be imposed separately.
-\end{remark}
-
-\begin{remark}[Units go to units]
-If $\varphi:R\to S$ is a ring homomorphism, then
-$\varphi(R^\times)\subseteq S^\times$. Indeed, let $a\in R^\times$
-and choose $b\in R^\times$ with $ab=1$. Then
-\[
-  1=\varphi(1)=\varphi(ab)=\varphi(a)\varphi(b),
-\]
-so $\varphi(a)\in S^\times$ and $\varphi(a)^{-1}=\varphi(a^{-1})$.
-\end{remark}
-
-\begin{example}[Homomorphisms out of $\Z$]\label{ex:Z-to-R}
-What is a ring homomorphism $\Z\to R$? It must send $1\mapsto1_R$,
-and then additivity forces
-\begin{align*}
-  2=1+1&\longmapsto 1_R+1_R,\\
-  3&\longmapsto 1_R+1_R+1_R,\\
-  -1&\longmapsto -1_R,\\
-  -2&\longmapsto (-1_R)+(-1_R),
-\end{align*}
-and so on. Here $-1_R$ means the additive inverse of $1_R$ in
-$(R,+,0)$. So there is \emph{at most one} ring homomorphism
-$\Z\to R$, and one checks that the map just described actually
-satisfies the conditions of a homomorphism. Hence there is a
-unique ring homomorphism $\Z\to R$.
-\end{example}
-
-\section{Polynomial rings}
-
-Our main example is the following.
-
-\begin{define}[Polynomial ring]
-Let $R$ be a ring. The \emph{ring of polynomials over $R$} is
-\[
-  R[x]=\{f=a_0+a_1x+\cdots+a_nx^n:a_i\in R,\ n\geq0\}.
-\]
-\end{define}
-
-\begin{define}[Degree, leading coefficient, monic]
-Let $f=\sum_i a_ix^i\in R[x]$ be nonzero.
-\begin{itemize}
-  \item The \emph{degree} $\deg(f)$ is the largest $n$ with
-    $a_n\neq0$.
-  \item The \emph{leading} (or \emph{highest}) \emph{coefficient}
-    of $f$ is $a_n$ for this largest $n$.
-  \item $f$ is \emph{monic} if its leading coefficient is $1$, that is,
-    \[
-      f=x^n+a_{n-1}x^{n-1}+\cdots+a_0.
-    \]
-\end{itemize}
-\end{define}
-
-\begin{proposition}
-$R[x]$ is a ring under the following operations. For
-$f=\sum_ia_ix^i$ and $g=\sum_jb_jx^j$,
-\[
-  f+g=\sum_i(a_i+b_i)x^i,\qquad
-  f\cdot g=\sum_k\Bigl(\sum_{i+j=k}a_ib_j\Bigr)x^k,
-\]
-with zero element the constant polynomial $0$ and identity the
-constant polynomial $1$.
-\end{proposition}
-
-Most of the interesting facts about $R[x]$ are deduced from division
-with remainder. Recall that in $\Z$, given $m$ and $n>0$, we can
-write $m=an+r$ with $r=0$ or $0<r<n$. In $R[x]$ this can fail:
-in $\Z[x]$ we cannot divide $7x+1$ by $2x$ with a remainder of
-smaller degree, because $7/2\notin\Z$. The fix is to divide only by
-polynomials with a suitable leading coefficient.
-
-\begin{theorem}[Division with remainder]\label{thm:division}
-Let $f(x)\in R[x]$ be monic. Then for any $g(x)\in R[x]$ there exist
-unique $q(x),r(x)\in R[x]$ such that
-\[
-  g=q\cdot f+r,
-\]
-where $r=0$ or $\deg(r)<\deg(f)$.
-\end{theorem}
-
-\begin{remark}
-If we replace ``$f$ monic'' by ``the leading coefficient of $f$ is a
-unit'', that is, lies in $R^\times$, Theorem~\ref{thm:division} still
-works.
-\end{remark}
-
-In Math 30-1 you work with $\R[x]$. There leading coefficients lie
-in $\R\setminus\{0\}$, but every such element is a unit, so division
-with remainder is always possible. In other words, $\R$ is a field.
-
-\begin{define}[Field]
-A ring $R$ is a \emph{field} if $R^\times=R\setminus\{0\}$, that is,
-if $0\neq1$ and every nonzero element of $R$ has a multiplicative inverse.
-\end{define}
-
-\begin{question}
-What is a ring homomorphism $R[x]\to S$ which extends a given
-homomorphism $\varphi:R\to S$? For instance, there is a unique
-homomorphism $\Z\to R$ by Example~\ref{ex:Z-to-R}; what are the
-homomorphisms $\Z[x]\to\Z$?
-\end{question}
 
 \end{document}
