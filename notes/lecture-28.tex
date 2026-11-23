@@ -4,7 +4,7 @@
 \usepackage{tikz-cd}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
-\lectureinfo{28}{Nov. 23, 2026}{Quotient Rings, the First Isomorphism Theorem, and the Correspondence Theorem}
+\lectureinfo{28}{Nov. 23, 2026}{Evaluation Kernels, Quotient Rings, and the First Isomorphism and Correspondence Theorems}
 \artinsections{11.4}
 
 % Typeset from handwritten Lecture 30, Nov. 24, 2025, pp. 1--11.
@@ -12,27 +12,118 @@
 \raggedbottom
 \makelecturetitle
 
-\section{Ideals and quotient rings}
+\section{A kernel in \texorpdfstring{$\Q[x]$}{Q[x]}}
 
-Recall that an \emph{ideal} of a ring $R$ is a subset
-$I\subseteq R$ such that
-\begin{itemize}
-  \item $0\in I$;
-  \item $I$ is closed under addition;
-  \item $ab\in I$ whenever $a\in I$ and $b\in R$.
-\end{itemize}
-From an ideal $I$ of $R$ we build the \emph{quotient ring} $R/I$.
-Its elements are the cosets $a+I$ with $a\in R$, and the
-multiplication is defined by
+In Lecture 27 we proved that every ideal of $F[x]$ is principal
+when $F$ is a field. In particular, every ideal of $\Q[x]$ is principal.
+
+\begin{example}[The kernel of evaluation at {$\sqrt[3]{2}$}]
+Let $\gamma=\sqrt[3]{2}$ be the real cube root of $2$. Recall the
+evaluation homomorphism from Lecture 27.
 \[
-  (a+I)(b+I)\coloneqq ab+I.
+  \Phi:\Q[x]\to\C,\qquad x\mapsto\gamma.
 \]
+What is $\ker(\Phi)$? Is it $0$? We know $\ker(\Phi)=(k)$ for
+some $k\in\Q[x]$. First, $x^3-2\in\ker(\Phi)$, since
+\[
+  \Phi(x^3-2)=\gamma^3-2=0.
+\]
+If $x^3-2\in\ker(\Phi)$, then $g\cdot(x^3-2)\in\ker(\Phi)$
+for every $g\in\Q[x]$, so $(x^3-2)\subseteq\ker(\Phi)$. But is
+there any element in $\ker(\Phi)$ of lower positive degree?
+
+Just as in the correspondence $F[x]\longleftrightarrow\Z$, where
+\[
+  n\mid m\iff(m)\subseteq(n),
+\]
+we have for polynomials
+\[
+  f\mid g\iff(g)\subseteq(f).
+\]
+So
+\[
+  (x^3-2)\subseteq\ker(\Phi)=(k)\iff k\mid x^3-2,\quad k\in\Q[x].
+\]
+The polynomial $k$ is not a nonzero constant, since then
+$\ker(\Phi)=\Q[x]$, whereas $\Phi(1)=1\neq0$. If $k$ had
+degree $1$ or $2$, we could factor
+\[
+  x^3-2=(a_0+a_1x)(b_0+b_1x+b_2x^2),\qquad a_i,b_j\in\Q.
+\]
+This is impossible to solve with rational numbers
+(Exercise~\ref{ex:cube-root}). Hence $\deg k=3$, so $k$ is a
+nonzero scalar multiple of $x^3-2$ and
+\[
+  \ker(\Phi)=(x^3-2).
+\]
+\end{example}
+
+\begin{exercise}\label{ex:cube-root}
+Show that $x^3-2$ cannot be written as
+$(a_0+a_1x)(b_0+b_1x+b_2x^2)$ with $a_i,b_j\in\Q$.
+\end{exercise}
+
+\section{Quotient rings}
+
+Let $R$ be a ring and $I\subseteq R$ an ideal. Then we can form a
+new ring $R/I$, which consists of the cosets
+\[
+  a+I,\qquad a\in R.
+\]
+As an additive group, this is the quotient group of $R$ by the
+subgroup $I$. What is the multiplication? We define
+\[
+  (a+I)\cdot(b+I)\coloneqq ab+I.
+\]
+
+\begin{proposition}\label{prop:well-defined}
+This gives a well-defined multiplication on $R/I$.
+\end{proposition}
+\begin{proof}
+Suppose $a+I=\tilde a+I$ and $b+I=\tilde b+I$, i.e.\
+$a-\tilde a\in I$ and $b-\tilde b\in I$. Then
+\[
+  (a+I)(b+I)=ab+I,\qquad(\tilde a+I)(\tilde b+I)=\tilde a\tilde b+I,
+\]
+and we must show $ab+I=\tilde a\tilde b+I$, i.e.\
+$ab-\tilde a\tilde b\in I$. Why does this hold? We have
+\[
+  \tilde b(a-\tilde a)+a(b-\tilde b)=ab-\tilde a\tilde b,
+\]
+and both terms on the left lie in $I$ because an ideal is closed under
+multiplication by elements of $R$. Since $I$ is closed under addition,
+$ab-\tilde a\tilde b\in I$.
+\end{proof}
+
+\begin{exercise}
+Check that $R/I$ is a ring with
+\begin{align*}
+  \text{addition: }&(a+I)+(b+I)=(a+b)+I,\\
+  \text{multiplication: }&(a+I)(b+I)=ab+I,
+\end{align*}
+zero element $0+I$, and identity element $1+I$.
+\end{exercise}
+
+\begin{define}[Quotient ring]
+The ring $R/I$ with the operations above is the \emph{quotient ring}
+of $R$ by the ideal $I$.
+\end{define}
+
 The map
 \[
   \pi:R\to R/I,\qquad a\mapsto a+I,
 \]
 is a ring homomorphism, often called the \emph{canonical quotient
 map}.
+
+\begin{example}[{$\Z/n\Z$}]
+Take $R=\Z$ and $I=(n)$. Then $R/I=\Z/n\Z$, with multiplication of
+residue classes $\bar a\cdot\bar b=\overline{ab}$. For instance, when
+$n=12$,
+\[
+  \bar5\cdot\bar6=\overline{30}=\bar6.
+\]
+\end{example}
 
 \section{The universal property of quotients}
 
@@ -242,8 +333,9 @@ either $f=1$ or $f=x^3-2$. The correspondence is
 \[
   (1)\longmapsto(1),\qquad (x^3-2)\longmapsto(0).
 \]
-So $\Q[x]/(x^3-2)$ has only the two ideals $(0)$ and $(1)$, and it
-is therefore a field! This field may be identified with
+So $\Q[x]/(x^3-2)$ has exactly two ideals, $(0)$ and $(1)$. By the
+field characterization from Lecture 27, it is a field. This field
+may be identified with
 $\Q(\sqrt[3]{2})$.
 % NOTE: p. 11 writes "Q(gamma)" without defining gamma; presumably
 % gamma is a root of x^3-2, e.g. the real cube root of 2.

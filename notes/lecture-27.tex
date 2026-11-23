@@ -1,9 +1,8 @@
 \documentclass[reqno,11pt]{amsart}
 \usepackage{math327-lecture}
-\usepackage{needspace}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
-\lectureinfo{27}{Nov. 20, 2026}{Homomorphisms, Substitution, Ideals, and Quotient Rings}
+\lectureinfo{27}{Nov. 20, 2026}{Homomorphisms, Substitution, and Ideals}
 \artinsections{11.3--11.4}
 
 % Typeset from handwritten Lecture 29, Nov. 21, 2025, pp. 1--12.
@@ -160,22 +159,21 @@ Moreover, if $b\in R$, then
 \end{enumerate}
 \end{example}
 
-\begin{example}[Ideals of a field]
-Let $F$ be a field. Its only ideals are $(0)=\{0\}$ and $(1)=F$.
-Indeed, if an ideal $I$ of $F$ contains a nonzero element $a$, then
-$a^{-1}a=1\in I$. Every $c\in F$ then belongs to $I$, since
-$c=c\cdot1$.
-\end{example}
+\begin{lemma}[Ideals of a field]
+A ring $R$ is a field if and only if it has exactly two distinct ideals,
+$(0)$ and $(1)$.
+\end{lemma}
+\begin{proof}
+Suppose $R$ is a field and $I\neq(0)$ is an ideal of $R$. Choose a
+nonzero $a\in I$. Since $a$ is invertible, $1=a^{-1}a\in I$. Thus
+$I=(1)=R$.
 
-\begin{exercise}
-Check that a ring $R$ with exactly two ideals, $(0)$ and $R$, is a
-field.
-\end{exercise}
-
-We therefore have the characterization
-\[
-  R\text{ is a field}\iff R\text{ has exactly two ideals, }(0)\text{ and }(1).
-\]
+Conversely, suppose $(0)$ and $(1)$ are the only ideals of $R$ and
+are distinct, so $1\neq0$. For any nonzero $a\in R$, the ideal $(a)$
+contains $a$, so $(a)=(1)$. It follows that $1\in(a)$, so $ba=1$ for
+some $b\in R$. Thus every nonzero element is invertible and $R$ is
+a field.
+\end{proof}
 
 \section{Every ideal of \texorpdfstring{$F[x]$}{F[x]} is principal}
 
@@ -246,111 +244,6 @@ terms gives $1=3a(0)$ in $\Z$.
 % NOTE: the notes say "impossible for degree reasons"; the argument
 % given here compares constant terms instead.
 Hence $I$ is not principal.
-\end{example}
-
-\section{A kernel in \texorpdfstring{$\Q[x]$}{Q[x]}}
-
-By Theorem~\ref{thm:Fx-principal}, $\Q[x]$ has only principal ideals.
-
-\begin{example}[The kernel of evaluation at {$\sqrt[3]{2}$}]
-Return to the evaluation homomorphism from Example~\ref{ex:cube-root-evaluation}.
-\[
-  \Phi:\Q[x]\to\C,\qquad x\mapsto\gamma.
-\]
-What is $\ker(\Phi)$? Is it $0$? We know $\ker(\Phi)=(k)$ for
-some $k\in\Q[x]$. First, $x^3-2\in\ker(\Phi)$, since
-\[
-  \Phi(x^3-2)=\gamma^3-2=0.
-\]
-If $x^3-2\in\ker(\Phi)$, then $g\cdot(x^3-2)\in\ker(\Phi)$
-for every $g\in\Q[x]$, so $(x^3-2)\subseteq\ker(\Phi)$. But is
-there any element in $\ker(\Phi)$ of lower positive degree?
-
-Just as in the correspondence $F[x]\longleftrightarrow\Z$, where
-\[
-  n\mid m\iff(m)\subseteq(n),
-\]
-we have for polynomials
-\[
-  f\mid g\iff(g)\subseteq(f).
-\]
-So
-\[
-  (x^3-2)\subseteq\ker(\Phi)=(k)\iff k\mid x^3-2,\quad k\in\Q[x].
-\]
-The polynomial $k$ is not a nonzero constant, since then
-$\ker(\Phi)=\Q[x]$, whereas $\Phi(1)=1\neq0$. If $k$ had
-degree $1$ or $2$, we could factor
-\[
-  x^3-2=(a_0+a_1x)(b_0+b_1x+b_2x^2),\qquad a_i,b_j\in\Q.
-\]
-This is impossible to solve with rational numbers
-(Exercise~\ref{ex:cube-root}). Hence $\deg k=3$, so $k$ is a
-nonzero scalar multiple of $x^3-2$ and
-\[
-  \ker(\Phi)=(x^3-2).
-\]
-\end{example}
-
-\begin{exercise}\label{ex:cube-root}
-Show that $x^3-2$ cannot be written as
-$(a_0+a_1x)(b_0+b_1x+b_2x^2)$ with $a_i,b_j\in\Q$.
-\end{exercise}
-
-\newpage
-\section{Quotient rings}
-
-Let $R$ be a ring and $I\subseteq R$ an ideal. Then we can form a
-new ring $R/I$, which consists of the cosets
-\[
-  a+I,\qquad a\in R.
-\]
-As an additive group, this is the quotient group of $R$ by the
-subgroup $I$. What is the multiplication? We define
-\[
-  (a+I)\cdot(b+I)\coloneqq ab+I.
-\]
-
-\begin{proposition}\label{prop:well-defined}
-This gives a well-defined multiplication on $R/I$.
-\end{proposition}
-\begin{proof}
-Suppose $a+I=\tilde a+I$ and $b+I=\tilde b+I$, i.e.\
-$a-\tilde a\in I$ and $b-\tilde b\in I$. Then
-\[
-  (a+I)(b+I)=ab+I,\qquad(\tilde a+I)(\tilde b+I)=\tilde a\tilde b+I,
-\]
-and we must show $ab+I=\tilde a\tilde b+I$, i.e.\
-$ab-\tilde a\tilde b\in I$. Why does this hold? We have
-\[
-  \tilde b(a-\tilde a)+a(b-\tilde b)=ab-\tilde a\tilde b,
-\]
-and both terms on the left lie in $I$ by condition (3) in the
-definition of an ideal. Since $I$ is closed under addition,
-$ab-\tilde a\tilde b\in I$.
-\end{proof}
-
-\begin{exercise}
-Check that $R/I$ is a ring with
-\begin{align*}
-  \text{addition: }&(a+I)+(b+I)=(a+b)+I,\\
-  \text{multiplication: }&(a+I)(b+I)=ab+I,
-\end{align*}
-zero element $0+I$, and identity element $1+I$.
-\end{exercise}
-
-\begin{define}[Quotient ring]
-The ring $R/I$ with the operations above is the \emph{quotient ring}
-of $R$ by the ideal $I$.
-\end{define}
-
-\begin{example}[{$\Z/n\Z$}]
-Take $R=\Z$ and $I=(n)$. Then $R/I=\Z/n\Z$, with multiplication of
-residue classes $\bar a\cdot\bar b=\overline{ab}$. For instance, when
-$n=12$,
-\[
-  \bar5\cdot\bar6=\overline{30}=\bar6.
-\]
 \end{example}
 
 \end{document}
