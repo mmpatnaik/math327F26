@@ -13,6 +13,10 @@
 
 ## 2026-11-25
 
+[**No class on Monday, December 7.**](#dec-7-cancellation)
+
+## 2026-11-25
+
 To go with today's lecture, try the [Correspondence Theorem proof workshop](games/correspondence-theorem.html). It's an interactive game: you start by matching the ideals of ℤ/12ℤ with the ideals of ℤ that contain 12ℤ, then build the proof of the correspondence theorem for rings one step at a time, with hints and feedback along the way. It runs in your browser and nothing is submitted or graded. It's also linked from Lecture 29 in the [schedule](#schedule).
 
 ## 2026-11-18
