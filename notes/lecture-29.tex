@@ -3,16 +3,17 @@
 \usepackage{needspace}
 \usepackage{tikz-cd}
 \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
-\lectureinfo{29}{Nov. 25, 2026}{Quotient Rings, Gaussian Integers, and Adjoining Elements}
+\lectureinfo{29}{Nov. 25, 2026}{The Universal Property, Isomorphism and Correspondence Theorems}
 \artinsections{11.4--11.5}
 
-% Typeset from handwritten Lecture 31, Nov. 26, 2025, pp. 1--12.
+% Based on handwritten Lectures 30 and 31, Nov. 24 and 26, 2025.
 \begin{document}
 \raggedbottom
 \makelecturetitle
 
-\section{Review: quotient rings}
+\section{The universal property of quotients}
 
 Last time we let $R$ be a commutative ring and $I\subseteq R$ an
 ideal. The quotient ring $R/I$ consists of the cosets $a+I$ with
@@ -22,44 +23,231 @@ $a\in R$, and the map
 \]
 is a surjective ring homomorphism.
 
-\begin{theorem}[Universal property of the quotient]\label{thm:universal}
-Let $\varphi:R\to S$ be a ring homomorphism with $\varphi(I)=0$.
-Then there is a unique homomorphism $\tilde\varphi:R/I\to S$
-lifting $\varphi$, that is, with $\tilde\varphi\circ\pi=\varphi$:
+\begin{theorem}[Universal property of quotients]\label{thm:universal}
+Let $\varphi:R\to S$ be a ring homomorphism and let $I$ be an ideal
+of $R$ with $\varphi(I)=0$ in $S$. Then there is a unique ring
+homomorphism $\tilde\varphi:R/I\to S$ making the following diagram
+commute:
 \[
   \begin{tikzcd}
     R \arrow[r,"\varphi"] \arrow[d,"\pi"'] & S\\
-    R/I \arrow[ur,dashed,"\exists!\,\tilde\varphi"'] &
+    R/I \arrow[ur,dashed,"\tilde\varphi"'] &
   \end{tikzcd}
 \]
+That is, $\tilde\varphi\circ\pi=\varphi$.
 \end{theorem}
-
-\begin{corollary}[First isomorphism theorem]\label{cor:first-iso}
-If $\varphi:R\to S$ is a surjective ring homomorphism, then $\varphi$
-induces an isomorphism
+\begin{proof}
+Commutativity forces the definition
 \[
-  R/\ker(\varphi)\xrightarrow{\ \sim\ }S.
+  \tilde\varphi(a+I)=\varphi(a),
 \]
-More generally, if $\varphi$ is not surjective, it induces an
-isomorphism $R/\ker(\varphi)\xrightarrow{\sim}\im(\varphi)$.
-\end{corollary}
+which gives uniqueness. This is well defined: if $a+I=a'+I$, then
+$a'-a\in I$, so $\varphi(a')-\varphi(a)=\varphi(a'-a)=0$.
+Hence $\varphi(a)=\varphi(a')$. Since $\varphi$ is a ring
+homomorphism and the operations on $R/I$ are defined using
+representatives, $\tilde\varphi$ is a ring homomorphism.
+\end{proof}
 
-\begin{theorem}[Correspondence theorem]\label{thm:correspondence}
-Let $\pi:R\to R/I$ be the quotient map. There is a bijection
+% NOTE: p. 2 also has "Z[x]/(x^2+1)" written in the top margin with
+% no further comment; omitted.
+
+\section{The first isomorphism theorem for rings}
+
+As a consequence, we obtain the first isomorphism theorem for rings.
+
+\begin{definition}
+A ring homomorphism $\varphi:R\to S$ is an \emph{isomorphism} if it
+is bijective.
+\end{definition}
+
+\begin{remark}
+Equivalently:
+\begin{itemize}
+  \item $\varphi$ is a homomorphism with $\ker(\varphi)=0$ that is
+        surjective; or
+  \item $\varphi$ is a ring homomorphism that is an isomorphism of
+        the underlying additive groups.
+\end{itemize}
+\end{remark}
+
+\begin{theorem}[First isomorphism theorem for rings]\label{thm:first-iso}
+If $\varphi:R\to S$ is a surjective homomorphism of rings, then
+there is an isomorphism of rings
 \[
-  \{\text{ideals of }R\text{ containing }I\}
+  \bar\varphi:R/\ker(\varphi)\xrightarrow{\ \sim\ }S.
+\]
+\end{theorem}
+\begin{proof}
+Since $\varphi(\ker\varphi)=0$, Theorem~\ref{thm:universal} gives a
+ring homomorphism $\bar\varphi$ fitting into the diagram
+\[
+  \begin{tikzcd}
+    R \arrow[r,"\varphi"] \arrow[d] & S\\
+    R/\ker(\varphi) \arrow[ur,dashed,"\bar\varphi"'] &
+  \end{tikzcd}
+\]
+By the first isomorphism theorem for groups, applied to the
+additive groups, $\bar\varphi$ is a bijection. A bijective ring
+homomorphism is an isomorphism of rings.
+\end{proof}
+
+For any ring homomorphism $\varphi:R\to S$, applying the theorem to
+$\varphi$ with codomain restricted to its image gives
+\[
+  R/\ker(\varphi)\cong\im(\varphi).
+\]
+
+\section{The correspondence theorem}
+
+As in group theory, we also have a correspondence theorem in ring
+theory. Recall the group-theoretic version: if $\varphi:G\to H$ is a
+surjective homomorphism with kernel $K=\ker(\varphi)$, there is a
+bijective correspondence
+\[
+  \{\text{subgroups }L\text{ of }G\text{ with }L\supseteq K\}
   \longleftrightarrow
-  \{\text{ideals of }R/I\},\qquad
-  J\longmapsto\pi(J).
+  \{\text{subgroups }L'\text{ of }H\}.
 \]
-Moreover, for such $J$ there is an isomorphism
-\[
-  R/J\xrightarrow{\ \sim\ }(R/I)/\pi(J).
-\]
-\end{theorem}
-% NOTE: the handwritten notes write \varphi(J) for the image of J under
-% the quotient map; we write \pi(J).
 
+\begin{theorem}[Correspondence theorem for rings]\label{thm:correspondence}
+Let $\varphi:R\to S$ be a surjective homomorphism of rings and let
+$K=\ker(\varphi)$.
+\begin{enumerate}
+  \item There is a bijective correspondence
+  \[
+    \{\text{ideals }I\text{ of }R\text{ with }I\supseteq K\}
+    \longleftrightarrow
+    \{\text{ideals }J\text{ of }S\},
+  \]
+  given by $I\mapsto\varphi(I)$, with inverse $J\mapsto\varphi^{-1}(J)$.
+  \item If $I\leftrightarrow J$ under this correspondence, then
+  \[
+    R/I\cong S/J
+  \]
+  as rings.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\emph{Preimages of ideals are ideals.}
+Let $\varphi:R\to S$ be any ring homomorphism and let $J$ be an
+ideal of $S$. We check that $\varphi^{-1}(J)$ is an ideal of $R$.
+\begin{itemize}
+  \item If $a,b\in\varphi^{-1}(J)$, then $\varphi(a),\varphi(b)\in J$,
+  so $\varphi(a+b)=\varphi(a)+\varphi(b)\in J$. Thus
+  $a+b\in\varphi^{-1}(J)$.
+  \item $\varphi(0)=0\in J$, so $0\in\varphi^{-1}(J)$.
+  \item If $a\in\varphi^{-1}(J)$ and $r\in R$, then
+  $\varphi(ra)=\varphi(r)\varphi(a)\in J$, because $\varphi(r)\in S$,
+  $\varphi(a)\in J$, and $J$ is an ideal of $S$. Thus
+  $ra\in\varphi^{-1}(J)$.
+\end{itemize}
+Moreover, $\varphi^{-1}(J)\supseteq\varphi^{-1}(0)=K$.
+
+\emph{Images of ideals are ideals.}
+Now assume that $\varphi$ is surjective: for every $s\in S$ there is
+$r\in R$ with $\varphi(r)=s$. Let $I$ be an ideal of $R$ with
+$I\supseteq K$. We check that $\varphi(I)$ is an ideal of $S$.
+It is closed under addition and contains $0$. For the absorption
+property, let $a\in\varphi(I)$ and $s\in S$. Then $a=\varphi(b)$ for
+some $b\in I$, and by surjectivity $s=\varphi(r)$ for some $r\in R$.
+Hence
+\[
+  s\cdot a=\varphi(r)\varphi(b)=\varphi(r b)\in\varphi(I),
+\]
+since $rb\in I$. The rest of the verification that $\varphi(I)$ is
+an ideal of $S$ is left as an exercise.
+
+\emph{Bijectivity.}
+Ideals $I\subseteq R$ and $J\subseteq S$ are in particular additive
+subgroups, and $\varphi$ is a homomorphism of additive groups.
+Since the correspondence theorem holds for groups, the maps
+$I\mapsto\varphi(I)$ and $J\mapsto\varphi^{-1}(J)$ are mutually
+inverse bijections; by the two steps above, they carry ideals to
+ideals.
+
+\emph{The quotients.}
+Suppose $I\leftrightarrow J$, so $J=\varphi(I)$ and
+$I=\varphi^{-1}(J)$. Consider the composite
+\[
+  \begin{tikzcd}
+    R \arrow[r,"\varphi"] \arrow[d] & S \arrow[d,"\pi"]\\
+    R/I \arrow[r,dashed] & S/J
+  \end{tikzcd}
+\]
+The composite $\pi\circ\varphi$ is surjective, and it sends $I$ to
+$0$ because $\varphi(I)=J$. By the universal property, it induces a
+homomorphism $R/I\to S/J$. The kernel of $\pi\circ\varphi$ is
+$\varphi^{-1}(J)=I$, so the first isomorphism theorem applied to
+$\pi\circ\varphi$ gives $R/I\cong S/J$.
+\end{proof}
+
+\begin{exercise}
+Complete the proof that $\varphi(I)$ is an ideal of $S$ when
+$\varphi:R\to S$ is surjective and $I$ is an ideal of $R$.
+\end{exercise}
+
+\section{Examples}
+
+\begin{example}[Ideals of $\C{[t]}/(t^2-1)$]
+Consider the canonical quotient map
+\[
+  \varphi:\C[t]\to\C[t]/(t^2-1).
+\]
+Every ideal of $\C[t]$ has the form $(f(t))$ for some polynomial $f$.
+What are the ideals of $\C[t]/(t^2-1)$?
+
+The map $\varphi$ is surjective with $\ker(\varphi)=(t^2-1)$.
+By the correspondence theorem, ideals $J$ of $\C[t]/(t^2-1)$
+correspond to ideals $I$ of $\C[t]$ containing $K=(t^2-1)$.
+Writing $I=(f)$,
+\[
+  (f)\supseteq(t^2-1)
+  \iff f\mid t^2-1=(t-1)(t+1)\text{ in }\C[t].
+\]
+Up to a nonzero scalar, $f$ is one of
+\[
+  1,\qquad t-1,\qquad t+1,\qquad (t-1)(t+1)=t^2-1.
+\]
+The correspondence is therefore
+\[
+\begin{array}{ccl}
+  \text{Ideal of }\C[t] & & \text{Ideal of }\C[t]/(t^2-1)\\ \hline
+  (1) & \longmapsto & (1)=\C[t]/(t^2-1)\\
+  (t-1) & \longmapsto & \bigl(t-1+(t^2-1)\bigr)\\
+  (t+1) & \longmapsto & \bigl(t+1+(t^2-1)\bigr)\\
+  (t^2-1) & \longmapsto & 0
+\end{array}
+\]
+% NOTE: the notes leave the images of (t-1) and (t+1) as "?"; the
+% entries above are the images of the generators under phi.
+\end{example}
+
+
+\begin{example}[Ideals of $\Q{[x]}/(x^3-2)$]
+Consider the canonical quotient map
+\[
+  \varphi:\Q[x]\to\Q[x]/(x^3-2).
+\]
+What are the ideals of $\Q[x]/(x^3-2)$? They correspond to ideals
+$I=(f)$ of $\Q[x]$ with
+\[
+  (f)\supseteq(x^3-2)\iff f\mid x^3-2\text{ in }\Q[x].
+\]
+Since $x^3-2$ does not factor over $\Q$, up to a nonzero scalar
+either $f=1$ or $f=x^3-2$. The correspondence is
+\[
+  (1)\longmapsto(1),\qquad (x^3-2)\longmapsto(0).
+\]
+So $\Q[x]/(x^3-2)$ has exactly two ideals, $(0)$ and $(1)$. By the
+field characterization from Lecture 27, it is a field. This field
+may be identified with
+$\Q(\sqrt[3]{2})$.
+% NOTE: p. 11 writes "Q(gamma)" without defining gamma; presumably
+% gamma is a root of x^3-2, e.g. the real cube root of 2.
+\end{example}
+
+% Sections 5 onward are omitted from this handout.
+\iffalse
 \section{Quotienting in stages}
 
 \begin{example}\label{ex:gaussian-question}
@@ -105,7 +293,7 @@ Consider the substitution homomorphism
   \varphi:\Z[x]\to\Z[i],\qquad f(x)\mapsto f(i).
 \]
 It is surjective, since $a+bx\mapsto a+bi$. By
-Corollary~\ref{cor:first-iso}, it suffices to show that
+Theorem~\ref{thm:first-iso}, it suffices to show that
 \[
   \ker(\varphi)=\{f\in\Z[x]:f(i)=0\}=(x^2+1).
 \]
@@ -249,4 +437,5 @@ a nonzero element of $(f)$ of degree $2<3$.
 % NOTE: the notes write "Z/6Z = F_3"; this is a slip (Z/6Z is not a field)
 % and has been omitted.
 
+\fi
 \end{document}
