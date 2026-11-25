@@ -134,6 +134,15 @@ for folder in ("notes", "hw", "exams"):
         for pdf in pdfs:
             shutil.copy2(pdf, SITE / folder / pdf.name)
 
+# Copy interactive pages (self-contained HTML) from games/.
+games = ROOT / "games"
+if games.is_dir():
+    pages = sorted(games.glob("*.html"))
+    if pages:
+        (SITE / "games").mkdir(exist_ok=True)
+        for page in pages:
+            shutil.copy2(page, SITE / "games" / page.name)
+
 syllabus = ROOT / "syllabus.pdf"
 if syllabus.exists():
     shutil.copy2(syllabus, SITE / "syllabus.pdf")

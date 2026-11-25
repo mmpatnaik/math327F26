@@ -11,6 +11,10 @@
 # The site sorts by date and shows the newest first, so old announcements
 # stay on the page as a running log.
 
+## 2026-11-25
+
+To go with today's lecture, try the [Correspondence Theorem proof workshop](games/correspondence-theorem.html). It's an interactive game: you start by matching the ideals of ℤ/12ℤ with the ideals of ℤ that contain 12ℤ, then build the proof of the correspondence theorem for rings one step at a time, with hints and feedback along the way. It runs in your browser and nothing is submitted or graded. It's also linked from Lecture 29 in the [schedule](#schedule).
+
 ## 2026-11-18
 
 The **final exam** is on **Tuesday, December 22, 5:30–8:30 pm**, in **BUS 1-09**.
